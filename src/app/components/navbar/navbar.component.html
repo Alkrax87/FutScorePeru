@@ -19,7 +19,7 @@
     <div class="hidden md:flex min-w-28"></div>
 
     <!-- Hamburger Menu for Mobile -->
-    <button (click)="toggleMenu()" class="md:hidden text-gray-300 focus:outline-none pr-2">
+    <button (click)="toggleMenu()" class="md:hidden text-gray-300 focus:outline-none pr-2" [ngClass]="{'text-[#dc143c]': menuOpen === true,}">
       <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
       </svg>
@@ -28,9 +28,11 @@
   <div class="h-2 bg-[#dc143c]"></div>
 
   <!-- Mobile Menu -->
-  <div *ngIf="menuOpen" class="flex flex-col space-y-2 mt-2 md:hidden">
+  <div *ngIf="menuOpen" class="flex flex-col items-center md:hidden">
     @for (item of routes; track $index) {
-      <a [routerLink]="item.path" class="block text-gray-300 hover:text-white">{{ item.name }}</a>
+      <a [routerLink]="item.path" class="w-full text-gray-300 hover:text-[#dc143c]">
+        <div class="h-10 flex items-center justify-center">{{ item.name }}</div>
+      </a>
     }
   </div>
 </nav>
