@@ -37,7 +37,9 @@
           <h6 class="flex justify-center font-semibold uppercase">Web</h6>
           <hr class="h-1 my-3 w-full bg-crimson border-none rounded-full">
           @for (item of routesWeb; track $index) {
-            <p class="mb-2"><a [routerLink]="item.path" routerLinkActive="text-crimson" class="text-gray-200 hover:text-crimson">{{ item.name }}</a></p>
+            <p class="mb-2 text-gray-200">
+              <a [routerLink]="item.path" routerLinkActive="text-crimson" class="hover:text-crimson">{{ item.name }}</a>
+            </p>
           }
         </div>
       </div>
@@ -46,7 +48,9 @@
           <h6 class="flex justify-center font-semibold uppercase">Ligas</h6>
           <hr class="h-1 my-3 w-full bg-crimson border-none rounded-full">
           @for (item of routesLigas; track $index) {
-            <p class="mb-2"><a [routerLink]="item.path" routerLinkActive="text-crimson" class="text-gray-200 hover:text-crimson">{{ item.name }}</a></p>
+            <p class="mb-2 text-gray-200">
+              <a [routerLink]="item.path" routerLinkActive="text-crimson" class="hover:text-crimson">{{ item.name }}</a>
+            </p>
           }
         </div>
       </div>

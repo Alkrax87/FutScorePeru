@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './pages/main/home/home.component';
+import { AboutComponent } from './pages/main/about/about.component';
+import { SocialComponent } from './pages/main/social/social.component';
 import { L1MainComponent } from './pages/liga1/l1-main/l1-main.component';
 import { L1TeamsComponent } from './pages/liga1/l1-teams/l1-teams.component';
 import { L1FixtureComponent } from './pages/liga1/l1-fixture/l1-fixture.component';
@@ -18,10 +21,13 @@ import { CpMainComponent } from './pages/copa-peru/cp-main/cp-main.component';
 import { CpTeamsComponent } from './pages/copa-peru/cp-teams/cp-teams.component';
 import { CpFixtureComponent } from './pages/copa-peru/cp-fixture/cp-fixture.component';
 import { CpTableComponent } from './pages/copa-peru/cp-table/cp-table.component';
-import { HomeComponent } from './pages/main/home/home.component';
+import { NotFoundComponent } from './pages/main/not-found/not-found.component';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', component: HomeComponent },
+  { path: '', redirectTo:'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'social', component: SocialComponent },
   {
     path: 'liga1',
     component: L1MainComponent,
@@ -61,4 +67,5 @@ export const routes: Routes = [
       { path: 'tabla', component: CpTableComponent },
     ],
   },
+  { path: '**', component: NotFoundComponent },
 ];
