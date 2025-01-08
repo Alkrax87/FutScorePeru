@@ -18,8 +18,12 @@ import { CpMainComponent } from './pages/copa-peru/cp-main/cp-main.component';
 import { CpTeamsComponent } from './pages/copa-peru/cp-teams/cp-teams.component';
 import { CpFixtureComponent } from './pages/copa-peru/cp-fixture/cp-fixture.component';
 import { CpTableComponent } from './pages/copa-peru/cp-table/cp-table.component';
+import { NotFoundComponent } from './pages/main/not-found/not-found.component';
+import { HomeComponent } from './pages/main/home/home.component';
 
 export const routes: Routes = [
+  { path: '**', component: NotFoundComponent },
+  { path: '', pathMatch: 'full', component: HomeComponent },
   {
     path: 'liga1',
     component: L1MainComponent,
