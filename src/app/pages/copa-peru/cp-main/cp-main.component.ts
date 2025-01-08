@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { RouterOutlet } from '@angular/router';
-import { ChartNoAxesGantt, Dice6, Shield } from 'lucide-angular';
+import { faShieldHalved, faWindowRestore, faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-cp-main',
@@ -12,9 +12,9 @@ import { ChartNoAxesGantt, Dice6, Shield } from 'lucide-angular';
 })
 export class CpMainComponent {
   navOptions = [
-    { name: 'Clubes', route: 'equipos', lucideIcon: Shield },
-    { name: 'Fixture', route: 'fixture', lucideIcon: Dice6 },
-    { name: 'Tabla', route: 'tabla', lucideIcon: ChartNoAxesGantt },
+    { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
+    { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
+    { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
   ];
   teams: string[] = [
     'Team1',

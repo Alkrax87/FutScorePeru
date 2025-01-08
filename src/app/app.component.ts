@@ -46,23 +46,15 @@ export class AppComponent {
     gc: number;
     lastGames: [string, string, string, string, string];
   }[] = [
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
-    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["a","v","c","d","e"] },
+    { name: "team", pg: 3, pe: 2, pp: 0, gf: 20, gc: 10, lastGames: ["win","draw","lose","",""] },
+    { name: "team", pg: 3, pe: 0, pp: 3, gf: 5, gc: 4, lastGames: ["win","draw","lose","",""] },
+    { name: "team", pg: 0, pe: 5, pp: 3, gf: 3, gc: 10, lastGames: ["win","draw","lose","",""] },
+    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["win","draw","lose","",""] },
+    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["win","draw","lose","",""] },
+    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["win","draw","lose","",""] },
+    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["win","draw","lose","",""] },
+    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["win","draw","lose","",""] },
+    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["win","draw","lose","",""] },
+    { name: "team", pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, lastGames: ["win","draw","lose","",""] },
   ]
 }

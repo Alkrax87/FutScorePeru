@@ -39,10 +39,25 @@
             <td>{{ item.gf }}</td>
             <td>{{ item.gc }}</td>
             <td>{{ item.gf - item.gc }}</td>
-            <td class="flex justify-center space-x-8">
-              @for (lastGame of item.lastGames; track $index) {
-                <p>{{ lastGame }}</p>
-              }
+            <td class="flex">
+              <div class="w-full flex items-center justify-center h-11 space-x-4 text-xl">
+                @for (lastGame of item.lastGames; track $index) {
+                  @switch (lastGame) {
+                    @case ("win") {
+                      <fa-icon class="text-green-600" [icon]="Win"></fa-icon>
+                    }
+                    @case ("draw") {
+                      <fa-icon class="text-neutral-400" [icon]="Draw"></fa-icon>
+                    }
+                    @case ("lose") {
+                      <fa-icon class="text-red-600" [icon]="Lose"></fa-icon>
+                    }
+                    @default {
+                      <fa-icon class="text-neutral-400" [icon]="Default"></fa-icon>
+                    }
+                  }
+                }
+              </div>
             </td>
           </tr>
         }

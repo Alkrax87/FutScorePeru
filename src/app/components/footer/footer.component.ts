@@ -1,24 +1,20 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {
-  Facebook,
-  Instagram,
-  LandPlot,
-  LucideAngularModule,
-  Twitter,
-} from 'lucide-angular';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faFeather } from "@fortawesome/free-solid-svg-icons";
+import { faFacebookF, faInstagram, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 
 @Component({
   selector: 'app-footer',
-  imports: [LucideAngularModule, RouterModule],
+  imports: [FontAwesomeModule , RouterModule],
   templateUrl: './footer.component.html',
   styles: ``,
 })
 export class FooterComponent {
-  readonly Facebook = Facebook;
-  readonly Instagram = Instagram;
-  readonly Twitter = Twitter;
-  readonly LandPlot = LandPlot;
+  Facebook = faFacebookF;
+  Instagram = faInstagram;
+  Twitter = faXTwitter;
+  Feather = faFeather;
 
   routesWeb = [
     { path: '/home', name: 'Home' },

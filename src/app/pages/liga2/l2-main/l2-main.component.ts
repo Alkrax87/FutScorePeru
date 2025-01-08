@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { RouterOutlet } from '@angular/router';
-import { ClipboardPenLine, ChartNoAxesGantt, Dice6, Shield } from 'lucide-angular';
+import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-l2-main',
@@ -12,10 +12,10 @@ import { ClipboardPenLine, ChartNoAxesGantt, Dice6, Shield } from 'lucide-angula
 })
 export class L2MainComponent {
   navOptions = [
-    { name: 'Clubes', route: 'equipos', lucideIcon: Shield },
-    { name: 'Fixture', route: 'fixture', lucideIcon: Dice6 },
-    { name: 'Tabla', route: 'tabla', lucideIcon: ChartNoAxesGantt },
-    { name: 'Técnicos', route: 'tecnicos', lucideIcon: ClipboardPenLine },
+    { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
+    { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
+    { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
+    { name: 'Técnicos', route: 'tecnicos', icon: faUserShield },
   ];
   teams: string[] = [
     'Team1',
