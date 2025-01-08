@@ -1,0 +1,53 @@
+<footer class="bg-night flex flex-col items-center">
+  <div class="flex justify-center text-white pt-5">
+    <h2 class="font-bold text-3xl">FutScorePerú</h2>
+  </div>
+  <div class="container flex justify-center py-5">
+    <a href="" class="rounded-full hover:bg-zinc-800 mx-2 text-white hover:text-crimson">
+      <div class="flex items-center justify-center h-12 w-12 rounded-full">
+        <lucide-angular [name]="Facebook"></lucide-angular>
+      </div>
+    </a>
+    <a href="" class="rounded-full hover:bg-zinc-800 mx-2 text-white hover:text-crimson">
+      <div class="flex items-center justify-center h-12 w-12 rounded-full">
+        <lucide-angular [name]="Instagram"></lucide-angular>
+      </div>
+    </a>
+    <a href="" class="rounded-full hover:bg-zinc-800 mx-2 text-white hover:text-crimson">
+      <div class="flex items-center justify-center h-12 w-12 rounded-full">
+        <lucide-angular [name]="Twitter"></lucide-angular>
+      </div>
+    </a>
+  </div>
+  <div class="text-center md:text-left pb-5">
+    <div class="mx-5 md:mx-20 grid-1 grid gap-8 md:grid-cols-3 text-white">
+      <div>
+        <h6 class="flex justify-center font-semibold uppercase md:justify-start">
+          <lucide-angular [name]="LandPlot" class="mr-1"></lucide-angular> Contenido
+        </h6>
+        <hr class="h-1 my-3 w-full bg-crimson border-none rounded-full">
+        <p class="text-center md:text-justify text-gray-300">
+          Desde la pasión de la Liga 1 hasta la emoción de la Copa Perú, seguimos cada gol que hace vibrar a los hinchas de todo el país, llevando la alegría del fútbol a cada rincón.
+        </p>
+      </div>
+      <div class="text-center">
+        <h6 class="flex justify-center font-semibold uppercase">Web</h6>
+        <hr class="h-1 my-3 w-full bg-crimson border-none rounded-full">
+        <p class="mb-2"><a routerLink="/" class="text-gray-300 hover:text-crimson">Home</a></p>
+        <p class="mb-2"><a routerLink="/about" class="text-gray-300 hover:text-crimson">Nosotros</a></p>
+        <p class="mb-2"><a routerLink="/social" class="text-gray-300 hover:text-crimson">Social</a></p>
+      </div>
+      <div class="text-center">
+        <h6 class="flex justify-center font-semibold uppercase">Ligas</h6>
+        <hr class="h-1 my-3 w-full bg-crimson border-none rounded-full">
+        <p class="mb-2"><a routerLink="/liga1" class="text-gray-300 hover:text-crimson">Liga 1</a></p>
+        <p class="mb-2"><a routerLink="/liga2" class="text-gray-300 hover:text-crimson">Liga 2</a></p>
+        <p class="mb-2"><a routerLink="/liga3" class="text-gray-300 hover:text-crimson">Liga 3</a></p>
+        <p class="mb-2"><a routerLink="/copa-peru" class="text-gray-300 hover:text-crimson">Copa Perú</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full flex justify-center text-white  bg-crimson">
+    <span class="py-2 font-semibold">&#64; 2025 MAVP Projects</span>
+  </div>
+</footer>
