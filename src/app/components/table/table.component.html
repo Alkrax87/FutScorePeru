@@ -1,0 +1,52 @@
+<div class="bg-night rounded-3xl font-semibold">
+  <div class="p-10">
+    <table class="w-full">
+      <thead class="text-gray-300 border-b-4 border-[#585858]" style="font-size: 12px;">
+        <tr class="h-10">
+          @for (header of headers; track $index) {
+            @if ($index === 0) {
+              <th class="w-1.5">{{ header }}</th>
+            } @else if ($index === 1) {
+              <th class="w-12">{{ header }}</th>
+            } @else if ($index === 2) {
+              <th class="text-start w-3/12">{{ header }}</th>
+            } @else if ($index === 3) {
+              <th class="bg-[#313131] rounded-t-lg">{{ header }}</th>
+            } @else if ($index === 11) {
+              <th class="w-72">{{ header }}</th>
+            } @else {
+              <th>{{ header }}</th>
+            }
+          }
+        </tr>
+      </thead>
+      <tbody class="text-gray-200">
+        @for (item of data; track $index) {
+          <tr class="h-12 text-lg text-center hover:bg-gray-200 hover:text-neutral-900">
+            <td class="w-fit h-full bg-green-600"></td>
+            <td class="text-sm">{{ $index + 1 }}</td>
+            <td>
+              <div class="flex">
+                <img src="assets/images/no-team-liga-1.png" alt="" class="w-8">
+                <span class="ml-3">{{ item.name }}</span>
+              </div>
+            </td>
+            <td class="bg-[#313131] text-gray-200 font-bold">{{ (item.pg * 3) + item.pe }}</td>
+            <td>{{ item.pg + item.pe + item.pp }}</td>
+            <td>{{ item.pg }}</td>
+            <td>{{ item.pe }}</td>
+            <td>{{ item.pp }}</td>
+            <td>{{ item.gf }}</td>
+            <td>{{ item.gc }}</td>
+            <td>{{ item.gf - item.gc }}</td>
+            <td class="flex justify-center space-x-8">
+              @for (lastGame of item.lastGames; track $index) {
+                <p>{{ lastGame }}</p>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
