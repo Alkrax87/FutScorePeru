@@ -1,27 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  data: any;
-
   constructor(private http: HttpClient) {}
 
-  fetchDataTeamsL1() {
-    this.http
-      .get('localhost:3000/api/teams/l1')
-      .subscribe((data) => (this.data = data));
+  fetchDataTeamsL1(): Observable<any> {
+    return this.http.get('http://localhost:3000/api/teams/l1');
   }
-  fetchDataTeamsL2() {
-    this.http
-      .get('localhost:3000/api/teams/l2')
-      .subscribe((data) => (this.data = data));
+  fetchDataTeamsL2(): Observable<any> {
+    return this.http.get('http://localhost:3000/api/teams/l2');
   }
-  fetchDataTeamsL3() {
-    this.http
-      .get('localhost:3000/api/teams/l3')
-      .subscribe((data) => (this.data = data));
+  fetchDataTeamsL3(): Observable<any> {
+    return this.http.get('http://localhost:3000/api/teams/l3');
   }
 }
