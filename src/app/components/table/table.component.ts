@@ -1,15 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircle,
+  faCircleCheck,
+  faCircleMinus,
+  faCircleXmark,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-table',
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, CommonModule],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.css',
+  styles: ``,
 })
 export class TableComponent {
   @Input() headers!: string[];
+  @Input() config!: { class: string; quantity: number }[]
   @Input() data!: {
     name: string;
     pg: number;

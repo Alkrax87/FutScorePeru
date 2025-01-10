@@ -23,7 +23,15 @@
       <tbody class="text-gray-200">
         @for (item of data; track $index) {
           <tr class="h-12 text-lg text-center hover:bg-gray-200 hover:text-neutral-900">
-            <td class="w-fit h-full bg-green-600"></td>
+            @if ($index >= 0 && $index < config[0].quantity) {
+              <td [ngClass]="config[0].class"></td>
+            } @else if ($index >= config[0].quantity && $index < (config[0].quantity + config[1].quantity)) {
+              <td [ngClass]="config[1].class"></td>
+            } @else if ($index >= (data.length - config[2].quantity)) {
+              <td [ngClass]="config[2].class"></td>
+            } @else {
+              <td></td>
+            }
             <td class="text-sm">{{ $index + 1 }}</td>
             <td>
               <div class="flex">
