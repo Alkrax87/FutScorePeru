@@ -35,7 +35,7 @@
             <td class="text-sm">{{ $index + 1 }}</td>
             <td>
               <div class="flex">
-                <img src="assets/images/no-team-liga-1.png" alt="" class="w-8">
+                <img [src]="item.image" [alt]="item.alt" class="w-8">
                 <span class="ml-3">{{ item.name }}</span>
               </div>
             </td>

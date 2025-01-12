@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { RouterOutlet } from '@angular/router';
-import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from "@fortawesome/free-solid-svg-icons";
+import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from '@fortawesome/free-solid-svg-icons';
+import { TeamNav } from '../../../interfaces/team-nav';
+import { ApiService } from '../../../services/api.service';
+import { TeamData } from '../../../interfaces/team-data';
 
 @Component({
   selector: 'app-l1-main',
@@ -11,30 +14,29 @@ import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from "
   styleUrl: './l1-main.component.css',
 })
 export class L1MainComponent {
+  constructor(private apiService: ApiService) {}
+
   navOptions = [
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
     { name: 'Técnicos', route: 'tecnicos', icon: faUserShield },
   ];
-  teams: string[] = [
-    'Team1',
-    'Team2',
-    'Team3',
-    'Team4',
-    'Team5',
-    'Team6',
-    'Team7',
-    'Team8',
-    'Team9',
-    'Team10',
-    'Team11',
-    'Team12',
-    'Team13',
-    'Team14',
-    'Team15',
-    'Team16',
-    'Team17',
-    'Team18',
-  ];
+
+  data: TeamData[] = [];
+  dataTeamsNav: TeamNav[] = [];
+
+  ngOnInit() {
+    this.apiService.fetchDataTeamsL1().subscribe({
+      next: (response) => {
+        this.data = response;
+        this.getDataForNav();
+      },
+    });
+  }
+
+  getDataForNav() {
+    const newData: TeamNav[] = this.data.map(({ image, alt, url }) => ({ image, alt, url }));
+    this.dataTeamsNav = newData;
+  }
 }
