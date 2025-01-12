@@ -1,5 +1,5 @@
 <div class="bg-night rounded-3xl font-semibold">
-  <div class="p-10 overflow-x-auto">
+  <div class="py-5 px-0 sm:py-8 sm:px-8 overflow-x-auto select-none">
     <table class="w-full">
       <thead class="text-gray-300 border-b-4 border-[#585858]" style="font-size: 12px;">
         <tr class="h-10">
@@ -9,11 +9,11 @@
             } @else if ($index === 1) {
               <th class="w-10 min-w-10 max-w-10">{{ header }}</th>
             } @else if ($index === 2) {
-              <th class="min-w-28 sm:min-w-64 text-start">{{ header }}</th>
+              <th class="min-w-24 sm:min-w-64 text-start">{{ header }}</th>
             } @else if ($index === 3) {
               <th class="bg-[#313131] rounded-t-lg min-w-16">{{ header }}</th>
             } @else if ($index === 11) {
-              <th class="w-72">{{ header }}</th>
+              <th class="w-72 min-w-40">{{ header }}</th>
             } @else {
               <th class="min-w-12">{{ header }}</th>
             }

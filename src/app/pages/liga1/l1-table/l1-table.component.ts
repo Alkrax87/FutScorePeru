@@ -5,15 +5,27 @@ import { forkJoin, map, mergeMap } from 'rxjs';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
 import { TeamTable } from '../../../interfaces/team-table';
+import { BtnComponent } from "../../../components/btn/btn.component";
 
 @Component({
   selector: 'app-l1-table',
-  imports: [TableComponent],
+  imports: [TableComponent, BtnComponent],
   template: `
     <div class="bg-neutral-800 py-5">
-      <app-table [config]="configApertura" [headers]="headers" [data]="dataApertura"></app-table>
-      <app-table [config]="configClausura" [headers]="headers" [data]="dataClausura"></app-table>
-      <app-table [config]="configAcumulado" [headers]="headers" [data]="dataAcumulado"></app-table>
+      <div class="w-full flex justify-center space-x-6 pb-5">
+        <app-btn (click)="setActiveTab('acumulado')">Acumulado</app-btn>
+        <app-btn (click)="setActiveTab('apertura')">Apertura</app-btn>
+        <app-btn (click)="setActiveTab('clausura')">Clausura</app-btn>
+      </div>
+      @if (acumulado) {
+        <app-table [config]="configAcumulado" [headers]="headers" [data]="dataAcumulado"></app-table>
+      }
+      @if (apertura) {
+        <app-table [config]="configApertura" [headers]="headers" [data]="dataApertura"></app-table>
+      }
+      @if (clausura) {
+        <app-table [config]="configClausura" [headers]="headers" [data]="dataClausura"></app-table>
+      }
     </div>
   `,
   styles: ``,
@@ -24,6 +36,16 @@ export class L1TableComponent {
     private performanceService: FetchPerformanceService,
     private lastGamesService: FetchLastGamesService
   ) {}
+
+  acumulado: boolean = true;
+  apertura: boolean = false;
+  clausura: boolean = false;
+
+  setActiveTab(tab: String) {
+    this.acumulado = tab === 'acumulado'
+    this.apertura = tab === 'apertura'
+    this.clausura = tab === 'clausura'
+  }
 
   data: any;
   headers: string[] = [
