@@ -1,5 +1,5 @@
 export interface TeamNav {
-  image: string;
+  imageThumbnail: string;
   alt: string;
   url: string;
 }

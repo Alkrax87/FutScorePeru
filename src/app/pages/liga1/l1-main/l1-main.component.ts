@@ -36,7 +36,7 @@ export class L1MainComponent {
   }
 
   getDataForNav() {
-    const newData: TeamNav[] = this.data.map(({ image, alt, url }) => ({ image, alt, url }));
+    const newData: TeamNav[] = this.data.map(({ imageThumbnail, alt, url }) => ({ imageThumbnail, alt, url }));
     this.dataTeamsNav = newData;
   }
 }
