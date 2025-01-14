@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { TableComponent } from '../../../components/table/table.component';
 import { ApiService } from '../../../services/api.service';
-import { forkJoin, map, mergeMap } from 'rxjs';
+import { forkJoin, map, mergeMap, Subscription } from 'rxjs';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
 import { TeamTable } from '../../../interfaces/team-table';
 import { BtnComponent } from "../../../components/btn/btn.component";
+import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
+import { TeamDataL1 } from '../../../interfaces/team-data-l1';
 
 @Component({
   selector: 'app-l1-table',
@@ -32,10 +34,14 @@ import { BtnComponent } from "../../../components/btn/btn.component";
 })
 export class L1TableComponent {
   constructor(
+    private teamsService: FetchTeamDataService,
     private apiService: ApiService,
     private performanceService: FetchPerformanceService,
     private lastGamesService: FetchLastGamesService
   ) {}
+
+  private teamSubscription: Subscription | null = null;
+  dataTeams: TeamDataL1[] | null = null;
 
   acumulado: boolean = true;
   apertura: boolean = false;
@@ -82,6 +88,13 @@ export class L1TableComponent {
   ];
 
   ngOnInit() {
+    this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
+      next: (data) => {
+        this.dataTeams = data;
+        console.log(this.dataTeams);
+      }
+    })
+
     this.apiService
       .fetchDataTeamsL1()
       .pipe(
@@ -181,5 +194,9 @@ export class L1TableComponent {
       this.dataClausura.push(clausuraTeam);
       this.dataAcumulado.push(acumuladoTeam);
     });
+  }
+
+  ngOnDestroy() {
+    this.teamSubscription?.unsubscribe();
   }
 }

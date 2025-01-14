@@ -6,6 +6,7 @@ import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from '
 import { TeamNav } from '../../../interfaces/team-nav';
 import { ApiService } from '../../../services/api.service';
 import { TeamData } from '../../../interfaces/team-data';
+import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 
 @Component({
   selector: 'app-l1-main',
@@ -14,7 +15,7 @@ import { TeamData } from '../../../interfaces/team-data';
   styleUrl: './l1-main.component.css',
 })
 export class L1MainComponent {
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private fetchTeamService: FetchTeamDataService) {}
 
   navOptions = [
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
@@ -33,6 +34,7 @@ export class L1MainComponent {
         this.getDataForNav();
       },
     });
+    this.fetchTeamService.getDataLiga1();
   }
 
   getDataForNav() {
