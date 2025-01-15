@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { RouterOutlet } from '@angular/router';
-import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from "@fortawesome/free-solid-svg-icons";
+import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
+import { Subscription } from 'rxjs';
+import { TeamDataL2 } from '../../../interfaces/team-data-l2';
+import { TeamNav } from '../../../interfaces/team-nav';
 
 @Component({
   selector: 'app-l2-main',
@@ -14,32 +17,33 @@ import { FetchTeamDataService } from '../../../services/fetch-team-data.service'
 export class L2MainComponent {
   constructor(private teamsService: FetchTeamDataService) {}
 
+  private teamSubscription: Subscription | null = null;
+  dataTeams: TeamDataL2[] | null = null;
   navOptions = [
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
     { name: 'Técnicos', route: 'tecnicos', icon: faUserShield },
   ];
-  teams: string[] = [
-    'Team1',
-    'Team2',
-    'Team3',
-    'Team4',
-    'Team5',
-    'Team6',
-    'Team7',
-    'Team8',
-    'Team9',
-    'Team10',
-    'Team11',
-    'Team12',
-    'Team13',
-    'Team14',
-    'Team15',
-    'Team16',
-  ];
+  dataTeamsNav: TeamNav[] = [];
 
   ngOnInit() {
     this.teamsService.getDataLiga2();
+    this.teamSubscription = this.teamsService.dataTeamsL2$.subscribe({
+      next: (data) => {
+        this.dataTeams = data;
+        console.log(this.dataTeams);
+        this.getDataForNav();
+      },
+    });
+  }
+
+  getDataForNav() {
+    const newData: TeamNav[] = this.dataTeams ? this.dataTeams.map(({ imageThumbnail, alt, url }) => ({ imageThumbnail, alt, url })) : [];
+    this.dataTeamsNav = newData;
+  }
+
+  ngOnDestroy() {
+    this.teamSubscription?.unsubscribe();
   }
 }
