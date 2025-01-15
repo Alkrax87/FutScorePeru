@@ -3,6 +3,7 @@ import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { RouterOutlet } from '@angular/router';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from "@fortawesome/free-solid-svg-icons";
+import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 
 @Component({
   selector: 'app-l2-main',
@@ -11,6 +12,8 @@ import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from "
   styleUrl: './l2-main.component.css',
 })
 export class L2MainComponent {
+  constructor(private teamsService: FetchTeamDataService) {}
+
   navOptions = [
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
@@ -35,4 +38,8 @@ export class L2MainComponent {
     'Team15',
     'Team16',
   ];
+
+  ngOnInit() {
+    this.teamsService.getDataLiga2();
+  }
 }
