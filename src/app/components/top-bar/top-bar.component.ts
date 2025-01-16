@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
           <div class="relative flex-none h-10 sm:h-[60px] border-r-[40px] sm:border-r-[60px] border-b-[40px] sm:border-b-[60px] border-r-transparent  border-b-night bg-crimson"></div>
           <div class="w-3/12 bg-crimson flex justify-center">
             <a routerLink="/">
-              <img class="bg-white w-10 sm:w-[60px] p-1" src="assets/images/no-team-liga-1.png" alt="main-logo"
+              <img class="bg-white w-10 sm:w-[60px] p-1" src="main-logo.webp" alt="main-logo"
               />
             </a>
           </div>
