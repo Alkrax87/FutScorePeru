@@ -7,8 +7,13 @@ import { faShieldHalved, faWindowRestore, faBarsStaggered } from "@fortawesome/f
 @Component({
   selector: 'app-cp-main',
   imports: [TopNavTeamsComponent, OptionsNavComponent, RouterOutlet],
-  templateUrl: './cp-main.component.html',
-  styleUrl: './cp-main.component.css',
+  template: `
+    <!-- <app-top-nav-teams [teams]="teams"></app-top-nav-teams> -->
+    <div class="h-2 bg-crimson"></div>
+    <app-options-nav [options]="navOptions"></app-options-nav>
+    <router-outlet></router-outlet>
+  `,
+  styles: ``,
 })
 export class CpMainComponent {
   navOptions = [

@@ -11,8 +11,13 @@ import { TeamNav } from '../../../interfaces/team-nav';
 @Component({
   selector: 'app-l2-main',
   imports: [TopNavTeamsComponent, OptionsNavComponent, RouterOutlet],
-  templateUrl: './l2-main.component.html',
-  styleUrl: './l2-main.component.css',
+  template: `
+    <app-top-nav-teams [teams]="dataTeamsNav"></app-top-nav-teams>
+    <div class="h-2 bg-crimson"></div>
+    <app-options-nav [options]="navOptions"></app-options-nav>
+    <router-outlet></router-outlet>
+  `,
+  styles: ``,
 })
 export class L2MainComponent {
   constructor(private teamsService: FetchTeamDataService) {}
