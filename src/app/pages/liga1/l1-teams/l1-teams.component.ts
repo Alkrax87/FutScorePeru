@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { TeamDataL1 } from '../../../interfaces/team-data-l1';
 import { TeamCardComponent } from "../../../components/team-card/team-card.component";
 import { TeamCard } from '../../../interfaces/team-card';
+import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 
 @Component({
   selector: 'app-l1-teams',
@@ -12,7 +13,7 @@ import { TeamCard } from '../../../interfaces/team-card';
   styleUrl: './l1-teams.component.css',
 })
 export class L1TeamsComponent {
-  constructor(private teamsService: FetchTeamDataService) {}
+  constructor(private teamsService: FetchTeamDataService, private stadiumService: FetchStadiumService) {}
 
   private teamSubscription: Subscription | null = null;
   dataTeams: TeamDataL1[] | null = null;
@@ -23,22 +24,33 @@ export class L1TeamsComponent {
       next: (data) => {
         this.dataTeams = data;
         console.log(this.dataTeams);
-        this.getDataforCard();
+        this.getDataForCard();
       },
     });
   }
 
-  getDataforCard() {
-    const defaultStadium = {
-      name: 'stadium',
-      capacity: 'capacity',
-      location: 'location'
-    };
+  async getDataForCard() {
+    const newData: TeamCard[] = [];
 
-    const newData: TeamCard[] = this.dataTeams ? this.dataTeams.map(
-      ({ name, abbreviation, image, alt, url, color }) => ({ name, abbreviation, image, alt, url, color, stadium: {...defaultStadium} })
-    ) : [];
-    this.dataTeamsCard = newData;
+    if (this.dataTeams) {
+      for (const team of this.dataTeams) {
+        const stadium = await this.stadiumService.fetchStadium(team.stadium.url);
+        newData.push({
+          name: team.name,
+          abbreviation: team.abbreviation,
+          image: team.image,
+          alt: team.alt,
+          url: team.url,
+          color: team.color,
+          stadium: {
+            name: stadium.name,
+            capacity: stadium.capacity,
+            location: stadium.location
+          }
+        });
+      }
+      this.dataTeamsCard = newData;
+    }
   }
 
   ngOnDestroy() {
