@@ -13,6 +13,7 @@ import { TeamTable } from '../../interfaces/team-table';
 export class TableComponent {
   @Input() headers!: string[];
   @Input() config!: { class: string; quantity: number }[];
+  @Input() classification!: { name: string, image: string, class:string }[]
   @Input() data!: TeamTable[];
   Win = faCircleCheck;
   Draw = faCircleMinus;

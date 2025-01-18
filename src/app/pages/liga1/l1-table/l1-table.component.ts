@@ -13,20 +13,20 @@ import { TeamDataL1 } from '../../../interfaces/team-data-l1';
   selector: 'app-l1-table',
   imports: [TableComponent, BtnComponent],
   template: `
-    <div class="bg-neutral-800 py-5">
+    <div class="bg-night py-5">
       <div class="w-full flex justify-center space-x-6 pb-5">
         <app-btn (click)="setActiveTab('acumulado')">Acumulado</app-btn>
         <app-btn (click)="setActiveTab('apertura')">Apertura</app-btn>
         <app-btn (click)="setActiveTab('clausura')">Clausura</app-btn>
       </div>
       @if (acumulado) {
-        <app-table [config]="configAcumulado" [headers]="headers" [data]="dataAcumulado"></app-table>
+        <app-table [config]="configAcumulado" [headers]="headers" [classification]="classificationAcumulado" [data]="dataAcumulado"></app-table>
       }
       @if (apertura) {
-        <app-table [config]="configApertura" [headers]="headers" [data]="dataApertura"></app-table>
+        <app-table [config]="configApertura" [headers]="headers" [classification]="classificationApertura" [data]="dataApertura"></app-table>
       }
       @if (clausura) {
-        <app-table [config]="configClausura" [headers]="headers" [data]="dataClausura"></app-table>
+        <app-table [config]="configClausura" [headers]="headers" [classification]="classificationClausura" [data]="dataClausura"></app-table>
       }
     </div>
   `,
@@ -86,6 +86,37 @@ export class L1TableComponent {
     { class: 'bg-sudamericana', quantity: 4 },
     { class: 'bg-relegation', quantity: 3 },
   ];
+  classificationAcumulado = [
+    {
+      name: "Copa Libertadores",
+      image: "assets/images/pages/Libertadores.webp",
+      class: "bg-libertadores"
+    },
+    {
+      name: "Copa Sudamericana",
+      image: "assets/images/pages/Sudamericana.webp",
+      class: "bg-sudamericana"
+    },
+    {
+      name: "Descenso",
+      image: "assets/images/pages/Liga-2.webp",
+      class: "bg-relegation"
+    },
+  ]
+  classificationApertura = [
+    {
+      name: "Ganador Apertura",
+      image: "assets/images/pages/Libertadores.webp",
+      class: "bg-gold"
+    }
+  ]
+  classificationClausura = [
+    {
+      name: "Ganador Clausura",
+      image: "assets/images/pages/Libertadores.webp",
+      class: "bg-gold"
+    }
+  ]
 
   ngOnInit() {
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
