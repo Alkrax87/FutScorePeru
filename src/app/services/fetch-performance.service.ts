@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,13 +8,17 @@ import { Observable } from 'rxjs';
 export class FetchPerformanceService {
   constructor(private http: HttpClient) {}
 
-  fetchPerformanceL1(url: string): Observable<any> {
-    return this.http.get(url);
-  }
-  fetchPerformanceL2(url: string): Observable<any> {
-    return this.http.get(url);
-  }
-  fetchPerformanceL3(url: string): Observable<any> {
-    return this.http.get(url);
+  async fetchPerformanceL1(url: string): Promise<any> {
+    try {
+      const response = await firstValueFrom(this.http.get<any>(url));
+      // console.log(response);
+      return {
+        apertura: response.apertura,
+        clausura: response.clausura,
+        sanction: response.saction,
+      }
+    } catch (error) {
+      console.error('Failed to fetch performance', error);
+    }
   }
 }

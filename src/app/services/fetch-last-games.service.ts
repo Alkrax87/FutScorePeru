@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,13 +8,16 @@ import { Observable } from 'rxjs';
 export class FetchLastGamesService {
   constructor(private http: HttpClient) {}
 
-  fetchLastGamesL1(url: string): Observable<any> {
-    return this.http.get(url);
-  }
-  fetchLastGamesL2(url: string): Observable<any> {
-    return this.http.get(url);
-  }
-  fetchLastGamesL3(url: string): Observable<any> {
-    return this.http.get(url);
+  async fetchLastGamesL1(url: string): Promise<any> {
+    try {
+      const response = await firstValueFrom(this.http.get<any>(url));
+      // console.log(response);
+      return {
+        apertura: response.apertura,
+        clausura: response.clausura,
+      }
+    } catch (error) {
+      console.error('Failed to fetch last games', error);
+    }
   }
 }

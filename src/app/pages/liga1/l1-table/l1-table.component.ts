@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { TableComponent } from '../../../components/table/table.component';
-import { ApiService } from '../../../services/api.service';
-import { forkJoin, map, mergeMap, Subscription } from 'rxjs';
+import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
-import { TeamTable } from '../../../interfaces/team-table';
-import { BtnComponent } from "../../../components/btn/btn.component";
-import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
+import { Subscription } from 'rxjs';
 import { TeamDataL1 } from '../../../interfaces/team-data-l1';
+import { TeamTable } from '../../../interfaces/team-table';
+import { TableComponent } from '../../../components/table/table.component';
+import { BtnComponent } from '../../../components/btn/btn.component';
 
 @Component({
   selector: 'app-l1-table',
@@ -35,7 +34,6 @@ import { TeamDataL1 } from '../../../interfaces/team-data-l1';
 export class L1TableComponent {
   constructor(
     private teamsService: FetchTeamDataService,
-    private apiService: ApiService,
     private performanceService: FetchPerformanceService,
     private lastGamesService: FetchLastGamesService
   ) {}
@@ -48,12 +46,11 @@ export class L1TableComponent {
   clausura: boolean = false;
 
   setActiveTab(tab: String) {
-    this.acumulado = tab === 'acumulado'
-    this.apertura = tab === 'apertura'
-    this.clausura = tab === 'clausura'
+    this.acumulado = tab === 'acumulado';
+    this.apertura = tab === 'apertura';
+    this.clausura = tab === 'clausura';
   }
 
-  data: any;
   headers: string[] = [
     '',
     'Pos',
@@ -88,81 +85,71 @@ export class L1TableComponent {
   ];
   classificationAcumulado = [
     {
-      name: "Copa Libertadores",
-      image: "assets/images/pages/Libertadores.webp",
-      class: "bg-libertadores"
+      name: 'Copa Libertadores',
+      image: 'assets/images/pages/Libertadores.webp',
+      class: 'bg-libertadores',
     },
     {
-      name: "Copa Sudamericana",
-      image: "assets/images/pages/Sudamericana.webp",
-      class: "bg-sudamericana"
+      name: 'Copa Sudamericana',
+      image: 'assets/images/pages/Sudamericana.webp',
+      class: 'bg-sudamericana',
     },
     {
-      name: "Descenso",
-      image: "assets/images/pages/Liga-2.webp",
-      class: "bg-relegation"
+      name: 'Descenso',
+      image: 'assets/images/pages/Liga-2.webp',
+      class: 'bg-relegation',
     },
-  ]
+  ];
   classificationApertura = [
     {
-      name: "Ganador Apertura",
-      image: "assets/images/pages/Libertadores.webp",
-      class: "bg-gold"
-    }
-  ]
+      name: 'Ganador Apertura',
+      image: 'assets/images/pages/Libertadores.webp',
+      class: 'bg-gold',
+    },
+  ];
   classificationClausura = [
     {
-      name: "Ganador Clausura",
-      image: "assets/images/pages/Libertadores.webp",
-      class: "bg-gold"
-    }
-  ]
+      name: 'Ganador Clausura',
+      image: 'assets/images/pages/Libertadores.webp',
+      class: 'bg-gold',
+    },
+  ];
 
   ngOnInit() {
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
       next: (data) => {
         this.dataTeams = data;
         console.log(this.dataTeams);
-      }
-    })
-
-    this.apiService
-      .fetchDataTeamsL1()
-      .pipe(
-        mergeMap((teams: any[]) => {
-          // Para cada equipo, realizar las subconsultas y unir los resultados
-          const enrichedTeams = teams.map((team) => {
-            const lastGames$ = this.lastGamesService.fetchLastGamesL1(
-              team.lastgames.url
-            );
-            const performance$ = this.performanceService.fetchPerformanceL1(
-              team.performance.url
-            );
-            // Combinar los resultados y reemplazar los datos
-            return forkJoin([lastGames$, performance$]).pipe(
-              map(([lastGamesData, performanceData]) => ({
-                ...team, // Mantener los datos originales
-                lastgames: lastGamesData, // Reemplazar la URL con los datos reales
-                performance: performanceData,
-              }))
-            );
-          });
-          // Esperar a que todas las subconsultas terminen antes de emitir los datos enriquecidos
-          return forkJoin(enrichedTeams);
-        })
-      )
-      .subscribe({
-        next: (response) => {
-          this.data = response;
-          this.splitTeams();
-        },
-        error: (error) => console.error('Error fetching data:', error),
-        complete: () => console.log('Data fetch completed'),
-      });
+        this.getDataForTable();
+      },
+    });
   }
 
-  splitTeams() {
-    this.data.forEach((team: any) => {
+  async getDataForTable() {
+    const mergedData = [];
+
+    if (this.dataTeams) {
+      for (const team of this.dataTeams) {
+        const performance = await this.performanceService.fetchPerformanceL1(team.performance.url);
+        const lastgames = await this.lastGamesService.fetchLastGamesL1(team.lastgames.url);
+        mergedData.push({
+          name: team.name,
+          abbreviation: team.abbreviation,
+          image: team.image,
+          imageThumbnail: team.imageThumbnail,
+          alt: team.alt,
+          url: team.url,
+          lastgames: lastgames,
+          performance: performance,
+        });
+      }
+    }
+
+    this.splitTeams(mergedData);
+  }
+
+  splitTeams(data: any[]) {
+    data.forEach((team: any) => {
       const baseData = {
         name: team.name,
         abbreviation: team.abbreviation,
@@ -172,7 +159,6 @@ export class L1TableComponent {
         url: team.url,
       };
 
-      // Equipo para Apertura
       const aperturaTeam = {
         ...baseData,
         lastgames: team.lastgames.apertura,
@@ -188,7 +174,6 @@ export class L1TableComponent {
         },
       };
 
-      // Equipo para Clausura
       const clausuraTeam = {
         ...baseData,
         lastgames: team.lastgames.clausura,
@@ -204,7 +189,6 @@ export class L1TableComponent {
         },
       };
 
-      // Equipo para Acumuñado
       const acumuladoTeam = {
         ...baseData,
         lastgames: team.lastgames.clausura,
