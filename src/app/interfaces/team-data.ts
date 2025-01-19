@@ -1,8 +1,17 @@
 export interface TeamData {
+  _id: string;
+  category: string;
+  teamId: string;
+  name: string;
+  abbreviation: string;
+  image: string;
+  imageThumbnail: string;
+  alt: string;
+  url: string;
+  location: string;
   color: {
     c1: string;
-    c2: string;
-    c3?: string;
+    c2?: string;
   };
   stadium: {
     url: string;
@@ -19,14 +28,4 @@ export interface TeamData {
   results: {
     url: string;
   };
-  _id: string;
-  category: string;
-  teamId: string;
-  name: string;
-  abbreviation: string;
-  image: string;
-  imageThumbnail: string;
-  alt: string;
-  url: string;
-  location: string;
 }

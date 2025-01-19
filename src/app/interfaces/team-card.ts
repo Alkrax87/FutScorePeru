@@ -6,8 +6,7 @@ export interface TeamCard {
   url: string;
   color: {
     c1: string;
-    c2: string;
-    c3?: string;
+    c2?: string;
   };
   stadium: {
     name: string;

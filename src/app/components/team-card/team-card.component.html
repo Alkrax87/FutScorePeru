@@ -1,5 +1,11 @@
 <a [routerLink]="data?.url">
-  <div class="flex w-full h-full bg-nightfall text-white px-6 py-8">
+  <div class="flex w-full h-full px-6 py-8"
+    [ngClass]="{'bg-nightfall text-white': !isHovered}"
+    [style.backgroundColor]="isHovered ? data?.color?.c1 : ''"
+    [style.color]="isHovered ? data?.color?.c2 || '#ffffff' : ''"
+    (mouseover)="isHovered = true"
+    (mouseout)="isHovered = false"
+  >
     <div class="w-16 flex justify-center items-center mr-3">
       <img [src]="data?.image" [alt]="data?.alt" class="min-w-16 w-16" />
     </div>
