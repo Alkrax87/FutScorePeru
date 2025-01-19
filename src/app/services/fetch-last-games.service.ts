@@ -11,10 +11,21 @@ export class FetchLastGamesService {
   async fetchLastGamesL1(url: string): Promise<any> {
     try {
       const response = await firstValueFrom(this.http.get<any>(url));
-      // console.log(response);
       return {
         apertura: response.apertura,
         clausura: response.clausura,
+      }
+    } catch (error) {
+      console.error('Failed to fetch last games', error);
+    }
+  }
+
+  async fetchLastGamesL2(url: string): Promise<any> {
+    try {
+      const response = await firstValueFrom(this.http.get<any>(url));
+      return {
+        regional: response.regional,
+        grupos: response.grupos,
       }
     } catch (error) {
       console.error('Failed to fetch last games', error);
