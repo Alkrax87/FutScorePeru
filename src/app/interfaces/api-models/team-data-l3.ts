@@ -1,6 +1,7 @@
-export interface TeamDataL1 {
+export interface TeamDataL3 {
   _id: string;
   category: string;
+  group: string;
   teamId: string;
   name: string;
   abbreviation: string;
@@ -11,8 +12,7 @@ export interface TeamDataL1 {
   location: string;
   color: {
     c1: string;
-    c2: string;
-    c3?: string;
+    c2?: string;
   };
   stadium: {
     url: string;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { Subscription } from 'rxjs';
-import { TeamDataL2 } from '../../../interfaces/team-data-l2';
+import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
 
 @Component({
   selector: 'app-l2-managers',

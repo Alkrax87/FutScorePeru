@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { TableComponent } from '../../../components/table/table.component';
-import { TeamTable } from '../../../interfaces/team-table';
+import { TeamTable } from '../../../interfaces/ui-models/team-table';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { Subscription } from 'rxjs';
-import { TeamDataL3 } from '../../../interfaces/team-data-l3';
+import { TeamDataL3 } from '../../../interfaces/api-models/team-data-l3';
 
 @Component({
   selector: 'app-l3-table',

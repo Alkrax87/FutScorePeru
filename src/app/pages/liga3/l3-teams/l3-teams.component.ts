@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { Subscription } from 'rxjs';
-import { TeamDataL3 } from '../../../interfaces/team-data-l3';
+import { TeamDataL3 } from '../../../interfaces/api-models/team-data-l3';
 
 @Component({
   selector: 'app-l3-teams',

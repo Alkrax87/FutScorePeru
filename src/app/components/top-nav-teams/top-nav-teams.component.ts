@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import { TeamNav } from '../../interfaces/team-nav';
+import { TeamNav } from '../../interfaces/ui-models/team-nav';
 
 @Component({
   selector: 'app-top-nav-teams',

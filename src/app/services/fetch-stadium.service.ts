@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { StadiumData } from '../interfaces/stadium-data';
+import { StadiumData } from '../interfaces/api-models/stadium-data';
 
 @Injectable({
   providedIn: 'root',

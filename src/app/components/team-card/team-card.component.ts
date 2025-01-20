@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLocationDot, faRing, faUsers } from '@fortawesome/free-solid-svg-icons';
-import { TeamCard } from '../../interfaces/team-card';
+import { TeamCard } from '../../interfaces/ui-models/team-card';
 import { CommonModule } from '@angular/common';
 
 @Component({

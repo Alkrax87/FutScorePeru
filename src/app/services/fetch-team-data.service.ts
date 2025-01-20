@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TeamDataL1 } from '../interfaces/team-data-l1';
-import { TeamDataL2 } from '../interfaces/team-data-l2';
-import { TeamDataL3 } from '../interfaces/team-data-l3';
+import { TeamDataL1 } from '../interfaces/api-models/team-data-l1';
+import { TeamDataL2 } from '../interfaces/api-models/team-data-l2';
+import { TeamDataL3 } from '../interfaces/api-models/team-data-l3';
 
 @Injectable({
   providedIn: 'root',

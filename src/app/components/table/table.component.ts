@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { TeamTable } from '../../interfaces/team-table';
+import { TeamTable } from '../../interfaces/ui-models/team-table';
 
 @Component({
   selector: 'app-table',

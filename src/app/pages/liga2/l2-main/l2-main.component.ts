@@ -5,8 +5,8 @@ import { RouterOutlet } from '@angular/router';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { Subscription } from 'rxjs';
-import { TeamDataL2 } from '../../../interfaces/team-data-l2';
-import { TeamNav } from '../../../interfaces/team-nav';
+import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
+import { TeamNav } from '../../../interfaces/ui-models/team-nav';
 
 @Component({
   selector: 'app-l2-main',

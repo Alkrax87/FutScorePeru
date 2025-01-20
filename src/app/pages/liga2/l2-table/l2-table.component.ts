@@ -3,8 +3,8 @@ import { FetchTeamDataService } from '../../../services/fetch-team-data.service'
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
 import { Subscription } from 'rxjs';
-import { TeamDataL2 } from '../../../interfaces/team-data-l2';
-import { TeamTable } from '../../../interfaces/team-table';
+import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
+import { TeamTable } from '../../../interfaces/ui-models/team-table';
 import { TableComponent } from '../../../components/table/table.component';
 
 @Component({
