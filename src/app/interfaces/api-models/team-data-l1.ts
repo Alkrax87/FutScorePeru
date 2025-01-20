@@ -1,5 +1,4 @@
 export interface TeamDataL1 {
-  _id: string;
   category: string;
   teamId: string;
   name: string;
