@@ -51,7 +51,18 @@ export class L2TableComponent {
     { class: '', quantity: 0 },
     { class: 'bg-relegation', quantity: 2 },
   ];
-  classificationGrupos = []
+  classificationGrupos = [
+    {
+      name: 'Grupo de Ascenso',
+      image: 'assets/images/pages/Ascenso.webp',
+      class: 'bg-promotion',
+    },
+    {
+      name: 'Grupo de Descenso',
+      image: 'assets/images/pages/Descenso.webp',
+      class: 'bg-relegation',
+    },
+  ]
 
   ngOnInit() {
     this.teamSubscription = this.teamsService.dataTeamsL2$.subscribe({
