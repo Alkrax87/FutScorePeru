@@ -9,8 +9,20 @@ import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 @Component({
   selector: 'app-l2-teams',
   imports: [TeamCardComponent],
-  templateUrl: './l2-teams.component.html',
-  styleUrl: './l2-teams.component.css',
+  template: `
+    <div class="bg-night p-5">
+      <div class="w-full">
+        <div class="flex justify-center">
+          <div class="w-full lg:w-11/12 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            @for (item of dataTeamsCard; track $index) {
+              <app-team-card [data]="item"></app-team-card>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: ``,
 })
 export class L2TeamsComponent {
   constructor(private teamsService: FetchTeamDataService, private stadiumService: FetchStadiumService) {}
