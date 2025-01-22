@@ -16,6 +16,10 @@ module.exports = {
         semifinal: "#F1C13A",
         quarter: "#11759C",
       },
+      skew: {
+        "30p": "30deg",
+        "30n": "-30deg",
+      }
     },
   },
   plugins: [],
