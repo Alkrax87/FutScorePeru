@@ -19,6 +19,7 @@ module.exports = {
       skew: {
         "30p": "30deg",
         "30n": "-30deg",
+        "50": "50deg",
       }
     },
   },
