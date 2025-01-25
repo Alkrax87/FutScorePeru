@@ -44,7 +44,6 @@ export class L2ManagersComponent {
     this.teamSubscription = this.teamsService.dataTeamsL2$.subscribe({
       next: (data) => {
         this.dataTeams = data;
-        console.log(this.dataTeams);
         this.getManagerData();
       },
     });

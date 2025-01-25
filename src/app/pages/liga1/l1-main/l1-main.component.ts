@@ -37,7 +37,6 @@ export class L1MainComponent {
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
       next: (data) => {
         this.dataTeams = data;
-        console.log(this.dataTeams);
         this.getDataForNav();
       },
     });
