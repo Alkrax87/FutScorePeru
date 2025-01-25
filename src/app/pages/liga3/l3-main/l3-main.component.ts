@@ -13,7 +13,7 @@ import { TeamNav } from '../../../interfaces/ui-models/team-nav';
   imports: [TopNavTeamsComponent, OptionsNavComponent, RouterOutlet],
   template: `
     <app-top-nav-teams [teams]="dataTeamsNav"></app-top-nav-teams>
-    <div class="h-2 bg-crimson"></div>
+    <div class="hidden md:block h-2 bg-crimson"></div>
     <app-options-nav [options]="navOptions"></app-options-nav>
     <router-outlet></router-outlet>
   `,

@@ -9,7 +9,7 @@ import { faShieldHalved, faWindowRestore, faBarsStaggered } from "@fortawesome/f
   imports: [TopNavTeamsComponent, OptionsNavComponent, RouterOutlet],
   template: `
     <!-- <app-top-nav-teams [teams]="teams"></app-top-nav-teams> -->
-    <div class="h-2 bg-crimson"></div>
+    <div class="hidden md:block h-2 bg-crimson"></div>
     <app-options-nav [options]="navOptions"></app-options-nav>
     <router-outlet></router-outlet>
   `,
