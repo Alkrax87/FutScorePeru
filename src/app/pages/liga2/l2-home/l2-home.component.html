@@ -1,1 +1,24 @@
-<p>l2-home works!</p>
+<div class="bg-night text-white flex justify-center w-full p-5">
+  <div class="w-full md:w-4/6 lg:w-5/12 flex items-center">
+    <div class="p-5">
+      <h1 class="text-3xl">Equipos</h1>
+      <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-36 my-3"></div>
+      <div class="flex justify-center">
+        <p>En la temporada <b>2025</b> el número de equipos participantes de la <b>Liga 2</b> es de <b>15</b> equipos:</p>
+      </div>
+      <div class="flex flex-wrap justify-center py-3">
+        @for (item of dataTeams; track $index) {
+          <a [routerLink]="item.url">
+            <img class="w-9" [src]="item.image" [alt]="item.alt">
+          </a>
+        }
+      </div>
+      <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-full my-3"></div>
+    </div>
+  </div>
+  <div class="w-full md:w-2/6 lg:w-3/12 flex justify-center items-center">
+    <div class="w-full p-5 bg-nightfall">
+      <app-map [map]="map"></app-map>
+    </div>
+  </div>
+</div>
