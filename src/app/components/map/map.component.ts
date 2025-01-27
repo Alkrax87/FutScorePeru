@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Map } from '../../interfaces/api-models/map';
+import { TeamMap } from '../../interfaces/ui-models/team-map';
 
 @Component({
   selector: 'app-map',
@@ -10,7 +11,7 @@ import { Map } from '../../interfaces/api-models/map';
       @if (map) {
         @for (item of map; track $index) {
           <path
-            [ngClass]="{'fill-crimson hover:fill-gold transition-colors duration-300 ease-in-out':item.mapStatus}"
+            [ngClass]="{'fill-crimson hover:fill-gold cursor-pointer transition-colors duration-300 ease-in-out':item.mapStatus}"
             [id]="item.mapId"
             [attr.name]="item.mapName"
             [attr.d]="item.mapD"
@@ -20,48 +21,39 @@ import { Map } from '../../interfaces/api-models/map';
       }
     </svg>
 
-    <div class="tooltip" [ngStyle]="{'top.px': position?.y, 'left.px': position?.x}" *ngIf="visible">
-      <div class="flex justify-center">
-        <p class="text-lg">{{ content }}</p>
+    @if (selected) {
+      <div class="bg-nightfall absolute py-2 px-4 border-gold border-2 bg-opacity-90 -translate-x-1/2" [ngStyle]="{'top.px': position?.y, 'left.px': position?.x}">
+        <div class="flex justify-center">
+          <p class="text-lg">{{ content }}</p>
+        </div>
+        <div class="flex w-full justify-center">
+          @for (item of toolTipData; track $index) {
+            <img class="w-10" [src]="item.imageThumbnail" [alt]="item.alt">
+          }
+        </div>
       </div>
-      <div class="flex w-full justify-center">
-        @for (item of data; track $index) {
-          <img class="w-10" [src]="item.src" alt="">
-        }
-      </div>
-    </div>
+    }
   `,
   styles: `
     .map {
-      position: relative;
       fill: #dad8d9;
       fill-opacity: 1;
       stroke:#ffffff;
       stroke-opacity: 1;
-      stroke-width: 3;
-    }
-    .tooltip {
-      position: absolute;
-      background: rgba(0, 0, 0, 0.75);
-      color: white;
-      padding: 8px;
-      border-radius: 4px;
-      font-size: 12px;
-      pointer-events: none;
-      transform: translate(-50%, 0%);
+      stroke-width: 5;
     }
   `,
 })
 export class MapComponent {
   @Input() map!: Map[];
-  @Input() data!: {name:string, alt: string, src: string, location: string}[]
-
+  @Input() dataTeamsMap!: TeamMap[];
   position: { x: number, y: number } | null = null;
   content: string = '';
-  visible: boolean = false;
+  selected: boolean = false;
   private timeoutHandle: any;
+  toolTipData: TeamMap[] = [];
 
-  showTooltip(event: MouseEvent, item: any): void {
+  showTooltip(event: MouseEvent, item: Map) {
     this.content = '';
     if (this.timeoutHandle) {
       clearTimeout(this.timeoutHandle);
@@ -69,20 +61,25 @@ export class MapComponent {
     const { clientX, clientY } = event;
 
     if (!item.mapStatus) {
-      if (this.visible) {
-        this.visible = false;
+      if (this.selected) {
+        this.selected = false;
       }
       return;
     }
 
-    if (item.mapName === this.content && this.visible) {
+    if (item.mapName === this.content && this.selected) {
       return;
     }
 
+    this.filterSelectedMap(item.mapName);
+
     this.position = { x: clientX, y: clientY };
     this.content = item.mapName;
-    this.visible = true;
+    this.selected = true;
+    this.timeoutHandle = setTimeout(() => this.selected = false, 6000);
+  }
 
-    this.timeoutHandle = setTimeout(() => this.visible = false, 5000);
+  filterSelectedMap(mapLocation: string) {
+    this.toolTipData = this.dataTeamsMap.filter((item) => item.location === mapLocation);
   }
 }
