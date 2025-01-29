@@ -58,7 +58,7 @@ export class MapComponent {
     if (this.timeoutHandle) {
       clearTimeout(this.timeoutHandle);
     }
-    const { clientX, clientY } = event;
+    const { pageX, pageY } = event;
 
     if (!item.mapStatus) {
       if (this.selected) {
@@ -73,7 +73,7 @@ export class MapComponent {
 
     this.filterSelectedMap(item.mapName);
 
-    this.position = { x: clientX, y: clientY };
+    this.position = { x: pageX, y: pageY };
     this.content = item.mapName;
     this.selected = true;
     this.timeoutHandle = setTimeout(() => this.selected = false, 6000);
