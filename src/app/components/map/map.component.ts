@@ -22,13 +22,13 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
     </svg>
 
     @if (selected) {
-      <div class="bg-nightfall absolute py-2 px-4 border-gold border-2 bg-opacity-90 -translate-x-1/2" [ngStyle]="{'top.px': position?.y, 'left.px': position?.x}">
+      <div class="bg-nightfall absolute p-2 border-gold border-2 bg-opacity-90 -translate-x-1/2" [ngStyle]="{'top.px': position?.y, 'left.px': position?.x}">
         <div class="flex justify-center">
-          <p class="text-lg">{{ content }}</p>
+          <p class="text-base md:text-lg text-nowrap text-ellipsis">{{ content }}</p>
         </div>
         <div class="flex w-full justify-center">
           @for (item of toolTipData; track $index) {
-            <img class="w-10" [src]="item.imageThumbnail" [alt]="item.alt">
+            <img class="w-8 md:w-10" [src]="item.imageThumbnail" [alt]="item.alt">
           }
         </div>
       </div>
