@@ -26,12 +26,14 @@ import { CpTeamsComponent } from './pages/copa-peru/cp-teams/cp-teams.component'
 import { CpFixtureComponent } from './pages/copa-peru/cp-fixture/cp-fixture.component';
 import { CpTableComponent } from './pages/copa-peru/cp-table/cp-table.component';
 import { NotFoundComponent } from './pages/main/not-found/not-found.component';
+import { TestComponent } from './pages/main/test/test.component';
 
 export const routes: Routes = [
   { path: '', redirectTo:'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'social', component: SocialComponent },
+  { path: 'test', component: TestComponent },
   {
     path: 'liga1',
     component: L1MainComponent,
