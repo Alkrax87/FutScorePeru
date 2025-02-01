@@ -1,7 +1,7 @@
-<div class="bg-night text-white flex flex-wrap justify-center w-full p-5">
+<div class="bg-gray-100 flex flex-wrap justify-center w-full p-5">
   <div class="w-full md:w-3/6 lg:w-5/12 flex items-center">
-    <div class="p-5">
-      <h1 class="text-3xl">Equipos</h1>
+    <div class="p-0 md:p-5">
+      <h1 class="text-3xl font-semibold">Equipos</h1>
       <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-36 my-3"></div>
       <div class="flex justify-center">
         <p>En la temporada <b>2025</b> el número de equipos participantes de la <b>Liga 1</b> es de <b>19</b> equipos:</p>
@@ -20,5 +20,30 @@
     <div class="w-full p-5 bg-nightfall">
       <app-map [map]="map" [dataTeamsMap]="dataMap"></app-map>
     </div>
+  </div>
+</div>
+<div class="bg-night flex justify-center">
+  <div class="w-full lg:w-5/6 text-white py-8">
+    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Mejores Defensas</div>
+    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
+    <app-statistics [data]="dataBestDefense"></app-statistics>
+    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Peores Defensas</div>
+    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
+    <app-statistics [data]="dataWorstDefense"></app-statistics>
+    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Más Goleadores</div>
+    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
+    <app-statistics [data]="dataMostGoals"></app-statistics>
+    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Menos Goleadores</div>
+    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
+    <app-statistics [data]="dataFewestGoals"></app-statistics>
+    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Más Partidos Ganados</div>
+    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
+    <app-statistics [data]="dataMostWins"></app-statistics>
+    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Más Partidos Empatados</div>
+    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
+    <app-statistics [data]="dataMostDraws"></app-statistics>
+    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Más Partidos Perdidos</div>
+    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
+    <app-statistics [data]="dataMostLosses"></app-statistics>
   </div>
 </div>
