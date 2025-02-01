@@ -17,8 +17,7 @@ module.exports = {
         quarter: "#11759C",
       },
       skew: {
-        "30p": "30deg",
-        "30n": "-30deg",
+        "30": "30deg",
         "50": "50deg",
       }
     },

@@ -24,9 +24,9 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
     @if (selected) {
       <div class="bg-nightfall absolute p-2 border-gold border-2 bg-opacity-90 -translate-x-1/2" [ngStyle]="{'top.px': position?.y, 'left.px': position?.x}">
         <div class="flex justify-center">
-          <p class="text-base md:text-lg text-nowrap text-ellipsis">{{ content }}</p>
+          <p class="text-white text-base md:text-lg text-center">{{ content }}</p>
         </div>
-        <div class="flex w-full justify-center">
+        <div class="flex flex-wrap justify-center">
           @for (item of toolTipData; track $index) {
             <img class="w-8 md:w-10" [src]="item.imageThumbnail" [alt]="item.alt">
           }
@@ -58,6 +58,7 @@ export class MapComponent {
     if (this.timeoutHandle) {
       clearTimeout(this.timeoutHandle);
     }
+
     const { pageX, pageY } = event;
 
     if (!item.mapStatus) {
