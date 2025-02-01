@@ -5,7 +5,7 @@ import { FetchMapService } from '../../../services/fetch-map.service';
 import { MapComponent } from "../../../components/map/map.component";
 import { Subscription } from 'rxjs';
 import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
-import { Map } from '../../../interfaces/api-models/map';
+import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
 
 @Component({
@@ -22,7 +22,7 @@ export class L2HomeComponent {
 
   private teamSubscription: Subscription | null = null;
   dataTeams: TeamDataL2[] | null = null;
-  map: Map[] = [];
+  map: MapElement[] = [];
   dataMap: TeamMap[] = [];
 
   ngOnInit() {

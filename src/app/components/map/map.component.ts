@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Map } from '../../interfaces/api-models/map';
+import { MapElement } from '../../interfaces/api-models/map-element';
 import { TeamMap } from '../../interfaces/ui-models/team-map';
 
 @Component({
@@ -45,7 +45,7 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
   `,
 })
 export class MapComponent {
-  @Input() map!: Map[];
+  @Input() map!: MapElement[];
   @Input() dataTeamsMap!: TeamMap[];
   position: { x: number, y: number } | null = null;
   content: string = '';
@@ -53,7 +53,7 @@ export class MapComponent {
   private timeoutHandle: any;
   toolTipData: TeamMap[] = [];
 
-  showTooltip(event: MouseEvent, item: Map) {
+  showTooltip(event: MouseEvent, item: MapElement) {
     this.content = '';
     if (this.timeoutHandle) {
       clearTimeout(this.timeoutHandle);
