@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
-import { Subscription } from 'rxjs';
-import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
-import { TeamCardComponent } from "../../../components/team-card/team-card.component";
-import { TeamCard } from '../../../interfaces/ui-models/team-card';
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
+import { Subscription } from 'rxjs';
+import { TeamCardComponent } from "../../../components/team-card/team-card.component";
+import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
+import { TeamCard } from '../../../interfaces/ui-models/team-card';
 
 @Component({
   selector: 'app-l1-teams',
@@ -15,7 +15,7 @@ import { FetchStadiumService } from '../../../services/fetch-stadium.service';
         <div class="flex justify-center">
           <div class="w-full lg:w-11/12 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             @for (item of dataTeamsCard; track $index) {
-              <app-team-card [data]="item"></app-team-card>
+              <app-team-card class="truncate" [data]="item"></app-team-card>
             }
           </div>
         </div>

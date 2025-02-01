@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { Subscription } from 'rxjs';
+import { TeamCardComponent } from "../../../components/team-card/team-card.component";
 import { TeamDataL3 } from '../../../interfaces/api-models/team-data-l3';
 import { TeamCard } from '../../../interfaces/ui-models/team-card';
-import { TeamCardComponent } from "../../../components/team-card/team-card.component";
 
 @Component({
   selector: 'app-l3-teams',
@@ -15,7 +15,7 @@ import { TeamCardComponent } from "../../../components/team-card/team-card.compo
         <div class="flex justify-center">
           <div class="w-full lg:w-11/12 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             @for (item of dataTeamsCard; track $index) {
-              <app-team-card [data]="item"></app-team-card>
+              <app-team-card class="truncate" [data]="item"></app-team-card>
             }
           </div>
         </div>
@@ -35,7 +35,6 @@ export class L3TeamsComponent {
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
       next: (data) => {
         this.dataTeams = data;
-        console.log(this.dataTeams);
         this.getDataForCard();
       },
     });
@@ -50,7 +49,7 @@ export class L3TeamsComponent {
         newData.push({
           name: team.name,
           abbreviation: team.abbreviation,
-          image: team.imageThumbnail,
+          image: team.image,
           alt: team.alt,
           url: team.url,
           color: team.color,
