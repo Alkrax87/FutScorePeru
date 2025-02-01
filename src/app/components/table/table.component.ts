@@ -46,7 +46,7 @@ import { TeamTable } from '../../interfaces/ui-models/team-table';
                 <td>
                   <div class="flex">
                     <img [src]="item.image" [alt]="item.alt" class="w-8">
-                    <span class="hidden sm:block ml-3 whitespace-nowrap">{{ item.name }}</span>
+                    <span class="hidden sm:block ml-3 truncate">{{ item.name }}</span>
                     <span class="sm:hidden ml-3 font-bold">{{ item.abbreviation }}</span>
                   </div>
                 </td>
