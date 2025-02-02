@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
         (mouseout)="isHovered = false"
       >
         <div class="w-16 flex justify-center items-center">
-          <img [src]="data?.image" [alt]="data?.alt" class="min-w-16 w-16" />
+          <img loading="lazy" [src]="data?.image" [alt]="data?.alt" class="min-w-16 w-16" />
         </div>
         <div class="w-full truncate">
           <div class="w-full truncate font-semibold">

@@ -28,7 +28,7 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
         </div>
         <div class="flex flex-wrap justify-center">
           @for (item of toolTipData; track $index) {
-            <img class="w-8 md:w-10" [src]="item.imageThumbnail" [alt]="item.alt">
+            <img loading="lazy" class="w-8 md:w-10" [src]="item.imageThumbnail" [alt]="item.alt">
           }
         </div>
       </div>

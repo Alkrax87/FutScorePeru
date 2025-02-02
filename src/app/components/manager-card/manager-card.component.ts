@@ -10,7 +10,7 @@ import { ManagerCard } from '../../interfaces/ui-models/manager-card';
       <div class="flex w-11/12 md:w-5/6">
         <div class="min-w-20 w-24 md:min-w-36 min-h-20 h-24 md:min-h-36">
           @if (data.photo) {
-            <img [src]="data.photo" alt="Manager-logo" class="object-cover h-full w-full"/>
+            <img loading="lazy" [src]="data.photo" alt="Manager-logo" class="object-cover h-full w-full"/>
           } @else {
             <img src="assets/images/pages/no-manager.webp" alt="Manager-logo" class="object-cover h-full w-full"/>
           }
