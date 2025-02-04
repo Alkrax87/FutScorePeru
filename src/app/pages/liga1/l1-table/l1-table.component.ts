@@ -103,14 +103,14 @@ export class L1TableComponent {
   classificationApertura = [
     {
       name: 'Ganador Apertura',
-      image: 'assets/images/pages/Libertadores.webp',
+      image: 'assets/images/pages/Plate.png',
       class: 'bg-gold',
     },
   ];
   classificationClausura = [
     {
       name: 'Ganador Clausura',
-      image: 'assets/images/pages/Libertadores.webp',
+      image: 'assets/images/pages/Plate.png',
       class: 'bg-gold',
     },
   ];
