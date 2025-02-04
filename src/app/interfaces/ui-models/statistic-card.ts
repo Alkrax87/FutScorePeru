@@ -1,6 +1,6 @@
 export interface StatisticCard {
-  name: string;
   image: string;
+  abbreviation: string,
   alt: string;
   value: number;
   url: string;

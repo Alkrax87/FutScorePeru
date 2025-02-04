@@ -15,7 +15,7 @@ export class TransformStatisticDataService {
     return data.map((element: any) => {
       const team = teamMap.get(element.teamId);
       return {
-        name: team?.name,
+        abbreviation: team?.abbreviation,
         image: team?.image,
         alt: team?.alt,
         value: element[valueKey],
