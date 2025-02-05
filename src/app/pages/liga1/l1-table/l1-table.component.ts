@@ -96,21 +96,21 @@ export class L1TableComponent {
     },
     {
       name: 'Descenso',
-      image: 'assets/images/pages/Liga-2.webp',
+      image: 'assets/images/pages/Relegation.svg',
       class: 'bg-relegation',
     },
   ];
   classificationApertura = [
     {
       name: 'Ganador Apertura',
-      image: 'assets/images/pages/Plate.png',
+      image: 'assets/images/pages/Plate.svg',
       class: 'bg-gold',
     },
   ];
   classificationClausura = [
     {
       name: 'Ganador Clausura',
-      image: 'assets/images/pages/Plate.png',
+      image: 'assets/images/pages/Plate.svg',
       class: 'bg-gold',
     },
   ];

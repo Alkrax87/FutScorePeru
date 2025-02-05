@@ -56,7 +56,18 @@ export class L3TableComponent {
     { class: '', quantity: 0 },
     { class: 'bg-relegation', quantity: 1 },
   ];
-  classificationRegional = []
+  classificationRegional = [
+    {
+      name: 'Grupo de Ascenso',
+      image: 'assets/images/pages/Promotion.svg',
+      class: 'bg-promotion',
+    },
+    {
+      name: 'Grupo de Descenso',
+      image: 'assets/images/pages/Relegation.svg',
+      class: 'bg-relegation',
+    },
+  ];
 
   ngOnInit() {
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
