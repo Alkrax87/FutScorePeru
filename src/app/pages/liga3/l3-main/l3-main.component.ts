@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
+import { FetchFixtureService } from '../../../services/fetch-fixture.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
@@ -23,6 +24,7 @@ import { TeamNav } from '../../../interfaces/ui-models/team-nav';
 export class L3MainComponent {
   constructor(
     private teamsService: FetchTeamDataService,
+    private fixtureService: FetchFixtureService,
     private statisticsService: FetchStatisticsService
   ) {}
 
@@ -39,6 +41,7 @@ export class L3MainComponent {
 
   ngOnInit() {
     this.teamsService.getDataLiga3();
+    this.fixtureService.getDataFixtureLiga3();
     this.statisticsService.getStatisticsL3();
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
       next: (data) => {
