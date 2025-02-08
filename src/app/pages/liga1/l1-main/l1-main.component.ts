@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchFixtureService } from '../../../services/fetch-fixture.service';
+import { FetchResultsService } from '../../../services/fetch-results.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { Subscription } from 'rxjs';
-import { RouterOutlet } from '@angular/router';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
 import { TeamNav } from '../../../interfaces/ui-models/team-nav';
@@ -25,6 +26,7 @@ export class L1MainComponent {
   constructor(
     private teamsService: FetchTeamDataService,
     private fixtureService: FetchFixtureService,
+    private resultsService: FetchResultsService,
     private statisticsService: FetchStatisticsService
   ) {}
 
@@ -43,6 +45,7 @@ export class L1MainComponent {
     this.teamsService.getDataLiga1();
     this.fixtureService.getDataFixtureLiga1();
     this.statisticsService.getStatisticsL1();
+    this.resultsService.getResultsL1();
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
       next: (data) => {
         this.dataTeams = data;
