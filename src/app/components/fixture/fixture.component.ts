@@ -18,13 +18,13 @@ import { FixtureCard } from '../../interfaces/ui-models/fixture-card';
             </div>
             <div class="relative flex-none border-l-[18px] border-t-[18px] border-l-transparent border-t-night bg-white"></div>
           </div>
-          <div class="bg-nightfall text-white flex justify-center space-x-1 h-[50px]">
+          <div class="bg-nightfall text-white flex justify-center gap-1 h-[50px]">
             <div class="w-full flex justify-end items-center">
               <p>
                 <span class="hidden md:block">{{ item.team1 }}</span>
                 <span class="block md:hidden font-bold">{{ item.abbreviation1 }}</span>
               </p>
-              <img [src]="item.logo1" [alt]="item.alt1" class="w-9"/>
+              <img [src]="item.logo1" [alt]="item.alt1" class="w-9 mx-2"/>
             </div>
             <div class="bg-brightnight flex justify-center items-center font-bold text-3xl min-w-11 max-w-11">
               <p>{{ item.result1 }}</p>
@@ -33,7 +33,7 @@ import { FixtureCard } from '../../interfaces/ui-models/fixture-card';
               <p>{{ item.result2 }}</p>
             </div>
             <div class="w-full flex justify-start items-center">
-              <img [src]="item.logo2" [alt]="item.alt2" class="w-9"/>
+              <img [src]="item.logo2" [alt]="item.alt2" class="w-9 mx-2"/>
               <p>
                 <span class="hidden md:block">{{ item.team2 }}</span>
                 <span class="block md:hidden font-bold">{{ item.abbreviation2 }}</span>
