@@ -90,11 +90,11 @@ import { TeamTable } from '../../interfaces/ui-models/team-table';
           <div class="mt-8">
             @for (item of classification; track $index) {
               <div class="flex my-2">
-                <div class="h-10 w-1" [ngClass]="item.class"></div>
-                <div class="h-10">
+                <div class="h-8 w-1" [ngClass]="item.class"></div>
+                <div class="h-8">
                   <img loading="lazy" [src]="item.image" alt="classification-logo" class="h-full px-2">
                 </div>
-                <div class="h-10 text-gray-200 flex items-center">
+                <div class="h-8 text-gray-200 flex items-center">
                   {{ item.name }}
                 </div>
               </div>
