@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
 import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel';
 import { ManagerCarouselComponent } from "../../../components/manager-carousel/manager-carousel.component";
+import { ManagerData } from '../../../interfaces/api-models/manager-data';
 
 @Component({
   selector: 'app-l2-managers',
@@ -36,36 +37,36 @@ export class L2ManagersComponent {
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeams: TeamDataL2[] | null = null;
-
+  private managerSubscription: Subscription | null = null;
+  dataTeams: TeamDataL2[] = [];
+  dataManagers: ManagerData[] = [];
   dataCarousel: ManagerCarousel[] = [];
 
   ngOnInit() {
     this.teamSubscription = this.teamsService.dataTeamsL2$.subscribe({
-      next: (data) => {
-        this.dataTeams = data;
-        this.getManagerData();
-      },
+      next: (data) => (this.dataTeams = data)
     });
+    this.managerSubscription = this.managerService.dataManagersL2$.subscribe({
+      next: (data) => (this.dataManagers = data)
+    });
+
+    if (this.dataTeams && this.dataManagers) {
+      this.getManagerData();
+    }
   }
 
-  async getManagerData() {
+  getManagerData() {
     const mergedData = [];
 
     if (this.dataTeams) {
       for (const team of this.dataTeams) {
-        const manager = await this.managerService.fetchManager(team.manager.url);
-        const filteredDataManagers = manager.map(({ name, cod, photo }) => ({
-          name,
-          cod,
-          photo,
-        }));
+        const managers = this.dataManagers.filter(manager => manager.teamId === team.teamId);
         mergedData.push({
           name: team.name,
           image: team.image,
           alt: team.alt,
           url: team.url,
-          manager: filteredDataManagers,
+          manager: managers,
         })
       }
     }
@@ -75,5 +76,6 @@ export class L2ManagersComponent {
 
   ngOnDestroy() {
     this.teamSubscription?.unsubscribe();
+    this.managerSubscription?.unsubscribe();
   }
 }

@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
 import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel';
 import { ManagerCarouselComponent } from "../../../components/manager-carousel/manager-carousel.component";
+import { ManagerData } from '../../../interfaces/api-models/manager-data';
 
 @Component({
   selector: 'app-l1-managers',
@@ -36,36 +37,36 @@ export class L1ManagersComponent {
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeams: TeamDataL1[] | null = null;
-
+  private managerSubscription: Subscription | null = null;
+  dataTeams: TeamDataL1[] = [];
+  dataManagers: ManagerData[] = [];
   dataCarousel: ManagerCarousel[] = [];
 
   ngOnInit() {
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
-      next: (data) => {
-        this.dataTeams = data;
-        this.getManagerData();
-      },
+      next: (data) => (this.dataTeams = data)
     });
+    this.managerSubscription = this.managerService.dataManagersL1$.subscribe({
+      next: (data) => (this.dataManagers = data)
+    });
+
+    if (this.dataTeams && this.dataManagers) {
+      this.getManagerData();
+    }
   }
 
-  async getManagerData() {
+  getManagerData() {
     const mergedData = [];
 
-    if (this.dataTeams) {
+    if (this.dataTeams && this.dataManagers) {
       for (const team of this.dataTeams) {
-        const manager = await this.managerService.fetchManager(team.manager.url);
-        const filteredDataManagers = manager.map(({ name, cod, photo }) => ({
-          name,
-          cod,
-          photo,
-        }));
+        const managers = this.dataManagers.filter(manager => manager.teamId === team.teamId);
         mergedData.push({
           name: team.name,
           image: team.image,
           alt: team.alt,
           url: team.url,
-          manager: filteredDataManagers,
+          manager: managers,
         });
       }
     }
@@ -75,5 +76,6 @@ export class L1ManagersComponent {
 
   ngOnDestroy() {
     this.teamSubscription?.unsubscribe();
+    this.managerSubscription?.unsubscribe();
   }
 }

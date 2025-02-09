@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
+import { FetchManagerService } from '../../../services/fetch-manager.service';
 import { Subscription } from 'rxjs';
 import { TeamDataL3 } from '../../../interfaces/api-models/team-data-l3';
 import { ManagerCarouselComponent } from "../../../components/manager-carousel/manager-carousel.component";
-import { FetchManagerService } from '../../../services/fetch-manager.service';
 import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel';
+import { ManagerData } from '../../../interfaces/api-models/manager-data';
 
 @Component({
   selector: 'app-l3-managers',
@@ -36,36 +37,36 @@ export class L3ManagersComponent {
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeams: TeamDataL3[] | null = null;
-
-  dataCarousel: ManagerCarousel[] | null = null;
+  private managerSubscription: Subscription | null = null;
+  dataTeams: TeamDataL3[] = [];
+  dataManagers: ManagerData[] = [];
+  dataCarousel: ManagerCarousel[] = [];
 
   ngOnInit() {
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
-      next: (data) => {
-        this.dataTeams = data;
-        this.getManagerData();
-      }
-    })
+      next: (data) => (this.dataTeams = data)
+    });
+    this.managerSubscription = this.managerService.dataManagersL3$.subscribe({
+      next: (data) => (this.dataManagers = data)
+    });
+
+    if (this.dataTeams && this.dataManagers) {
+      this.getManagerData();
+    }
   }
 
-  async getManagerData() {
+  getManagerData() {
     const mergedData = [];
 
     if (this.dataTeams) {
       for (const team of this.dataTeams) {
-        const manager = await this.managerService.fetchManager(team.manager.url);
-        const filteredDataManagers = manager.map(({ name, cod, photo }) => ({
-          name,
-          cod,
-          photo,
-        }));
+        const managers = this.dataManagers.filter(manager => manager.teamId === team.teamId);
         mergedData.push({
           name: team.name,
           image: team.image,
           alt: team.alt,
           url: team.url,
-          manager: filteredDataManagers,
+          manager: managers,
         })
       }
     }
@@ -75,5 +76,6 @@ export class L3ManagersComponent {
 
   ngOnDestroy() {
     this.teamSubscription?.unsubscribe();
+    this.managerSubscription?.unsubscribe();
   }
 }
