@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
+import { FetchMapService } from '../../../services/fetch-map.service';
 import { FetchFixtureService } from '../../../services/fetch-fixture.service';
 import { FetchResultsService } from '../../../services/fetch-results.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
+import { FetchPerformanceService } from '../../../services/fetch-performance.service';
+import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
+import { FetchManagerService } from '../../../services/fetch-manager.service';
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
@@ -26,9 +30,13 @@ import { TeamNav } from '../../../interfaces/ui-models/team-nav';
 export class L3MainComponent {
   constructor(
     private teamsService: FetchTeamDataService,
+    private mapService: FetchMapService,
     private fixtureService: FetchFixtureService,
     private resultsService: FetchResultsService,
     private statisticsService: FetchStatisticsService,
+    private performanceService: FetchPerformanceService,
+    private lastGamesService: FetchLastGamesService,
+    private managersService: FetchManagerService,
     private stadiumsService: FetchStadiumService
   ) {}
 
@@ -45,9 +53,13 @@ export class L3MainComponent {
 
   ngOnInit() {
     this.teamsService.fetchTeamsL3();
-    this.fixtureService.fetchFixtureLiga3();
+    this.mapService.fetchMapL3();
+    this.fixtureService.fetchFixtureL3();
     this.resultsService.fetchResultsL3();
     this.statisticsService.fetchStatisticsL3();
+    this.performanceService.fetchPerformanceL3();
+    this.lastGamesService.fetchLastGamesL3();
+    this.managersService.fetchManagersL3();
     this.stadiumsService.fetchStadiums();
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
       next: (data) => {
