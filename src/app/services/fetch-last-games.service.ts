@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
-import { LastGamesL1 } from '../interfaces/api-models/last-games-l1';
-import { LastGamesL2 } from '../interfaces/api-models/last-games-l2';
-import { LastGamesL3 } from '../interfaces/api-models/last-games-l3';
+import { BehaviorSubject } from 'rxjs';
+import { LastGamesDataL1 } from '../interfaces/api-models/last-games-data-l1';
+import { LastGamesDataL2 } from '../interfaces/api-models/last-games-data-l2';
+import { LastGamesDataL3 } from '../interfaces/api-models/last-games-data-l3';
 
 @Injectable({
   providedIn: 'root',
@@ -11,42 +11,60 @@ import { LastGamesL3 } from '../interfaces/api-models/last-games-l3';
 export class FetchLastGamesService {
   constructor(private http: HttpClient) {}
 
-  async fetchLastGamesL1(url: string): Promise<{apertura: string[], clausura:string[]}> {
-    try {
-      const response = await firstValueFrom(this.http.get<LastGamesL1>(url));
-      return {
-        apertura: response.apertura,
-        clausura: response.clausura,
-      }
-    } catch (error) {
-      console.error('Failed to fetch last games', error);
-      return { apertura: [], clausura: [] };
+  cachedLastGamesL1: LastGamesDataL1[] | null = null;
+  cachedLastGamesL2: LastGamesDataL2[] | null = null;
+  cachedLastGamesL3: LastGamesDataL3[] | null = null;
+
+  private lastGamesL1Subject = new BehaviorSubject<LastGamesDataL1[]>([]);
+  private lastGamesL2Subject = new BehaviorSubject<LastGamesDataL2[]>([]);
+  private lastGamesL3Subject = new BehaviorSubject<LastGamesDataL3[]>([]);
+
+  dataLastGamesL1$ = this.lastGamesL1Subject.asObservable();
+  dataLastGamesL2$ = this.lastGamesL2Subject.asObservable();
+  dataLastGamesL3$ = this.lastGamesL3Subject.asObservable();
+
+  fetchLastGamesL1() {
+    if (this.cachedLastGamesL1) {
+      this.lastGamesL1Subject.next(this.cachedLastGamesL1);
+      return;
     }
+
+    this.http.get<LastGamesDataL1[]>('http://localhost:3000/api/lastgames/l1').subscribe({
+      next: (response) => {
+        this.cachedLastGamesL1 = response;
+        this.lastGamesL1Subject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Liga1) last games ', error),
+    });
   }
 
-  async fetchLastGamesL2(url: string): Promise<{regional: string[], grupos:string[]}> {
-    try {
-      const response = await firstValueFrom(this.http.get<LastGamesL2>(url));
-      return {
-        regional: response.regional,
-        grupos: response.grupos,
-      }
-    } catch (error) {
-      console.error('Failed to fetch last games', error);
-      return { regional: [], grupos: [] };
+  fetchLastGamesL2() {
+    if (this.cachedLastGamesL2) {
+      this.lastGamesL2Subject.next(this.cachedLastGamesL2);
+      return;
     }
+
+    this.http.get<LastGamesDataL2[]>('http://localhost:3000/api/lastgames/l2').subscribe({
+      next: (response) => {
+        this.cachedLastGamesL2 = response;
+        this.lastGamesL2Subject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Liga2) last games ', error),
+    });
   }
 
-  async fetchLastGamesL3(url: string): Promise<{regular: string[], final:string[]}> {
-    try {
-      const response = await firstValueFrom(this.http.get<LastGamesL3>(url));
-      return {
-        regular: response.regular,
-        final: response.final,
-      }
-    } catch (error) {
-      console.error('Failed to fetch last games', error);
-      return { regular: [], final: [] };
+  fetchLastGamesL3() {
+    if (this.cachedLastGamesL3) {
+      this.lastGamesL3Subject.next(this.cachedLastGamesL3);
+      return;
     }
+
+    this.http.get<LastGamesDataL3[]>('http://localhost:3000/api/lastgames/l3').subscribe({
+      next: (response) => {
+        this.cachedLastGamesL3 = response;
+        this.lastGamesL3Subject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Liga3) last games ', error),
+    });
   }
 }

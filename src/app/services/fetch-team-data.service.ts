@@ -11,32 +11,60 @@ import { TeamDataL3 } from '../interfaces/api-models/team-data-l3';
 export class FetchTeamDataService {
   constructor(private http: HttpClient) {}
 
-  private dataTeamsL1Subject = new BehaviorSubject<TeamDataL1[] | null>(null);
-  private dataTeamsL2Subject = new BehaviorSubject<TeamDataL2[] | null>(null);
-  private dataTeamsL3Subject = new BehaviorSubject<TeamDataL3[] | null>(null);
+  cachedTeamsL1: TeamDataL1[] | null = null;
+  cachedTeamsL2: TeamDataL2[] | null = null;
+  cachedTeamsL3: TeamDataL3[] | null = null;
 
-  dataTeamsL1$ = this.dataTeamsL1Subject.asObservable();
-  dataTeamsL2$ = this.dataTeamsL2Subject.asObservable();
-  dataTeamsL3$ = this.dataTeamsL3Subject.asObservable();
+  private teamsL1Subject = new BehaviorSubject<TeamDataL1[]>([]);
+  private teamsL2Subject = new BehaviorSubject<TeamDataL2[]>([]);
+  private teamsL3Subject = new BehaviorSubject<TeamDataL3[]>([]);
 
-  getDataLiga1() {
+  dataTeamsL1$ = this.teamsL1Subject.asObservable();
+  dataTeamsL2$ = this.teamsL2Subject.asObservable();
+  dataTeamsL3$ = this.teamsL3Subject.asObservable();
+
+  fetchTeamsL1() {
+    if (this.cachedTeamsL1) {
+      this.teamsL1Subject.next(this.cachedTeamsL1);
+      return;
+    }
+
     this.http.get<TeamDataL1[]>('http://localhost:3000/api/teams/l1').subscribe({
-      next: (response) => this.dataTeamsL1Subject.next(response),
-      error: (error) => console.error('Failed to fetch team data (Liga 1) ', error),
+      next: (response) => {
+        this.cachedTeamsL1 = response;
+        this.teamsL1Subject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Liga1) teams ', error),
     });
   }
 
-  getDataLiga2() {
+  fetchTeamsL2() {
+    if (this.cachedTeamsL2) {
+      this.teamsL2Subject.next(this.cachedTeamsL2);
+      return;
+    }
+
     this.http.get<TeamDataL2[]>('http://localhost:3000/api/teams/l2').subscribe({
-      next: (response) => this.dataTeamsL2Subject.next(response),
-      error: (error) => console.error('Failed to fetch team data (Liga 2) ', error),
+      next: (response) => {
+        this.cachedTeamsL2 = response;
+        this.teamsL2Subject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Liga2) teams ', error),
     });
   }
 
-  getDataLiga3() {
+  fetchTeamsL3() {
+    if (this.cachedTeamsL3) {
+      this.teamsL3Subject.next(this.cachedTeamsL3);
+      return;
+    }
+
     this.http.get<TeamDataL3[]>('http://localhost:3000/api/teams/l3').subscribe({
-      next: (response) => this.dataTeamsL3Subject.next(response),
-      error: (error) => console.error('Failed to fetch team data (Liga 3) ', error),
+      next: (response) => {
+        this.cachedTeamsL3 = response;
+        this.teamsL3Subject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Liga3) teams ', error),
     });
   }
 }

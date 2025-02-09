@@ -1,4 +1,5 @@
 export interface PerformanceDataL3 {
+  teamId: string;
   regular: {
     points: number;
     pj: number;

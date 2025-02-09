@@ -1,4 +1,5 @@
 export interface PerformanceDataL1 {
+  teamId: string;
   apertura: {
     points: number;
     pj: number;

@@ -11,32 +11,60 @@ import { ResultsDataL3 } from '../interfaces/api-models/results-data-l3';
 export class FetchResultsService {
   constructor(private http: HttpClient) {}
 
-  private dataResultsL1Subject = new BehaviorSubject<ResultsDataL1[]>([]);
-  private dataResultsL2Subject = new BehaviorSubject<ResultsDataL2[]>([]);
-  private dataResultsL3Subject = new BehaviorSubject<ResultsDataL3[]>([]);
+  cachedResultsL1: ResultsDataL1[] | null = null;
+  cachedResultsL2: ResultsDataL2[] | null = null;
+  cachedResultsL3: ResultsDataL3[] | null = null;
 
-  dataResultsL1$ = this.dataResultsL1Subject.asObservable();
-  dataResultsL2$ = this.dataResultsL2Subject.asObservable();
-  dataResultsL3$ = this.dataResultsL3Subject.asObservable();
+  private resultsL1Subject = new BehaviorSubject<ResultsDataL1[]>([]);
+  private resultsL2Subject = new BehaviorSubject<ResultsDataL2[]>([]);
+  private resultsL3Subject = new BehaviorSubject<ResultsDataL3[]>([]);
 
-  getResultsL1() {
+  dataResultsL1$ = this.resultsL1Subject.asObservable();
+  dataResultsL2$ = this.resultsL2Subject.asObservable();
+  dataResultsL3$ = this.resultsL3Subject.asObservable();
+
+  fetchResultsL1() {
+    if (this.cachedResultsL1) {
+      this.resultsL1Subject.next(this.cachedResultsL1);
+      return;
+    }
+
     this.http.get<ResultsDataL1[]>('http://localhost:3000/api/results/l1').subscribe({
-      next: (response) => this.dataResultsL1Subject.next(response),
-      error: (error) => console.log('Failed to fetch results Liga 1 ', error),
+      next: (response) => {
+        this.cachedResultsL1 = response;
+        this.resultsL1Subject.next(response);
+      },
+      error: (error) => console.log('Failed to fetch (Liga1) results ', error),
     });
   }
 
-  getResultsL2() {
+  fetchResultsL2() {
+    if (this.cachedResultsL2) {
+      this.resultsL2Subject.next(this.cachedResultsL2);
+      return;
+    }
+
     this.http.get<ResultsDataL2[]>('http://localhost:3000/api/results/l2').subscribe({
-      next: (response) => this.dataResultsL2Subject.next(response),
-      error: (error) => console.log('Failed to fetch results Liga 2 ', error),
+      next: (response) => {
+        this.cachedResultsL2 = response;
+        this.resultsL2Subject.next(response);
+      },
+      error: (error) => console.log('Failed to fetch (Liga2) results ', error),
     });
   }
 
-  getResultsL3() {
+  fetchResultsL3() {
+    if (this.cachedResultsL3) {
+      this.resultsL3Subject.next(this.cachedResultsL3);
+      return;
+    }
+
     this.http.get<ResultsDataL3[]>('http://localhost:3000/api/results/l3').subscribe({
-      next: (response) => this.dataResultsL3Subject.next(response),
-      error: (error) => console.log('Failed to fetch results Liga 3 ', error),
+      next: (response) => {
+        this.cachedResultsL3 = response;
+        this.resultsL3Subject.next(response);
+      },
+      error: (error) => console.log('Failed to fetch (Liga3) results ', error),
     });
   }
 }

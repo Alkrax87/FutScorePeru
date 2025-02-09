@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { PerformanceDataL1 } from '../interfaces/api-models/performance-data-l1';
 import { PerformanceDataL2 } from '../interfaces/api-models/performance-data-l2';
 import { PerformanceDataL3 } from '../interfaces/api-models/performance-data-l3';
@@ -11,43 +11,60 @@ import { PerformanceDataL3 } from '../interfaces/api-models/performance-data-l3'
 export class FetchPerformanceService {
   constructor(private http: HttpClient) {}
 
-  async fetchPerformanceL1(url: string): Promise<{apertura: object, clausura: object, sanction: number | null}> {
-    try {
-      const response = await firstValueFrom(this.http.get<PerformanceDataL1>(url));
-      return {
-        apertura: response.apertura,
-        clausura: response.clausura,
-        sanction: response.sanction,
-      }
-    } catch (error) {
-      console.error('Failed to fetch performance', error);
-      return { apertura: {}, clausura: {}, sanction: null };
+  cachedPerformanceL1: PerformanceDataL1[] | null = null;
+  cachedPerformanceL2: PerformanceDataL2[] | null = null;
+  cachedPerformanceL3: PerformanceDataL3[] | null = null;
+
+  private performanceL1Subject = new BehaviorSubject<PerformanceDataL1[]>([]);
+  private performanceL2Subject = new BehaviorSubject<PerformanceDataL2[]>([]);
+  private performanceL3Subject = new BehaviorSubject<PerformanceDataL3[]>([]);
+
+  dataPerformanceL1$ = this.performanceL1Subject.asObservable();
+  dataPerformanceL2$ = this.performanceL2Subject.asObservable();
+  dataPerformanceL3$ = this.performanceL3Subject.asObservable();
+
+  fetchPerformanceL1() {
+    if (this.cachedPerformanceL1) {
+      this.performanceL1Subject.next(this.cachedPerformanceL1);
+      return;
     }
+
+    this.http.get<PerformanceDataL1[]>('http://localhost:3000/api/performance/l1').subscribe({
+      next: (response) => {
+        this.cachedPerformanceL1 = response;
+        this.performanceL1Subject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Liga1) performance ', error),
+    });
   }
 
-  async fetchPerformanceL2(url: string): Promise<{regional: object, grupos: object}> {
-    try {
-      const response = await firstValueFrom(this.http.get<PerformanceDataL2>(url));
-      return {
-        regional: response.regional,
-        grupos: response.grupos,
-      }
-    } catch (error) {
-      console.error('Failed to fetch performance', error);
-      return { regional: {}, grupos: {} };
+  fetchPerformanceL2() {
+    if (this.cachedPerformanceL2) {
+      this.performanceL2Subject.next(this.cachedPerformanceL2);
+      return;
     }
+
+    this.http.get<PerformanceDataL2[]>('http://localhost:3000/api/performance/l2').subscribe({
+      next: (response) => {
+        this.cachedPerformanceL2 = response;
+        this.performanceL2Subject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Liga2) performance ', error),
+    });
   }
 
-  async fetchPerformanceL3(url: string): Promise<{regular: object, final: object}> {
-    try {
-      const response = await firstValueFrom(this.http.get<PerformanceDataL3>(url));
-      return {
-        regular: response.regular,
-        final: response.final,
-      }
-    } catch (error) {
-      console.error('Failed to fetch performance', error);
-      return { regular: {}, final: {} };
+  fetchPerformanceL3() {
+    if (this.cachedPerformanceL3) {
+      this.performanceL3Subject.next(this.cachedPerformanceL3);
+      return;
     }
+
+    this.http.get<PerformanceDataL3[]>('http://localhost:3000/api/performance/l3').subscribe({
+      next: (response) => {
+        this.cachedPerformanceL3 = response;
+        this.performanceL3Subject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Liga3) performance ', error),
+    });
   }
 }

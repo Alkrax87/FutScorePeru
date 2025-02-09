@@ -1,4 +1,5 @@
 export interface PerformanceDataL2 {
+  teamId: string;
   regional: {
     points: number;
     pj: number;
