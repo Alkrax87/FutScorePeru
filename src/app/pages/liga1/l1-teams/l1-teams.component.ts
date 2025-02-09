@@ -4,6 +4,7 @@ import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { Subscription } from 'rxjs';
 import { TeamCardComponent } from "../../../components/team-card/team-card.component";
 import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
+import { StadiumData } from '../../../interfaces/api-models/stadium-data';
 import { TeamCard } from '../../../interfaces/ui-models/team-card';
 
 @Component({
@@ -25,27 +26,38 @@ import { TeamCard } from '../../../interfaces/ui-models/team-card';
   styles: ``,
 })
 export class L1TeamsComponent {
-  constructor(private teamsService: FetchTeamDataService, private stadiumService: FetchStadiumService) {}
+  constructor(
+    private teamsService: FetchTeamDataService,
+    private stadiumService: FetchStadiumService
+  ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeams: TeamDataL1[] | null = null;
-  dataTeamsCard: TeamCard[] | null = null;
+  private stadiumSubscription: Subscription | null = null;
+  dataTeams: TeamDataL1[] = [];
+  dataStadiums: StadiumData[] = [];
+  dataTeamsCard: TeamCard[] = [];
 
   ngOnInit() {
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
-      next: (data) => {
-        this.dataTeams = data;
-        this.getDataForCard();
-      },
+      next: (data) => (this.dataTeams = data)
     });
+    this.stadiumSubscription = this.stadiumService.dataStadiums$.subscribe({
+      next: (data) => (this.dataStadiums = data)
+    });
+
+    if (this.dataTeams && this.dataStadiums) {
+      this.getDataForCard();
+    }
   }
 
-  async getDataForCard() {
+  getDataForCard() {
     const newData: TeamCard[] = [];
 
-    if (this.dataTeams) {
+    if (this.dataTeams && this.dataStadiums) {
+      const teamMap = new Map(this.dataStadiums.map((stadium) => [stadium.stadiumId, stadium]));
+
       for (const team of this.dataTeams) {
-        const stadium = await this.stadiumService.fetchStadium(team.stadium.url);
+        const stadium = teamMap.get(team.stadium);
         newData.push({
           name: team.name,
           abbreviation: team.abbreviation,
@@ -54,9 +66,9 @@ export class L1TeamsComponent {
           url: team.url,
           color: team.color,
           stadium: {
-            name: stadium.name,
-            capacity: stadium.capacity,
-            location: stadium.location
+            name: stadium?.name ?? "Por Definir",
+            capacity: stadium?.capacity ?? "",
+            location: stadium?.location ?? ""
           }
         });
       }
@@ -66,5 +78,6 @@ export class L1TeamsComponent {
 
   ngOnDestroy() {
     this.teamSubscription?.unsubscribe();
+    this.stadiumSubscription?.unsubscribe();
   }
 }
