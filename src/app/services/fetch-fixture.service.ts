@@ -23,7 +23,7 @@ export class FetchFixtureService {
   dataFixtureL2$ = this.fixtureL2Subject.asObservable();
   dataFixtureL3$ = this.fixtureL3Subject.asObservable();
 
-  fetchFixtureLiga1() {
+  fetchFixtureL1() {
     if (this.cachedFixtureL1) {
       this.fixtureL1Subject.next(this.cachedFixtureL1);
       return;
@@ -38,7 +38,7 @@ export class FetchFixtureService {
     });
   }
 
-  fetchFixtureLiga2() {
+  fetchFixtureL2() {
     if (this.cachedFixtureL2) {
       this.fixtureL2Subject.next(this.cachedFixtureL2);
       return;
@@ -53,7 +53,7 @@ export class FetchFixtureService {
     });
   }
 
-  fetchFixtureLiga3() {
+  fetchFixtureL3() {
     if (this.cachedFixtureL3) {
       this.fixtureL3Subject.next(this.cachedFixtureL3);
       return;
