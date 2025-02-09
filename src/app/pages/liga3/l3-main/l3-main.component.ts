@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchFixtureService } from '../../../services/fetch-fixture.service';
+import { FetchResultsService } from '../../../services/fetch-results.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
+import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { Subscription } from 'rxjs';
-import { RouterOutlet } from '@angular/router';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from "@fortawesome/free-solid-svg-icons";
 import { TeamDataL3 } from '../../../interfaces/api-models/team-data-l3';
 import { TeamNav } from '../../../interfaces/ui-models/team-nav';
@@ -25,24 +27,28 @@ export class L3MainComponent {
   constructor(
     private teamsService: FetchTeamDataService,
     private fixtureService: FetchFixtureService,
-    private statisticsService: FetchStatisticsService
+    private resultsService: FetchResultsService,
+    private statisticsService: FetchStatisticsService,
+    private stadiumsService: FetchStadiumService
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeams: TeamDataL3[] | null = null;
+  dataTeams: TeamDataL3[] = [];
+  dataTeamsNav: TeamNav[] = [];
   navOptions = [
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
     { name: 'Técnicos', route: 'tecnicos', icon: faUserShield },
   ];
-  dataTeamsNav: TeamNav[] = [];
   division: string = "Liga 3";
 
   ngOnInit() {
-    this.teamsService.getDataLiga3();
-    this.fixtureService.getDataFixtureLiga3();
-    this.statisticsService.getStatisticsL3();
+    this.teamsService.fetchTeamsL3();
+    this.fixtureService.fetchFixtureLiga3();
+    this.resultsService.fetchResultsL3();
+    this.statisticsService.fetchStatisticsL3();
+    this.stadiumsService.fetchStadiums();
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
       next: (data) => {
         this.dataTeams = data;

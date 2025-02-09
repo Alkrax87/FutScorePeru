@@ -4,6 +4,7 @@ import { FetchTeamDataService } from '../../../services/fetch-team-data.service'
 import { FetchFixtureService } from '../../../services/fetch-fixture.service';
 import { FetchResultsService } from '../../../services/fetch-results.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
+import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { Subscription } from 'rxjs';
@@ -27,25 +28,27 @@ export class L1MainComponent {
     private teamsService: FetchTeamDataService,
     private fixtureService: FetchFixtureService,
     private resultsService: FetchResultsService,
-    private statisticsService: FetchStatisticsService
+    private statisticsService: FetchStatisticsService,
+    private stadiumsService: FetchStadiumService
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeams: TeamDataL1[] | null = null;
+  dataTeams: TeamDataL1[] = [];
+  dataTeamsNav: TeamNav[] = [];
   navOptions = [
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
     { name: 'Técnicos', route: 'tecnicos', icon: faUserShield },
   ];
-  dataTeamsNav: TeamNav[] = [];
   division: string = "Liga 1";
 
   ngOnInit() {
-    this.teamsService.getDataLiga1();
-    this.fixtureService.getDataFixtureLiga1();
-    this.statisticsService.getStatisticsL1();
-    this.resultsService.getResultsL1();
+    this.teamsService.fetchTeamsL1();
+    this.fixtureService.fetchFixtureLiga1();
+    this.resultsService.fetchResultsL1();
+    this.statisticsService.fetchStatisticsL1();
+    this.stadiumsService.fetchStadiums();
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
       next: (data) => {
         this.dataTeams = data;
