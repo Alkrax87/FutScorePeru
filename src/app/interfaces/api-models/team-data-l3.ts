@@ -1,7 +1,6 @@
 export interface TeamDataL3 {
-  category: string;
-  group: string;
   teamId: string;
+  group: string;
   name: string;
   abbreviation: string;
   image: string;
@@ -9,23 +8,9 @@ export interface TeamDataL3 {
   alt: string;
   url: string;
   location: string;
+  stadium: number;
   color: {
     c1: string;
     c2?: string;
-  };
-  stadium: {
-    url: string;
-  };
-  manager: {
-    url: string;
-  };
-  lastgames: {
-    url: string;
-  };
-  performance: {
-    url: string;
-  };
-  results: {
-    url: string;
   };
 }

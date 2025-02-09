@@ -1,5 +1,4 @@
 export interface TeamDataL1 {
-  category: string;
   teamId: string;
   name: string;
   abbreviation: string;
@@ -8,23 +7,9 @@ export interface TeamDataL1 {
   alt: string;
   url: string;
   location: string;
+  stadium: number;
   color: {
     c1: string;
     c2?: string;
-  };
-  stadium: {
-    url: string;
-  };
-  manager: {
-    url: string;
-  };
-  lastgames: {
-    url: string;
-  };
-  performance: {
-    url: string;
-  };
-  results: {
-    url: string;
   };
 }
