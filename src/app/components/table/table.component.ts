@@ -71,7 +71,7 @@ import { TeamTable } from '../../interfaces/ui-models/team-table';
                             <fa-icon class="text-green-600" [icon]="Win"></fa-icon>
                           }
                           @case ("d") {
-                            <fa-icon class="text-neutral-400" [icon]="Draw"></fa-icon>
+                            <fa-icon class="text-neutral-300" [icon]="Draw"></fa-icon>
                           }
                           @case ("l") {
                             <fa-icon class="text-red-600" [icon]="Lose"></fa-icon>
