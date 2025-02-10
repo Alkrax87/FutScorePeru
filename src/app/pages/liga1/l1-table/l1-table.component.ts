@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
+import { SortDataTableService } from '../../../services/sort-data-table.service';
 import { Subscription } from 'rxjs';
-import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
-import { TeamTable } from '../../../interfaces/ui-models/team-table';
 import { TableComponent } from '../../../components/table/table.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
+import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
+import { PerformanceDataL1 } from '../../../interfaces/api-models/performance-data-l1';
+import { LastGamesDataL1 } from '../../../interfaces/api-models/last-games-data-l1';
+import { TeamTable } from '../../../interfaces/ui-models/team-table';
 
 @Component({
   selector: 'app-l1-table',
@@ -35,12 +38,16 @@ export class L1TableComponent {
   constructor(
     private teamsService: FetchTeamDataService,
     private performanceService: FetchPerformanceService,
-    private lastGamesService: FetchLastGamesService
+    private lastGamesService: FetchLastGamesService,
+    private sortDataService: SortDataTableService,
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeams: TeamDataL1[] | null = null;
-
+  private performanceSubscription: Subscription | null = null;
+  private lastGamesSubscription: Subscription | null = null;
+  dataTeams: TeamDataL1[] = [];
+  dataPerformance: PerformanceDataL1[] = [];
+  dataLastGames: LastGamesDataL1[] = [];
   acumulado: boolean = true;
   apertura: boolean = false;
   clausura: boolean = false;
@@ -117,100 +124,66 @@ export class L1TableComponent {
 
   ngOnInit() {
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
-      next: (data) => {
-        this.dataTeams = data;
-        this.getDataForTable();
-      },
+      next: (data) => (this.dataTeams = data)
     });
-  }
+    this.performanceSubscription = this.performanceService.dataPerformanceL1$.subscribe({
+      next: (data) => (this.dataPerformance = data)
+    });
+    this.lastGamesSubscription = this.lastGamesService.dataLastGamesL1$.subscribe({
+      next: (data) => (this.dataLastGames = data)
+    });
 
-  async getDataForTable() {
-    const mergedData = [];
-
-    if (this.dataTeams) {
-      for (const team of this.dataTeams) {
-        const performance = await this.performanceService.fetchPerformanceL1(team.performance.url);
-        const lastgames = await this.lastGamesService.fetchLastGamesL1(team.lastgames.url);
-        mergedData.push({
-          name: team.name,
-          abbreviation: team.abbreviation,
-          image: team.image,
-          imageThumbnail: team.imageThumbnail,
-          alt: team.alt,
-          url: team.url,
-          lastgames: lastgames,
-          performance: performance,
-        });
-      }
+    if (this.dataTeams && this.dataPerformance && this.dataLastGames) {
+      this.getDataForTable();
     }
-
-    this.splitTeams(mergedData);
   }
 
-  splitTeams(data: any[]) {
-    data.forEach((team: any) => {
-      const baseData = {
+  getDataForTable() {
+    const performanceMap = new Map(this.dataPerformance.map((performance) => [performance.teamId, performance]));
+    const lastGamesMap = new Map(this.dataLastGames.map((lastGames) => [lastGames.teamId, lastGames]));
+
+    let sortTeamsApertura:TeamTable[] = [];
+    let sortTeamsClausura:TeamTable[] = [];
+    let sortTeamsAcumulado:TeamTable[] = [];
+
+    for (const team of this.dataTeams) {
+      const baseTeamData = {
         name: team.name,
         abbreviation: team.abbreviation,
         image: team.image,
-        imageThumbnail: team.imageThumbnail,
         alt: team.alt,
         url: team.url,
-      };
+      }
+      const performance = performanceMap.get(team.teamId);
+      const lastGames = lastGamesMap.get(team.teamId);
 
-      const aperturaTeam = {
-        ...baseData,
-        lastgames: team.lastgames.apertura,
-        performance: {
-          points: team.performance.apertura.points,
-          pj: team.performance.apertura.pj,
-          pg: team.performance.apertura.pg,
-          pe: team.performance.apertura.pe,
-          pp: team.performance.apertura.pp,
-          gf: team.performance.apertura.gf,
-          gc: team.performance.apertura.gc,
-          dg: team.performance.apertura.dg,
-        },
-      };
+      if (!performance || !lastGames) return;
 
-      const clausuraTeam = {
-        ...baseData,
-        lastgames: team.lastgames.clausura,
-        performance: {
-          points: team.performance.clausura.points,
-          pj: team.performance.clausura.pj,
-          pg: team.performance.clausura.pg,
-          pe: team.performance.clausura.pe,
-          pp: team.performance.clausura.pp,
-          gf: team.performance.clausura.gf,
-          gc: team.performance.clausura.gc,
-          dg: team.performance.clausura.dg,
-        },
-      };
+      sortTeamsApertura.push({
+        ...baseTeamData,
+        performance: performance.apertura,
+        lastgames: lastGames.apertura,
+      });
+      sortTeamsClausura.push({
+        ...baseTeamData,
+        performance: performance.clausura,
+        lastgames: lastGames.clausura,
+      });
+      sortTeamsAcumulado.push({
+        ...baseTeamData,
+        performance: performance.acumulado,
+        lastgames: lastGames.acumulado,
+      });
+    }
 
-      const acumuladoTeam = {
-        ...baseData,
-        lastgames: team.lastgames.clausura,
-        performance: {
-          points: team.performance.apertura.points + team.performance.clausura.points - (team.performance.saction ?? 0),
-          pj: team.performance.apertura.pj + team.performance.clausura.pj,
-          pg: team.performance.apertura.pg + team.performance.clausura.pg,
-          pe: team.performance.apertura.pe + team.performance.clausura.pe,
-          pp: team.performance.apertura.pp + team.performance.clausura.pp,
-          gf: team.performance.apertura.gf + team.performance.clausura.gf,
-          gc: team.performance.apertura.gc + team.performance.clausura.gc,
-          dg: team.performance.apertura.dg + team.performance.clausura.dg,
-        },
-      };
-
-      // Agregar los equipos a sus respectivos arrays
-      this.dataApertura.push(aperturaTeam);
-      this.dataClausura.push(clausuraTeam);
-      this.dataAcumulado.push(acumuladoTeam);
-    });
+    this.dataApertura = this.sortDataService.sortTeams(sortTeamsApertura);
+    this.dataClausura = this.sortDataService.sortTeams(sortTeamsClausura);
+    this.dataAcumulado = this.sortDataService.sortTeams(sortTeamsAcumulado);
   }
 
   ngOnDestroy() {
     this.teamSubscription?.unsubscribe();
+    this.performanceSubscription?.unsubscribe();
+    this.lastGamesSubscription?.unsubscribe();
   }
 }

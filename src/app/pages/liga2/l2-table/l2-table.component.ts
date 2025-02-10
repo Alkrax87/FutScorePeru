@@ -2,10 +2,13 @@ import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
+import { SortDataTableService } from '../../../services/sort-data-table.service';
 import { Subscription } from 'rxjs';
-import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
-import { TeamTable } from '../../../interfaces/ui-models/team-table';
 import { TableComponent } from '../../../components/table/table.component';
+import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
+import { PerformanceDataL2 } from '../../../interfaces/api-models/performance-data-l2';
+import { LastGamesDataL2 } from '../../../interfaces/api-models/last-games-data-l2';
+import { TeamTable } from '../../../interfaces/ui-models/team-table';
 
 @Component({
   selector: 'app-l2-table',
@@ -13,9 +16,9 @@ import { TableComponent } from '../../../components/table/table.component';
   template: `
     <div class="bg-night py-5">
       <h3 class="text-4xl text-white font-bold mx-5 mb-5">Grupo Norte</h3>
-      <app-table [config]="configGrupos" [headers]="headers" [classification]="classificationGrupos" [data]="dataGrupoNorte"></app-table>
+      <app-table [config]="configGrupos" [headers]="headers" [classification]="classificationGrupos" [data]="dataRegionalN"></app-table>
       <h3 class="text-4xl text-white font-bold mx-5 my-5">Grupo Sur</h3>
-      <app-table [config]="configGrupos" [headers]="headers" [classification]="classificationGrupos" [data]="dataGrupoSur"></app-table>
+      <app-table [config]="configGrupos" [headers]="headers" [classification]="classificationGrupos" [data]="dataRegionalS"></app-table>
     </div>
   `,
   styles: ``,
@@ -24,12 +27,16 @@ export class L2TableComponent {
   constructor(
     private teamsService: FetchTeamDataService,
     private performanceService: FetchPerformanceService,
-    private lastgamesService: FetchLastGamesService
+    private lastGamesService: FetchLastGamesService,
+    private sortDataService: SortDataTableService
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeams: TeamDataL2[] | null = null;
-
+  private performanceSubscription: Subscription | null = null;
+  private lastGamesSubscription: Subscription | null = null;
+  dataTeams: TeamDataL2[] = [];
+  dataPerformance: PerformanceDataL2[] = [];
+  dataLastGames: LastGamesDataL2[] = [];
   headers: string[] = [
     '',
     'Pos',
@@ -44,8 +51,8 @@ export class L2TableComponent {
     'DIF',
     'Últimas 5 Fechas',
   ];
-  dataGrupoNorte: TeamTable[] = [];
-  dataGrupoSur: TeamTable[] = [];
+  dataRegionalN: TeamTable[] = [];
+  dataRegionalS: TeamTable[] = [];
   configGrupos: { class: string; quantity: number }[] = [
     { class: 'bg-promotion', quantity: 6 },
     { class: '', quantity: 0 },
@@ -66,89 +73,67 @@ export class L2TableComponent {
 
   ngOnInit() {
     this.teamSubscription = this.teamsService.dataTeamsL2$.subscribe({
-      next: (data) => {
-        this.dataTeams = data;
-        this.getDataForTable();
-      },
+      next: (data) => (this.dataTeams = data)
     });
-  }
+    this.performanceSubscription = this.performanceService.dataPerformanceL2$.subscribe({
+      next: (data) => (this.dataPerformance = data)
+    });
+    this.lastGamesSubscription = this.lastGamesService.dataLastGamesL2$.subscribe({
+      next: (data) => (this.dataLastGames = data)
+    });
 
-  async getDataForTable() {
-    const mergedData = [];
-
-    if (this.dataTeams) {
-      for (const team of this.dataTeams) {
-        const performance = await this.performanceService.fetchPerformanceL2(team.performance.url);
-        const lastgames = await this.lastgamesService.fetchLastGamesL2(team.lastgames.url);
-        mergedData.push({
-          group: team.group,
-          name: team.name,
-          abbreviation: team.abbreviation,
-          image: team.image,
-          imageThumbnail: team.imageThumbnail,
-          alt: team.alt,
-          url: team.url,
-          lastgames: lastgames,
-          performance: performance,
-        })
-      }
+    if (this.dataTeams && this.dataPerformance && this.dataLastGames) {
+      this.getDataForTable();
     }
-
-    this.splitData(mergedData);
   }
 
-  splitData(data: any) {
-    for (const team of data) {
-      const baseData = {
+  getDataForTable() {
+    const performanceMap = new Map(this.dataPerformance.map((performance) => [performance.teamId, performance]));
+    const lastGamesMap = new Map(this.dataLastGames.map((lastGames) => [lastGames.teamId, lastGames]));
+
+    let sortTeamsRegionalN: TeamTable[] = [];
+    let sortTeamsRegionalS: TeamTable[] = [];
+
+    for (const team of this.dataTeams) {
+      const baseTeamData = {
         name: team.name,
         abbreviation: team.abbreviation,
         image: team.image,
-        imageThumbnail: team.imageThumbnail,
         alt: team.alt,
         url: team.url,
-      };
+      }
+      const performance = performanceMap.get(team.teamId);
+      const lastGames = lastGamesMap.get(team.teamId);
+
+      if (!performance || !lastGames) return;
 
       switch (team.group) {
         case "norte":
-          this.dataGrupoNorte.push({
-            ...baseData,
-            lastgames: team.lastgames.grupos,
-            performance: {
-              points: team.performance.grupos.points - (team.performance.grupos.saction ?? 0),
-              pj: team.performance.grupos.pj,
-              pg: team.performance.grupos.pg,
-              pe: team.performance.grupos.pe,
-              pp: team.performance.grupos.pp,
-              gf: team.performance.grupos.gf,
-              gc: team.performance.grupos.gc,
-              dg: team.performance.grupos.dg,
-            },
+          sortTeamsRegionalN.push({
+            ...baseTeamData,
+            performance: performance.regional,
+            lastgames: lastGames.regional,
           });
           break;
         case "sur":
-          this.dataGrupoSur.push({
-            ...baseData,
-            lastgames: team.lastgames.grupos,
-            performance: {
-              points: team.performance.grupos.points - (team.performance.grupos.saction ?? 0),
-              pj: team.performance.grupos.pj,
-              pg: team.performance.grupos.pg,
-              pe: team.performance.grupos.pe,
-              pp: team.performance.grupos.pp,
-              gf: team.performance.grupos.gf,
-              gc: team.performance.grupos.gc,
-              dg: team.performance.grupos.dg,
-            },
+          sortTeamsRegionalS.push({
+            ...baseTeamData,
+            performance: performance.regional,
+            lastgames: lastGames.regional,
           });
           break;
-
         default:
           break;
       }
     }
+
+    this.dataRegionalN = this.sortDataService.sortTeams(sortTeamsRegionalN);
+    this.dataRegionalS = this.sortDataService.sortTeams(sortTeamsRegionalS);
   }
 
   ngOnDestroy() {
     this.teamSubscription?.unsubscribe();
+    this.performanceSubscription?.unsubscribe();
+    this.lastGamesSubscription?.unsubscribe();
   }
 }

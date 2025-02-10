@@ -2,10 +2,9 @@ export interface TeamTable {
   name: string;
   abbreviation: string;
   image: string;
-  imageThumbnail: string;
   alt: string;
   url: string;
-  lastgames: [string, string, string, string, string];
+  lastgames: string[];
   performance: {
     points: number;
     pj: number;

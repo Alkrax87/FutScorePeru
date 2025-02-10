@@ -9,7 +9,6 @@ export interface PerformanceDataL3 {
     gf: number;
     gc: number;
     dg: number;
-    sanction: number | null;
   };
   final: {
     points: number;
@@ -20,6 +19,5 @@ export interface PerformanceDataL3 {
     gf: number;
     gc: number;
     dg: number;
-    sanction: number | null;
   };
 }

@@ -9,7 +9,6 @@ export interface PerformanceDataL2 {
     gf: number;
     gc: number;
     dg: number;
-    sanction: number | null;
   };
   grupos: {
     points: number;
@@ -20,6 +19,5 @@ export interface PerformanceDataL2 {
     gf: number;
     gc: number;
     dg: number;
-    sanction: number | null;
   };
 }
