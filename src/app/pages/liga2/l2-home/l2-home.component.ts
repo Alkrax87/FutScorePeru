@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
@@ -7,6 +8,7 @@ import { TransformStatisticDataService } from '../../../services/transform-stati
 import { Subscription } from 'rxjs';
 import { MapComponent } from "../../../components/map/map.component";
 import { StatisticsComponent } from '../../../components/statistics/statistics.component';
+import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
@@ -22,17 +24,21 @@ import { faRankingStar } from '@fortawesome/free-solid-svg-icons';
 })
 export class L2HomeComponent {
   constructor(
+    private divisionService: FetchDivisionService,
     private teamsService: FetchTeamDataService,
     private mapService: FetchMapService,
-    private statisticService: FetchStatisticsService,
+    private statisticsService: FetchStatisticsService,
     private transformStatisticService: TransformStatisticDataService
   ) {}
 
+  private divisionSubscription: Subscription | null = null;
   private teamSubscription: Subscription | null = null;
   private statisticsSubscription: Subscription | null = null;
-  dataTeams: TeamDataL2[] | null = null;
-  dataStatistics:any;
-  map: MapElement[] = [];
+  private mapSubscription: Subscription | null = null;
+  dataDivision: DivisionData | null = null;
+  dataTeams: TeamDataL2[] = [];
+  dataStatistics: any;
+  mapConstructor: MapElement[] = [];
   dataMap: TeamMap[] = [];
   Stats = faRankingStar;
   dataBestDefense: StatisticCard[] = [];
@@ -44,40 +50,29 @@ export class L2HomeComponent {
   dataMostLosses: StatisticCard[] = [];
 
   ngOnInit() {
+    this.divisionSubscription = this.divisionService.dataDivisionL2$.subscribe({
+      next: (data) => (this.dataDivision = data)
+    });
     this.teamSubscription = this.teamsService.dataTeamsL2$.subscribe({
-      next: (data) => {
-        this.dataTeams = data;
-        console.log(this.dataTeams);
-        this.getDataForMap();
-      }
+      next: (data) => (this.dataTeams = data, this.getDataForMap())
     });
-    this.statisticsSubscription = this.statisticService.dataStatisticsL2$.subscribe({
-      next: (data) => {
-        this.dataStatistics = data;
-        console.log(this.dataStatistics);
-        if (this.dataStatistics) {
-          this.getDataForStatistics();
-        }
-      }
+    this.statisticsSubscription = this.statisticsService.dataStatisticsL2$.subscribe({
+      next: (data) => (this.dataStatistics = data, this.getDataForStatistics())
     });
-    this.mapService.fetchMap(2).then((data: any) => {
-      this.map = data;
-    }).catch((error) => console.log('Error: ', error));
+    this.mapSubscription = this.mapService.dataMapL2$.subscribe({
+      next: (data) => (this.mapConstructor = data)
+    });
   }
 
   getDataForMap() {
     const mergedData = [];
-
-    if (this.dataTeams) {
-      for (const team of this.dataTeams) {
-        mergedData.push({
-          imageThumbnail: team.imageThumbnail,
-          alt: team.alt,
-          location: team.location,
-        })
-      }
+    for (const team of this.dataTeams) {
+      mergedData.push({
+        imageThumbnail: team.imageThumbnail,
+        alt: team.alt,
+        location: team.location,
+      })
     }
-
     this.dataMap = mergedData;
   }
 
