@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
+import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
 import { FetchFixtureService } from '../../../services/fetch-fixture.service';
 import { FetchResultsService } from '../../../services/fetch-results.service';
@@ -30,6 +31,7 @@ import { TeamNav } from '../../../interfaces/ui-models/team-nav';
 export class L1MainComponent {
   constructor(
     private teamsService: FetchTeamDataService,
+    private divisionService: FetchDivisionService,
     private mapService: FetchMapService,
     private fixtureService: FetchFixtureService,
     private resultsService: FetchResultsService,
@@ -53,6 +55,7 @@ export class L1MainComponent {
 
   ngOnInit() {
     this.teamsService.fetchTeamsL1();
+    this.divisionService.fetchDivisionL1();
     this.mapService.fetchMapL1();
     this.fixtureService.fetchFixtureL1();
     this.resultsService.fetchResultsL1();
