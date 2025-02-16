@@ -29,7 +29,7 @@ export class FetchLastGamesService {
       return;
     }
 
-    this.http.get<LastGamesDataL1[]>('http://localhost:3000/api/lastgames/l1').subscribe({
+    this.http.get<LastGamesDataL1[]>('http://localhost:3000/api/lastgames/1').subscribe({
       next: (response) => {
         this.cachedLastGamesL1 = response;
         this.lastGamesL1Subject.next(response);
@@ -44,7 +44,7 @@ export class FetchLastGamesService {
       return;
     }
 
-    this.http.get<LastGamesDataL2[]>('http://localhost:3000/api/lastgames/l2').subscribe({
+    this.http.get<LastGamesDataL2[]>('http://localhost:3000/api/lastgames/2').subscribe({
       next: (response) => {
         this.cachedLastGamesL2 = response;
         this.lastGamesL2Subject.next(response);
@@ -59,7 +59,7 @@ export class FetchLastGamesService {
       return;
     }
 
-    this.http.get<LastGamesDataL3[]>('http://localhost:3000/api/lastgames/l3').subscribe({
+    this.http.get<LastGamesDataL3[]>('http://localhost:3000/api/lastgames/3').subscribe({
       next: (response) => {
         this.cachedLastGamesL3 = response;
         this.lastGamesL3Subject.next(response);

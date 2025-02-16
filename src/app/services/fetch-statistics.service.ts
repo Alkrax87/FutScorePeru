@@ -27,7 +27,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>('http://localhost:3000/api/statistics/l1').subscribe({
+    this.http.get<StatisticsData>('http://localhost:3000/api/statistics/1').subscribe({
       next: (response) => {
         this.cachedStatisticsL1 = response;
         this.statisticsL1Subject.next(response);
@@ -42,7 +42,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>('http://localhost:3000/api/statistics/l2').subscribe({
+    this.http.get<StatisticsData>('http://localhost:3000/api/statistics/2').subscribe({
       next: (response) => {
         this.cachedStatisticsL2 = response;
         this.statisticsL2Subject.next(response);
@@ -57,7 +57,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>('http://localhost:3000/api/statistics/l3').subscribe({
+    this.http.get<StatisticsData>('http://localhost:3000/api/statistics/3').subscribe({
       next: (response) => {
         this.cachedStatisticsL3 = response;
         this.statisticsL3Subject.next(response);

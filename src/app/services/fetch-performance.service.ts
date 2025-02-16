@@ -29,7 +29,7 @@ export class FetchPerformanceService {
       return;
     }
 
-    this.http.get<PerformanceDataL1[]>('http://localhost:3000/api/performance/l1').subscribe({
+    this.http.get<PerformanceDataL1[]>('http://localhost:3000/api/performance/1').subscribe({
       next: (response) => {
         this.cachedPerformanceL1 = response;
         this.performanceL1Subject.next(response);
@@ -44,7 +44,7 @@ export class FetchPerformanceService {
       return;
     }
 
-    this.http.get<PerformanceDataL2[]>('http://localhost:3000/api/performance/l2').subscribe({
+    this.http.get<PerformanceDataL2[]>('http://localhost:3000/api/performance/2').subscribe({
       next: (response) => {
         this.cachedPerformanceL2 = response;
         this.performanceL2Subject.next(response);
@@ -59,7 +59,7 @@ export class FetchPerformanceService {
       return;
     }
 
-    this.http.get<PerformanceDataL3[]>('http://localhost:3000/api/performance/l3').subscribe({
+    this.http.get<PerformanceDataL3[]>('http://localhost:3000/api/performance/3').subscribe({
       next: (response) => {
         this.cachedPerformanceL3 = response;
         this.performanceL3Subject.next(response);

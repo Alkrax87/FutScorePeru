@@ -29,7 +29,7 @@ export class FetchFixtureService {
       return;
     }
 
-    this.http.get<FixtureDataL1>('http://localhost:3000/api/fixture/l1').subscribe({
+    this.http.get<FixtureDataL1>('http://localhost:3000/api/fixture/1').subscribe({
       next: (response) => {
         this.cachedFixtureL1 = response;
         this.fixtureL1Subject.next(response);
@@ -44,7 +44,7 @@ export class FetchFixtureService {
       return;
     }
 
-    this.http.get<FixtureDataL2>('http://localhost:3000/api/fixture/l2').subscribe({
+    this.http.get<FixtureDataL2>('http://localhost:3000/api/fixture/2').subscribe({
       next: (response) => {
         this.cachedFixtureL2 = response;
         this.fixtureL2Subject.next(response);
@@ -59,7 +59,7 @@ export class FetchFixtureService {
       return;
     }
 
-    this.http.get<FixtureDataL3>('http://localhost:3000/api/fixture/l3').subscribe({
+    this.http.get<FixtureDataL3>('http://localhost:3000/api/fixture/3').subscribe({
       next: (response) => {
         this.cachedFixtureL3 = response;
         this.fixtureL3Subject.next(response);

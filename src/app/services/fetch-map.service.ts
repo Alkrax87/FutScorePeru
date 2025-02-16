@@ -27,7 +27,7 @@ export class FetchMapService {
       return;
     }
 
-    this.http.get<MapElement[]>('http://localhost:3000/api/map/l1').subscribe({
+    this.http.get<MapElement[]>('http://localhost:3000/api/map/1').subscribe({
       next: (response) => {
         this.cachedMapL1 = response;
         this.mapL1Subject.next(response);
@@ -42,7 +42,7 @@ export class FetchMapService {
       return;
     }
 
-    this.http.get<MapElement[]>('http://localhost:3000/api/map/l2').subscribe({
+    this.http.get<MapElement[]>('http://localhost:3000/api/map/2').subscribe({
       next: (response) => {
         this.cachedMapL2 = response;
         this.mapL2Subject.next(response);
@@ -57,7 +57,7 @@ export class FetchMapService {
       return;
     }
 
-    this.http.get<MapElement[]>('http://localhost:3000/api/map/l3').subscribe({
+    this.http.get<MapElement[]>('http://localhost:3000/api/map/3').subscribe({
       next: (response) => {
         this.cachedMapL3 = response;
         this.mapL3Subject.next(response);
