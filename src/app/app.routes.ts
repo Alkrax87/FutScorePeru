@@ -19,7 +19,6 @@ import { L3HomeComponent } from './pages/liga3/l3-home/l3-home.component';
 import { L3TeamsComponent } from './pages/liga3/l3-teams/l3-teams.component';
 import { L3FixtureComponent } from './pages/liga3/l3-fixture/l3-fixture.component';
 import { L3TableComponent } from './pages/liga3/l3-table/l3-table.component';
-import { L3ManagersComponent } from './pages/liga3/l3-managers/l3-managers.component';
 import { CpMainComponent } from './pages/copa-peru/cp-main/cp-main.component';
 import { CpHomeComponent } from './pages/copa-peru/cp-home/cp-home.component';
 import { CpTeamsComponent } from './pages/copa-peru/cp-teams/cp-teams.component';
@@ -67,7 +66,6 @@ export const routes: Routes = [
       { path: 'equipos', component: L3TeamsComponent },
       { path: 'fixture', component: L3FixtureComponent },
       { path: 'tabla', component: L3TableComponent },
-      { path: 'tecnicos', component: L3ManagersComponent },
     ],
   },
   {

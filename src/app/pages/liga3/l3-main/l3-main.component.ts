@@ -8,12 +8,11 @@ import { FetchResultsService } from '../../../services/fetch-results.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
-import { FetchManagerService } from '../../../services/fetch-manager.service';
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { Subscription } from 'rxjs';
-import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from "@fortawesome/free-solid-svg-icons";
+import { faShieldHalved, faWindowRestore, faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 import { TeamDataL3 } from '../../../interfaces/api-models/team-data-l3';
 import { TeamNav } from '../../../interfaces/ui-models/team-nav';
 
@@ -38,7 +37,6 @@ export class L3MainComponent {
     private statisticsService: FetchStatisticsService,
     private performanceService: FetchPerformanceService,
     private lastGamesService: FetchLastGamesService,
-    private managersService: FetchManagerService,
     private stadiumsService: FetchStadiumService
   ) {}
 
@@ -49,7 +47,6 @@ export class L3MainComponent {
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
-    { name: 'Técnicos', route: 'tecnicos', icon: faUserShield },
   ];
   division: string = "Liga 3";
 
@@ -62,7 +59,6 @@ export class L3MainComponent {
     this.statisticsService.fetchStatisticsL3();
     this.performanceService.fetchPerformanceL3();
     this.lastGamesService.fetchLastGamesL3();
-    this.managersService.fetchManagersL3();
     this.stadiumsService.fetchStadiums();
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
       next: (data) => {
