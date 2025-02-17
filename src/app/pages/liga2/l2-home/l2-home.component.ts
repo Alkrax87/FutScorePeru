@@ -87,7 +87,9 @@ export class L2HomeComponent {
   }
 
   ngOnDestroy() {
+    this.divisionSubscription?.unsubscribe();
     this.teamSubscription?.unsubscribe();
     this.statisticsSubscription?.unsubscribe();
+    this.mapSubscription?.unsubscribe();
   }
 }
