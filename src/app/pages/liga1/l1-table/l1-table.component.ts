@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
@@ -6,6 +7,7 @@ import { SortDataTableService } from '../../../services/sort-data-table.service'
 import { Subscription } from 'rxjs';
 import { TableComponent } from '../../../components/table/table.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
+import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
 import { PerformanceDataL1 } from '../../../interfaces/api-models/performance-data-l1';
 import { LastGamesDataL1 } from '../../../interfaces/api-models/last-games-data-l1';
@@ -36,15 +38,18 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
 })
 export class L1TableComponent {
   constructor(
+    private divisionService: FetchDivisionService,
     private teamsService: FetchTeamDataService,
     private performanceService: FetchPerformanceService,
     private lastGamesService: FetchLastGamesService,
     private sortDataService: SortDataTableService,
   ) {}
 
+  private divisionSubscription: Subscription | null = null;
   private teamSubscription: Subscription | null = null;
   private performanceSubscription: Subscription | null = null;
   private lastGamesSubscription: Subscription | null = null;
+  dataDivision: DivisionData | null = null;
   dataTeams: TeamDataL1[] = [];
   dataPerformance: PerformanceDataL1[] = [];
   dataLastGames: LastGamesDataL1[] = [];
@@ -123,6 +128,9 @@ export class L1TableComponent {
   ];
 
   ngOnInit() {
+    this.divisionSubscription = this.divisionService.dataDivisionL1$.subscribe({
+      next: (data) => (this.dataDivision = data)
+    });
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
       next: (data) => (this.dataTeams = data)
     });
@@ -133,7 +141,7 @@ export class L1TableComponent {
       next: (data) => (this.dataLastGames = data)
     });
 
-    if (this.dataTeams && this.dataPerformance && this.dataLastGames) {
+    if (this.dataDivision && this.dataTeams && this.dataPerformance && this.dataLastGames) {
       this.getDataForTable();
     }
   }
@@ -145,6 +153,8 @@ export class L1TableComponent {
     let sortTeamsApertura:TeamTable[] = [];
     let sortTeamsClausura:TeamTable[] = [];
     let sortTeamsAcumulado:TeamTable[] = [];
+
+    let stagedActive = this.dataDivision?.stages.find((stage) => stage.status === true);
 
     for (const team of this.dataTeams) {
       const baseTeamData = {
@@ -159,20 +169,22 @@ export class L1TableComponent {
 
       if (!performance || !lastGames) return;
 
+      const stagedName = stagedActive?.name as keyof typeof lastGames;
+
       sortTeamsApertura.push({
         ...baseTeamData,
         performance: performance.apertura,
-        lastgames: lastGames.apertura,
+        lastgames: lastGames.apertura.slice(-5),
       });
       sortTeamsClausura.push({
         ...baseTeamData,
         performance: performance.clausura,
-        lastgames: lastGames.clausura,
+        lastgames: lastGames.clausura.slice(-5),
       });
       sortTeamsAcumulado.push({
         ...baseTeamData,
         performance: performance.acumulado,
-        lastgames: lastGames.acumulado,
+        lastgames: lastGames[stagedName].slice(-5) as string[],
       });
     }
 
@@ -185,5 +197,6 @@ export class L1TableComponent {
     this.teamSubscription?.unsubscribe();
     this.performanceSubscription?.unsubscribe();
     this.lastGamesSubscription?.unsubscribe();
+    this.divisionSubscription?.unsubscribe();
   }
 }
