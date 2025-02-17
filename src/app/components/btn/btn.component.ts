@@ -1,16 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-btn',
   imports: [],
   template: `
-    <button class="switch-button bg-crimson min-w-60">
+    <button class="switch-button bg-crimson w-full" [class]="{'active' : active}">
       <span>
         <ng-content></ng-content>
       </span>
     </button>
   `,
   styles: `
+    .active {
+      background: #dc143c;
+    }
     .switch-button {
       border: none;
       font-size: 16px;
@@ -54,4 +57,6 @@ import { Component } from '@angular/core';
     }
   `,
 })
-export class BtnComponent {}
+export class BtnComponent {
+  @Input() active: boolean = false;
+}

@@ -18,10 +18,12 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
   imports: [TableComponent, BtnComponent],
   template: `
     <div class="bg-night py-5">
-      <div class="w-full flex justify-center space-x-6 pb-5">
-        <app-btn (click)="setActiveTab('acumulado')">Acumulado</app-btn>
-        <app-btn (click)="setActiveTab('apertura')">Apertura</app-btn>
-        <app-btn (click)="setActiveTab('clausura')">Clausura</app-btn>
+      <div class="flex justify-center">
+        <div class="w-full md:w-5/6 lg:w-9/12 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 md:space-x-6 px-8 pb-5">
+          <app-btn (click)="setActiveTab('acumulado')" [active]="acumulado">Acumulado</app-btn>
+          <app-btn (click)="setActiveTab('apertura')" [active]="apertura">Apertura</app-btn>
+          <app-btn (click)="setActiveTab('clausura')" [active]="clausura">Clausura</app-btn>
+        </div>
       </div>
       @if (acumulado) {
         <app-table [config]="configAcumulado" [headers]="headers" [classification]="classificationAcumulado" [data]="dataAcumulado"></app-table>
