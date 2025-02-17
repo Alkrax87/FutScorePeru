@@ -15,9 +15,15 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
   imports: [TableComponent],
   template: `
     <div class="bg-night py-5">
-      <h3 class="text-4xl text-white font-bold mx-5 mb-5">Grupo Norte</h3>
+      <div class="mx-4 md:mx-8 mb-5">
+        <h3 class="text-4xl text-white font-bold">Grupo A</h3>
+        <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+      </div>
       <app-table [config]="configGrupos" [headers]="headers" [classification]="classificationGrupos" [data]="dataRegionalN"></app-table>
-      <h3 class="text-4xl text-white font-bold mx-5 my-5">Grupo Sur</h3>
+      <div class="mx-4 md:mx-8 my-5">
+        <h3 class="text-4xl text-white font-bold">Grupo B</h3>
+        <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+      </div>
       <app-table [config]="configGrupos" [headers]="headers" [classification]="classificationGrupos" [data]="dataRegionalS"></app-table>
     </div>
   `,
@@ -54,20 +60,20 @@ export class L2TableComponent {
   dataRegionalN: TeamTable[] = [];
   dataRegionalS: TeamTable[] = [];
   configGrupos: { class: string; quantity: number }[] = [
-    { class: 'bg-promotion', quantity: 6 },
+    { class: 'bg-gpromotion', quantity: 5 },
     { class: '', quantity: 0 },
-    { class: 'bg-relegation', quantity: 2 },
+    { class: 'bg-grelegation', quantity: 3 },
   ];
   classificationGrupos = [
     {
       name: 'Grupo de Ascenso',
-      image: 'assets/images/pages/Promotion.svg',
-      class: 'bg-promotion',
+      image: 'assets/images/pages/Group-Promotion.svg',
+      class: 'bg-gpromotion',
     },
     {
       name: 'Grupo de Descenso',
-      image: 'assets/images/pages/Relegation.svg',
-      class: 'bg-relegation',
+      image: 'assets/images/pages/Group-Relegation.svg',
+      class: 'bg-grelegation',
     },
   ];
 
@@ -108,18 +114,18 @@ export class L2TableComponent {
       if (!performance || !lastGames) return;
 
       switch (team.group) {
-        case "norte":
+        case "a":
           sortTeamsRegionalN.push({
             ...baseTeamData,
             performance: performance.regional,
-            lastgames: lastGames.regional,
+            lastgames: lastGames.regional.slice(-5),
           });
           break;
-        case "sur":
+        case "b":
           sortTeamsRegionalS.push({
             ...baseTeamData,
             performance: performance.regional,
-            lastgames: lastGames.regional,
+            lastgames: lastGames.regional.slice(-5),
           });
           break;
         default:
