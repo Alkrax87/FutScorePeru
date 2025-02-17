@@ -15,13 +15,25 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
   imports: [TableComponent],
   template: `
     <div class="bg-night py-5">
-      <h3 class="text-4xl text-white font-bold mx-5 my-5">Grupo Norte</h3>
+      <div class="mx-4 md:mx-8 my-5">
+        <h3 class="text-4xl text-white font-bold">Grupo Norte</h3>
+        <div class="bg-crimson skew-x-50 h-2 w-52 my-3"></div>
+      </div>
       <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataGrupoNorte"></app-table>
-      <h3 class="text-4xl text-white font-bold mx-5 my-5">Grupo Centro</h3>
+      <div class="mx-4 md:mx-8 my-5">
+        <h3 class="text-4xl text-white font-bold">Grupo Centro</h3>
+        <div class="bg-crimson skew-x-50 h-2 w-52 my-3"></div>
+      </div>
       <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataGrupoCentro"></app-table>
-      <h3 class="text-4xl text-white font-bold mx-5 my-5">Grupo Sur</h3>
+      <div class="mx-4 md:mx-8 my-5">
+        <h3 class="text-4xl text-white font-bold">Grupo Sur</h3>
+        <div class="bg-crimson skew-x-50 h-2 w-52 my-3"></div>
+      </div>
       <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataGrupoSur"></app-table>
-      <h3 class="text-4xl text-white font-bold mx-5 my-5">Grupo Metro-Selva</h3>
+      <div class="mx-4 md:mx-8 my-5">
+        <h3 class="text-4xl text-white font-bold">Grupo Metro-Selva</h3>
+        <div class="bg-crimson skew-x-50 h-2 w-52 my-3"></div>
+      </div>
       <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataGrupoMetroSelva"></app-table>
     </div>
   `,
@@ -40,7 +52,7 @@ export class L3TableComponent {
   private lastGamesSubscription: Subscription | null = null;
   dataTeams: TeamDataL3[] = [];
   dataPerformance: PerformanceDataL3[] = [];
-    dataLastGames: LastGamesDataL3[] = [];
+  dataLastGames: LastGamesDataL3[] = [];
   headers: string[] = [
     '',
     'Pos',
@@ -60,18 +72,18 @@ export class L3TableComponent {
   dataGrupoSur: TeamTable[] = [];
   dataGrupoMetroSelva: TeamTable[] = [];
   configRegional: { class: string; quantity: number }[] = [
-    { class: 'bg-promotion', quantity: 4 },
+    { class: 'bg-gpromotion', quantity: 4 },
     { class: '', quantity: 0 },
     { class: 'bg-relegation', quantity: 1 },
   ];
   classificationRegional = [
     {
-      name: 'Grupo de Ascenso',
-      image: 'assets/images/pages/Promotion.svg',
-      class: 'bg-promotion',
+      name: 'Grupos de Ascenso',
+      image: 'assets/images/pages/Group-Promotion.svg',
+      class: 'bg-gpromotion',
     },
     {
-      name: 'Grupo de Descenso',
+      name: 'Descenso a Copa Perú',
       image: 'assets/images/pages/Relegation.svg',
       class: 'bg-relegation',
     },
@@ -120,28 +132,28 @@ export class L3TableComponent {
           sortTeamsN.push({
             ...baseTeamData,
             performance: performance.regular,
-            lastgames: lastGames.regular,
+            lastgames: lastGames.regular.slice(-5),
           });
           break;
         case "centro":
           sortTeamsC.push({
             ...baseTeamData,
             performance: performance.regular,
-            lastgames: lastGames.regular,
+            lastgames: lastGames.regular.slice(-5),
           });
           break;
         case "sur":
           sortTeamsS.push({
             ...baseTeamData,
             performance: performance.regular,
-            lastgames: lastGames.regular,
+            lastgames: lastGames.regular.slice(-5),
           });
           break;
         case "metro-selva":
           sortTeamsMS.push({
             ...baseTeamData,
             performance: performance.regular,
-            lastgames: lastGames.regular,
+            lastgames: lastGames.regular.slice(-5),
           });
           break;
         default:
