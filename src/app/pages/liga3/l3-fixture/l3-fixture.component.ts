@@ -2,13 +2,17 @@ import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchFixtureService } from '../../../services/fetch-fixture.service';
 import { Subscription } from 'rxjs';
+import { TitleComponent } from "../../../components/title/title.component";
 import { TeamDataL3 } from '../../../interfaces/api-models/team-data-l3';
 
 @Component({
   selector: 'app-l3-fixture',
-  imports: [],
-  templateUrl: './l3-fixture.component.html',
-  styleUrl: './l3-fixture.component.css'
+  imports: [TitleComponent],
+  template: `
+    <app-title [title]="'Fixture'"></app-title>
+    <p>l3-fixture works!</p>
+  `,
+  styles: ``,
 })
 export class L3FixtureComponent {
   constructor(

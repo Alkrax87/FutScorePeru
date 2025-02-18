@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { Subscription } from 'rxjs';
+import { TitleComponent } from "../../../components/title/title.component";
 import { TeamCardComponent } from "../../../components/team-card/team-card.component";
 import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
 import { StadiumData } from '../../../interfaces/api-models/stadium-data';
@@ -9,8 +10,9 @@ import { TeamCard } from '../../../interfaces/ui-models/team-card';
 
 @Component({
   selector: 'app-l2-teams',
-  imports: [TeamCardComponent],
+  imports: [TitleComponent, TeamCardComponent],
   template: `
+    <app-title [title]="'Clubes'"></app-title>
     <div class="bg-night p-5">
       <div class="w-full">
         <div class="flex justify-center">

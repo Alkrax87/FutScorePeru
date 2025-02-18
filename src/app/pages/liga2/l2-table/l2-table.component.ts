@@ -4,6 +4,7 @@ import { FetchPerformanceService } from '../../../services/fetch-performance.ser
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
 import { SortDataTableService } from '../../../services/sort-data-table.service';
 import { Subscription } from 'rxjs';
+import { TitleComponent } from "../../../components/title/title.component";
 import { TableComponent } from '../../../components/table/table.component';
 import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
 import { PerformanceDataL2 } from '../../../interfaces/api-models/performance-data-l2';
@@ -12,8 +13,9 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
 
 @Component({
   selector: 'app-l2-table',
-  imports: [TableComponent],
+  imports: [TitleComponent, TableComponent],
   template: `
+    <app-title [title]="'Tabla'"></app-title>
     <div class="bg-night py-5">
       <div class="mx-4 md:mx-8 mb-5">
         <h3 class="text-4xl text-white font-bold">Grupo A</h3>

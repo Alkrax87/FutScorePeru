@@ -6,11 +6,13 @@ import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
 import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel';
 import { ManagerCarouselComponent } from "../../../components/manager-carousel/manager-carousel.component";
 import { ManagerData } from '../../../interfaces/api-models/manager-data';
+import { TitleComponent } from "../../../components/title/title.component";
 
 @Component({
   selector: 'app-l1-managers',
-  imports: [ManagerCarouselComponent],
+  imports: [TitleComponent, ManagerCarouselComponent],
   template: `
+    <app-title [title]="'Técnicos'"></app-title>
     <div class="bg-night pt-5">
       <div class="flex justify-center">
         <div class="w-full md:w-3/5 lg:w-3/6 p-3 md:p-0">
