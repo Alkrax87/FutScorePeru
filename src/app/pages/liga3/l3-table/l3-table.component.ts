@@ -18,22 +18,22 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
     <app-title [title]="'Tabla'"></app-title>
     <div class="bg-night py-5">
       <div class="mx-4 md:mx-8 my-5">
-        <h3 class="text-4xl text-white font-bold">Grupo Norte</h3>
+        <h3 class="text-4xl text-white font-bold">Grupo 1</h3>
         <div class="bg-crimson skew-x-50 h-2 w-52 my-3"></div>
       </div>
       <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataGrupoNorte"></app-table>
       <div class="mx-4 md:mx-8 my-5">
-        <h3 class="text-4xl text-white font-bold">Grupo Centro</h3>
+        <h3 class="text-4xl text-white font-bold">Grupo 2</h3>
         <div class="bg-crimson skew-x-50 h-2 w-52 my-3"></div>
       </div>
       <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataGrupoCentro"></app-table>
       <div class="mx-4 md:mx-8 my-5">
-        <h3 class="text-4xl text-white font-bold">Grupo Sur</h3>
+        <h3 class="text-4xl text-white font-bold">Grupo 3</h3>
         <div class="bg-crimson skew-x-50 h-2 w-52 my-3"></div>
       </div>
       <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataGrupoSur"></app-table>
       <div class="mx-4 md:mx-8 my-5">
-        <h3 class="text-4xl text-white font-bold">Grupo Metro-Selva</h3>
+        <h3 class="text-4xl text-white font-bold">Grupo 4</h3>
         <div class="bg-crimson skew-x-50 h-2 w-52 my-3"></div>
       </div>
       <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataGrupoMetroSelva"></app-table>
@@ -130,28 +130,28 @@ export class L3TableComponent {
       if (!performance || !lastGames) return;
 
       switch (team.group) {
-        case "norte":
+        case "1":
           sortTeamsN.push({
             ...baseTeamData,
             performance: performance.regular,
             lastgames: lastGames.regular.slice(-5),
           });
           break;
-        case "centro":
+        case "2":
           sortTeamsC.push({
             ...baseTeamData,
             performance: performance.regular,
             lastgames: lastGames.regular.slice(-5),
           });
           break;
-        case "sur":
+        case "3":
           sortTeamsS.push({
             ...baseTeamData,
             performance: performance.regular,
             lastgames: lastGames.regular.slice(-5),
           });
           break;
-        case "metro-selva":
+        case "4":
           sortTeamsMS.push({
             ...baseTeamData,
             performance: performance.regular,
