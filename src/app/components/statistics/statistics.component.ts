@@ -7,7 +7,7 @@ import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons
   selector: 'app-statistics',
   imports: [FontAwesomeModule],
   template: `
-    <ul class="flex overflow-x-auto space-x-3 px-5 pt-5">
+    <ul class="flex overflow-x-auto space-x-3 px-5 pt-5 select-none">
       @for (item of data; track $index) {
         <li class="bg-nightfall min-w-32 w-full text-white rounded-t-2xl mb-3">
           <div class="pt-5 pb-3">

@@ -22,7 +22,7 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
     </svg>
 
     @if (selected) {
-      <div class="bg-nightfall absolute p-2 border-gold border-2 bg-opacity-90 -translate-x-1/2" [ngStyle]="{'top.px': position?.y, 'left.px': position?.x}">
+      <div class="bg-nightfall absolute p-2 border-gold border-2 bg-opacity-90 -translate-x-1/2 select-none" [ngStyle]="{'top.px': position?.y, 'left.px': position?.x}">
         <div class="flex justify-center">
           <p class="text-white text-base md:text-lg text-center">{{ content }}</p>
         </div>

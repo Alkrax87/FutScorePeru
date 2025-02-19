@@ -7,7 +7,7 @@ import { ManagerCard } from '../../interfaces/ui-models/manager-card';
   selector: 'app-manager-carousel',
   imports: [CommonModule, ManagerCardComponent],
   template: `
-    <div class="relative w-full max-w-3xl mx-auto overflow-hidden">
+    <div class="relative w-full max-w-3xl mx-auto overflow-hidden select-none">
       <div class="flex transition-transform duration-500" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
         @for (item of data; track $index) {
           @if ($index === 0) {

@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-navbar',
   imports: [CommonModule, RouterModule],
   template: `
-    <nav class="bg-night">
+    <nav class="bg-night select-none">
       <!-- Desktop Menu -->
       <div class="w-full flex justify-between items-center">
         <!-- Left container -->

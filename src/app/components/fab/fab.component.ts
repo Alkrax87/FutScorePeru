@@ -16,7 +16,7 @@ import { faCircleHalfStroke, faLayerGroup, faShareNodes } from '@fortawesome/fre
     </div>
 
     @if (menuOpen) {
-      <div class="flex fixed bottom-6 right-10 w-36 bg-brightnight p-1 rounded-l-3xl gap-2" >
+      <div class="flex fixed bottom-6 right-10 w-36 bg-brightnight p-1 rounded-l-3xl gap-2">
         <div class="flex justify-center items-center transform duration-300">
           <button class="bg-nightfall hover:bg-brightnight hover:text-lg rounded-full text-white w-10 h-10" (click)="toggleDarkMode()">
             <fa-icon [icon]="Dark"></fa-icon>

@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-btn',
   imports: [],
   template: `
-    <button class="switch-button bg-crimson w-full" [class]="{'active' : active}">
+    <button class="switch-button bg-crimson w-full select-none" [class]="{'active' : active}">
       <span>
         <ng-content></ng-content>
       </span>

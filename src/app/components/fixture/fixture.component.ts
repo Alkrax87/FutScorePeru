@@ -7,7 +7,7 @@ import { FixtureCard } from '../../interfaces/ui-models/fixture-card';
   selector: 'app-fixture',
   imports: [FontAwesomeModule],
   template: `
-    <div class="bg-night">
+    <div class="bg-night select-none">
       @for (item of data; track $index) {
         <div class="py-1">
           <div class="flex justify-center">

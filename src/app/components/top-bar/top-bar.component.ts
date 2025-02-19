@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-top-bar',
   imports: [RouterModule],
   template: `
-    <div class="bg-night">
+    <div class="bg-night select-none">
       <div class="container mx-auto">
         <div class="flex justify-center">
           <div class="relative flex-none h-10 sm:h-[60px] border-r-[40px] sm:border-r-[60px] border-b-[40px] sm:border-b-[60px] border-r-transparent  border-b-night bg-crimson"></div>

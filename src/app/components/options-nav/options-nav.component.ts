@@ -8,7 +8,7 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
   imports: [RouterModule, FontAwesomeModule, FontAwesomeModule],
   template: `
     <!-- Desktop Menu -->
-    <div class="hidden md:block">
+    <div class="hidden md:block select-none">
       <div class="bg-gray-100 w-full flex">
         <div class="flex mx-auto">
           @for (item of options; track $index) {

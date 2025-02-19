@@ -8,8 +8,8 @@ import { TeamTable } from '../../interfaces/ui-models/team-table';
   selector: 'app-table',
   imports: [FontAwesomeModule, CommonModule],
   template: `
-    <div class="bg-nightfall rounded-3xl font-semibold">
-      <div class="py-5 px-0 sm:py-8 sm:px-8 overflow-x-auto select-none">
+    <div class="bg-nightfall rounded-3xl font-semibold select-none">
+      <div class="py-5 px-0 sm:py-8 sm:px-8 overflow-x-auto">
         @if (!headers || !config || !data || !classification) {
           <div class="text-white w-full flex justify-center">
             <p>Datos para la tabla por definir...</p>
@@ -56,13 +56,13 @@ import { TeamTable } from '../../interfaces/ui-models/team-table';
                     </div>
                   </td>
                   <td class="bg-brightnight text-gray-200 font-bold">{{ item.performance.points }}</td>
-                  <td>{{ item.performance.pj}}</td>
+                  <td>{{ item.performance.pj }}</td>
                   <td>{{ item.performance.pg }}</td>
                   <td>{{ item.performance.pe }}</td>
                   <td>{{ item.performance.pp }}</td>
                   <td>{{ item.performance.gf }}</td>
                   <td>{{ item.performance.gc }}</td>
-                  <td>{{ item.performance.gf - item.performance.gc }}</td>
+                  <td>{{ item.performance.dg > 0 ? "+" + item.performance.dg : item.performance.dg }}</td>
                   <td class="flex">
                     <div class="w-full flex items-center justify-center h-11 space-x-2 text-xl">
                       @for (lastGame of item.lastgames; track $index) {
