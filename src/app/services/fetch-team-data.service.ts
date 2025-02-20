@@ -1,3 +1,4 @@
+import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -9,6 +10,8 @@ import { TeamDataL3 } from '../interfaces/api-models/team-data-l3';
   providedIn: 'root',
 })
 export class FetchTeamDataService {
+  private apiUrl = Environments.apiUrl;
+
   constructor(private http: HttpClient) {}
 
   cachedTeamsL1: TeamDataL1[] | null = null;
@@ -29,7 +32,7 @@ export class FetchTeamDataService {
       return;
     }
 
-    this.http.get<TeamDataL1[]>('http://localhost:3000/api/teams/1').subscribe({
+    this.http.get<TeamDataL1[]>(this.apiUrl + '/teams/1').subscribe({
       next: (response) => {
         this.cachedTeamsL1 = response;
         this.teamsL1Subject.next(response);
@@ -44,7 +47,7 @@ export class FetchTeamDataService {
       return;
     }
 
-    this.http.get<TeamDataL2[]>('http://localhost:3000/api/teams/2').subscribe({
+    this.http.get<TeamDataL2[]>(this.apiUrl + '/teams/2').subscribe({
       next: (response) => {
         this.cachedTeamsL2 = response;
         this.teamsL2Subject.next(response);
@@ -59,7 +62,7 @@ export class FetchTeamDataService {
       return;
     }
 
-    this.http.get<TeamDataL3[]>('http://localhost:3000/api/teams/3').subscribe({
+    this.http.get<TeamDataL3[]>(this.apiUrl + '/teams/3').subscribe({
       next: (response) => {
         this.cachedTeamsL3 = response;
         this.teamsL3Subject.next(response);

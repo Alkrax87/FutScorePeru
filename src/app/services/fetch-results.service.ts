@@ -1,3 +1,4 @@
+import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -9,6 +10,8 @@ import { ResultsDataL3 } from '../interfaces/api-models/results-data-l3';
   providedIn: 'root',
 })
 export class FetchResultsService {
+  private apiUrl = Environments.apiUrl;
+
   constructor(private http: HttpClient) {}
 
   cachedResultsL1: ResultsDataL1[] | null = null;
@@ -29,7 +32,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsDataL1[]>('http://localhost:3000/api/results/1').subscribe({
+    this.http.get<ResultsDataL1[]>(this.apiUrl + '/results/1').subscribe({
       next: (response) => {
         this.cachedResultsL1 = response;
         this.resultsL1Subject.next(response);
@@ -44,7 +47,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsDataL2[]>('http://localhost:3000/api/results/2').subscribe({
+    this.http.get<ResultsDataL2[]>(this.apiUrl + '/results/2').subscribe({
       next: (response) => {
         this.cachedResultsL2 = response;
         this.resultsL2Subject.next(response);
@@ -59,7 +62,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsDataL3[]>('http://localhost:3000/api/results/3').subscribe({
+    this.http.get<ResultsDataL3[]>(this.apiUrl + '/results/3').subscribe({
       next: (response) => {
         this.cachedResultsL3 = response;
         this.resultsL3Subject.next(response);

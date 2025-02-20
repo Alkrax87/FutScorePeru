@@ -1,3 +1,4 @@
+import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -7,6 +8,8 @@ import { StatisticsData } from '../interfaces/api-models/statistics-data';
   providedIn: 'root'
 })
 export class FetchStatisticsService {
+  private apiUrl = Environments.apiUrl;
+
   constructor(private http:HttpClient) {}
 
   cachedStatisticsL1: StatisticsData | null = null;
@@ -27,7 +30,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>('http://localhost:3000/api/statistics/1').subscribe({
+    this.http.get<StatisticsData>(this.apiUrl + '/statistics/1').subscribe({
       next: (response) => {
         this.cachedStatisticsL1 = response;
         this.statisticsL1Subject.next(response);
@@ -42,7 +45,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>('http://localhost:3000/api/statistics/2').subscribe({
+    this.http.get<StatisticsData>(this.apiUrl + '/statistics/2').subscribe({
       next: (response) => {
         this.cachedStatisticsL2 = response;
         this.statisticsL2Subject.next(response);
@@ -57,7 +60,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>('http://localhost:3000/api/statistics/3').subscribe({
+    this.http.get<StatisticsData>(this.apiUrl + '/statistics/3').subscribe({
       next: (response) => {
         this.cachedStatisticsL3 = response;
         this.statisticsL3Subject.next(response);

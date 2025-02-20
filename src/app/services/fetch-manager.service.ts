@@ -1,3 +1,4 @@
+import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -7,6 +8,8 @@ import { ManagerData } from '../interfaces/api-models/manager-data';
   providedIn: 'root',
 })
 export class FetchManagerService {
+  private apiUrl = Environments.apiUrl;
+
   constructor(private http: HttpClient) {}
 
   cachedManagersL1: ManagerData[] | null = null;
@@ -24,7 +27,7 @@ export class FetchManagerService {
       return;
     }
 
-    this.http.get<ManagerData[]>('http://localhost:3000/api/managers/1').subscribe({
+    this.http.get<ManagerData[]>(this.apiUrl + '/managers/1').subscribe({
       next: (response) => {
         this.cachedManagersL1 = response;
         this.managersL1Subject.next(response);
@@ -39,7 +42,7 @@ export class FetchManagerService {
       return;
     }
 
-    this.http.get<ManagerData[]>('http://localhost:3000/api/managers/2').subscribe({
+    this.http.get<ManagerData[]>(this.apiUrl + '/managers/2').subscribe({
       next: (response) => {
         this.cachedManagersL2 = response;
         this.managersL2Subject.next(response);

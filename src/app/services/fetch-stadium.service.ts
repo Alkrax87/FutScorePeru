@@ -1,3 +1,4 @@
+import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -7,6 +8,8 @@ import { StadiumData } from '../interfaces/api-models/stadium-data';
   providedIn: 'root',
 })
 export class FetchStadiumService {
+  private apiUrl = Environments.apiUrl;
+
   constructor(private http: HttpClient) {}
 
   cachedStadiums: StadiumData[] | null = null;
@@ -21,7 +24,7 @@ export class FetchStadiumService {
       return;
     }
 
-    this.http.get<StadiumData[]>("http://localhost:3000/api/stadiums").subscribe({
+    this.http.get<StadiumData[]>(this.apiUrl + "/stadiums").subscribe({
       next: (response) => {
         this.cachedStadiums = response;
         this.stadiumsSubject.next(response);

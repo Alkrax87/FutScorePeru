@@ -1,3 +1,4 @@
+import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
@@ -7,6 +8,8 @@ import { MapElement } from '../interfaces/api-models/map-element';
   providedIn: 'root',
 })
 export class FetchMapService {
+  private apiUrl = Environments.apiUrl;
+
   constructor(private http: HttpClient) {}
 
   cachedMapL1: MapElement[] | null = null;
@@ -27,7 +30,7 @@ export class FetchMapService {
       return;
     }
 
-    this.http.get<MapElement[]>('http://localhost:3000/api/map/1').subscribe({
+    this.http.get<MapElement[]>(this.apiUrl + '/map/1').subscribe({
       next: (response) => {
         this.cachedMapL1 = response;
         this.mapL1Subject.next(response);
@@ -42,7 +45,7 @@ export class FetchMapService {
       return;
     }
 
-    this.http.get<MapElement[]>('http://localhost:3000/api/map/2').subscribe({
+    this.http.get<MapElement[]>(this.apiUrl + '/map/2').subscribe({
       next: (response) => {
         this.cachedMapL2 = response;
         this.mapL2Subject.next(response);
@@ -57,7 +60,7 @@ export class FetchMapService {
       return;
     }
 
-    this.http.get<MapElement[]>('http://localhost:3000/api/map/3').subscribe({
+    this.http.get<MapElement[]>(this.apiUrl + '/map/3').subscribe({
       next: (response) => {
         this.cachedMapL3 = response;
         this.mapL3Subject.next(response);
