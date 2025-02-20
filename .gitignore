@@ -3,6 +3,9 @@
 # Assets files
 /public
 
+# Environments
+/src/app/environment
+
 # Compiled output
 /dist
 /tmp
