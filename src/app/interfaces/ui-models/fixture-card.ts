@@ -8,6 +8,6 @@ export interface FixtureCard {
   logo2: string;
   alt1: string;
   alt2: string;
-  result1: string;
-  result2: string;
+  result1: string | number;
+  result2: string | number;
 }
