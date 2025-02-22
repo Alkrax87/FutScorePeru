@@ -13,10 +13,11 @@ import { FixtureCard } from '../../../interfaces/ui-models/fixture-card';
 import { ResultsDataL1 } from '../../../interfaces/api-models/results-data-l1';
 import { FixtureDataL1 } from '../../../interfaces/api-models/fixture-data-l1';
 import { StadiumData } from '../../../interfaces/api-models/stadium-data';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-l1-fixture',
-  imports: [TitleComponent, FixtureComponent, BtnComponent],
+  imports: [TitleComponent, FixtureComponent, BtnComponent, CommonModule],
   template: `
     <app-title [title]="'Fixture'"></app-title>
     <div class="bg-night py-5">
@@ -30,9 +31,12 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
         <div class="w-full lg:w-4/6">
           @if (apertura && filteredDataForFixtureApertura) {
             <h3 class="text-4xl text-white font-bold">Apertura Fecha {{ selectedRoundAperturaIndex + 1 }}</h3>
-            <div class="flex flex-wrap justify-center gap-1 my-6">
+            <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
               @for (round of filteredDataForFixtureApertura; track $index) {
-                <button (click)="selectedRoundAperturaIndex = $index" class="w-10 h-10 bg-brightnight text-white rounded-full hover:bg-crimson">
+                <button (click)="selectedRoundAperturaIndex = $index"
+                  class="w-10 h-10 md:w-full text-sm bg-brightnight text-white hover:bg-crimson"
+                  [ngClass]="{'bg-crimson': selectedRoundAperturaIndex === $index}"
+                >
                   F{{ $index + 1 }}
                 </button>
               }
@@ -42,9 +46,12 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
           }
           @if (clausura && filteredDataForFixtureClausura) {
             <h3 class="text-4xl text-white font-bold">Clausura Fecha {{ selectedRoundClausuraIndex + 1 }}</h3>
-            <div class="flex flex-wrap justify-center gap-1 my-6">
+            <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
               @for (round of filteredDataForFixtureClausura; track $index) {
-                <button (click)="selectedRoundClausuraIndex = $index" class="w-10 h-10 bg-brightnight text-white rounded-full hover:bg-crimson">
+                <button (click)="selectedRoundClausuraIndex = $index"
+                  class="w-10 h-10 md:w-full text-sm bg-brightnight text-white hover:bg-crimson"
+                  [ngClass]="{'bg-crimson': selectedRoundClausuraIndex === $index}"
+                >
                   F{{ $index + 1 }}
                 </button>
               }
