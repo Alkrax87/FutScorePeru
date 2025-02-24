@@ -10,7 +10,7 @@ import { LastGamesDataL3 } from '../interfaces/api-models/last-games-data-l3';
   providedIn: 'root',
 })
 export class FetchLastGamesService {
-  private apiUrl = Environments.apiUrl;
+  private backendUrl = Environments.backendUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +32,7 @@ export class FetchLastGamesService {
       return;
     }
 
-    this.http.get<LastGamesDataL1[]>(this.apiUrl + '/lastgames/1').subscribe({
+    this.http.get<LastGamesDataL1[]>(this.backendUrl + '/lastgames/1').subscribe({
       next: (response) => {
         this.cachedLastGamesL1 = response;
         this.lastGamesL1Subject.next(response);
@@ -47,7 +47,7 @@ export class FetchLastGamesService {
       return;
     }
 
-    this.http.get<LastGamesDataL2[]>(this.apiUrl + '/lastgames/2').subscribe({
+    this.http.get<LastGamesDataL2[]>(this.backendUrl + '/lastgames/2').subscribe({
       next: (response) => {
         this.cachedLastGamesL2 = response;
         this.lastGamesL2Subject.next(response);
@@ -62,7 +62,7 @@ export class FetchLastGamesService {
       return;
     }
 
-    this.http.get<LastGamesDataL3[]>(this.apiUrl + '/lastgames/3').subscribe({
+    this.http.get<LastGamesDataL3[]>(this.backendUrl + '/lastgames/3').subscribe({
       next: (response) => {
         this.cachedLastGamesL3 = response;
         this.lastGamesL3Subject.next(response);

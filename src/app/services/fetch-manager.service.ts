@@ -8,7 +8,7 @@ import { ManagerData } from '../interfaces/api-models/manager-data';
   providedIn: 'root',
 })
 export class FetchManagerService {
-  private apiUrl = Environments.apiUrl;
+  private backendUrl = Environments.backendUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -27,7 +27,7 @@ export class FetchManagerService {
       return;
     }
 
-    this.http.get<ManagerData[]>(this.apiUrl + '/managers/1').subscribe({
+    this.http.get<ManagerData[]>(this.backendUrl + '/managers/1').subscribe({
       next: (response) => {
         this.cachedManagersL1 = response;
         this.managersL1Subject.next(response);
@@ -42,7 +42,7 @@ export class FetchManagerService {
       return;
     }
 
-    this.http.get<ManagerData[]>(this.apiUrl + '/managers/2').subscribe({
+    this.http.get<ManagerData[]>(this.backendUrl + '/managers/2').subscribe({
       next: (response) => {
         this.cachedManagersL2 = response;
         this.managersL2Subject.next(response);

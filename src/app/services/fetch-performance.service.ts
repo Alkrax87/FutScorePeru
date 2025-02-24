@@ -10,7 +10,7 @@ import { PerformanceDataL3 } from '../interfaces/api-models/performance-data-l3'
   providedIn: 'root',
 })
 export class FetchPerformanceService {
-  private apiUrl = Environments.apiUrl;
+  private backendUrl = Environments.backendUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +32,7 @@ export class FetchPerformanceService {
       return;
     }
 
-    this.http.get<PerformanceDataL1[]>(this.apiUrl + '/performance/1').subscribe({
+    this.http.get<PerformanceDataL1[]>(this.backendUrl + '/performance/1').subscribe({
       next: (response) => {
         this.cachedPerformanceL1 = response;
         this.performanceL1Subject.next(response);
@@ -47,7 +47,7 @@ export class FetchPerformanceService {
       return;
     }
 
-    this.http.get<PerformanceDataL2[]>(this.apiUrl + '/performance/2').subscribe({
+    this.http.get<PerformanceDataL2[]>(this.backendUrl + '/performance/2').subscribe({
       next: (response) => {
         this.cachedPerformanceL2 = response;
         this.performanceL2Subject.next(response);
@@ -62,7 +62,7 @@ export class FetchPerformanceService {
       return;
     }
 
-    this.http.get<PerformanceDataL3[]>(this.apiUrl + '/performance/3').subscribe({
+    this.http.get<PerformanceDataL3[]>(this.backendUrl + '/performance/3').subscribe({
       next: (response) => {
         this.cachedPerformanceL3 = response;
         this.performanceL3Subject.next(response);

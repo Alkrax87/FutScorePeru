@@ -10,7 +10,7 @@ import { ResultsDataL3 } from '../interfaces/api-models/results-data-l3';
   providedIn: 'root',
 })
 export class FetchResultsService {
-  private apiUrl = Environments.apiUrl;
+  private backendUrl = Environments.backendUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +32,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsDataL1[]>(this.apiUrl + '/results/1').subscribe({
+    this.http.get<ResultsDataL1[]>(this.backendUrl + '/results/1').subscribe({
       next: (response) => {
         this.cachedResultsL1 = response;
         this.resultsL1Subject.next(response);
@@ -47,7 +47,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsDataL2[]>(this.apiUrl + '/results/2').subscribe({
+    this.http.get<ResultsDataL2[]>(this.backendUrl + '/results/2').subscribe({
       next: (response) => {
         this.cachedResultsL2 = response;
         this.resultsL2Subject.next(response);
@@ -62,7 +62,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsDataL3[]>(this.apiUrl + '/results/3').subscribe({
+    this.http.get<ResultsDataL3[]>(this.backendUrl + '/results/3').subscribe({
       next: (response) => {
         this.cachedResultsL3 = response;
         this.resultsL3Subject.next(response);

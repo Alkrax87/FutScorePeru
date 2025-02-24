@@ -10,7 +10,7 @@ import { FixtureDataL3 } from '../interfaces/api-models/fixture-data-l3';
   providedIn: 'root',
 })
 export class FetchFixtureService {
-  private apiUrl = Environments.apiUrl;
+  private backendUrl = Environments.backendUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +32,7 @@ export class FetchFixtureService {
       return;
     }
 
-    this.http.get<FixtureDataL1>(this.apiUrl + '/fixture/1').subscribe({
+    this.http.get<FixtureDataL1>(this.backendUrl + '/fixture/1').subscribe({
       next: (response) => {
         this.cachedFixtureL1 = response;
         this.fixtureL1Subject.next(response);
@@ -47,7 +47,7 @@ export class FetchFixtureService {
       return;
     }
 
-    this.http.get<FixtureDataL2>(this.apiUrl + '/fixture/2').subscribe({
+    this.http.get<FixtureDataL2>(this.backendUrl + '/fixture/2').subscribe({
       next: (response) => {
         this.cachedFixtureL2 = response;
         this.fixtureL2Subject.next(response);
@@ -62,7 +62,7 @@ export class FetchFixtureService {
       return;
     }
 
-    this.http.get<FixtureDataL3>(this.apiUrl + '/fixture/3').subscribe({
+    this.http.get<FixtureDataL3>(this.backendUrl + '/fixture/3').subscribe({
       next: (response) => {
         this.cachedFixtureL3 = response;
         this.fixtureL3Subject.next(response);

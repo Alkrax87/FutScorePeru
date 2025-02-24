@@ -8,7 +8,7 @@ import { StadiumData } from '../interfaces/api-models/stadium-data';
   providedIn: 'root',
 })
 export class FetchStadiumService {
-  private apiUrl = Environments.apiUrl;
+  private backendUrl = Environments.backendUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -24,7 +24,7 @@ export class FetchStadiumService {
       return;
     }
 
-    this.http.get<StadiumData[]>(this.apiUrl + "/stadiums").subscribe({
+    this.http.get<StadiumData[]>(this.backendUrl + "/stadiums").subscribe({
       next: (response) => {
         this.cachedStadiums = response;
         this.stadiumsSubject.next(response);

@@ -8,7 +8,7 @@ import { StatisticsData } from '../interfaces/api-models/statistics-data';
   providedIn: 'root'
 })
 export class FetchStatisticsService {
-  private apiUrl = Environments.apiUrl;
+  private backendUrl = Environments.backendUrl;
 
   constructor(private http:HttpClient) {}
 
@@ -30,7 +30,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>(this.apiUrl + '/statistics/1').subscribe({
+    this.http.get<StatisticsData>(this.backendUrl + '/statistics/1').subscribe({
       next: (response) => {
         this.cachedStatisticsL1 = response;
         this.statisticsL1Subject.next(response);
@@ -45,7 +45,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>(this.apiUrl + '/statistics/2').subscribe({
+    this.http.get<StatisticsData>(this.backendUrl + '/statistics/2').subscribe({
       next: (response) => {
         this.cachedStatisticsL2 = response;
         this.statisticsL2Subject.next(response);
@@ -60,7 +60,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>(this.apiUrl + '/statistics/3').subscribe({
+    this.http.get<StatisticsData>(this.backendUrl + '/statistics/3').subscribe({
       next: (response) => {
         this.cachedStatisticsL3 = response;
         this.statisticsL3Subject.next(response);

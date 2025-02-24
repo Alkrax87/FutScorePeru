@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class FetchDivisionService {
-  private apiUrl = Environments.apiUrl;
+  private backendUrl = Environments.backendUrl;
 
   constructor(private http:HttpClient) {}
 
@@ -30,7 +30,7 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.apiUrl + "/division/1").subscribe({
+    this.http.get<DivisionData>(this.backendUrl + "/division/1").subscribe({
       next: (response) => {
         this.cachedDivisionL1 = response;
         this.divisionL1Subject.next(response);
@@ -45,7 +45,7 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.apiUrl + "/division/2").subscribe({
+    this.http.get<DivisionData>(this.backendUrl + "/division/2").subscribe({
       next: (response) => {
         this.cachedDivisionL2 = response;
         this.divisionL2Subject.next(response);
@@ -60,7 +60,7 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.apiUrl + "/division/3").subscribe({
+    this.http.get<DivisionData>(this.backendUrl + "/division/3").subscribe({
       next: (response) => {
         this.cachedDivisionL3 = response;
         this.divisionL3Subject.next(response);
