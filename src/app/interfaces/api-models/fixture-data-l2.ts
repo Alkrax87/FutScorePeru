@@ -1,4 +1,7 @@
 export interface FixtureDataL2 {
-  regional: { home: string; away: string }[][];
-  grupos: { home: string; away: string }[][];
+  regionalA: { home: string; away: string }[][];
+  regionalB: { home: string; away: string }[][];
+  gruposPromotionA: { home: string; away: string }[][];
+  gruposPromotionB: { home: string; away: string }[][];
+  gruposRelegation: { home: string; away: string }[][];
 }
