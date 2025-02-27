@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchFixtureService } from '../../../services/fetch-fixture.service';
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { FetchResultsService } from '../../../services/fetch-results.service';
+import { MatchesSetupService } from '../../../services/matches-setup.service';
 import { Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
 import { BtnComponent } from "../../../components/btn/btn.component";
 import { FixtureComponent } from "../../../components/fixture/fixture.component";
 import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
-import { FixtureCard } from '../../../interfaces/ui-models/fixture-card';
 import { ResultsDataL1 } from '../../../interfaces/api-models/results-data-l1';
 import { FixtureDataL1 } from '../../../interfaces/api-models/fixture-data-l1';
 import { StadiumData } from '../../../interfaces/api-models/stadium-data';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-l1-fixture',
@@ -29,35 +29,47 @@ import { CommonModule } from '@angular/common';
       </div>
       <div class="flex justify-center px-5">
         <div class="w-full lg:w-4/6">
-          @if (apertura && filteredDataForFixtureApertura) {
-            <h3 class="text-4xl text-white font-bold">Apertura Fecha {{ selectedRoundAperturaIndex + 1 }}</h3>
-            <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
-              @for (round of filteredDataForFixtureApertura; track $index) {
-                <button (click)="selectedRoundAperturaIndex = $index"
-                  class="w-10 h-10 md:w-full text-sm bg-brightnight text-white hover:bg-crimson"
-                  [ngClass]="{'bg-crimson': selectedRoundAperturaIndex === $index}"
-                >
-                  F{{ $index + 1 }}
-                </button>
-              }
-            </div>
-            <div class="bg-white skew-x-50 h-2 w-full mb-6"></div>
-            <app-fixture [data]="filteredDataForFixtureApertura[selectedRoundAperturaIndex ? selectedRoundAperturaIndex : 0]"></app-fixture>
+          @if (apertura) {
+            @if (filteredDataForFixtureApertura) {
+              <h3 class="text-4xl text-white font-bold">Apertura Fecha {{ selectedRoundAperturaIndex + 1 }}</h3>
+              <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
+                @for (round of filteredDataForFixtureApertura; track $index) {
+                  <button (click)="selectedRoundAperturaIndex = $index"
+                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson"
+                    [ngClass]="{'bg-crimson': selectedRoundAperturaIndex === $index}"
+                  >
+                    F{{ $index + 1 }}
+                  </button>
+                }
+              </div>
+              <div class="bg-white skew-x-50 h-2 w-full mb-6"></div>
+              <app-fixture [data]="filteredDataForFixtureApertura[selectedRoundAperturaIndex ? selectedRoundAperturaIndex : 0]"></app-fixture>
+            } @else {
+              <div class="flex h-64 justify-center items-center select-none">
+                <h3 class="text-3xl text-white font-bold">Fixture por definir...</h3>
+              </div>
+            }
           }
-          @if (clausura && filteredDataForFixtureClausura) {
-            <h3 class="text-4xl text-white font-bold">Clausura Fecha {{ selectedRoundClausuraIndex + 1 }}</h3>
-            <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
-              @for (round of filteredDataForFixtureClausura; track $index) {
-                <button (click)="selectedRoundClausuraIndex = $index"
-                  class="w-10 h-10 md:w-full text-sm bg-brightnight text-white hover:bg-crimson"
-                  [ngClass]="{'bg-crimson': selectedRoundClausuraIndex === $index}"
-                >
-                  F{{ $index + 1 }}
-                </button>
-              }
-            </div>
-            <div class="bg-white skew-x-50 h-2 w-full mb-6"></div>
-            <app-fixture [data]="filteredDataForFixtureClausura[selectedRoundClausuraIndex ? selectedRoundClausuraIndex : 0]"></app-fixture>
+          @if (clausura) {
+            @if (filteredDataForFixtureClausura) {
+              <h3 class="text-4xl text-white font-bold">Clausura Fecha {{ selectedRoundClausuraIndex + 1 }}</h3>
+              <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
+                @for (round of filteredDataForFixtureClausura; track $index) {
+                  <button (click)="selectedRoundClausuraIndex = $index"
+                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson"
+                    [ngClass]="{'bg-crimson': selectedRoundClausuraIndex === $index}"
+                  >
+                    F{{ $index + 1 }}
+                  </button>
+                }
+              </div>
+              <div class="bg-white skew-x-50 h-2 w-full mb-6"></div>
+              <app-fixture [data]="filteredDataForFixtureClausura[selectedRoundClausuraIndex ? selectedRoundClausuraIndex : 0]"></app-fixture>
+            } @else {
+              <div class="flex h-64 justify-center items-center select-none">
+                <h3 class="text-3xl text-white font-bold">Fixture por definir...</h3>
+              </div>
+            }
           }
         </div>
       </div>
@@ -71,7 +83,8 @@ export class L1FixtureComponent {
     private teamsService: FetchTeamDataService,
     private fixtureService: FetchFixtureService,
     private resultsService: FetchResultsService,
-    private stadiumService: FetchStadiumService
+    private stadiumService: FetchStadiumService,
+    private matchesService: MatchesSetupService
   ) {}
 
   private divisionSubscription: Subscription | null = null;
@@ -117,92 +130,25 @@ export class L1FixtureComponent {
       next: (data) => (this.dataResults = data)
     });
     if (this.dataStadium && this.dataTeams && this.dataFixture && this.dataResults) {
-      this.getDataForFixture();
+      this.getFixtureData();
     }
   }
 
-  async getDataForFixture() {
-    if (!this.dataTeams || !this.dataFixture || !this.dataResults) return;
-
-    const stadiumMap = new Map(this.dataStadium.map((stadium) => [stadium.stadiumId, stadium]));
-    const teamMap = new Map(this.dataTeams.map((team) => [team.teamId, team]));
-    const resultsMap = new Map(this.dataResults.map((result) => [result.teamId, result]));
-
-    let indexApertura = 0;
-    let indexClausura = 0;
-    const mergedDataApertura = [];
-    const mergedDataClausura = [];
-
-    for (const key of this.dataFixture.apertura) {
-      const rounds: FixtureCard[] = [];
-
-      for (const element of key) {
-        const homeTeam = teamMap.get(element.home);
-        const awayTeam = teamMap.get(element.away);
-
-        if (homeTeam && awayTeam) {
-          const stadium = stadiumMap.get(homeTeam.stadium);
-          const homeResults = resultsMap.get(homeTeam.teamId);
-          const awayResults = resultsMap.get(awayTeam.teamId);
-
-          const resultHome = homeResults?.apertura[indexApertura] ?? "";
-          const resultAway = awayResults?.apertura[indexApertura] ?? "";
-
-          rounds.push({
-            stadium: stadium?.name ? stadium.name : "Sin Determinar",
-            team1: homeTeam.name,
-            team2: awayTeam.name,
-            abbreviation1: homeTeam.abbreviation,
-            abbreviation2: awayTeam.abbreviation,
-            logo1: homeTeam.image,
-            logo2: awayTeam.image,
-            alt1: homeTeam.alt,
-            alt2: awayTeam.alt,
-            result1: resultHome,
-            result2: resultAway,
-          });
-        }
-      }
-      if (rounds.length > 0) { mergedDataApertura.push(rounds) }
-      indexApertura++;
-    }
-
-    for (const key of this.dataFixture.clausura) {
-      const rounds: FixtureCard[] = [];
-
-      for (const element of key) {
-        const homeTeam = teamMap.get(element.home);
-        const awayTeam = teamMap.get(element.away);
-
-        if (homeTeam && awayTeam) {
-          const stadium = stadiumMap.get(homeTeam.stadium);
-          const homeResults = resultsMap.get(homeTeam.teamId);
-          const awayResults = resultsMap.get(awayTeam.teamId);
-
-          const resultHome = homeResults?.clausura[indexClausura] ?? "";
-          const resultAway = awayResults?.clausura[indexClausura] ?? "";
-
-          rounds.push({
-            stadium: stadium?.name ? stadium.name : "Sin Determinar",
-            team1: homeTeam.name,
-            team2: awayTeam.name,
-            abbreviation1: homeTeam.abbreviation,
-            abbreviation2: awayTeam.abbreviation,
-            logo1: homeTeam.image,
-            logo2: awayTeam.image,
-            alt1: homeTeam.alt,
-            alt2: awayTeam.alt,
-            result1: resultHome,
-            result2: resultAway,
-          });
-        }
-      }
-      if (rounds.length > 0) { mergedDataClausura.push(rounds) }
-      indexClausura++;
-    }
-
-    this.filteredDataForFixtureApertura = mergedDataApertura;
-    this.filteredDataForFixtureClausura = mergedDataClausura;
+  getFixtureData() {
+    this.filteredDataForFixtureApertura = this.matchesService.transformDataForFixture(
+      this.dataTeams,
+      this.dataFixture?.apertura,
+      this.dataResults,
+      this.dataStadium,
+      'apertura'
+    );
+    this.filteredDataForFixtureClausura = this.matchesService.transformDataForFixture(
+      this.dataTeams,
+      this.dataFixture?.clausura,
+      this.dataResults,
+      this.dataStadium,
+      'clausura'
+    );
   }
 
   ngOnDestroy() {
