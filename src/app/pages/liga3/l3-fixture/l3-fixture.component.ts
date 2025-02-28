@@ -165,28 +165,28 @@ export class L3FixtureComponent {
   getFixtureData() {
     this.filteredDataForFixtureRegional1 = this.matchesService.transformDataForFixture(
       this.dataTeams,
-      this.dataFixture?.regular1,
+      this.dataFixture?.regional1,
       this.dataResults,
       this.dataStadium,
       "regional"
     );
     this.filteredDataForFixtureRegional2 = this.matchesService.transformDataForFixture(
       this.dataTeams,
-      this.dataFixture?.regular2,
+      this.dataFixture?.regional2,
       this.dataResults,
       this.dataStadium,
       "regional"
     );
     this.filteredDataForFixtureRegional3 = this.matchesService.transformDataForFixture(
       this.dataTeams,
-      this.dataFixture?.regular3,
+      this.dataFixture?.regional3,
       this.dataResults,
       this.dataStadium,
       "regional"
     );
     this.filteredDataForFixtureRegional4 = this.matchesService.transformDataForFixture(
       this.dataTeams,
-      this.dataFixture?.regular4,
+      this.dataFixture?.regional4,
       this.dataResults,
       this.dataStadium,
       "regional"
