@@ -115,7 +115,7 @@ export class L2TableComponent {
 
       if (!performance || !lastGames) return;
 
-      switch (team.group) {
+      switch (team.groupFirstPhase) {
         case "a":
           sortTeamsRegionalN.push({
             ...baseTeamData,

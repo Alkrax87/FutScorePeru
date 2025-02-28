@@ -129,33 +129,33 @@ export class L3TableComponent {
 
       if (!performance || !lastGames) return;
 
-      switch (team.group) {
+      switch (team.groupFirstPhase) {
         case "1":
           sortTeamsN.push({
             ...baseTeamData,
-            performance: performance.regular,
-            lastgames: lastGames.regular.slice(-5),
+            performance: performance.regional,
+            lastgames: lastGames.regional.slice(-5),
           });
           break;
         case "2":
           sortTeamsC.push({
             ...baseTeamData,
-            performance: performance.regular,
-            lastgames: lastGames.regular.slice(-5),
+            performance: performance.regional,
+            lastgames: lastGames.regional.slice(-5),
           });
           break;
         case "3":
           sortTeamsS.push({
             ...baseTeamData,
-            performance: performance.regular,
-            lastgames: lastGames.regular.slice(-5),
+            performance: performance.regional,
+            lastgames: lastGames.regional.slice(-5),
           });
           break;
         case "4":
           sortTeamsMS.push({
             ...baseTeamData,
-            performance: performance.regular,
-            lastgames: lastGames.regular.slice(-5),
+            performance: performance.regional,
+            lastgames: lastGames.regional.slice(-5),
           });
           break;
         default:
