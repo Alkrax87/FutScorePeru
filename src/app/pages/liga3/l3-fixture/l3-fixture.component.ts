@@ -10,14 +10,14 @@ import { Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
 import { BtnComponent } from "../../../components/btn/btn.component";
 import { FixtureComponent } from "../../../components/fixture/fixture.component";
-import { TeamDataL3 } from '../../../interfaces/api-models/team-data-l3';
-import { ResultsDataL3 } from '../../../interfaces/api-models/results-data-l3';
-import { FixtureDataL3 } from '../../../interfaces/api-models/fixture-data-l3';
+import { TeamData } from '../../../interfaces/api-models/team-data';
+import { ResultsData } from '../../../interfaces/api-models/results-data';
+import { FixtureData } from '../../../interfaces/api-models/fixture-data';
 import { StadiumData } from '../../../interfaces/api-models/stadium-data';
 
 @Component({
   selector: 'app-l3-fixture',
-  imports: [TitleComponent, BtnComponent, CommonModule, FixtureComponent],
+  imports: [TitleComponent, FixtureComponent, BtnComponent, CommonModule],
   template: `
     <app-title [title]="'Fixture'"></app-title>
     <div class="bg-night py-5">
@@ -58,7 +58,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
             }
           } @else {
             <div class="flex h-64 justify-center items-center select-none">
-              <h3 class="text-3xl text-white font-bold">Fixture por definir...</h3>
+              <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
             </div>
           }
           @if (final) {
@@ -90,7 +90,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
             }
           } @else {
             <div class="flex h-64 justify-center items-center select-none">
-              <h3 class="text-3xl text-white font-bold">Fixture por definir...</h3>
+              <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
             </div>
           }
         </div>
@@ -119,9 +119,9 @@ export class L3FixtureComponent {
   selectedRoundRegionalIndex: number = 0;
   selectedRoundFinalIndex: number = 0;
   dataStadium: StadiumData[] = [];
-  dataTeams: TeamDataL3[] = [];
-  dataFixture: FixtureDataL3 | null = null;
-  dataResults: ResultsDataL3[] = [];
+  dataTeams: TeamData[] = [];
+  dataFixture: FixtureData | null = null;
+  dataResults: ResultsData[] = [];
   filteredDataForFixtureRegional1: any[] = [];
   filteredDataForFixtureRegional2: any[] = [];
   filteredDataForFixtureRegional3: any[] = [];

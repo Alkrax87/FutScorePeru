@@ -6,12 +6,12 @@ import { FetchLastGamesService } from '../../../services/fetch-last-games.servic
 import { SortDataTableService } from '../../../services/sort-data-table.service';
 import { Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
-import { TableComponent } from '../../../components/table/table.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
+import { TableComponent } from '../../../components/table/table.component';
 import { DivisionData } from '../../../interfaces/api-models/division-data';
-import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
-import { PerformanceDataL1 } from '../../../interfaces/api-models/performance-data-l1';
-import { LastGamesDataL1 } from '../../../interfaces/api-models/last-games-data-l1';
+import { TeamData } from '../../../interfaces/api-models/team-data';
+import { PerformanceData } from '../../../interfaces/api-models/performance-data';
+import { LastGamesData } from '../../../interfaces/api-models/last-games-data';
 import { TeamTable } from '../../../interfaces/ui-models/team-table';
 
 @Component({
@@ -54,9 +54,9 @@ export class L1TableComponent {
   private performanceSubscription: Subscription | null = null;
   private lastGamesSubscription: Subscription | null = null;
   dataDivision: DivisionData | null = null;
-  dataTeams: TeamDataL1[] = [];
-  dataPerformance: PerformanceDataL1[] = [];
-  dataLastGames: LastGamesDataL1[] = [];
+  dataTeams: TeamData[] = [];
+  dataPerformance: PerformanceData[] = [];
+  dataLastGames: LastGamesData[] = [];
   acumulado: boolean = true;
   apertura: boolean = false;
   clausura: boolean = false;
@@ -158,8 +158,6 @@ export class L1TableComponent {
     let sortTeamsClausura:TeamTable[] = [];
     let sortTeamsAcumulado:TeamTable[] = [];
 
-    let stagedActive = this.dataDivision?.stages.find((stage) => stage.status === true);
-
     for (const team of this.dataTeams) {
       const baseTeamData = {
         name: team.name,
@@ -171,9 +169,7 @@ export class L1TableComponent {
       const performance = performanceMap.get(team.teamId);
       const lastGames = lastGamesMap.get(team.teamId);
 
-      if (!performance || !lastGames) return;
-
-      const stagedName = stagedActive?.name as keyof typeof lastGames;
+      if (!performance?.apertura || !performance.clausura || !performance.acumulado || !lastGames?.apertura || !lastGames.clausura) return;
 
       sortTeamsApertura.push({
         ...baseTeamData,
@@ -188,7 +184,9 @@ export class L1TableComponent {
       sortTeamsAcumulado.push({
         ...baseTeamData,
         performance: performance.acumulado,
-        lastgames: lastGames[stagedName].slice(-5) as string[],
+        lastgames: this.dataDivision?.stages[0].status
+        ? lastGames.apertura.slice(-5) as string[]
+        : lastGames.clausura.slice(-5) as string[],
       });
     }
 

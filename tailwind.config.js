@@ -15,6 +15,7 @@ module.exports = {
         gpromotion: "#F1C13A",
         grelegation: "#11759C",
         promotion: "#34A853",
+        quarter: "#a0d654",
       },
       skew: {
         30: "30deg",

@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TeamDataL1 } from '../interfaces/api-models/team-data-l1';
-import { TeamDataL2 } from '../interfaces/api-models/team-data-l2';
-import { TeamDataL3 } from '../interfaces/api-models/team-data-l3';
-import { ResultsDataL1 } from '../interfaces/api-models/results-data-l1';
-import { ResultsDataL2 } from '../interfaces/api-models/results-data-l2';
-import { ResultsDataL3 } from '../interfaces/api-models/results-data-l3';
+import { TeamData } from '../interfaces/api-models/team-data';
+import { ResultsData } from '../interfaces/api-models/results-data';
 import { StadiumData } from '../interfaces/api-models/stadium-data';
 import { FixtureCard } from '../interfaces/ui-models/fixture-card';
 
@@ -15,9 +11,9 @@ export class MatchesSetupService {
   constructor() {}
 
   transformDataForFixture(
-    teams: TeamDataL1[] | TeamDataL2[] | TeamDataL3[],
+    teams: TeamData[],
     fixture: any,
-    results: ResultsDataL1[] | ResultsDataL2[] | ResultsDataL3[],
+    results: ResultsData[],
     stadiums: StadiumData[],
     stage: string
   ) {

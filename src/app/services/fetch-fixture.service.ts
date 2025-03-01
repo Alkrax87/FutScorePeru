@@ -2,9 +2,7 @@ import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FixtureDataL1 } from '../interfaces/api-models/fixture-data-l1';
-import { FixtureDataL2 } from '../interfaces/api-models/fixture-data-l2';
-import { FixtureDataL3 } from '../interfaces/api-models/fixture-data-l3';
+import { FixtureData } from '../interfaces/api-models/fixture-data';
 
 @Injectable({
   providedIn: 'root',
@@ -14,13 +12,13 @@ export class FetchFixtureService {
 
   constructor(private http: HttpClient) {}
 
-  cachedFixtureL1: FixtureDataL1 | null = null;
-  cachedFixtureL2: FixtureDataL2 | null = null;
-  cachedFixtureL3: FixtureDataL3 | null = null;
+  cachedFixtureL1: FixtureData | null = null;
+  cachedFixtureL2: FixtureData | null = null;
+  cachedFixtureL3: FixtureData | null = null;
 
-  private fixtureL1Subject = new BehaviorSubject<FixtureDataL1 | null>(null);
-  private fixtureL2Subject = new BehaviorSubject<FixtureDataL2 | null>(null);
-  private fixtureL3Subject = new BehaviorSubject<FixtureDataL3 | null>(null);
+  private fixtureL1Subject = new BehaviorSubject<FixtureData | null>(null);
+  private fixtureL2Subject = new BehaviorSubject<FixtureData | null>(null);
+  private fixtureL3Subject = new BehaviorSubject<FixtureData | null>(null);
 
   dataFixtureL1$ = this.fixtureL1Subject.asObservable();
   dataFixtureL2$ = this.fixtureL2Subject.asObservable();
@@ -32,7 +30,7 @@ export class FetchFixtureService {
       return;
     }
 
-    this.http.get<FixtureDataL1>(this.backendUrl + '/fixture/1').subscribe({
+    this.http.get<FixtureData>(this.backendUrl + '/fixture/1').subscribe({
       next: (response) => {
         this.cachedFixtureL1 = response;
         this.fixtureL1Subject.next(response);
@@ -47,7 +45,7 @@ export class FetchFixtureService {
       return;
     }
 
-    this.http.get<FixtureDataL2>(this.backendUrl + '/fixture/2').subscribe({
+    this.http.get<FixtureData>(this.backendUrl + '/fixture/2').subscribe({
       next: (response) => {
         this.cachedFixtureL2 = response;
         this.fixtureL2Subject.next(response);
@@ -62,7 +60,7 @@ export class FetchFixtureService {
       return;
     }
 
-    this.http.get<FixtureDataL3>(this.backendUrl + '/fixture/3').subscribe({
+    this.http.get<FixtureData>(this.backendUrl + '/fixture/3').subscribe({
       next: (response) => {
         this.cachedFixtureL3 = response;
         this.fixtureL3Subject.next(response);

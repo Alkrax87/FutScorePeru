@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TeamDataL1 } from '../interfaces/api-models/team-data-l1';
-import { TeamDataL2 } from '../interfaces/api-models/team-data-l2';
-import { TeamDataL3 } from '../interfaces/api-models/team-data-l3';
+import { TeamData } from '../interfaces/api-models/team-data';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +7,7 @@ import { TeamDataL3 } from '../interfaces/api-models/team-data-l3';
 export class TransformStatisticDataService {
   constructor() {}
 
-  transformData(dictionary: TeamDataL1[] | TeamDataL2[] | TeamDataL3[] | null, data: any, valueKey: string) {
+  transformData(dictionary: TeamData[], data: any, valueKey: string) {
     const teamMap = new Map(dictionary?.map((team) => [team.teamId, team]));
 
     return data.map((element: any) => {

@@ -3,7 +3,7 @@ import { FetchTeamDataService } from '../../../services/fetch-team-data.service'
 import { FetchManagerService } from '../../../services/fetch-manager.service';
 import { Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
-import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
+import { TeamData } from '../../../interfaces/api-models/team-data';
 import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel';
 import { ManagerCarouselComponent } from "../../../components/manager-carousel/manager-carousel.component";
 import { ManagerData } from '../../../interfaces/api-models/manager-data';
@@ -40,7 +40,7 @@ export class L2ManagersComponent {
 
   private teamSubscription: Subscription | null = null;
   private managerSubscription: Subscription | null = null;
-  dataTeams: TeamDataL2[] = [];
+  dataTeams: TeamData[] = [];
   dataManagers: ManagerData[] = [];
   dataCarousel: ManagerCarousel[] = [];
 

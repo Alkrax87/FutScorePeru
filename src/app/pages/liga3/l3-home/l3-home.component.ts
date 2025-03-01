@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { MapComponent } from '../../../components/map/map.component';
 import { StatisticsComponent } from '../../../components/statistics/statistics.component';
 import { DivisionData } from '../../../interfaces/api-models/division-data';
-import { TeamDataL3 } from '../../../interfaces/api-models/team-data-l3';
+import { TeamData } from '../../../interfaces/api-models/team-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
 import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
@@ -36,7 +36,7 @@ export class L3HomeComponent {
   private statisticsSubscription: Subscription | null = null;
   private mapSubscription: Subscription | null = null;
   dataDivision: DivisionData | null = null;
-  dataTeams: TeamDataL3[] = [];
+  dataTeams: TeamData[] = [];
   dataStatistics: any;
   mapConstructor: MapElement[] = [];
   dataMap: TeamMap[] = [];
@@ -57,7 +57,10 @@ export class L3HomeComponent {
       next: (data) => (this.dataTeams = data, this.getDataForMap())
     });
     this.statisticsSubscription = this.statisticsService.dataStatisticsL3$.subscribe({
-      next: (data) => (this.dataStatistics = data, this.getDataForStatistics())
+      next: (data) => {
+        this.dataStatistics = data;
+        this.getDataForStatistics();
+      }
     });
     this.mapSubscription = this.mapService.dataMapL3$.subscribe({
       next: (data) => (this.mapConstructor = data)

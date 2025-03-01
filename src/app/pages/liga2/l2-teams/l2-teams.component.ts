@@ -4,7 +4,7 @@ import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
 import { TeamCardComponent } from "../../../components/team-card/team-card.component";
-import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
+import { TeamData } from '../../../interfaces/api-models/team-data';
 import { StadiumData } from '../../../interfaces/api-models/stadium-data';
 import { TeamCard } from '../../../interfaces/ui-models/team-card';
 
@@ -35,7 +35,7 @@ export class L2TeamsComponent {
 
   private teamSubscription: Subscription | null = null;
   private stadiumSubscription: Subscription | null = null;
-  dataTeams: TeamDataL2[] = [];
+  dataTeams: TeamData[] = [];
   dataStadiums: StadiumData[] = [];
   dataTeamsCard: TeamCard[] = [];
 
@@ -54,28 +54,25 @@ export class L2TeamsComponent {
 
   getDataForCard() {
     const newData: TeamCard[] = [];
+    const teamMap = new Map(this.dataStadiums.map((stadium) => [stadium.stadiumId, stadium]));
 
-    if (this.dataTeams && this.dataStadiums) {
-      const teamMap = new Map(this.dataStadiums.map((stadium) => [stadium.stadiumId, stadium]));
-
-      for (const team of this.dataTeams) {
-        const stadium = teamMap.get(team.stadium);
-        newData.push({
-          name: team.name,
-          abbreviation: team.abbreviation,
-          image: team.image,
-          alt: team.alt,
-          url: team.url,
-          color: team.color,
-          stadium: {
-            name: stadium?.name ?? "Por Definir",
-            capacity: stadium?.capacity ?? "",
-            location: stadium?.location ?? ""
-          }
-        });
-      }
-      this.dataTeamsCard = newData;
+    for (const team of this.dataTeams) {
+      const stadium = teamMap.get(team.stadium);
+      newData.push({
+        name: team.name,
+        abbreviation: team.abbreviation,
+        image: team.image,
+        alt: team.alt,
+        url: team.url,
+        color: team.color,
+        stadium: {
+          name: stadium?.name ?? "Por Definir",
+          capacity: stadium?.capacity ?? "",
+          location: stadium?.location ?? ""
+        }
+      });
     }
+    this.dataTeamsCard = newData;
   }
 
   ngOnDestroy() {

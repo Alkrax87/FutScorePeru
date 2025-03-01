@@ -10,9 +10,9 @@ import { Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
 import { BtnComponent } from "../../../components/btn/btn.component";
 import { FixtureComponent } from '../../../components/fixture/fixture.component';
-import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
-import { ResultsDataL2 } from '../../../interfaces/api-models/results-data-l2';
-import { FixtureDataL2 } from '../../../interfaces/api-models/fixture-data-l2';
+import { TeamData } from '../../../interfaces/api-models/team-data';
+import { ResultsData } from '../../../interfaces/api-models/results-data';
+import { FixtureData } from '../../../interfaces/api-models/fixture-data';
 import { StadiumData } from '../../../interfaces/api-models/stadium-data';
 
 @Component({
@@ -51,7 +51,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <app-fixture [data]="filteredDataForFixtureRegionalB[selectedRoundRegionalIndex ? selectedRoundRegionalIndex : 0]"></app-fixture>
             } @else {
               <div class="flex h-64 justify-center items-center select-none">
-                <h3 class="text-3xl text-white font-bold">Fixture por definir...</h3>
+                <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
               </div>
             }
           }
@@ -80,7 +80,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <app-fixture [data]="filteredDataForFixtureGruposRelegation[selectedRoundGruposIndex ? selectedRoundGruposIndex : 0]"></app-fixture>
             } @else {
               <div class="flex h-64 justify-center items-center select-none">
-                <h3 class="text-3xl text-white font-bold">Fixture por definir...</h3>
+                <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
               </div>
             }
           }
@@ -110,9 +110,9 @@ export class L2FixtureComponent {
   selectedRoundRegionalIndex: number = 0;
   selectedRoundGruposIndex: number = 0;
   dataStadium: StadiumData[] = [];
-  dataTeams: TeamDataL2[] = [];
-  dataFixture: FixtureDataL2 | null = null;
-  dataResults: ResultsDataL2[] = [];
+  dataTeams: TeamData[] = [];
+  dataFixture: FixtureData | null = null;
+  dataResults: ResultsData[] = [];
   filteredDataForFixtureRegionalA: any;
   filteredDataForFixtureRegionalB: any;
   filteredDataForFixtureGruposPromotionA: any;

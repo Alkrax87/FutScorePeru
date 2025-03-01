@@ -2,9 +2,7 @@ import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ResultsDataL1 } from '../interfaces/api-models/results-data-l1';
-import { ResultsDataL2 } from '../interfaces/api-models/results-data-l2';
-import { ResultsDataL3 } from '../interfaces/api-models/results-data-l3';
+import { ResultsData } from '../interfaces/api-models/results-data';
 
 @Injectable({
   providedIn: 'root',
@@ -14,13 +12,13 @@ export class FetchResultsService {
 
   constructor(private http: HttpClient) {}
 
-  cachedResultsL1: ResultsDataL1[] | null = null;
-  cachedResultsL2: ResultsDataL2[] | null = null;
-  cachedResultsL3: ResultsDataL3[] | null = null;
+  cachedResultsL1: ResultsData[] | null = null;
+  cachedResultsL2: ResultsData[] | null = null;
+  cachedResultsL3: ResultsData[] | null = null;
 
-  private resultsL1Subject = new BehaviorSubject<ResultsDataL1[]>([]);
-  private resultsL2Subject = new BehaviorSubject<ResultsDataL2[]>([]);
-  private resultsL3Subject = new BehaviorSubject<ResultsDataL3[]>([]);
+  private resultsL1Subject = new BehaviorSubject<ResultsData[]>([]);
+  private resultsL2Subject = new BehaviorSubject<ResultsData[]>([]);
+  private resultsL3Subject = new BehaviorSubject<ResultsData[]>([]);
 
   dataResultsL1$ = this.resultsL1Subject.asObservable();
   dataResultsL2$ = this.resultsL2Subject.asObservable();
@@ -32,7 +30,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsDataL1[]>(this.backendUrl + '/results/1').subscribe({
+    this.http.get<ResultsData[]>(this.backendUrl + '/results/1').subscribe({
       next: (response) => {
         this.cachedResultsL1 = response;
         this.resultsL1Subject.next(response);
@@ -47,7 +45,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsDataL2[]>(this.backendUrl + '/results/2').subscribe({
+    this.http.get<ResultsData[]>(this.backendUrl + '/results/2').subscribe({
       next: (response) => {
         this.cachedResultsL2 = response;
         this.resultsL2Subject.next(response);
@@ -62,7 +60,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsDataL3[]>(this.backendUrl + '/results/3').subscribe({
+    this.http.get<ResultsData[]>(this.backendUrl + '/results/3').subscribe({
       next: (response) => {
         this.cachedResultsL3 = response;
         this.resultsL3Subject.next(response);

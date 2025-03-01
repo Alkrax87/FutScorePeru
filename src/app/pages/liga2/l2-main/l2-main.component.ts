@@ -14,7 +14,7 @@ import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { Subscription } from 'rxjs';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield } from '@fortawesome/free-solid-svg-icons';
-import { TeamDataL2 } from '../../../interfaces/api-models/team-data-l2';
+import { TeamData } from '../../../interfaces/api-models/team-data';
 import { TeamNav } from '../../../interfaces/ui-models/team-nav';
 
 @Component({
@@ -23,7 +23,7 @@ import { TeamNav } from '../../../interfaces/ui-models/team-nav';
   template: `
     <app-top-nav-teams [teams]="dataTeamsNav"></app-top-nav-teams>
     <div class="hidden md:block h-2 bg-crimson"></div>
-    <app-options-nav [options]="navOptions" [division]="division"></app-options-nav>
+    <app-options-nav [options]="navOptions" [division]="'Liga 2'"></app-options-nav>
     <router-outlet></router-outlet>
   `,
   styles: ``,
@@ -43,7 +43,7 @@ export class L2MainComponent {
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeams: TeamDataL2[] = [];
+  dataTeams: TeamData[] = [];
   dataTeamsNav: TeamNav[] = [];
   navOptions = [
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
@@ -51,7 +51,6 @@ export class L2MainComponent {
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
     { name: 'Técnicos', route: 'tecnicos', icon: faUserShield },
   ];
-  division: string = "Liga 2";
 
   ngOnInit() {
     this.teamsService.fetchTeamsL2();

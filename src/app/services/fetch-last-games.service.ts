@@ -2,9 +2,7 @@ import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LastGamesDataL1 } from '../interfaces/api-models/last-games-data-l1';
-import { LastGamesDataL2 } from '../interfaces/api-models/last-games-data-l2';
-import { LastGamesDataL3 } from '../interfaces/api-models/last-games-data-l3';
+import { LastGamesData } from '../interfaces/api-models/last-games-data';
 
 @Injectable({
   providedIn: 'root',
@@ -14,13 +12,13 @@ export class FetchLastGamesService {
 
   constructor(private http: HttpClient) {}
 
-  cachedLastGamesL1: LastGamesDataL1[] | null = null;
-  cachedLastGamesL2: LastGamesDataL2[] | null = null;
-  cachedLastGamesL3: LastGamesDataL3[] | null = null;
+  cachedLastGamesL1: LastGamesData[] | null = null;
+  cachedLastGamesL2: LastGamesData[] | null = null;
+  cachedLastGamesL3: LastGamesData[] | null = null;
 
-  private lastGamesL1Subject = new BehaviorSubject<LastGamesDataL1[]>([]);
-  private lastGamesL2Subject = new BehaviorSubject<LastGamesDataL2[]>([]);
-  private lastGamesL3Subject = new BehaviorSubject<LastGamesDataL3[]>([]);
+  private lastGamesL1Subject = new BehaviorSubject<LastGamesData[]>([]);
+  private lastGamesL2Subject = new BehaviorSubject<LastGamesData[]>([]);
+  private lastGamesL3Subject = new BehaviorSubject<LastGamesData[]>([]);
 
   dataLastGamesL1$ = this.lastGamesL1Subject.asObservable();
   dataLastGamesL2$ = this.lastGamesL2Subject.asObservable();
@@ -32,7 +30,7 @@ export class FetchLastGamesService {
       return;
     }
 
-    this.http.get<LastGamesDataL1[]>(this.backendUrl + '/lastgames/1').subscribe({
+    this.http.get<LastGamesData[]>(this.backendUrl + '/lastgames/1').subscribe({
       next: (response) => {
         this.cachedLastGamesL1 = response;
         this.lastGamesL1Subject.next(response);
@@ -47,7 +45,7 @@ export class FetchLastGamesService {
       return;
     }
 
-    this.http.get<LastGamesDataL2[]>(this.backendUrl + '/lastgames/2').subscribe({
+    this.http.get<LastGamesData[]>(this.backendUrl + '/lastgames/2').subscribe({
       next: (response) => {
         this.cachedLastGamesL2 = response;
         this.lastGamesL2Subject.next(response);
@@ -62,7 +60,7 @@ export class FetchLastGamesService {
       return;
     }
 
-    this.http.get<LastGamesDataL3[]>(this.backendUrl + '/lastgames/3').subscribe({
+    this.http.get<LastGamesData[]>(this.backendUrl + '/lastgames/3').subscribe({
       next: (response) => {
         this.cachedLastGamesL3 = response;
         this.lastGamesL3Subject.next(response);

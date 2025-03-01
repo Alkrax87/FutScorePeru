@@ -2,9 +2,7 @@ import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { PerformanceDataL1 } from '../interfaces/api-models/performance-data-l1';
-import { PerformanceDataL2 } from '../interfaces/api-models/performance-data-l2';
-import { PerformanceDataL3 } from '../interfaces/api-models/performance-data-l3';
+import { PerformanceData } from '../interfaces/api-models/performance-data';
 
 @Injectable({
   providedIn: 'root',
@@ -14,13 +12,13 @@ export class FetchPerformanceService {
 
   constructor(private http: HttpClient) {}
 
-  cachedPerformanceL1: PerformanceDataL1[] | null = null;
-  cachedPerformanceL2: PerformanceDataL2[] | null = null;
-  cachedPerformanceL3: PerformanceDataL3[] | null = null;
+  cachedPerformanceL1: PerformanceData[] | null = null;
+  cachedPerformanceL2: PerformanceData[] | null = null;
+  cachedPerformanceL3: PerformanceData[] | null = null;
 
-  private performanceL1Subject = new BehaviorSubject<PerformanceDataL1[]>([]);
-  private performanceL2Subject = new BehaviorSubject<PerformanceDataL2[]>([]);
-  private performanceL3Subject = new BehaviorSubject<PerformanceDataL3[]>([]);
+  private performanceL1Subject = new BehaviorSubject<PerformanceData[]>([]);
+  private performanceL2Subject = new BehaviorSubject<PerformanceData[]>([]);
+  private performanceL3Subject = new BehaviorSubject<PerformanceData[]>([]);
 
   dataPerformanceL1$ = this.performanceL1Subject.asObservable();
   dataPerformanceL2$ = this.performanceL2Subject.asObservable();
@@ -32,7 +30,7 @@ export class FetchPerformanceService {
       return;
     }
 
-    this.http.get<PerformanceDataL1[]>(this.backendUrl + '/performance/1').subscribe({
+    this.http.get<PerformanceData[]>(this.backendUrl + '/performance/1').subscribe({
       next: (response) => {
         this.cachedPerformanceL1 = response;
         this.performanceL1Subject.next(response);
@@ -47,7 +45,7 @@ export class FetchPerformanceService {
       return;
     }
 
-    this.http.get<PerformanceDataL2[]>(this.backendUrl + '/performance/2').subscribe({
+    this.http.get<PerformanceData[]>(this.backendUrl + '/performance/2').subscribe({
       next: (response) => {
         this.cachedPerformanceL2 = response;
         this.performanceL2Subject.next(response);
@@ -62,7 +60,7 @@ export class FetchPerformanceService {
       return;
     }
 
-    this.http.get<PerformanceDataL3[]>(this.backendUrl + '/performance/3').subscribe({
+    this.http.get<PerformanceData[]>(this.backendUrl + '/performance/3').subscribe({
       next: (response) => {
         this.cachedPerformanceL3 = response;
         this.performanceL3Subject.next(response);

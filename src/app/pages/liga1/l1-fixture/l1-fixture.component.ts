@@ -10,9 +10,9 @@ import { Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
 import { BtnComponent } from "../../../components/btn/btn.component";
 import { FixtureComponent } from "../../../components/fixture/fixture.component";
-import { TeamDataL1 } from '../../../interfaces/api-models/team-data-l1';
-import { ResultsDataL1 } from '../../../interfaces/api-models/results-data-l1';
-import { FixtureDataL1 } from '../../../interfaces/api-models/fixture-data-l1';
+import { TeamData } from '../../../interfaces/api-models/team-data';
+import { ResultsData } from '../../../interfaces/api-models/results-data';
+import { FixtureData } from '../../../interfaces/api-models/fixture-data';
 import { StadiumData } from '../../../interfaces/api-models/stadium-data';
 
 @Component({
@@ -46,7 +46,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <app-fixture [data]="filteredDataForFixtureApertura[selectedRoundAperturaIndex ? selectedRoundAperturaIndex : 0]"></app-fixture>
             } @else {
               <div class="flex h-64 justify-center items-center select-none">
-                <h3 class="text-3xl text-white font-bold">Fixture por definir...</h3>
+                <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
               </div>
             }
           }
@@ -67,7 +67,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <app-fixture [data]="filteredDataForFixtureClausura[selectedRoundClausuraIndex ? selectedRoundClausuraIndex : 0]"></app-fixture>
             } @else {
               <div class="flex h-64 justify-center items-center select-none">
-                <h3 class="text-3xl text-white font-bold">Fixture por definir...</h3>
+                <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
               </div>
             }
           }
@@ -97,9 +97,9 @@ export class L1FixtureComponent {
   selectedRoundAperturaIndex: number = 0;
   selectedRoundClausuraIndex: number = 0;
   dataStadium: StadiumData[] = [];
-  dataTeams: TeamDataL1[] = [];
-  dataFixture: FixtureDataL1 | null = null;
-  dataResults: ResultsDataL1[] = [];
+  dataTeams: TeamData[] = [];
+  dataFixture: FixtureData | null = null;
+  dataResults: ResultsData[] = [];
   filteredDataForFixtureApertura: any;
   filteredDataForFixtureClausura: any;
 
