@@ -1,6 +1,7 @@
-export interface TeamDataL2 {
+export interface TeamData {
   teamId: string;
-  group: string;
+  groupFirstPhase?: string;
+  groupSecondPhase?: string;
   name: string;
   abbreviation: string;
   image: string;
