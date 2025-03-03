@@ -10,32 +10,28 @@ import { TeamTable } from '../../interfaces/ui-models/team-table';
   template: `
     <div class="bg-nightfall rounded-3xl font-semibold select-none">
       <div class="py-5 px-0 sm:py-8 sm:px-8 overflow-x-auto">
-        @if (!headers || !config || !data || !classification) {
-          <div class="text-white w-full flex justify-center">
-            <p>Datos para la tabla por definir...</p>
-          </div>
-        } @else {
-          <table class="w-full">
-            <thead class="text-gray-300 border-b-4 border-[#585858]" style="font-size: 12px;">
-              <tr class="h-10">
-                @for (header of headers; track $index) {
-                  @if ($index === 0) {
-                    <th class="w-1 min-w-1 max-w-1">{{ header }}</th>
-                  } @else if ($index === 1) {
-                    <th class="w-10 min-w-10 max-w-10">{{ header }}</th>
-                  } @else if ($index === 2) {
-                    <th class="min-w-24 sm:min-w-64 text-start">{{ header }}</th>
-                  } @else if ($index === 3) {
-                    <th class="bg-brightnight rounded-t-lg min-w-16">{{ header }}</th>
-                  } @else if ($index === 11) {
-                    <th class="w-72 min-w-40">{{ header }}</th>
-                  } @else {
-                    <th class="min-w-12">{{ header }}</th>
-                  }
+        <table class="w-full">
+          <thead class="text-gray-300 border-b-4 border-[#585858]" style="font-size: 12px;">
+            <tr class="h-10">
+              @for (header of headers; track $index) {
+                @if ($index === 0) {
+                  <th class="w-1 min-w-1 max-w-1">{{ header }}</th>
+                } @else if ($index === 1) {
+                  <th class="w-10 min-w-10 max-w-10">{{ header }}</th>
+                } @else if ($index === 2) {
+                  <th class="min-w-24 sm:min-w-64 text-start">{{ header }}</th>
+                } @else if ($index === 3) {
+                  <th class="bg-brightnight rounded-t-lg min-w-16">{{ header }}</th>
+                } @else if ($index === 11) {
+                  <th class="w-72 min-w-40">{{ header }}</th>
+                } @else {
+                  <th class="min-w-12">{{ header }}</th>
                 }
-              </tr>
-            </thead>
-            <tbody class="text-gray-200">
+              }
+            </tr>
+          </thead>
+          <tbody class="text-gray-200">
+            @if (data.length > 0) {
               @for (item of data; track $index) {
                 <tr class="h-12 text-lg text-center hover:bg-gray-200 hover:text-night">
                   @if ($index >= 0 && $index < config[0].quantity) {
@@ -85,22 +81,30 @@ import { TeamTable } from '../../interfaces/ui-models/team-table';
                   </td>
                 </tr>
               }
-            </tbody>
-          </table>
-          <div class="mt-8">
-            @for (item of classification; track $index) {
-              <div class="flex my-2">
-                <div class="h-8 w-1" [ngClass]="item.class"></div>
-                <div class="h-8">
-                  <img loading="lazy" [src]="item.image" alt="classification-logo" class="h-full px-2">
-                </div>
-                <div class="h-8 text-gray-200 flex items-center">
-                  {{ item.name }}
-                </div>
-              </div>
+            } @else {
+              <tr>
+                <td colspan="12">
+                  <div class="h-16 flex justify-center items-center text-2xl">
+                    Datos de la tabla por definir...
+                  </div>
+                </td>
+              </tr>
             }
-          </div>
-        }
+          </tbody>
+        </table>
+        <div class="mt-4">
+          @for (item of classification; track $index) {
+            <div class="flex my-2">
+              <div class="h-8 w-1" [ngClass]="item.class"></div>
+              <div class="h-8">
+                <img loading="lazy" [src]="item.image" alt="classification-logo" class="h-full px-2">
+              </div>
+              <div class="h-8 text-gray-200 flex items-center">
+                {{ item.name }}
+              </div>
+            </div>
+          }
+        </div>
       </div>
     </div>
   `,
