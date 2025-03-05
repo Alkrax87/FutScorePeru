@@ -6,6 +6,7 @@ import { FetchMapService } from '../../../services/fetch-map.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
 import { TransformStatisticDataService } from '../../../services/transform-statistic-data.service';
 import { Subscription } from 'rxjs';
+import { DivisionInfoComponent } from "../../../components/division-info/division-info.component";
 import { MapComponent } from '../../../components/map/map.component';
 import { StatisticsComponent } from '../../../components/statistics/statistics.component';
 import { DivisionData } from '../../../interfaces/api-models/division-data';
@@ -18,7 +19,7 @@ import { faRankingStar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-l3-home',
-  imports: [MapComponent, RouterModule, StatisticsComponent, FontAwesomeModule],
+  imports: [MapComponent, RouterModule, StatisticsComponent, FontAwesomeModule, DivisionInfoComponent],
   templateUrl: './l3-home.component.html',
   styles: ``,
 })
@@ -50,7 +51,7 @@ export class L3HomeComponent {
   dataMostLosses: StatisticCard[] = [];
 
   ngOnInit() {
-    this.divisionSubscription = this.divisionService.dataDivisionL1$.subscribe({
+    this.divisionSubscription = this.divisionService.dataDivisionL3$.subscribe({
       next: (data) => (this.dataDivision = data)
     });
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
