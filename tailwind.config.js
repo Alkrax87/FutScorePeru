@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
+      fontSize: {
+        xxs: "10px",
+      },
       colors: {
         night: "#161513",
         nightfall: "#232323",
