@@ -24,14 +24,13 @@ import { ManagerCard } from '../../interfaces/ui-models/manager-card';
         <button (click)="next()" class="hidden md:block absolute w-12 h-12 right-0 top-1/2 transform -translate-y-10 bg-brightnight text-white rounded-full hover:bg-crimson">
           &#10095;
         </button>
-      }
-      <div class="flex justify-center items-center space-x-2 h-8">
-        @if (size > 1) {
+
+        <div class="flex justify-center items-center space-x-2 h-8">
           @for (item of data; track $index) {
             <span (click)="goToSlide($index)" [ngClass]="currentIndex === $index ? 'bg-crimson' : 'bg-gray-300'"class="w-3 h-3 rounded-full cursor-pointer hover:bg-crimson"></span>
           }
-        }
-      </div>
+        </div>
+      }
     </div>
   `,
   styles: ``,
