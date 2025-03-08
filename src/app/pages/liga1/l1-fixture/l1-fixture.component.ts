@@ -35,7 +35,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
                 @for (round of filteredDataForFixtureApertura; track $index) {
                   <button (click)="selectedRoundAperturaIndex = $index"
-                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson"
+                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none"
                     [ngClass]="{'bg-crimson': selectedRoundAperturaIndex === $index}"
                   >
                     F{{ $index + 1 }}
@@ -56,7 +56,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
                 @for (round of filteredDataForFixtureClausura; track $index) {
                   <button (click)="selectedRoundClausuraIndex = $index"
-                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson"
+                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none"
                     [ngClass]="{'bg-crimson': selectedRoundClausuraIndex === $index}"
                   >
                     F{{ $index + 1 }}

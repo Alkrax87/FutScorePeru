@@ -35,7 +35,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
                 @for (round of filteredDataForFixtureRegional2; track $index) {
                   <button (click)="selectedRoundRegionalIndex = $index"
-                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson"
+                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none"
                     [ngClass]="{'bg-crimson': selectedRoundRegionalIndex === $index}"
                   >
                     F{{ $index + 1}}
@@ -67,7 +67,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
                 @for (round of filteredDataForFixtureFinalA; track $index) {
                   <button (click)="selectedRoundFinalIndex = $index"
-                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson"
+                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none"
                     [ngClass]="{'bg-crimson': selectedRoundFinalIndex === $index}"
                   >
                     F{{ $index + 1}}
