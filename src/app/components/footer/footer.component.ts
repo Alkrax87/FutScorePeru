@@ -17,15 +17,15 @@ export class FooterComponent {
   Feather = faFeather;
 
   routesWeb = [
-    { path: '/home', name: 'Home' },
-    { path: '/about', name: 'Acerca de' },
-    { path: '/social', name: 'Social' },
+    { path: 'main/home', name: 'Home' },
+    { path: 'main/about', name: 'Acerca de' },
+    { path: 'main/social', name: 'Social' },
   ];
 
   routesLigas = [
-    { path: '/liga1', name: 'Liga 1' },
-    { path: '/liga2', name: 'Liga 2' },
-    { path: '/liga3', name: 'Liga 3' },
-    { path: '/copa-peru', name: 'Copa Perú' },
+    { path: 'liga1', name: 'Liga 1' },
+    { path: 'liga2', name: 'Liga 2' },
+    { path: 'liga3', name: 'Liga 3' },
+    { path: 'copa-peru', name: 'Copa Perú' },
   ];
 }
