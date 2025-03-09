@@ -6,7 +6,7 @@ import { DivisionData } from '../../interfaces/api-models/division-data';
   imports: [],
   template: `
     <div class="h-2 bg-crimson"></div>
-    <div class="bg-gray-50 py-2 sm:py-0 grid grid-cols-1 sm:grid-cols-4 gap-2">
+    <div class="bg-gray-100 dark:bg-dark dark:text-white py-2 sm:py-0 grid grid-cols-1 sm:grid-cols-4 gap-2">
       <div class="flex justify-center items-center">
         <div class="justify-items-center">
           <p class="italic text-xs">Temporada</p>
