@@ -18,12 +18,12 @@ import { faCircleHalfStroke, faLayerGroup, faShareNodes } from '@fortawesome/fre
     @if (menuOpen) {
       <div class="flex fixed bottom-6 right-10 w-36 bg-brightnight p-1 rounded-l-3xl gap-2">
         <div class="flex justify-center items-center transform duration-300">
-          <button class="bg-nightfall hover:bg-brightnight hover:text-lg rounded-full text-white w-10 h-10" (click)="toggleDarkMode()">
+          <button  [ngClass]="{'bg-crimson': isDarkMode, 'bg-nightfall': !isDarkMode}" class="hover:bg-none sm:hover:bg-crimson rounded-full text-white w-10 h-10" (click)="toggleDarkMode()">
             <fa-icon [icon]="Dark"></fa-icon>
           </button>
         </div>
         <div class="flex justify-center items-center transform duration-300">
-          <button class="bg-nightfall hover:bg-brightnight hover:text-lg rounded-full text-white w-10 h-10" (click)="share()">
+          <button class="bg-nightfall hover:bg-crimson rounded-full text-white w-10 h-10" (click)="share()">
             <fa-icon [icon]="Share"></fa-icon>
           </button>
         </div>
@@ -34,16 +34,32 @@ import { faCircleHalfStroke, faLayerGroup, faShareNodes } from '@fortawesome/fre
 })
 export class FabComponent {
   menuOpen = false;
+  isDarkMode = false;
   Layer = faLayerGroup;
   Share = faShareNodes;
   Dark = faCircleHalfStroke;
+
+  ngOnInit() {
+    this.isDarkMode = localStorage.getItem('darkMode') === 'true';
+    this.applyDarkMode();
+  }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
 
   toggleDarkMode() {
-    console.log('Modo oscuro activado');
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('darkMode', String(this.isDarkMode));
+    this.applyDarkMode();
+  }
+
+  applyDarkMode() {
+    if (this.isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }
 
   share() {

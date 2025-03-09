@@ -1,12 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
+  darkMode: 'class',
   theme: {
     extend: {
       fontSize: {
         xxs: "10px",
       },
       colors: {
+        dark: "#1E2022",
         night: "#161513",
         nightfall: "#232323",
         brightnight: "#393939",
