@@ -5,7 +5,7 @@ import { FetchTeamDataService } from '../../../services/fetch-team-data.service'
 import { FetchMapService } from '../../../services/fetch-map.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
 import { TransformStatisticDataService } from '../../../services/transform-statistic-data.service';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { DivisionInfoComponent } from "../../../components/division-info/division-info.component";
 import { MapComponent } from "../../../components/map/map.component";
 import { StatisticsComponent } from '../../../components/statistics/statistics.component';
@@ -32,10 +32,7 @@ export class L2HomeComponent {
     private transformStatisticService: TransformStatisticDataService
   ) {}
 
-  private divisionSubscription: Subscription | null = null;
-  private teamSubscription: Subscription | null = null;
-  private statisticsSubscription: Subscription | null = null;
-  private mapSubscription: Subscription | null = null;
+  private unsubscribe$ = new Subject<void>();
   dataDivision: DivisionData | null = null;
   dataTeams: TeamData[] = [];
   dataStatistics: any;
@@ -51,21 +48,22 @@ export class L2HomeComponent {
   dataMostLosses: StatisticCard[] = [];
 
   ngOnInit() {
-    this.divisionSubscription = this.divisionService.dataDivisionL2$.subscribe({
-      next: (data) => (this.dataDivision = data)
-    });
-    this.teamSubscription = this.teamsService.dataTeamsL2$.subscribe({
-      next: (data) => (this.dataTeams = data, this.getDataForMap())
-    });
-    this.statisticsSubscription = this.statisticsService.dataStatisticsL2$.subscribe({
-      next: (data) => {
-        this.dataStatistics = data;
-        this.getDataForStatistics();
+    combineLatest([
+      this.divisionService.dataDivisionL2$,
+      this.teamsService.dataTeamsL2$,
+      this.mapService.dataMapL2$,
+      this.statisticsService.dataStatisticsL2$,
+    ]).pipe(takeUntil(this.unsubscribe$)).subscribe(([division, teams, map, statistics]) => {
+      this.dataDivision = division;
+      this.dataTeams = teams;
+      this.mapConstructor = map;
+      this.dataStatistics = statistics;
+
+      if (this.dataTeams && this.dataStatistics) {
+        this.getDataForMap();
+        this.getDataForStatistics(this.dataTeams, this.dataStatistics);
       }
-    });
-    this.mapSubscription = this.mapService.dataMapL2$.subscribe({
-      next: (data) => (this.mapConstructor = data)
-    });
+    })
   }
 
   getDataForMap() {
@@ -80,20 +78,18 @@ export class L2HomeComponent {
     this.dataMap = mergedData;
   }
 
-  getDataForStatistics() {
-    this.dataBestDefense = this.transformStatisticService.transformData(this.dataTeams, this.dataStatistics.bestDefense, 'gc');
-    this.dataWorstDefense = this.transformStatisticService.transformData(this.dataTeams, this.dataStatistics.worstDefense, 'gc');
-    this.dataMostGoals = this.transformStatisticService.transformData(this.dataTeams, this.dataStatistics.mostGoals, 'gf');
-    this.dataFewestGoals = this.transformStatisticService.transformData(this.dataTeams, this.dataStatistics.fewestGoals, 'gf');
-    this.dataMostWins = this.transformStatisticService.transformData(this.dataTeams, this.dataStatistics.mostWins, 'pg');
-    this.dataMostDraws = this.transformStatisticService.transformData(this.dataTeams, this.dataStatistics.mostDraws, 'pe');
-    this.dataMostLosses = this.transformStatisticService.transformData(this.dataTeams, this.dataStatistics.mostLosses, 'pp');
+  getDataForStatistics(teams: TeamData[], statistics: any) {
+    this.dataBestDefense = this.transformStatisticService.transformData(teams, statistics.bestDefense, 'gc');
+    this.dataWorstDefense = this.transformStatisticService.transformData(teams, statistics.worstDefense, 'gc');
+    this.dataMostGoals = this.transformStatisticService.transformData(teams, statistics.mostGoals, 'gf');
+    this.dataFewestGoals = this.transformStatisticService.transformData(teams, statistics.fewestGoals, 'gf');
+    this.dataMostWins = this.transformStatisticService.transformData(teams, statistics.mostWins, 'pg');
+    this.dataMostDraws = this.transformStatisticService.transformData(teams, statistics.mostDraws, 'pe');
+    this.dataMostLosses = this.transformStatisticService.transformData(teams, statistics.mostLosses, 'pp');
   }
 
   ngOnDestroy() {
-    this.divisionSubscription?.unsubscribe();
-    this.teamSubscription?.unsubscribe();
-    this.statisticsSubscription?.unsubscribe();
-    this.mapSubscription?.unsubscribe();
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
