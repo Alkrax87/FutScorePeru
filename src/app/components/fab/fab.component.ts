@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircleHalfStroke, faLayerGroup, faShareNodes } from '@fortawesome/free-solid-svg-icons';
 
@@ -39,9 +39,13 @@ export class FabComponent {
   Share = faShareNodes;
   Dark = faCircleHalfStroke;
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   ngOnInit() {
-    this.isDarkMode = localStorage.getItem('darkMode') === 'true';
-    this.applyDarkMode();
+    if (isPlatformBrowser(this.platformId)) {
+      this.isDarkMode = localStorage.getItem('darkMode') === 'true';
+      this.applyDarkMode();
+    }
   }
 
   toggleMenu() {
@@ -49,16 +53,20 @@ export class FabComponent {
   }
 
   toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
-    localStorage.setItem('darkMode', String(this.isDarkMode));
-    this.applyDarkMode();
+    if (isPlatformBrowser(this.platformId)) {
+      this.isDarkMode = !this.isDarkMode;
+      localStorage.setItem('darkMode', String(this.isDarkMode));
+      this.applyDarkMode();
+    }
   }
 
   applyDarkMode() {
-    if (this.isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.isDarkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     }
   }
 
