@@ -1,1 +1,22 @@
-<p>home works!</p>
+<div class="select-none bg-gray-100 dark:bg-dark grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 p-4 md:px-16 md:py-12">
+  @for (item of divisions; track $index) {
+    <a [routerLink]="item.routes" class="hover:text-crimson">
+      <div class="bg-gray-200 dark:bg-brightnight flex">
+        <div class="bg-night flex justify-center items-center w-24">
+          <img [src]="item.image" alt="Liga-logo" class="w-16 min-w-16">
+        </div>
+        <div class="w-full flex items-center p-4">
+          <div>
+            <div class="text-crimson w-full font-bold text-2xl">{{ item.title }}</div>
+            <div class="text-neutral-400 dark:text-white w-full text-xs font-semibold pt-1">
+              <fa-icon [icon]="Shield"></fa-icon> {{ item.teams }} Equipos
+            </div>
+          </div>
+        </div>
+        <div class="w-10 flex items-center ">
+          <fa-icon [icon]="Arrow"></fa-icon>
+        </div>
+      </div>
+    </a>
+  }
+</div>
