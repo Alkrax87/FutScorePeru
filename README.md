@@ -5,19 +5,16 @@
 </p>
 
 <p align="center">
-  <a href="https://angular.io/" target="_blank">
-      <img src="https://img.shields.io/badge/Angular-19-F50C52?logo=angular" alt="Angular">
-  </a>
-  <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="https://img.shields.io/badge/TypeScript-5.x-087ECE?logo=typescript" alt="TypeScript">
-  </a>
-  <a href="https://nodejs.org/" target="_blank">
+  <a style="text-decoration:none" href="https://nodejs.org/" target="_blank">
       <img src="https://img.shields.io/badge/Node.js-18.19+-52B255?logo=node.js" alt="Node.js">
   </a>
-  <a href="https://www.npmjs.com/" target="_blank">
-      <img src="https://img.shields.io/badge/npm-CD3E3D?logo=npm" alt="npm">
+  <a style="text-decoration:none" href="https://angular.io/" target="_blank">
+      <img src="https://img.shields.io/badge/Angular-19-F50C52?logo=angular" alt="Angular">
   </a>
-  <a href="https://fontawesome.com/" target="_blank">
+  <a style="text-decoration:none" href="https://www.typescriptlang.org/" target="_blank">
+      <img src="https://img.shields.io/badge/TypeScript-5.x-087ECE?logo=typescript" alt="TypeScript">
+  </a>
+  <a style="text-decoration:none" href="https://fontawesome.com/" target="_blank">
       <img src="https://img.shields.io/badge/Font%20Awesome-6.7.2-blue?logo=fontawesome" alt="Font Awesome">
   </a>
 </p>
