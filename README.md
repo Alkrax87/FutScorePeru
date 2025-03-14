@@ -1,59 +1,96 @@
 # FutScorePeru
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+<p align="center">
+  FutScorePeru is an Angular-based web application designed to provide real-time football scores, news, and updates specifically for Peruvian football leagues.
+</p>
 
-## Development server
+<p align="center">
+  <a href="https://angular.io/" target="_blank">
+      <img src="https://img.shields.io/badge/Angular-19-F50C52?logo=angular" alt="Angular">
+  </a>
+  <a href="https://www.typescriptlang.org/" target="_blank">
+      <img src="https://img.shields.io/badge/TypeScript-5.x-087ECE?logo=typescript" alt="TypeScript">
+  </a>
+  <a href="https://nodejs.org/" target="_blank">
+      <img src="https://img.shields.io/badge/Node.js-18.19+-52B255?logo=node.js" alt="Node.js">
+  </a>
+  <a href="https://www.npmjs.com/" target="_blank">
+      <img src="https://img.shields.io/badge/npm-CD3E3D?logo=npm" alt="npm">
+  </a>
+  <a href="https://fontawesome.com/" target="_blank">
+      <img src="https://img.shields.io/badge/Font%20Awesome-6.7.2-blue?logo=fontawesome" alt="Font Awesome">
+  </a>
+</p>
 
-To start a local development server, run:
+## Table of Contents
 
-```bash
-ng serve
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#features)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Installation
+
+To install and run the project locally, follow these steps:
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/FutScorePeru.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd FutScorePeru
+   ```
+3. Install the dependencies:
+   ```sh
+   npm install
+   ```
+
+## Usage
+
+To start the development server, run:
+
+```sh
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+This will start the application at `http://localhost:4200/`.
 
-## Code scaffolding
+To build the project for production, run:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```sh
+npm run build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The build artifacts will be stored in the `dist/` directory.
 
-```bash
-ng generate --help
-```
+## Features
 
-## Building
+- Real-time football scores
+- Latest news and updates on Peruvian football leagues
+- User-friendly interface
+- Responsive design
 
-To build the project run:
+## Contributing
 
-```bash
-ng build
-```
+Contributions are welcome! Please follow these steps to contribute:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+1. Fork the repository.
+2. Create a new branch:
+   ```sh
+   git checkout -b feature/your-feature-name
+   ```
+3. Make your changes and commit them:
+   ```sh
+   git commit -m 'Add some feature'
+   ```
+4. Push to the branch:
+   ```sh
+   git push origin feature/your-feature-name
+   ```
+5. Open a pull request.
 
-## Running unit tests
+## License
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
