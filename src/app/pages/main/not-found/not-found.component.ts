@@ -16,7 +16,7 @@ import { BtnComponent } from '../../../components/btn/btn.component';
           <p class="text-lg text-night">Parece que esta página fue expulsada por el árbitro.</p>
           <p class="text-base text-gray-500">No te preocupes, puedes volver al inicio para seguir el partido.</p>
           <div class="w-full py-5">
-            <a routerLink="/home">
+            <a routerLink="/main">
               <app-btn [active]="true">Volver al Inicio</app-btn>
             </a>
           </div>
