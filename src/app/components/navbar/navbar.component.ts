@@ -17,10 +17,12 @@ import { RouterModule } from '@angular/router';
           <div class="border-l-[3.5rem] border-t-[3.5rem] border-l-transparent border-t-night bg-crimson"></div>
         </div>
         <!-- Center container -->
-        <div class="hidden md:flex mx-auto space-x-6 text-gray-100">
+        <div class="hidden md:flex mx-auto text-gray-100">
           @for (route of routes; track $index) {
             <a [routerLink]="route.path" routerLinkActive="text-crimson" class="hover:text-crimson">
-              {{ route.name }}
+              <div class="flex justify-center items-center h-14 px-3">
+                {{ route.name }}
+              </div>
             </a>
           }
         </div>
@@ -51,6 +53,7 @@ import { RouterModule } from '@angular/router';
 export class NavbarComponent {
   isMenuOpen: boolean = false;
   routes = [
+    { path: "/main" , name: "Home" },
     { path: "/liga1" , name: "Liga 1" },
     { path: "/liga2" , name: "Liga 2" },
     { path: "/liga3" , name: "Liga 3" },
