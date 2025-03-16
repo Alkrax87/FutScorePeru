@@ -1,22 +1,67 @@
-<div class="select-none bg-gray-100 dark:bg-dark grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 p-4 md:px-16 md:py-12">
-  @for (item of divisions; track $index) {
-    <a [routerLink]="item.routes" class="hover:text-crimson">
-      <div class="bg-gray-200 dark:bg-brightnight flex">
-        <div class="bg-night flex justify-center items-center w-24">
-          <img [src]="item.image" alt="Liga-logo" class="w-16 min-w-16">
-        </div>
-        <div class="w-full flex items-center p-4">
-          <div>
-            <div class="text-crimson w-full font-bold text-2xl">{{ item.title }}</div>
-            <div class="text-neutral-400 dark:text-white w-full text-xs font-semibold pt-1">
-              <fa-icon [icon]="Shield"></fa-icon> {{ item.teams }} Equipos
+<div>
+  <app-title [title]="'Categorías'"></app-title>
+  <div class="select-none bg-gray-100 dark:bg-dark grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 p-4 md:px-16 md:py-12">
+    @for (item of divisions; track $index) {
+      <a [routerLink]="item.routes" class="hover:text-crimson">
+        <div class="bg-gray-200 dark:bg-brightnight flex">
+          <div class="bg-night flex justify-center items-center w-24">
+            <img loading="lazy" [src]="item.image" alt="Liga-logo" class="w-16 min-w-16">
+          </div>
+          <div class="w-full flex items-center p-4">
+            <div>
+              <div class="text-crimson w-full font-bold text-2xl">{{ item.title }}</div>
+              <div class="text-neutral-400 dark:text-white w-full text-xs font-semibold pt-1">
+                <fa-icon [icon]="Shield"></fa-icon> {{ item.teams }} Equipos
+              </div>
             </div>
           </div>
+          <div class="w-10 flex items-center ">
+            <fa-icon [icon]="Arrow"></fa-icon>
+          </div>
         </div>
-        <div class="w-10 flex items-center ">
-          <fa-icon [icon]="Arrow"></fa-icon>
+      </a>
+    }
+  </div>
+</div>
+<div class="bg-night text-white">
+  <app-title [title]="'Equipos'"></app-title>
+  <div class="p-5">
+    <p class="text-2xl font-bold">Liga 1</p>
+    <div class="bg-crimson skew-x-50 h-1.5 w-20 my-2"></div>
+    @defer () {
+      <app-teams-carousel [data]="teamsL1" [reverse]="false" [duration]="'90s'"></app-teams-carousel>
+    } @placeholder (minimum 2s) {
+      <div class="w-full flex justify-center p-1">
+        <div class="bg-nightfall flex items-center p-2 h-32">
+          <p class="text-crimson px-12">Cargando...</p>
         </div>
       </div>
-    </a>
-  }
+    }
+  </div>
+  <div class="px-5">
+    <p class="text-2xl font-bold">Liga 2</p>
+    <div class="bg-crimson skew-x-50 h-1.5 w-20 my-2"></div>
+    @defer () {
+      <app-teams-carousel [data]="teamsL2" [reverse]="true" [duration]="'71s'"></app-teams-carousel>
+    } @placeholder (minimum 2s) {
+      <div class="w-full flex justify-center p-1">
+        <div class="bg-nightfall flex items-center p-2 h-32">
+          <p class="text-crimson px-12">Cargando...</p>
+        </div>
+      </div>
+    }
+  </div>
+  <div class="p-5">
+    <p class="text-2xl font-bold">Liga 3</p>
+    <div class="bg-crimson skew-x-50 h-1.5 w-20 my-2"></div>
+    @defer () {
+      <app-teams-carousel [data]="teamsL3" [reverse]="false" [duration]="'175s'"></app-teams-carousel>
+    } @placeholder (minimum 2s) {
+      <div class="w-full flex justify-center p-1">
+        <div class="bg-nightfall flex items-center p-2 h-32">
+          <p class="text-crimson px-12">Cargando...</p>
+        </div>
+      </div>
+    }
+  </div>
 </div>
