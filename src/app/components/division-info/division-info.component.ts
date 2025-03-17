@@ -6,7 +6,10 @@ import { DivisionData } from '../../interfaces/api-models/division-data';
   imports: [],
   template: `
     <div class="h-2 bg-crimson"></div>
-    <div class="bg-gray-100 dark:bg-dark dark:text-white py-2 sm:py-0 grid grid-cols-1 sm:grid-cols-4 gap-2">
+    <div class="bg-gray-100 dark:bg-dark dark:text-white py-2 sm:py-0 grid grid-cols-1 sm:grid-cols-5 gap-2">
+      <div class="hidden sm:flex sm:justify-start">
+        <img [src]="data?.image" alt="Division-Logo" class="h-12 m-2">
+      </div>
       <div class="flex justify-center items-center">
         <div class="justify-items-center">
           <p class="italic text-xs">Temporada</p>
@@ -25,8 +28,8 @@ import { DivisionData } from '../../interfaces/api-models/division-data';
           <p class="font-bold">{{ data?.name }}<sup>{{ data?.sup }}</sup> División</p>
         </div>
       </div>
-      <div class="flex justify-center md:justify-end items-center">
-        <img [src]="data?.image" alt="Division-Logo" class="h-16">
+      <div class="hidden sm:flex sm:justify-end">
+        <img [src]="data?.image" alt="Division-Logo" class="h-12 m-2">
       </div>
     </div>
     <div class="h-2 bg-crimson"></div>
