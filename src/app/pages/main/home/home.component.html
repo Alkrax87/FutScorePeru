@@ -1,25 +1,32 @@
-<div>
-  <app-title [title]="'Categorías'"></app-title>
-  <div class="select-none bg-gray-100 dark:bg-dark grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6 p-4 md:px-16 md:py-12">
+<app-title [title]="'Categorías'"></app-title>
+<div class="flex justify-center bg-night">
+  <div class="w-full sm:w-5/6 md:3/5 select-none grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6 p-5 sm:px-16 sm:py-12">
     @for (item of divisions; track $index) {
-      <a [routerLink]="item.routes" class="hover:text-crimson">
-        <div class="bg-gray-200 dark:bg-brightnight flex">
-          <div class="bg-night flex justify-center items-center w-24">
-            <img loading="lazy" [src]="item.image" alt="Liga-logo" class="w-16 min-w-16">
-          </div>
-          <div class="w-full flex items-center p-4">
-            <div>
-              <div class="text-crimson w-full font-bold text-2xl">{{ item.title }}</div>
-              <div class="text-neutral-400 dark:text-white w-full text-xs font-semibold pt-1">
-                <fa-icon [icon]="Shield"></fa-icon> {{ item.teams }} Equipos
-              </div>
+      <div>
+        <div class="bg-nightfall border-none">
+          <div class="bg-white dark:bg-brightnight transition dark:transition duration-300 dark:duration-300 pt-5 px-9 overflow-hidden relative rounded-br-[30px]">
+            <div class="w-20 h-20 bg-crimson rounded-full absolute -right-5 -top-7">
+              <p class="absolute flex justify-center">1</p>
             </div>
-          </div>
-          <div class="w-10 flex items-center ">
-            <fa-icon [icon]="Arrow"></fa-icon>
+            <img loading="lazy" [src]="item.image" alt="Liga-logo" class="w-16 min-w-16">
+            <h2 class="text-crimson dark:text-gold transition dark:transition duration-300 dark:duration-300 font-bold text-2xl truncate">{{ item.title }}</h2>
+            <p class="text-zinc-500 dark:text-white transition dark:transition duration-300 dark:duration-300 text-sm font-semibold py-2">
+              <fa-icon [icon]="Shield"></fa-icon> {{ item.teams }} Equipos
+            </p>
           </div>
         </div>
-      </a>
+        <div class="bg-white dark:bg-brightnight transition dark:transition duration-300 dark:duration-300 border-none">
+          <div class="bg-nightfall py-3 px-9 rounded-tl-[30px]">
+            <div class="text-white flex justify-center">
+              <a [routerLink]="item.routes">
+                <button class="bg-crimson hover:bg-gold transition duration-300 w-20 py-1 skew-x-30">
+                  <div class="-skew-x-30"><fa-icon [icon]="Arrow"></fa-icon></div>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     }
   </div>
 </div>
