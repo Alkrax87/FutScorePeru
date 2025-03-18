@@ -45,6 +45,7 @@ import { RouterModule } from '@angular/router';
             </a>
           }
         </div>
+        <div class="h-2 bg-crimson"></div>
       }
     </nav>
   `,

@@ -9,17 +9,19 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
   template: `
     <!-- Desktop Menu -->
     <div class="hidden md:block select-none">
-      <div class="bg-gray-100 dark:bg-dark w-full flex">
-        <div class="flex mx-auto">
-          @for (item of options; track $index) {
-            <a [routerLink]="item.route" class="sm:w-32 md:w-40 lg:w-60 justify-items-center group relative inline-block px-4 py-4">
-              <span routerLinkActive="scale-y-100" class="absolute bottom-0 left-0 w-full h-1.5 bg-gold scale-y-0 origin-bottom transition-transform duration-300 ease-out group-hover:scale-y-100"></span>
-              <div class="flex text-neutral-600 dark:text-neutral-200">
-                <fa-icon class="items-center" [icon]="item.icon"></fa-icon>
-                <span class="ml-1">{{ item.name }}</span>
-              </div>
-            </a>
-          }
+      <div class="bg-crimson flex justify-center">
+        <div class="bg-gray-100 dark:bg-dark md:w-11/12 lg:w-5/6 flex rounded-l-full rounded-r-full">
+          <div class="flex mx-auto">
+            @for (item of options; track $index) {
+              <a [routerLink]="item.route" class="sm:w-32 md:w-40 lg:w-48 justify-items-center group relative inline-block px-4 py-4">
+                <span routerLinkActive="scale-y-100" class="absolute bottom-0 left-0 w-full h-1.5 bg-gold scale-y-0 origin-bottom transition-transform duration-300 ease-out group-hover:scale-y-100"></span>
+                <div class="flex text-neutral-600 dark:text-neutral-200">
+                  <fa-icon class="items-center" [icon]="item.icon"></fa-icon>
+                  <span class="ml-1">{{ item.name }}</span>
+                </div>
+              </a>
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -42,6 +44,7 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
             }
           </div>
         }
+      </div>
     </div>
   `,
   styles: ``,
