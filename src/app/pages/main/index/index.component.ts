@@ -8,6 +8,7 @@ import { faCircleInfo, faHouse, faShareNodes } from '@fortawesome/free-solid-svg
   imports: [OptionsNavComponent, RouterOutlet],
   template: `
     <app-options-nav [options]="navOptions" [division]="'FutScorePerú'"></app-options-nav>
+    <div class="hidden md:block h-2 bg-crimson"></div>
     <router-outlet></router-outlet>
   `,
   styles: ``

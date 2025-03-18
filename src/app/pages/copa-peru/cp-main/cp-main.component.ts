@@ -11,6 +11,7 @@ import { faShieldHalved, faWindowRestore, faBarsStaggered } from "@fortawesome/f
     <!-- <app-top-nav-teams [teams]="teams"></app-top-nav-teams> -->
     <div class="hidden md:block h-2 bg-crimson"></div>
     <app-options-nav [options]="navOptions"></app-options-nav>
+    <div class="hidden md:block h-2 bg-crimson"></div>
     <router-outlet></router-outlet>
   `,
   styles: ``,
