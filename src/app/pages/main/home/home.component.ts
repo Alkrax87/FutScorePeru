@@ -1,15 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faAngleRight, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 import { TeamsCarouselComponent } from '../../../components/teams-carousel/teams-carousel.component';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { combineLatest, Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
+import { LeagueCardComponent } from "../../../components/league-card/league-card.component";
 
 @Component({
   selector: 'app-home',
-  imports: [FontAwesomeModule, RouterModule, TeamsCarouselComponent, TitleComponent],
+  imports: [TeamsCarouselComponent, TitleComponent, LeagueCardComponent],
   templateUrl: './home.component.html',
   styles: ``,
 })
@@ -88,9 +86,6 @@ export class HomeComponent {
       routes: '/copa-peru',
     },
   ];
-
-  Shield = faShieldHalved;
-  Arrow = faAngleRight;
 
   ngOnDestroy() {
     this.teamsSubscription?.unsubscribe();

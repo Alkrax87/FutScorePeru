@@ -1,37 +1,13 @@
 <app-title [title]="'Categorías'"></app-title>
 <div class="flex justify-center bg-night">
-  <div class="w-full sm:w-5/6 md:3/5 select-none grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6 p-5 sm:px-16 sm:py-12">
+  <div class="select-none w-full sm:w-5/6 md:w-4/6 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 px-5 sm:px-0 sm:gap-6 py-5 sm:py-12">
     @for (item of divisions; track $index) {
-      <div>
-        <div class="bg-nightfall border-none">
-          <div class="bg-white dark:bg-brightnight transition dark:transition duration-300 dark:duration-300 pt-5 px-9 overflow-hidden relative rounded-br-[30px]">
-            <div class="w-20 h-20 bg-crimson rounded-full absolute -right-5 -top-7">
-              <p class="absolute flex justify-center">1</p>
-            </div>
-            <img loading="lazy" [src]="item.image" alt="Liga-logo" class="w-16 min-w-16">
-            <h2 class="text-crimson dark:text-gold transition dark:transition duration-300 dark:duration-300 font-bold text-2xl truncate">{{ item.title }}</h2>
-            <p class="text-zinc-500 dark:text-white transition dark:transition duration-300 dark:duration-300 text-sm font-semibold py-2">
-              <fa-icon [icon]="Shield"></fa-icon> {{ item.teams }} Equipos
-            </p>
-          </div>
-        </div>
-        <div class="bg-white dark:bg-brightnight transition dark:transition duration-300 dark:duration-300 border-none">
-          <div class="bg-nightfall py-3 px-9 rounded-tl-[30px]">
-            <div class="text-white flex justify-center">
-              <a [routerLink]="item.routes">
-                <button class="bg-crimson hover:bg-gold transition duration-300 w-20 py-1 skew-x-30">
-                  <div class="-skew-x-30"><fa-icon [icon]="Arrow"></fa-icon></div>
-                </button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-league-card [item]="item"></app-league-card>
     }
   </div>
 </div>
+<app-title [title]="'Equipos'"></app-title>
 <div class="bg-night text-white">
-  <app-title [title]="'Equipos'"></app-title>
   <div class="p-5">
     <p class="text-2xl font-bold">Liga 1</p>
     <div class="bg-crimson skew-x-50 h-1.5 w-20 my-2"></div>
