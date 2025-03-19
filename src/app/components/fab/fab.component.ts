@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircleHalfStroke, faLayerGroup, faShareNodes } from '@fortawesome/free-solid-svg-icons';
+import { faCircleHalfStroke, faLayerGroup, faMoon, faShareNodes, faSun } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-fab',
@@ -18,8 +18,12 @@ import { faCircleHalfStroke, faLayerGroup, faShareNodes } from '@fortawesome/fre
     @if (menuOpen) {
       <div class="flex fixed bottom-6 right-10 w-36 bg-brightnight p-1 rounded-l-3xl gap-2">
         <div class="flex justify-center items-center transform duration-300">
-          <button  [ngClass]="{'bg-crimson': isDarkMode, 'bg-nightfall': !isDarkMode}" class="hover:bg-none sm:hover:bg-crimson rounded-full text-white w-10 h-10" (click)="toggleDarkMode()">
-            <fa-icon [icon]="Dark"></fa-icon>
+          <button
+            class="hover:bg-none sm:hover:bg-crimson rounded-full text-white w-10 h-10"
+            [ngClass]="{'bg-crimson': isDarkMode, 'bg-nightfall': !isDarkMode}"
+            (click)="toggleDarkMode()"
+          >
+            <fa-icon [icon]="isDarkMode ? Light : Dark"></fa-icon>
           </button>
         </div>
         <div class="flex justify-center items-center transform duration-300">
@@ -37,7 +41,8 @@ export class FabComponent {
   isDarkMode = false;
   Layer = faLayerGroup;
   Share = faShareNodes;
-  Dark = faCircleHalfStroke;
+  Light = faSun;
+  Dark = faMoon;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
