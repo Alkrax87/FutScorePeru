@@ -1,0 +1,25 @@
+<div class="w-full h-96 bg-crimson text-white image md:pl-16 select-none">
+  <div class="w-full h-full flex gap-5 justify-center md:justify-start items-center">
+    <img [src]="teamData.image" [alt]="teamData.alt" class="w-36 h-36">
+    <div class="w-full flex flex-col gap-2">
+      <div class="bg-gold w-fit px-5 py-0.5 skew-x-30">
+        <p class="-skew-x-30 font-semibold">Liga 1</p>
+      </div>
+      <p class="font-bold text-6xl">{{ teamData.name }}</p>
+      <div class="flex gap-5 pt-2">
+        <p class="truncate">
+          <fa-icon [icon]="Location"></fa-icon>
+          &nbsp;Ciudad: <span class="font-semibold">{{ teamData.location }}</span>
+        </p>
+        <p class="text-gold"><fa-icon [icon]="Divider"></fa-icon></p>
+        <p class="truncate">
+          <fa-icon [icon]="Flag"></fa-icon>
+          &nbsp;Fundación: <span class="font-semibold">{{ teamData.foundation }}</span>
+        </p>
+      </div>
+    </div>
+    <div class="w-full flex justify-end">
+      <img [src]="teamData.background" alt="TEAM-background" class="rounded-l-3xl w-[570px] h-80 object-cover">
+    </div>
+  </div>
+</div>
