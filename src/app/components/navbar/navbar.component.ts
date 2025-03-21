@@ -29,13 +29,14 @@ import { RouterModule } from '@angular/router';
         <!-- Right container -->
         <div class="hidden md:flex min-w-28"></div>
         <!-- Hamburger Menu for Mobile -->
-        <button (click)="toggleMenu()" class="md:hidden text-gray-300 focus:outline-none pr-2" [ngClass]="{'text-crimson': isMenuOpen === true}">
-          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button (click)="toggleMenu()" class="md:hidden text-gray-300 focus:outline-none pr-2">
+          <svg class="h-6 w-6 hover:text-crimson duration-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" [ngClass]="{'text-crimson': isMenuOpen}">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
         </button>
       </div>
       <div class="h-2 bg-crimson"></div>
+
       <!-- Mobile Menu -->
       @if (isMenuOpen) {
         <div class="flex flex-col items-center md:hidden">
