@@ -7,7 +7,7 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
   selector: 'app-map',
   imports: [CommonModule],
   template: `
-    <svg class="map" viewBox="-60 0 1100 1470" xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+    <svg class="fill-map-light dark:fill-map-dark duration-500 opacity-100 stroke-white stroke-map" viewBox="-60 0 1100 1470" xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
       @if (map) {
         @for (item of map; track $index) {
           <path
@@ -34,15 +34,7 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
       </div>
     }
   `,
-  styles: `
-    .map {
-      fill: #dad8d9;
-      fill-opacity: 1;
-      stroke:#ffffff;
-      stroke-opacity: 1;
-      stroke-width: 5;
-    }
-  `,
+  styles: ``,
 })
 export class MapComponent {
   @Input() map!: MapElement[];

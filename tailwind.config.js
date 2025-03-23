@@ -21,6 +21,11 @@ module.exports = {
         grelegation: "#11759C",
         promotion: "#34A853",
         quarter: "#a0d654",
+        "map-light": "#DDDDDD",
+        "map-dark": "#313131",
+      },
+      strokeWidth:{
+        map: 5,
       },
       skew: {
         30: "30deg",
