@@ -1,25 +1,166 @@
-<div class="w-full h-96 bg-crimson text-white image md:pl-16 select-none">
-  <div class="w-full h-full flex gap-5 justify-center md:justify-start items-center">
-    <img [src]="teamData.image" [alt]="teamData.alt" class="w-36 h-36">
-    <div class="w-full flex flex-col gap-2">
-      <div class="bg-gold w-fit px-5 py-0.5 skew-x-30">
-        <p class="-skew-x-30 font-semibold">Liga 1</p>
+<!-- Title -->
+<div class="w-full bg-crimson text-white image pb-5 md:py-9 pl-0 lg:pl-16 select-none">
+  <div class="w-full flex md:flex-row flex-col-reverse items-center gap-5">
+    <!-- Left Side -->
+    <div class="w-full flex gap-3 md:gap-5 md:min-w-[500px] lg:min-w-[540px]">
+      <div class="my-auto">
+        <img [src]="teamData?.image" [alt]="teamData?.alt" class="min-w-24 w-24 md:min-w-28 md:h-28 lg:min-w-36 lg:h-36">
       </div>
-      <p class="font-bold text-6xl">{{ teamData.name }}</p>
-      <div class="flex gap-5 pt-2">
-        <p class="truncate">
-          <fa-icon [icon]="Location"></fa-icon>
-          &nbsp;Ciudad: <span class="font-semibold">{{ teamData.location }}</span>
-        </p>
-        <p class="text-gold"><fa-icon [icon]="Divider"></fa-icon></p>
-        <p class="truncate">
-          <fa-icon [icon]="Flag"></fa-icon>
-          &nbsp;Fundación: <span class="font-semibold">{{ teamData.foundation }}</span>
-        </p>
+      <div class="w-full flex flex-col justify-center gap-1 sm:gap-2">
+        <div class="bg-gold w-fit px-5 py-0.5 skew-x-30">
+          <p class="-skew-x-30 font-semibold text-sm sm:text-base">Liga 1</p>
+        </div>
+        <p class="font-bold text-4xl md:text-5xl lg:text-6xl">{{ teamData?.name }}</p>
+        <div class="flex flex-col sm:flex-row gap-1 sm:gap-5 pt-2 text-sm lg:text-base">
+          <p>
+            <fa-icon [icon]="Location"></fa-icon> &nbsp;Ciudad: <span class="font-semibold">{{ teamData?.location }}</span>
+          </p>
+          <p class="text-gold hidden sm:block"><fa-icon [icon]="Divider"></fa-icon></p>
+          <p>
+            <fa-icon [icon]="Flag"></fa-icon> &nbsp;Fundación: <span class="font-semibold">{{ teamData?.foundation }}</span>
+          </p>
+        </div>
       </div>
     </div>
-    <div class="w-full flex justify-end">
-      <img [src]="teamData.background" alt="TEAM-background" class="rounded-l-3xl w-[570px] h-80 object-cover">
+    <!-- Right Side -->
+    <div class="w-full flex md:justify-end">
+      <img [src]="teamData?.background" alt="TEAM-background" class="rounded-l-none md:rounded-l-3xl w-full md:w-[570px] h-52 md:h-fit object-cover">
+    </div>
+  </div>
+</div>
+<!-- Content -->
+<div class="bg-night p-5">
+  <div class="w-full flex justify-center">
+    <div class=" w-full lg:w-full xl:w-11/12">
+      <div class="grid grid-cols-8 gap-5 select-none">
+        <!-- Social Media -->
+        <div class="bg-neutral-100 col-span-8 md:col-span-4 lg:col-span-2 row-start-1 lg:row-start-1">
+          <div class="w-full bg-crimson text-white image px-5 py-3">
+            <div class="h-full flex justify-center md:justify-start items-center">
+              <p class="text-xl font-bold">Redes Sociales</p>
+            </div>
+          </div>
+          <div class="p-2">
+            <div class="flex justify-center gap-3">
+              @if (teamData?.social?.facebook) {
+                <a target="_blank" rel="noopener noreferrer" [href]="teamData?.social?.facebook"
+                  class="rounded-full text-night hover:text-white flex items-center justify-center w-8 h-8 hover:bg-blue-700 duration-300"
+                >
+                  <fa-icon class="text-lg" [icon]="Facebook"></fa-icon>
+                </a>
+              }
+              @if (teamData?.social?.instagram) {
+                <a target="_blank" rel="noopener noreferrer" [href]="teamData?.social?.instagram"
+                  class="rounded-full text-night hover:text-white flex items-center justify-center w-8 h-8 hover:bg-gradient-to-tr hover:from-yellow-400 hover:to-pink-500 duration-300"
+                >
+                  <fa-icon class="text-lg" [icon]="Instagram"></fa-icon>
+                </a>
+              }
+              @if (teamData?.social?.twitter) {
+                <a target="_blank" rel="noopener noreferrer" [href]="teamData?.social?.twitter"
+                  class="rounded-full text-night hover:text-white flex items-center justify-center w-8 h-8 hover:bg-night duration-300"
+                >
+                  <fa-icon class="text-lg" [icon]="Twitter"></fa-icon>
+                </a>
+              }
+              @if (teamData?.social?.youtube) {
+                <a target="_blank" rel="noopener noreferrer" [href]="teamData?.social?.youtube"
+                  class="rounded-full text-night hover:text-white flex items-center justify-center w-8 h-8 hover:bg-red-600 duration-300"
+                >
+                  <fa-icon class="text-lg" [icon]="Youtube"></fa-icon>
+                </a>
+              }
+              @if (teamData?.social?.tiktok) {
+                <a target="_blank" rel="noopener noreferrer" [href]="teamData?.social?.tiktok"
+                  class="rounded-full text-night hover:text-white flex items-center justify-center w-8 h-8 hover:bg-night duration-300"
+                >
+                  <fa-icon class="text-lg" [icon]="Tiktok"></fa-icon>
+                </a>
+              }
+            </div>
+          </div>
+        </div>
+        <!-- Website -->
+        <div class="bg-neutral-100 col-span-8 md:col-span-4 lg:col-span-2 row-start-2 md:row-start-1 lg:row-start-2">
+          @if (teamData?.website) {
+            <div class="w-full bg-crimson text-white image px-5 py-3">
+              <div class="h-full flex justify-center md:justify-start items-center">
+                <p class="text-xl font-bold">Sitio Web</p>
+              </div>
+            </div>
+            <div class="p-3 truncate text-center">
+              <a [href]="teamData?.website" class="text-crimson">
+                <fa-icon [icon]="Web"></fa-icon> {{ teamData?.website}}
+              </a>
+            </div>
+          }
+        </div>
+        <!-- Stadium -->
+        <div class="bg-nightfall col-span-8 lg:col-span-2 row-start-4 md:row-start-3 lg:row-start-3">
+          <div class="w-full bg-crimson text-white image px-5 py-3">
+            <div class="h-full flex justify-center md:justify-start items-center">
+              <p class="text-xl font-bold">Estadio</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <img [src]="teamData?.stadium?.image" alt="STADIUM-image">
+            <p class="text-white font-semibold pt-3 pb-1 truncate">
+              <fa-icon [icon]="Stadium"></fa-icon> &nbsp; {{ teamData?.stadium?.name }}
+            </p>
+            <div class="text-white flex justify-between text-xs">
+              <p>
+                <fa-icon [icon]="Users"></fa-icon> &nbsp; {{ teamData?.stadium?.capacity }}
+              </p>
+              <p>
+                <fa-icon [icon]="Location"></fa-icon> &nbsp; {{ teamData?.stadium?.location }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Info -->
+        <div class="bg-nightfall col-span-8 lg:col-span-6 row-start-3 md:row-start-2 lg:row-start-1 lg:row-span-4 lg:col-start-3 p-5">
+          <!-- LastGames -->
+          <div>
+            <div class="mb-5">
+              <p class="text-white text-2xl font-bold">Resultados</p>
+              <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
+            </div>
+            <div class="bg-brightnight p-3 flex gap-1 sm:gap-0 justify-center sm:justify-evenly flex-wrap sm:flex-nowrap rounded-3xl">
+              @for (lastGame of teamLastGames; track $index) {
+                @switch (lastGame) {
+                  @case ("w") {
+                    <fa-icon class="text-xl text-green-600" [icon]="Win"></fa-icon>
+                  }
+                  @case ("d") {
+                    <fa-icon class="text-xl text-neutral-300" [icon]="Draw"></fa-icon>
+                  }
+                  @case ("l") {
+                    <fa-icon class="text-xl text-red-600" [icon]="Lose"></fa-icon>
+                  }
+                  @default {
+                    <fa-icon class="text-xl text-neutral-400" [icon]="Default"></fa-icon>
+                  }
+                }
+              }
+            </div>
+          </div>
+          <!-- Statistics -->
+          <div>
+            <div class="my-5">
+              <p class="text-white text-2xl font-bold">Rendimiento</p>
+              <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
+            </div>
+            <div class="grid grid-cols-6 gap-3">
+              @for (item of statistics; track $index) {
+                <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
+                  <p class="text-gold text-sm font-semibold truncate">{{ item.data }}</p>
+                  <p class="text-white text-6xl font-bold truncate">{{ item.value }}</p>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

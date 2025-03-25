@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faInstagram, faTiktok, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faEllipsis, faFlag, faLocationDot, faRing } from '@fortawesome/free-solid-svg-icons';
+import { faFacebookF, faInstagram, faTiktok, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark, faEllipsis, faFlag, faLink, faLocationDot, faRing, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { FetchTeamInformationService } from '../../../services/fetch-team-information.service';
 
 @Component({
   selector: 'app-team-page',
@@ -15,6 +16,8 @@ import { faEllipsis, faFlag, faLocationDot, faRing } from '@fortawesome/free-sol
   `,
 })
 export class TeamPageComponent {
+  constructor(private fetchTeamInformation: FetchTeamInformationService) {}
+
   teamData: {
     division: string;
     name: string;
@@ -23,19 +26,45 @@ export class TeamPageComponent {
     location: string;
     foundation: number;
     background: string;
-  } = {
-    division: 'Liga 1',
-    name: 'FBC Melgar',
-    image: 'assets/images/liga-1/mel.webp',
-    alt: 'MEL-logo',
-    location: 'Arequipa',
-    foundation: 1915,
-    background: 'https://imgmedia.libero.pe/600x330/libero/original/2025/01/14/67869952dc93420f8f5fe169.webp',
-  };
+    website?: string;
+    social?: {
+      website?: string;
+      youtube?: string;
+      tiktok?: string;
+      facebook?: string;
+      twitter?: string;
+      instagram?: string;
+    },
+    stadium?: {
+      name: string;
+      capacity: number;
+      location: string;
+      image: string;
+    }
+  } | null = null;
+  teamLastGames: string[] = [];
+  statistics: { data: string, value: number }[] = [];
+
+  ngOnInit() {
+    this.teamData = this.fetchTeamInformation.fetchTeamInformation();
+    this.teamLastGames = this.fetchTeamInformation.fetchTeamLastGames();
+    this.statistics = this.fetchTeamInformation.fetchTeamStatistics();
+  }
 
   Flag = faFlag;
   Location = faLocationDot;
   Stadium = faRing;
   Divider = faEllipsis;
+  Users = faUsers;
 
+  Web = faLink;
+  Facebook = faFacebookF;
+  Instagram = faInstagram;
+  Twitter = faXTwitter;
+  Youtube = faYoutube;
+  Tiktok = faTiktok;
+  Win = faCircleCheck;
+  Draw = faCircleMinus;
+  Lose = faCircleXmark;
+  Default = faCircle;
 }
