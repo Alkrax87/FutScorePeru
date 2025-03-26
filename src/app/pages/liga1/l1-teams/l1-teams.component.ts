@@ -59,11 +59,11 @@ export class L1TeamsComponent {
     for (const team of this.dataTeams) {
       const stadium = teamMap.get(team.stadium);
       newData.push({
+        teamId: team.teamId,
         name: team.name,
         abbreviation: team.abbreviation,
         image: team.image,
         alt: team.alt,
-        url: team.url,
         color: team.color,
         stadium: {
           name: stadium?.name ?? "Por Definir",
