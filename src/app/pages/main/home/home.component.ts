@@ -4,6 +4,7 @@ import { FetchTeamDataService } from '../../../services/fetch-team-data.service'
 import { combineLatest, Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
 import { LeagueCardComponent } from "../../../components/league-card/league-card.component";
+import { TeamCarousel } from '../../../interfaces/ui-models/team-carousel';
 
 @Component({
   selector: 'app-home',
@@ -19,9 +20,9 @@ export class HomeComponent {
   }
 
   teamsSubscription: Subscription | null = null;
-  teamsL1: { abbreviation: string, image: string, alt: string, url: string, color: { c1: string, c2?:string } }[] = [];
-  teamsL2: { abbreviation: string, image: string, alt: string, url: string, color: { c1: string, c2?:string } }[] = [];
-  teamsL3: { abbreviation: string, image: string, alt: string, url: string, color: { c1: string, c2?:string } }[] = [];
+  teamsL1: TeamCarousel[] = [];
+  teamsL2: TeamCarousel[] = [];
+  teamsL3: TeamCarousel[] = [];
 
   ngOnInit() {
     this.teamsSubscription = combineLatest([
@@ -30,27 +31,24 @@ export class HomeComponent {
       this.teamsService.dataTeamsL3$,
     ]).subscribe(([dataL1, dataL2, dataL3]) => {
       this.teamsL1 = dataL1.map(element => ({
-        abbreviation: element.abbreviation,
+        teamId: element.teamId,
         image: element.image,
         alt: element.alt,
-        url: element.url,
-        color: element.color
+        abbreviation: element.abbreviation,
       }));
 
       this.teamsL2 = dataL2.map(element => ({
-        abbreviation: element.abbreviation,
+        teamId: element.teamId,
         image: element.image,
         alt: element.alt,
-        url: element.url,
-        color: element.color
+        abbreviation: element.abbreviation,
       }));
 
       this.teamsL3 = dataL3.map(element => ({
-        abbreviation: element.abbreviation,
+        teamId: element.teamId,
         image: element.image,
         alt: element.alt,
-        url: element.url,
-        color: element.color
+        abbreviation: element.abbreviation,
       }));
     })
   }
