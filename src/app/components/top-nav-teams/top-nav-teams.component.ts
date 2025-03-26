@@ -20,7 +20,7 @@ import { TeamNav } from '../../interfaces/ui-models/team-nav';
           </div>
           <div class="flex-grow flex justify-between overflow-hidden md:py-2 lg:py-4">
             @for (item of teams; track $index) {
-              <a [routerLink]="item.url" class="animate-fade-up delay-75">
+              <a routerLink="/club/{{ item.teamId }}" class="animate-fade-up delay-75">
                 <img [src]="item.imageThumbnail" [alt]="item.alt" class="md:w-6 lg:w-8"/>
               </a>
             }
@@ -65,6 +65,6 @@ import { TeamNav } from '../../interfaces/ui-models/team-nav';
   `,
 })
 export class TopNavTeamsComponent {
-  @Input() teams!: TeamNav[]
-  Icon = faUpRightFromSquare
+  @Input() teams!: TeamNav[];
+  Icon = faUpRightFromSquare;
 }
