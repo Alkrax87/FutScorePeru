@@ -160,11 +160,11 @@ export class L1TableComponent {
 
     for (const team of this.dataTeams) {
       const baseTeamData = {
+        teamId: team.teamId,
         name: team.name,
         abbreviation: team.abbreviation,
         image: team.image,
         alt: team.alt,
-        url: team.url,
       }
       const performance = performanceMap.get(team.teamId);
       const lastGames = lastGamesMap.get(team.teamId);

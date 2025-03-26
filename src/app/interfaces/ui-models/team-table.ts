@@ -1,9 +1,9 @@
 export interface TeamTable {
+  teamId: string;
   name: string;
   abbreviation: string;
   image: string;
   alt: string;
-  url: string;
   lastgames: string[];
   performance: {
     points: number;
