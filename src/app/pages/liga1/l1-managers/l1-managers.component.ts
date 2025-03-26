@@ -67,7 +67,6 @@ export class L1ManagersComponent {
           name: team.name,
           image: team.image,
           alt: team.alt,
-          url: team.url,
           manager: managers,
         });
       }
