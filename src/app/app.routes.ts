@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { IndexComponent } from './pages/main/index/index.component';
 import { HomeComponent } from './pages/main/home/home.component';
 import { AboutComponent } from './pages/main/about/about.component';
 import { SocialComponent } from './pages/main/social/social.component';
@@ -26,7 +27,7 @@ import { CpFixtureComponent } from './pages/copa-peru/cp-fixture/cp-fixture.comp
 import { CpTableComponent } from './pages/copa-peru/cp-table/cp-table.component';
 import { NotFoundComponent } from './pages/main/not-found/not-found.component';
 import { TestComponent } from './pages/main/test/test.component';
-import { IndexComponent } from './pages/main/index/index.component';
+import { TeamPageComponent } from './pages/shared/team-page/team-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo:'main', pathMatch: 'full' },
@@ -51,6 +52,7 @@ export const routes: Routes = [
       { path: 'fixture', component: L1FixtureComponent },
       { path: 'tabla', component: L1TableComponent },
       { path: 'tecnicos', component: L1ManagersComponent },
+      { path: 'club/:teamId', component: TeamPageComponent },
     ],
   },
   {
@@ -63,6 +65,7 @@ export const routes: Routes = [
       { path: 'fixture', component: L2FixtureComponent },
       { path: 'tabla', component: L2TableComponent },
       { path: 'tecnicos', component: L2ManagersComponent },
+      { path: 'club/:teamId', component: TeamPageComponent },
     ],
   },
   {
@@ -74,6 +77,7 @@ export const routes: Routes = [
       { path: 'equipos', component: L3TeamsComponent },
       { path: 'fixture', component: L3FixtureComponent },
       { path: 'tabla', component: L3TableComponent },
+      { path: 'club/:teamId', component: TeamPageComponent },
     ],
   },
   {
