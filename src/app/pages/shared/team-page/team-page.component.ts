@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faInstagram, faTiktok, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark, faEllipsis, faFlag, faLink, faLocationDot, faRing, faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +17,10 @@ import { FetchTeamInformationService } from '../../../services/fetch-team-inform
   `,
 })
 export class TeamPageComponent {
-  constructor(private fetchTeamInformation: FetchTeamInformationService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private fetchTeamInformation: FetchTeamInformationService,
+  ) {}
 
   teamData: {
     division: string;
@@ -46,6 +50,10 @@ export class TeamPageComponent {
   statistics: { data: string, value: number }[] = [];
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      console.log(params['teamId']);
+    });
+
     this.teamData = this.fetchTeamInformation.fetchTeamInformation();
     this.teamLastGames = this.fetchTeamInformation.fetchTeamLastGames();
     this.statistics = this.fetchTeamInformation.fetchTeamStatistics();
