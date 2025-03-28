@@ -7,7 +7,6 @@ export interface TeamData {
   image: string;
   imageThumbnail: string;
   alt: string;
-  url: string;
   location: string;
   stadium: number;
   color: {
