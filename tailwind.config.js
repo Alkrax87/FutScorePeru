@@ -13,6 +13,7 @@ module.exports = {
         nightfall: "#232323",
         brightnight: "#393939",
         crimson: "#dc143c",
+        "crimson-hover": "#eb1a44",
         gold: "#d8b145",
         libertadores: "#FBBC04",
         sudamericana: "#27943C",
