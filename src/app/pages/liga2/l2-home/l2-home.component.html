@@ -13,7 +13,7 @@
       </div>
       <div class="flex flex-wrap justify-center py-3">
         @for (item of dataTeams; track $index) {
-          <a [routerLink]="item.url">
+          <a routerLink="/club/{{ item.teamId }}">
             <img class="w-9" [src]="item.imageThumbnail" [alt]="item.alt">
           </a>
         }
