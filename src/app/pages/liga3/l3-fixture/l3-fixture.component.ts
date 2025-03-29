@@ -28,7 +28,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
         </div>
       </div>
       <div class="flex justify-center px-5">
-        <div class="w-full lg:2-4/6">
+        <div class="w-full lg:w-4/6">
           @if (regional) {
             @if (filteredDataForFixtureRegional1.length > 0 && filteredDataForFixtureRegional2.length > 0 && filteredDataForFixtureRegional3.length > 0 && filteredDataForFixtureRegional4.length > 0) {
               <h3 class="text-4xl text-white font-bold">Regional Fecha {{ selectedRoundRegionalIndex + 1 }}</h3>
@@ -46,20 +46,20 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <h3 class="text-4xl text-white font-bold">Grupo 1</h3>
               <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureRegional1[selectedRoundRegionalIndex ? selectedRoundRegionalIndex : 0]"></app-fixture>
-              <h3 class="text-4xl text-white font-bold">Grupo 2</h3>
+              <h3 class="text-4xl text-white font-bold mt-3">Grupo 2</h3>
               <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureRegional2[selectedRoundRegionalIndex ? selectedRoundRegionalIndex : 0]"></app-fixture>
-              <h3 class="text-4xl text-white font-bold">Grupo 3</h3>
+              <h3 class="text-4xl text-white font-bold mt-3">Grupo 3</h3>
               <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureRegional3[selectedRoundRegionalIndex ? selectedRoundRegionalIndex : 0]"></app-fixture>
-              <h3 class="text-4xl text-white font-bold">Grupo 4</h3>
+              <h3 class="text-4xl text-white font-bold mt-3">Grupo 4</h3>
               <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureRegional4[selectedRoundRegionalIndex ? selectedRoundRegionalIndex : 0]"></app-fixture>
+            } @else {
+              <div class="flex h-64 justify-center items-center select-none">
+                <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
+              </div>
             }
-          } @else {
-            <div class="flex h-64 justify-center items-center select-none">
-              <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
-            </div>
           }
           @if (final) {
             @if (filteredDataForFixtureFinalA.length > 0 && filteredDataForFixtureFinalB.length > 0 && filteredDataForFixtureFinalC.length > 0 && filteredDataForFixtureFinalD.length > 0) {
@@ -78,20 +78,20 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <h3 class="text-4xl text-white font-bold">Grupo Final 1</h3>
               <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureFinalA[selectedRoundFinalIndex ? selectedRoundFinalIndex : 0]"></app-fixture>
-              <h3 class="text-4xl text-white font-bold">Grupo Final 2</h3>
+              <h3 class="text-4xl text-white font-bold mt-3">Grupo Final 2</h3>
               <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureFinalB[selectedRoundFinalIndex ? selectedRoundFinalIndex : 0]"></app-fixture>
-              <h3 class="text-4xl text-white font-bold">Grupo Final 3</h3>
+              <h3 class="text-4xl text-white font-bold mt-3">Grupo Final 3</h3>
               <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureFinalC[selectedRoundFinalIndex ? selectedRoundFinalIndex : 0]"></app-fixture>
-              <h3 class="text-4xl text-white font-bold">Grupo Final 4</h3>
+              <h3 class="text-4xl text-white font-bold mt-3">Grupo Final 4</h3>
               <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureFinalD[selectedRoundFinalIndex ? selectedRoundFinalIndex : 0]"></app-fixture>
+            } @else {
+              <div class="flex h-64 justify-center items-center select-none">
+                <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
+              </div>
             }
-          } @else {
-            <div class="flex h-64 justify-center items-center select-none">
-              <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
-            </div>
           }
         </div>
       </div>
