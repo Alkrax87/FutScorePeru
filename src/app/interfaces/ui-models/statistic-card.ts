@@ -1,8 +1,8 @@
 export interface StatisticCard {
-  image: string;
+  teamId: string;
+  name: string;
   abbreviation: string,
+  image: string;
   alt: string;
   value: number;
-  url: string;
-  color: string;
 }

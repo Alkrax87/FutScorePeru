@@ -1,33 +1,59 @@
 import { Component, Input } from '@angular/core';
 import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-statistics',
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, RouterModule],
   template: `
-    <ul class="flex overflow-x-auto space-x-3 px-5 pt-5 select-none">
+    <div class="my-3">
       @for (item of data; track $index) {
-        <li class="bg-nightfall min-w-32 w-full text-white rounded-t-2xl mb-3">
-          <div class="pt-5 pb-3">
-            <div class="justify-items-center">
-              <div class="flex space-x-2">
-                <img loading="lazy" [src]="item.image" [alt]="item.alt" class="h-10 w-10"/>
-                <p class="flex items-center font-semibold text-xl">{{item.abbreviation}}</p>
+        @if ($index == 0) {
+          <a routerLink="/club/{{ item.teamId }}">
+            <div class="bg-crimson hover:bg-crimson-hover h-[136px] image rounded-t-xl flex justify-between p-2">
+              <div class="flex flex-col justify-between">
+                <div>
+                  <p class="font-bold text-xs">{{ $index + 1 }}</p>
+                  <p class="font-bold text-lg">{{ item.name }}</p>
+                </div>
+                <p class="font-bold text-5xl">{{ item.value }}</p>
               </div>
-              <fa-icon class="flex items-center text-xs text-gold my-1" [icon]="Arrow"></fa-icon>
-              <span class="text-4xl font-semibold text-right">{{ item.value }}</span>
+              <div class="my-auto">
+                <img loading="lazy" [src]="item.image" [alt]="item.alt" class="h-24 w-24"/>
+              </div>
             </div>
-          </div>
-          <div class="w-full h-1 bg-crimson"></div>
-        </li>
+          </a>
+        } @else {
+          <a routerLink="/club/{{ item.teamId }}">
+            <div class="bg-nightfall hover:bg-brightnight flex justify-between py-1.5 px-2">
+              <div class="flex w-full">
+                <div class="text-xs font-semibold mr-3 my-auto">{{ $index + 1 }}</div>
+                <div class="flex gap-2">
+                  <img loading="lazy" [src]="item.image" [alt]="item.alt" class="h-6 w-6"/>
+                  <p class="my-auto text-sm font-semibold">{{ item.name }}</p>
+                </div>
+              </div>
+              <div class="w-10 font-semibold text-lg flex justify-between">
+                <fa-icon class="flex items-center text-xxs text-gold my-1" [icon]="Arrow"></fa-icon>
+                <p class="mx-auto">{{ item.value }}</p>
+              </div>
+            </div>
+          </a>
+        }
       }
-    </ul>
+    </div>
   `,
-  styles: ``,
+  styles: `
+    .image {
+      background-image: url('/assets/images/pages/Background-pattern.png');
+      background-size: cover;
+      font-size: 61px;
+    }
+  `,
 })
 export class StatisticsComponent {
   @Input() data!:StatisticCard[];
-  Arrow = faChevronDown;
+  Arrow = faChevronRight;
 }
