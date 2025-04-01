@@ -52,6 +52,7 @@ export const routes: Routes = [
       { path: 'fixture', component: L1FixtureComponent },
       { path: 'tabla', component: L1TableComponent },
       { path: 'tecnicos', component: L1ManagersComponent },
+      { path: 'club/:category/:teamId', component: TeamPageComponent },
     ],
   },
   {
@@ -64,6 +65,7 @@ export const routes: Routes = [
       { path: 'fixture', component: L2FixtureComponent },
       { path: 'tabla', component: L2TableComponent },
       { path: 'tecnicos', component: L2ManagersComponent },
+      { path: 'club/:category/:teamId', component: TeamPageComponent },
     ],
   },
   {
@@ -75,6 +77,7 @@ export const routes: Routes = [
       { path: 'equipos', component: L3TeamsComponent },
       { path: 'fixture', component: L3FixtureComponent },
       { path: 'tabla', component: L3TableComponent },
+      { path: 'club/:category/:teamId', component: TeamPageComponent },
     ],
   },
   {
@@ -88,6 +91,5 @@ export const routes: Routes = [
       { path: 'tabla', component: CpTableComponent },
     ],
   },
-  { path: 'club/:teamId', component: TeamPageComponent },
   { path: '**', component: NotFoundComponent },
 ];
