@@ -16,10 +16,11 @@ import { TeamMap } from '../../../interfaces/ui-models/team-map';
 import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRankingStar } from '@fortawesome/free-solid-svg-icons';
+import { TitleComponent } from "../../../components/title/title.component";
 
 @Component({
   selector: 'app-l3-home',
-  imports: [MapComponent, RouterModule, StatisticsComponent, FontAwesomeModule, DivisionInfoComponent],
+  imports: [MapComponent, RouterModule, StatisticsComponent, FontAwesomeModule, DivisionInfoComponent, TitleComponent],
   templateUrl: './l3-home.component.html',
   styles: ``,
 })

@@ -1,8 +1,10 @@
+<!-- Division -->
 <div class="select-none">
   <img class="hidden md:block" src="assets/images/pages/Banner-l1.webp" alt="L1-Background">
   <img class="block md:hidden" src="assets/images/pages/Banner-l1-vertical.webp" alt="L1-Background">
   <app-division-info [data]="dataDivision"></app-division-info>
 </div>
+<!-- Map -->
 <div class="select-none bg-gray-100 dark:bg-dark dark:text-white duration-500 flex flex-wrap justify-center w-full p-5">
   <div class="w-full md:w-3/6 lg:w-5/12 flex items-center">
     <div class="p-0 md:p-5">
@@ -27,28 +29,58 @@
     </div>
   </div>
 </div>
-<div class="bg-night flex justify-center">
-  <div class="w-full md:w-full lg:w-2/3 text-white py-8">
-    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Mejores Defensas</div>
-    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
-    <app-statistics [data]="dataBestDefense"></app-statistics>
-    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Peores Defensas</div>
-    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
-    <app-statistics [data]="dataWorstDefense"></app-statistics>
-    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Más Goleadores</div>
-    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
-    <app-statistics [data]="dataMostGoals"></app-statistics>
-    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Menos Goleadores</div>
-    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
-    <app-statistics [data]="dataFewestGoals"></app-statistics>
-    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Más Partidos Ganados</div>
-    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
-    <app-statistics [data]="dataMostWins"></app-statistics>
-    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Más Partidos Empatados</div>
-    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
-    <app-statistics [data]="dataMostDraws"></app-statistics>
-    <div class="px-5 py-3 mt-5 text-3xl font-semibold">Más Partidos Perdidos</div>
-    <div class="bg-crimson skew-x-50 h-1.5 md:h-2 w-52 mx-5"></div>
-    <app-statistics [data]="dataMostLosses"></app-statistics>
+<!-- Statistics -->
+<app-title [title]="'Estadísticas'"></app-title>
+<div class="bg-night text-white p-5">
+  <div class="w-full xl:w-3/4 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-3">
+    <div>
+      <div class="mb-5">
+        <p class="text-2xl font-bold">Partidos Ganados</p>
+        <div class="bg-crimson skew-x-50 h-1.5 w-56 my-2"></div>
+      </div>
+      <app-statistics [data]="dataMostWins"></app-statistics>
+    </div>
+    <div>
+      <div class="mb-5">
+        <p class="text-2xl font-bold">Partidos Empatados</p>
+        <div class="bg-crimson skew-x-50 h-1.5 w-56 my-2"></div>
+      </div>
+      <app-statistics [data]="dataMostDraws"></app-statistics>
+    </div>
+    <div>
+      <div class="mb-5">
+        <p class="text-2xl font-bold">Partidos Perdidos</p>
+        <div class="bg-crimson skew-x-50 h-1.5 w-56 my-2"></div>
+      </div>
+      <app-statistics [data]="dataMostLosses"></app-statistics>
+    </div>
+    <div>
+      <div class="mb-5">
+        <p class="text-2xl font-bold">Mejor Defensa (GC)</p>
+        <div class="bg-crimson skew-x-50 h-1.5 w-56 my-2"></div>
+      </div>
+      <app-statistics [data]="dataBestDefense"></app-statistics>
+    </div>
+    <div>
+      <div class="mb-5">
+        <p class="text-2xl font-bold">Peor Defensa (GC)</p>
+        <div class="bg-crimson skew-x-50 h-1.5 w-56 my-2"></div>
+      </div>
+      <app-statistics [data]="dataWorstDefense"></app-statistics>
+    </div>
+    <div>
+      <div class="mb-5">
+        <p class="text-2xl font-bold">Más Goleador (GF)</p>
+        <div class="bg-crimson skew-x-50 h-1.5 w-60 my-2"></div>
+      </div>
+      <app-statistics [data]="dataMostGoals"></app-statistics>
+    </div>
+    <div>
+      <div class="mb-5">
+        <p class="text-2xl font-bold">Menos Goleador (GF)</p>
+        <div class="bg-crimson skew-x-50 h-1.5 w-60 my-2"></div>
+      </div>
+      <app-statistics [data]="dataFewestGoals"></app-statistics>
+    </div>
   </div>
 </div>
