@@ -73,7 +73,7 @@ export class L2MainComponent {
   }
 
   getDataForNav() {
-    const newData: TeamNav[] = this.dataTeams ? this.dataTeams.map(({ teamId, imageThumbnail, alt }) => ({ teamId, imageThumbnail, alt })) : [];
+    const newData: TeamNav[] = this.dataTeams ? this.dataTeams.map(({ category, teamId, imageThumbnail, alt }) => ({ category, teamId, imageThumbnail, alt })) : [];
     this.dataTeamsNav = newData;
   }
 
