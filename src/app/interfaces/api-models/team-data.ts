@@ -1,4 +1,5 @@
 export interface TeamData {
+  category: number;
   teamId: string;
   groupFirstPhase?: string;
   groupSecondPhase?: string;
