@@ -59,6 +59,7 @@ export class L2TeamsComponent {
     for (const team of this.dataTeams) {
       const stadium = teamMap.get(team.stadium);
       newData.push({
+        category: team.category,
         teamId: team.teamId,
         name: team.name,
         abbreviation: team.abbreviation,
