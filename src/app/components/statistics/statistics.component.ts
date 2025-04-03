@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
     <div class="my-3">
       @for (item of data; track $index) {
         @if ($index == 0) {
-          <a routerLink="/club/{{ item.teamId }}">
+          <a [routerLink]="['../','club', item.category, item.teamId]">
             <div class="bg-crimson hover:bg-crimson-hover h-[136px] image rounded-t-xl flex justify-between p-2">
               <div class="flex flex-col justify-between">
                 <div>
@@ -26,7 +26,7 @@ import { RouterModule } from '@angular/router';
             </div>
           </a>
         } @else {
-          <a routerLink="/club/{{ item.teamId }}">
+          <a [routerLink]="['../','club', item.category, item.teamId]">
             <div class="bg-nightfall hover:bg-brightnight flex justify-between py-1.5 px-2">
               <div class="flex w-full">
                 <div class="text-xs font-semibold mr-3 my-auto">{{ $index + 1 }}</div>
