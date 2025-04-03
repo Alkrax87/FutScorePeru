@@ -1,4 +1,5 @@
 export interface TeamCard {
+  category: number;
   teamId: string;
   name: string;
   abbreviation: string;
