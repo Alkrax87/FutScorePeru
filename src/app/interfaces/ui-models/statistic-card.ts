@@ -1,4 +1,5 @@
 export interface StatisticCard {
+  category: number;
   teamId: string;
   name: string;
   abbreviation: string,
