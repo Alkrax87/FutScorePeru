@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MapElement } from '../../interfaces/api-models/map-element';
 import { TeamMap } from '../../interfaces/ui-models/team-map';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-map',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   template: `
     <svg class="fill-map-light dark:fill-map-dark duration-500 opacity-100 stroke-white stroke-map" viewBox="-60 0 1100 1470" xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
       @if (map) {
@@ -28,7 +29,9 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
         </div>
         <div class="flex flex-wrap justify-center">
           @for (item of toolTipData; track $index) {
-            <img loading="lazy" class="w-8 md:w-10" [src]="item.imageThumbnail" [alt]="item.alt">
+            <a [routerLink]="['../', 'club', item.category, item.teamId]">
+              <img loading="lazy" class="w-8 md:w-10" [src]="item.imageThumbnail" [alt]="item.alt">
+            </a>
           }
         </div>
       </div>
