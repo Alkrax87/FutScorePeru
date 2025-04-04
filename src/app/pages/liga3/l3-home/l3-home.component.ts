@@ -71,6 +71,8 @@ export class L3HomeComponent {
     const mergedData = [];
     for (const team of this.dataTeams) {
       mergedData.push({
+        teamId: team.teamId,
+        category: team.category,
         imageThumbnail: team.imageThumbnail,
         alt: team.alt,
         location: team.location,
