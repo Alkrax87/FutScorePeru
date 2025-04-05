@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
@@ -7,20 +7,18 @@ import { FetchStatisticsService } from '../../../services/fetch-statistics.servi
 import { TransformStatisticDataService } from '../../../services/transform-statistic-data.service';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { DivisionInfoComponent } from "../../../components/division-info/division-info.component";
-import { MapComponent } from "../../../components/map/map.component";
+import { MapComponent } from '../../../components/map/map.component';
 import { StatisticsComponent } from '../../../components/statistics/statistics.component';
 import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { TeamData } from '../../../interfaces/api-models/team-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
 import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faRankingStar } from '@fortawesome/free-solid-svg-icons';
 import { TitleComponent } from "../../../components/title/title.component";
 
 @Component({
   selector: 'app-l2-home',
-  imports: [MapComponent, RouterModule, StatisticsComponent, FontAwesomeModule, DivisionInfoComponent, TitleComponent],
+  imports: [MapComponent, RouterLink, StatisticsComponent, DivisionInfoComponent, TitleComponent],
   templateUrl: './l2-home.component.html',
   styles: ``,
 })
@@ -39,7 +37,6 @@ export class L2HomeComponent {
   dataStatistics: any;
   mapConstructor: MapElement[] = [];
   dataMap: TeamMap[] = [];
-  Stats = faRankingStar;
   dataBestDefense: StatisticCard[] = [];
   dataWorstDefense: StatisticCard[] = [];
   dataMostGoals: StatisticCard[] = [];
