@@ -30,7 +30,327 @@ export class FetchTeamInformationService {
         capacity: 60000,
         location: 'Arequipa',
         image: 'https://pbs.twimg.com/media/EsQkcj5WMAEf5XN.jpg',
-      }
+      },
+      fixture: {
+        "apertura": {
+          "matches": [
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team19"
+              }
+            ],
+            [
+              {
+                "home": "L1Team11",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team2"
+              }
+            ],
+            [
+              {
+                "home": "L1Team14",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team17"
+              }
+            ],
+            [
+              {
+                "home": "L1Team6",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team1"
+              }
+            ],
+            [
+              {
+                "home": "L1Team18",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team12"
+              }
+            ],
+            [
+              {
+                "home": "L1Team8",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team10"
+              }
+            ],
+            [
+              {
+                "home": "L1Team9",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team5"
+              }
+            ],
+            [
+              {
+                "home": "L1Team4",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team15"
+              }
+            ],
+            [
+              {
+                "home": "L1Team16",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team3"
+              }
+            ],
+            [
+              {
+                "home": "L1Team7",
+                "away": "L1Team13"
+              }
+            ]
+          ]
+        },
+        "clausura": {
+          "matches": [
+            [
+              {
+                "home": "L1Team19",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team11"
+              }
+            ],
+            [
+              {
+                "home": "L1Team2",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team14"
+              }
+            ],
+            [
+              {
+                "home": "L1Team17",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team6"
+              }
+            ],
+            [
+              {
+                "home": "L1Team1",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team18"
+              }
+            ],
+            [
+              {
+                "home": "L1Team12",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team8"
+              }
+            ],
+            [
+              {
+                "home": "L1Team10",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team9"
+              }
+            ],
+            [
+              {
+                "home": "L1Team5",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team4"
+              }
+            ],
+            [
+              {
+                "home": "L1Team15",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team16"
+              }
+            ],
+            [
+              {
+                "home": "L1Team3",
+                "away": "L1Team13"
+              }
+            ],
+            [
+              {
+                "home": "L1Team13",
+                "away": "L1Team7"
+              }
+            ]
+          ]
+        }
+      },
+      lastGames: {
+        "apertura": [
+          "w",
+          "w",
+          "w",
+          "w",
+          "w",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "clausura": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      results: {
+        "apertura": [
+          3,
+          1,
+          2,
+          null,
+          1,
+          3,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "clausura": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      performance: [
+        { data: 'Puntos', value: 15 },
+        { data: 'Ganados', value: 5 },
+        { data: 'Empatados', value: 0 },
+        { data: 'Perdidos', value: 0 },
+        { data: 'GF', value: 10 },
+        { data: 'GC', value: 3 },
+      ]
     };
   }
 
