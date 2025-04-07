@@ -12,7 +12,7 @@ import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { Subscription } from 'rxjs';
-import { faShieldHalved, faWindowRestore, faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
+import { faShieldHalved, faWindowRestore, faBarsStaggered, faRankingStar } from "@fortawesome/free-solid-svg-icons";
 import { TeamData } from '../../../interfaces/api-models/team-data';
 import { TeamNav } from '../../../interfaces/ui-models/team-nav';
 
@@ -48,6 +48,7 @@ export class L3MainComponent {
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
+    { name: 'Estadísticas', route: 'estadisticas', icon: faRankingStar },
   ];
 
   ngOnInit() {
