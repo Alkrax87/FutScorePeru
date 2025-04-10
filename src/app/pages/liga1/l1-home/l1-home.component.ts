@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
@@ -15,10 +14,12 @@ import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
 import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
 import { TitleComponent } from "../../../components/title/title.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCity, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-l1-home',
-  imports: [MapComponent, RouterLink, StatisticsComponent, DivisionInfoComponent, TitleComponent],
+  imports: [MapComponent, StatisticsComponent, DivisionInfoComponent, TitleComponent, FontAwesomeModule],
   templateUrl: './l1-home.component.html',
   styles: ``,
 })
@@ -44,6 +45,22 @@ export class L1HomeComponent {
   dataMostWins: StatisticCard[] = [];
   dataMostDraws: StatisticCard[] = [];
   dataMostLosses: StatisticCard[] = [];
+  City = faCity;
+  Shield = faShieldHalved;
+  regions: { name: string; teams: number }[] = [
+    { name: 'Apurímac', teams: 1 },
+    { name: 'Arequipa', teams: 1 },
+    { name: 'Ayacucho', teams: 1 },
+    { name: 'Cajamarca', teams: 2 },
+    { name: 'Callao', teams: 1 },
+    { name: 'Cusco', teams: 3 },
+    { name: 'Huánuco', teams: 1 },
+    { name: 'Junín', teams: 2 },
+    { name: 'Lambayeque', teams: 1 },
+    { name: 'Lima', teams: 3 },
+    { name: 'Piura', teams: 2 },
+    { name: 'Puno', teams: 1 },
+  ];
 
   ngOnInit() {
     combineLatest([
