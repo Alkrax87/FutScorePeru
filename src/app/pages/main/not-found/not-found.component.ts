@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { BtnComponent } from '../../../components/btn/btn.component';
 
 @Component({
   selector: 'app-not-found',
-  imports: [RouterModule, BtnComponent],
+  imports: [RouterLink, BtnComponent],
   template: `
     <div class="flex py-0  md:py-28 items-center justify-center bg-gray-100">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 max-w-5xl">
