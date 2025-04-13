@@ -11,10 +11,13 @@ import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { TeamData } from '../../../interfaces/api-models/team-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
+import { CityCardComponent } from "../../../components/city-card/city-card.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-l3-home',
-  imports: [MapComponent, RouterLink, DivisionInfoComponent, TitleComponent],
+  imports: [MapComponent, DivisionInfoComponent, TitleComponent, CityCardComponent, FontAwesomeModule],
   templateUrl: './l3-home.component.html',
   styles: ``,
 })
@@ -56,6 +59,7 @@ export class L3HomeComponent {
     { name: 'Tumbes', teams: 1 },
     { name: 'Ucayali', teams: 1 },
   ];
+  Shield = faShieldHalved;
 
   ngOnInit() {
     combineLatest([

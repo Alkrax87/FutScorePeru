@@ -11,10 +11,13 @@ import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { TeamData } from '../../../interfaces/api-models/team-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
+import { CityCardComponent } from "../../../components/city-card/city-card.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-l1-home',
-  imports: [MapComponent, RouterLink, DivisionInfoComponent, TitleComponent],
+  imports: [MapComponent, DivisionInfoComponent, TitleComponent, CityCardComponent, FontAwesomeModule],
   templateUrl: './l1-home.component.html',
   styles: ``,
 })
@@ -43,6 +46,7 @@ export class L1HomeComponent {
     { name: 'Piura', teams: 2 },
     { name: 'Puno', teams: 1 },
   ];
+  Shield = faShieldHalved;
 
   ngOnInit() {
     combineLatest([
