@@ -13,11 +13,7 @@ import { TeamCarousel } from '../../../interfaces/ui-models/team-carousel';
   styles: ``,
 })
 export class HomeComponent {
-  constructor(private teamsService: FetchTeamDataService) {
-    teamsService.fetchTeamsL1();
-    teamsService.fetchTeamsL2();
-    teamsService.fetchTeamsL3();
-  }
+  constructor(private teamsService: FetchTeamDataService) {}
 
   teamsSubscription: Subscription | null = null;
   teamsL1: TeamCarousel[] = [];
@@ -25,6 +21,9 @@ export class HomeComponent {
   teamsL3: TeamCarousel[] = [];
 
   ngOnInit() {
+    this.teamsService.fetchTeamsL1();
+    this.teamsService.fetchTeamsL2();
+    this.teamsService.fetchTeamsL3();
     this.teamsSubscription = combineLatest([
       this.teamsService.dataTeamsL1$,
       this.teamsService.dataTeamsL2$,
