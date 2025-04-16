@@ -10,9 +10,7 @@ import { faAngleRight, faShieldHalved } from '@fortawesome/free-solid-svg-icons'
     <div>
       <div class="bg-nightfall border-none">
         <div class="bg-white dark:bg-brightnight transition dark:transition duration-300 dark:duration-300 pt-5 px-9 overflow-hidden relative rounded-br-[30px]">
-          <div class="w-20 h-20 bg-crimson rounded-full absolute -right-5 -top-7">
-            <p class="absolute flex justify-center">1</p>
-          </div>
+          <div class="w-20 h-20 bg-crimson rounded-full absolute -right-5 -top-7"></div>
           <img loading="lazy" [src]="item.image" alt="Liga-logo" class="w-16 min-w-16">
           <h2 class="text-crimson dark:text-gold transition dark:transition duration-300 dark:duration-300 font-bold text-2xl">{{ item.title }}</h2>
           <p class="text-zinc-500 dark:text-white transition dark:transition duration-300 dark:duration-300 text-sm font-semibold py-2">
