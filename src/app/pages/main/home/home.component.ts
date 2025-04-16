@@ -5,12 +5,20 @@ import { combineLatest, Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
 import { LeagueCardComponent } from "../../../components/league-card/league-card.component";
 import { TeamCarousel } from '../../../interfaces/ui-models/team-carousel';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { BtnComponent } from "../../../components/btn/btn.component";
 
 @Component({
   selector: 'app-home',
-  imports: [TeamsCarouselComponent, TitleComponent, LeagueCardComponent],
+  imports: [TeamsCarouselComponent, TitleComponent, LeagueCardComponent, FontAwesomeModule, BtnComponent],
   templateUrl: './home.component.html',
-  styles: ``,
+  styles: `
+    .bg {
+      background-image: radial-gradient(#dc143c 2px, transparent 2px);
+      background-size: 49px 49px;
+    }
+  `,
 })
 export class HomeComponent {
   constructor(private teamsService: FetchTeamDataService) {}
@@ -19,6 +27,8 @@ export class HomeComponent {
   teamsL1: TeamCarousel[] = [];
   teamsL2: TeamCarousel[] = [];
   teamsL3: TeamCarousel[] = [];
+
+  Check = faCheck;
 
   ngOnInit() {
     this.teamsService.fetchTeamsL1();
@@ -83,6 +93,14 @@ export class HomeComponent {
       routes: '/copa-peru',
     },
   ];
+
+  scrollTo() {
+    const element = document.getElementById('leagues');
+
+    if (element) {
+      element.scrollIntoView();
+    }
+  }
 
   ngOnDestroy() {
     this.teamsSubscription?.unsubscribe();
