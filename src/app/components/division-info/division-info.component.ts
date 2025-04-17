@@ -12,19 +12,19 @@ import { DivisionData } from '../../interfaces/api-models/division-data';
       </div>
       <div class="flex justify-center items-center">
         <div class="justify-items-center">
-          <p class="italic text-xs">Temporada</p>
+          <p class="italic text-xs dark:text-gold duration-500">Temporada</p>
           <p class="font-bold">{{ data?.season }}</p>
         </div>
       </div>
       <div class="flex justify-center items-center">
         <div class="justify-items-center">
-          <p class="italic text-xs">Equipos</p>
+          <p class="italic text-xs dark:text-gold duration-500">Equipos</p>
           <p class="font-bold">{{ data?.teams }}</p>
         </div>
       </div>
       <div class="flex justify-center items-center">
         <div class="justify-items-center">
-          <p class="italic text-xs">Categoría</p>
+          <p class="italic text-xs dark:text-gold duration-500">Categoría</p>
           <p class="font-bold">{{ data?.name }}<sup>{{ data?.sup }}</sup> División</p>
         </div>
       </div>
