@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
       @if (map) {
         @for (item of map; track $index) {
           <path
-            [ngClass]="{'fill-crimson hover:fill-gold cursor-pointer transition-colors duration-300 ease-in-out':item.mapStatus}"
+            [ngClass]="{'fill-crimson hover:fill-gold cursor-pointer transition-colors duration-500 ease-in-out':item.mapStatus}"
             [id]="item.mapId"
             [attr.name]="item.mapName"
             [attr.d]="item.mapD"

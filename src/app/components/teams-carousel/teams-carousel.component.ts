@@ -10,7 +10,7 @@ import { TeamCarousel } from '../../interfaces/ui-models/team-carousel';
       <om-marquee [animationDuration]="duration" [pauseOnHover]="false" marqueeGap="1.25rem" [reverse]="reverse">
         <div class="flex gap-5" #OmMarqueeContent>
           @for (item of data; track $index) {
-            <div class="bg-nightfall w-20 text-center p-4 transition-transform duration-300">
+            <div class="bg-nightfall w-20 text-center p-4">
               <div class="flex justify-center items-center w-full">
                 <img [src]="item.image" [alt]="item.alt">
               </div>

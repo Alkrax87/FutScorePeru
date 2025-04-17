@@ -11,7 +11,7 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
     <!-- Desktop Menu -->
     <div class="hidden md:block select-none">
       <div class="bg-crimson flex justify-center">
-        <div class="bg-gray-100 dark:bg-dark duration-500 md:w-11/12 lg:w-5/6 flex rounded-l-full rounded-r-full">
+        <div class="bg-gray-100 dark:bg-nightfall duration-500 md:w-11/12 lg:w-5/6 flex rounded-l-full rounded-r-full">
           <div class="flex mx-auto">
             @for (item of options; track $index) {
               <a [routerLink]="item.route" class="w-32 lg:w-40 justify-items-center group relative inline-block px-4 py-4">

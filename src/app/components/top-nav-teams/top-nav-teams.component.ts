@@ -8,7 +8,7 @@ import { TeamNav } from '../../interfaces/ui-models/team-nav';
   selector: 'app-top-nav-teams',
   imports: [RouterModule, FontAwesomeModule],
   template: `
-    <div class="bg-gray-100 dark:bg-dark duration-500 select-none">
+    <div class="bg-gray-100 dark:bg-nightfall duration-500 select-none">
       <div class="mx-auto hidden md:block md:w-11/12 lg:w-3/4">
         <div class="flex space-x-4 lg:space-x-8">
           <div class="flex items-center text-xs lg:text-sm">
