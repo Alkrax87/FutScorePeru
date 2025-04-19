@@ -4,6 +4,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faInstagram, faTiktok, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark, faEllipsis, faFlag, faLink, faLocationDot, faRing, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FetchTeamInformationService } from '../../../services/fetch-team-information.service';
+import { FixtureData } from '../../../interfaces/api-models/fixture-data';
+import { TeamInformation } from '../../../interfaces/api-models/team-information';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-team-page',
@@ -22,41 +25,19 @@ export class TeamPageComponent {
     private fetchTeamInformation: FetchTeamInformationService,
   ) {}
 
-  teamData: {
-    division: string;
-    name: string;
-    image: string;
-    alt: string;
-    location: string;
-    foundation: number;
-    background: string;
-    website?: string;
-    social?: {
-      website?: string;
-      youtube?: string;
-      tiktok?: string;
-      facebook?: string;
-      twitter?: string;
-      instagram?: string;
-    },
-    stadium?: {
-      name: string;
-      capacity: number;
-      location: string;
-      image: string;
-    }
-  } | null = null;
-  teamLastGames: string[] = [];
-  statistics: { data: string, value: number }[] = [];
+  private destroy$ = new Subject<void>();
+  teamId: string = "";
+
+  teamData: TeamInformation | null = null;
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      console.log(params['teamId']);
+    this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
+      this.teamId = params['teamId'];
+      this.fetchTeamInformation.fetchTeamInformation(this.teamId).subscribe({
+        next: (response) => (this.teamData = response),
+        error: (error) => console.log('Failed to fetch Team Information ', error)
+      });
     });
-
-    this.teamData = this.fetchTeamInformation.fetchTeamInformation();
-    this.teamLastGames = this.fetchTeamInformation.fetchTeamLastGames();
-    this.statistics = this.fetchTeamInformation.fetchTeamStatistics();
   }
 
   Flag = faFlag;
@@ -64,7 +45,6 @@ export class TeamPageComponent {
   Stadium = faRing;
   Divider = faEllipsis;
   Users = faUsers;
-
   Web = faLink;
   Facebook = faFacebookF;
   Instagram = faInstagram;
@@ -75,4 +55,9 @@ export class TeamPageComponent {
   Draw = faCircleMinus;
   Lose = faCircleXmark;
   Default = faCircle;
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

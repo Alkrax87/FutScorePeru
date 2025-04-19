@@ -8,7 +8,7 @@
       </div>
       <div class="w-full flex flex-col justify-center gap-1 sm:gap-2">
         <div class="bg-gold w-fit px-5 py-0.5 skew-x-30">
-          <p class="-skew-x-30 font-semibold text-sm sm:text-base">Liga 1</p>
+          <p class="-skew-x-30 font-semibold text-sm sm:text-base">{{ teamData?.division }}</p>
         </div>
         <p class="font-bold text-4xl md:text-5xl lg:text-6xl">{{ teamData?.name }}</p>
         <div class="flex flex-col sm:flex-row gap-1 sm:gap-5 pt-2 text-sm lg:text-base">
@@ -103,62 +103,19 @@
             </div>
           </div>
           <div class="p-5">
-            <img [src]="teamData?.stadium?.image" alt="STADIUM-image">
-            <p class="text-white font-semibold pt-3 pb-1 truncate">
+            <p class="text-white font-semibold truncate pb-2">
               <fa-icon [icon]="Stadium"></fa-icon> &nbsp; {{ teamData?.stadium?.name }}
             </p>
-            <div class="text-white flex justify-between text-xs">
-              <p>
-                <fa-icon [icon]="Users"></fa-icon> &nbsp; {{ teamData?.stadium?.capacity }}
-              </p>
-              <p>
-                <fa-icon [icon]="Location"></fa-icon> &nbsp; {{ teamData?.stadium?.location }}
-              </p>
+            <img [src]="teamData?.stadium?.image" alt="STADIUM-image">
+            <div class="text-white flex justify-between text-xs pt-1">
+              <p><fa-icon [icon]="Users"></fa-icon> &nbsp; {{ teamData?.stadium?.capacity }}</p>
+              <p><fa-icon [icon]="Location"></fa-icon> &nbsp; {{ teamData?.stadium?.location }}</p>
             </div>
           </div>
         </div>
         <!-- Info -->
         <div class="bg-nightfall col-span-8 lg:col-span-6 row-start-3 md:row-start-2 lg:row-start-1 lg:row-span-4 lg:col-start-3 p-5">
-          <!-- LastGames -->
-          <div>
-            <div class="mb-5">
-              <p class="text-white text-2xl font-bold">Resultados</p>
-              <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
-            </div>
-            <div class="bg-brightnight p-3 flex gap-1 sm:gap-0 justify-center sm:justify-evenly flex-wrap sm:flex-nowrap rounded-3xl">
-              @for (lastGame of teamLastGames; track $index) {
-                @switch (lastGame) {
-                  @case ("w") {
-                    <fa-icon class="text-xl text-green-600" [icon]="Win"></fa-icon>
-                  }
-                  @case ("d") {
-                    <fa-icon class="text-xl text-neutral-300" [icon]="Draw"></fa-icon>
-                  }
-                  @case ("l") {
-                    <fa-icon class="text-xl text-red-600" [icon]="Lose"></fa-icon>
-                  }
-                  @default {
-                    <fa-icon class="text-xl text-neutral-400" [icon]="Default"></fa-icon>
-                  }
-                }
-              }
-            </div>
-          </div>
-          <!-- Statistics -->
-          <div>
-            <div class="my-5">
-              <p class="text-white text-2xl font-bold">Rendimiento</p>
-              <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
-            </div>
-            <div class="grid grid-cols-6 gap-3">
-              @for (item of statistics; track $index) {
-                <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
-                  <p class="text-gold text-sm font-semibold truncate">{{ item.data }}</p>
-                  <p class="text-white text-6xl font-bold truncate">{{ item.value }}</p>
-                </div>
-              }
-            </div>
-          </div>
+          <!-- Content -->
         </div>
       </div>
     </div>
