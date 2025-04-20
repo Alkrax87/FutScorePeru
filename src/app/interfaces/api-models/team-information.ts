@@ -28,6 +28,7 @@ export interface TeamInformation {
     regional?: string[];
     grupos?: string[];
     final?: string[];
+    [key: string]: string[] | undefined;
   },
   performance: {
     apertura?: {
@@ -75,6 +76,7 @@ export interface TeamInformation {
       sanction: number;
       addition: number;
     };
+    [key: string]: any | undefined;
   },
   fixture: {
     apertura?: { home: string, away: string }[];
