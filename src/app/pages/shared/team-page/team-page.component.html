@@ -13,7 +13,7 @@
         <p class="font-bold text-4xl md:text-5xl lg:text-6xl">{{ teamData?.name }}</p>
         <div class="flex flex-col sm:flex-row gap-1 sm:gap-5 pt-2 text-sm lg:text-base">
           <p>
-            <fa-icon [icon]="Location"></fa-icon> &nbsp;Ciudad: <span class="font-semibold">{{ teamData?.location }}</span>
+            <fa-icon [icon]="Location"></fa-icon> &nbsp;Región: <span class="font-semibold">{{ teamData?.location }}</span>
           </p>
           <p class="text-gold hidden sm:block"><fa-icon [icon]="Divider"></fa-icon></p>
           <p>
@@ -24,7 +24,7 @@
     </div>
     <!-- Right Side -->
     <div class="w-full flex md:justify-end">
-      <img [src]="teamData?.background" alt="TEAM-background" class="rounded-l-none md:rounded-l-3xl w-full md:w-[570px] h-52 md:h-fit object-cover">
+      <img [src]="teamData?.background" alt="TEAM-background" class="rounded-l-none md:rounded-l-3xl w-full md:w-[570px] h-52 md:max-h-80 md:min-h-80 md:h-fit object-cover">
     </div>
   </div>
 </div>
@@ -82,18 +82,20 @@
         </div>
         <!-- Website -->
         <div class="bg-neutral-100 col-span-8 md:col-span-4 lg:col-span-2 row-start-2 md:row-start-1 lg:row-start-2">
-          @if (teamData?.website) {
-            <div class="w-full bg-crimson text-white image px-5 py-3">
-              <div class="h-full flex justify-center md:justify-start items-center">
-                <p class="text-xl font-bold">Sitio Web</p>
-              </div>
+          <div class="w-full bg-crimson text-white image px-5 py-3">
+            <div class="h-full flex justify-center md:justify-start items-center">
+              <p class="text-xl font-bold">Sitio Web</p>
             </div>
-            <div class="p-3 truncate text-center">
-              <a [href]="teamData?.website" class="text-crimson">
+          </div>
+          <div class="p-3 truncate text-center">
+            @if (teamData?.website) {
+              <a [href]="teamData?.website">
                 <fa-icon [icon]="Web"></fa-icon> {{ teamData?.website}}
               </a>
-            </div>
-          }
+            } @else {
+              <p>No tiene sitio web.</p>
+            }
+          </div>
         </div>
         <!-- Stadium -->
         <div class="bg-nightfall col-span-8 lg:col-span-2 row-start-4 md:row-start-3 lg:row-start-3">
@@ -115,7 +117,96 @@
         </div>
         <!-- Info -->
         <div class="bg-nightfall col-span-8 lg:col-span-6 row-start-3 md:row-start-2 lg:row-start-1 lg:row-span-4 lg:col-start-3 p-5">
-          <!-- Content -->
+          <div class="flex justify-center">
+            <div class="w-full md:w-5/6 lg:w-8/12 grid sm:grid-cols-1 md:grid-cols-2 md:space-x-6 px-8 pb-5">
+              @if (category === 1) {
+                <app-btn (click)="setActiveTab('apertura')" [active]="apertura">Apertura</app-btn>
+                <app-btn (click)="setActiveTab('clausura')" [active]="clausura">Clausura</app-btn>
+              }
+              @if (category === 2) {
+                <app-btn (click)="setActiveTab('regional')" [active]="regional">Fase Regional</app-btn>
+                <app-btn (click)="setActiveTab('grupos')" [active]="grupos">Fase Grupos</app-btn>
+              }
+              @if (category === 3) {
+                <app-btn (click)="setActiveTab('regional')" [active]="regional">Fase Regional</app-btn>
+                <app-btn (click)="setActiveTab('final')" [active]="final">Fase Final</app-btn>
+              }
+            </div>
+          </div>
+          @if (activeLastGames) {
+            <!-- Lastgames -->
+            <div class="mb-5">
+              <p class="text-white text-2xl font-bold">Resultados</p>
+              <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
+            </div>
+            <div class="bg-brightnight p-3 flex gap-1 sm:gap-0 justify-center sm:justify-evenly flex-wrap sm:flex-nowrap rounded-3xl">
+              @for (lastGame of teamData?.lastgames?.[activeLastGames]; track $index) {
+                @switch (lastGame) {
+                  @case ("w") {
+                    <fa-icon class="text-xl text-green-600" [icon]="Win"></fa-icon>
+                  }
+                  @case ("d") {
+                    <fa-icon class="text-xl text-neutral-300" [icon]="Draw"></fa-icon>
+                  }
+                  @case ("l") {
+                    <fa-icon class="text-xl text-red-600" [icon]="Lose"></fa-icon>
+                  }
+                  @default {
+                    <fa-icon class="text-xl text-neutral-400" [icon]="Default"></fa-icon>
+                  }
+                }
+              }
+            </div>
+            <div class="flex justify-center gap-5 text-sm py-1">
+              <div class="text-neutral-400">
+                <fa-icon class="text-xs text-green-600" [icon]="Win"></fa-icon> Victoria
+              </div>
+              <div class="text-neutral-400">
+                <fa-icon class="text-xs text-neutral-300" [icon]="Draw"></fa-icon> Empate
+              </div>
+              <div class="text-neutral-400">
+                <fa-icon class="text-xs text-red-600" [icon]="Lose"></fa-icon> Derrota
+              </div>
+            </div>
+            <!-- Performance -->
+            <div class="mb-5">
+              <p class="text-white text-2xl font-bold">Rendimiento</p>
+              <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
+            </div>
+            <div class="grid grid-cols-6 gap-3">
+              <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
+                <p class="text-gold text-sm font-semibold truncate">Puntos</p>
+                <p class="text-white text-6xl font-bold truncate">
+                  {{
+                    teamData?.performance?.[activeLastGames].pg * 3 +
+                    teamData?.performance?.[activeLastGames].pe -
+                    teamData?.performance?.[activeLastGames].sanction +
+                    teamData?.performance?.[activeLastGames].addition
+                  }}
+                </p>
+              </div>
+              <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
+                <p class="text-gold text-sm font-semibold truncate">PG</p>
+                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].pg }}</p>
+              </div>
+              <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
+                <p class="text-gold text-sm font-semibold truncate">PE</p>
+                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].pe }}</p>
+              </div>
+              <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
+                <p class="text-gold text-sm font-semibold truncate">PP</p>
+                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].pp }}</p>
+              </div>
+              <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
+                <p class="text-gold text-sm font-semibold truncate">GF</p>
+                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].gf }}</p>
+              </div>
+              <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
+                <p class="text-gold text-sm font-semibold truncate">GC</p>
+                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].gc }}</p>
+              </div>
+            </div>
+          }
         </div>
       </div>
     </div>
