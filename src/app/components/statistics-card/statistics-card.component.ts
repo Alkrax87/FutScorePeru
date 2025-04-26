@@ -5,10 +5,10 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-statistics',
+  selector: 'app-statistics-card',
   imports: [FontAwesomeModule, RouterModule],
   template: `
-    <div class="my-3">
+    <div class="my-3 select-none">
       @for (item of data; track $index) {
         @if ($index == 0) {
           <a [routerLink]="['../','club', item.category, item.teamId]">
@@ -53,7 +53,7 @@ import { RouterModule } from '@angular/router';
     }
   `,
 })
-export class StatisticsComponent {
+export class StatisticsCardComponent {
   @Input() data!:StatisticCard[];
   Arrow = faChevronRight;
 }

@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { TitleComponent } from "../../../components/title/title.component";
-import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
 import { TransformStatisticDataService } from '../../../services/transform-statistic-data.service';
 import { Subscription } from 'rxjs';
+import { TitleComponent } from "../../../components/title/title.component";
+import { StatisticsCardComponent } from "../../../components/statistics-card/statistics-card.component";
 import { TeamData } from '../../../interfaces/api-models/team-data';
-import { StatisticsComponent } from "../../../components/statistics/statistics.component";
+import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
 
 @Component({
   selector: 'app-l2-statistics',
-  imports: [TitleComponent, StatisticsComponent],
+  imports: [TitleComponent, StatisticsCardComponent],
   template: `
     <app-title [title]="'Estadísticas'"></app-title>
     <div class="bg-night text-white p-5">
@@ -20,63 +20,63 @@ import { StatisticsComponent } from "../../../components/statistics/statistics.c
             <p class="text-2xl font-bold">Partidos Ganados</p>
             <div class="bg-crimson skew-x-50 h-1.5 w-56 my-2"></div>
           </div>
-          <app-statistics [data]="dataMostWins"></app-statistics>
+          <app-statistics-card [data]="dataMostWins"></app-statistics-card>
         </div>
         <div>
           <div class="mb-5">
             <p class="text-2xl font-bold">Partidos Empatados</p>
             <div class="bg-crimson skew-x-50 h-1.5 w-56 my-2"></div>
           </div>
-          <app-statistics [data]="dataMostDraws"></app-statistics>
+          <app-statistics-card [data]="dataMostDraws"></app-statistics-card>
         </div>
         <div>
           <div class="mb-5">
             <p class="text-2xl font-bold">Partidos Perdidos</p>
             <div class="bg-crimson skew-x-50 h-1.5 w-56 my-2"></div>
           </div>
-          <app-statistics [data]="dataMostLosses"></app-statistics>
+          <app-statistics-card [data]="dataMostLosses"></app-statistics-card>
         </div>
         <div>
           <div class="mb-5">
             <p class="text-2xl font-bold">Mejor Defensa (GC)</p>
             <div class="bg-crimson skew-x-50 h-1.5 w-56 my-2"></div>
           </div>
-          <app-statistics [data]="dataBestDefense"></app-statistics>
+          <app-statistics-card [data]="dataBestDefense"></app-statistics-card>
         </div>
         <div>
           <div class="mb-5">
             <p class="text-2xl font-bold">Peor Defensa (GC)</p>
             <div class="bg-crimson skew-x-50 h-1.5 w-56 my-2"></div>
           </div>
-          <app-statistics [data]="dataWorstDefense"></app-statistics>
+          <app-statistics-card [data]="dataWorstDefense"></app-statistics-card>
         </div>
         <div>
           <div class="mb-5">
             <p class="text-2xl font-bold">Más Goleador (GF)</p>
             <div class="bg-crimson skew-x-50 h-1.5 w-60 my-2"></div>
           </div>
-          <app-statistics [data]="dataMostGoals"></app-statistics>
+          <app-statistics-card [data]="dataMostGoals"></app-statistics-card>
         </div>
         <div>
           <div class="mb-5">
             <p class="text-2xl font-bold">Menos Goleador (GF)</p>
             <div class="bg-crimson skew-x-50 h-1.5 w-60 my-2"></div>
           </div>
-          <app-statistics [data]="dataFewestGoals"></app-statistics>
+          <app-statistics-card [data]="dataFewestGoals"></app-statistics-card>
         </div>
         <div>
           <div class="mb-5">
             <p class="text-2xl font-bold">Mejor Diferencia de Gol</p>
             <div class="bg-crimson skew-x-50 h-1.5 w-60 my-2"></div>
           </div>
-          <app-statistics [data]="dataBestGoalDifference"></app-statistics>
+          <app-statistics-card [data]="dataBestGoalDifference"></app-statistics-card>
         </div>
         <div>
           <div class="mb-5">
             <p class="text-2xl font-bold">Peor Diferencia de Gol</p>
             <div class="bg-crimson skew-x-50 h-1.5 w-60 my-2"></div>
           </div>
-          <app-statistics [data]="dataWorstGoalDifference"></app-statistics>
+          <app-statistics-card [data]="dataWorstGoalDifference"></app-statistics-card>
         </div>
       </div>
     </div>
