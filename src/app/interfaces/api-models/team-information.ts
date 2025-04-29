@@ -85,5 +85,6 @@ export interface TeamInformation {
     regional?: { home: string, away: string }[];
     grupos?: { home: string, away: string }[];
     final?: { home: string, away: string }[];
+    [key: string]: any | undefined;
   },
 }
