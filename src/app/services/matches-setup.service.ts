@@ -8,7 +8,73 @@ import { FixtureCard } from '../interfaces/ui-models/fixture-card';
   providedIn: 'root',
 })
 export class MatchesSetupService {
-  constructor() {}
+  categoryStages: string[][] = [
+    ['apertura', 'clausura'],
+    ['regional', 'grupos'],
+    ['regional', 'final']
+  ];
+
+  transformDataForTeamFixture(
+    category: number,
+    teams: TeamData[],
+    fixture: any,
+    results: ResultsData[],
+  ) {
+    const stageList = this.categoryStages[category - 1];
+    const teamMap = new Map(teams.map((team) => [team.teamId, team]));
+    const resultsMap = new Map(results.map((result: any) => [result.teamId, result]));
+
+    const teamFixture: { [key: string]: any[] } = {};
+
+    for (const stage of stageList) {
+      const mergedData = [];
+      let index = 0;
+
+      const fixtureStage = fixture[stage];
+      if (!fixtureStage) continue;
+
+      for (const match of fixtureStage) {
+        const homeTeam = teamMap.get(match.home);
+        const awayTeam = teamMap.get(match.away);
+
+        if (match.away === null) {
+          if (homeTeam) {
+            mergedData.push({
+              homeTeamLogo: homeTeam.image,
+              homeTeamAlt: homeTeam.alt,
+              free: true,
+            });
+
+            index++;
+          }
+          continue;
+        }
+
+        if (homeTeam && awayTeam) {
+          const homeResults = resultsMap.get(homeTeam.teamId);
+          const awayResults = resultsMap.get(awayTeam.teamId);
+
+          const resultHome = homeResults[stage]?.[index] ?? "";
+          const resultAway = awayResults[stage]?.[index] ?? "";
+
+          mergedData.push({
+            homeTeamLogo: homeTeam.image,
+            awayTeamLogo: awayTeam.image,
+            homeTeamAlt: homeTeam.alt,
+            awayTeamAlt: awayTeam.alt,
+            homeTeamScore: resultHome,
+            awayTeamScore: resultAway,
+            free: false,
+          });
+        }
+        index++;
+      }
+
+      teamFixture[stage] = mergedData;
+    }
+
+    return teamFixture;
+  }
 
   transformDataForFixture(
     teams: TeamData[],
