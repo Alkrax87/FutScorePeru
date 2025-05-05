@@ -8,10 +8,17 @@ import { TeamInformation } from '../../../interfaces/api-models/team-information
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { BtnComponent } from "../../../components/btn/btn.component";
+import { MatchesSetupService } from '../../../services/matches-setup.service';
+import { TeamFixtureComponent } from "../../../components/team-fixture/team-fixture.component";
+import { TitleComponent } from "../../../components/title/title.component";
+import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
+import { FetchResultsService } from '../../../services/fetch-results.service';
+import { TeamData } from '../../../interfaces/api-models/team-data';
+import { ResultsData } from '../../../interfaces/api-models/results-data';
 
 @Component({
   selector: 'app-team-page',
-  imports: [FontAwesomeModule, BtnComponent],
+  imports: [FontAwesomeModule, BtnComponent, TeamFixtureComponent, TitleComponent],
   templateUrl: './team-page.component.html',
   styles: `
     .image {
@@ -24,10 +31,15 @@ export class TeamPageComponent {
   constructor(
     private route: ActivatedRoute,
     private divisionService: FetchDivisionService,
+    private teamService: FetchTeamDataService,
+    private resultsService: FetchResultsService,
     private fetchTeamInformation: FetchTeamInformationService,
+    private transformDataService: MatchesSetupService,
   ) {}
 
   private divisionSubscription: Subscription | null = null;
+  private teamSubscription: Subscription | null = null;
+  private resultsSubscription: Subscription | null = null;
   private destroy$ = new Subject<void>();
   teamId: string = "";
   category: number = 0;
@@ -37,6 +49,9 @@ export class TeamPageComponent {
   grupos: boolean = false;
   final: boolean = false;
   teamData: TeamInformation | null = null;
+  dataTeams: TeamData[] = [];
+  dataResults: ResultsData[] = [];
+  filteredFixtureStage: any;
 
   setActiveTab(tab: String) {
     this.apertura = tab === 'apertura';
@@ -68,6 +83,12 @@ export class TeamPageComponent {
               this.clausura = data ? data.stages[1].status : false;
             }
           });
+          this.teamSubscription = this.teamService.dataTeamsL1$.subscribe({
+            next: (data) => (this.dataTeams = data)
+          });
+          this.resultsSubscription = this.resultsService.dataResultsL1$.subscribe({
+            next: (data) => (this.dataResults = data)
+          });
           break;
         case 2:
           this.divisionSubscription = this.divisionService.dataDivisionL2$.subscribe({
@@ -75,6 +96,12 @@ export class TeamPageComponent {
               this.regional = data ? data.stages[0].status : false;
               this.grupos = data ? data.stages[1].status : false;
             }
+          });
+          this.teamSubscription = this.teamService.dataTeamsL2$.subscribe({
+            next: (data) => (this.dataTeams = data)
+          });
+          this.resultsSubscription = this.resultsService.dataResultsL2$.subscribe({
+            next: (data) => (this.dataResults = data)
           });
           break;
         case 3:
@@ -84,6 +111,12 @@ export class TeamPageComponent {
               this.final = data ? data.stages[1].status : false;
             }
           });
+          this.teamSubscription = this.teamService.dataTeamsL3$.subscribe({
+            next: (data) => (this.dataTeams = data)
+          });
+          this.resultsSubscription = this.resultsService.dataResultsL3$.subscribe({
+            next: (data) => (this.dataResults = data)
+          });
           break;
         default:
           break;
@@ -92,7 +125,12 @@ export class TeamPageComponent {
       this.fetchTeamInformation.fetchTeamInformation(this.teamId).subscribe({
         next: (response) => {
           this.teamData = response;
-          console.log(response);
+          this.filteredFixtureStage = this.transformDataService.transformDataForTeamFixture(
+            this.category,
+            this.dataTeams,
+            response.fixture,
+            this.dataResults
+          );
         },
         error: (error) => console.log('Failed to fetch Team Information ', error)
       });
@@ -119,5 +157,7 @@ export class TeamPageComponent {
     this.destroy$.next();
     this.destroy$.complete();
     this.divisionSubscription?.unsubscribe();
+    this.teamSubscription?.unsubscribe();
+    this.resultsSubscription?.unsubscribe();
   }
 }

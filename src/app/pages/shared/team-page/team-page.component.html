@@ -120,8 +120,10 @@
           <div class="flex justify-center">
             <div class="w-full md:w-5/6 lg:w-8/12 grid sm:grid-cols-1 md:grid-cols-2 md:space-x-6 px-8 pb-5">
               @if (category === 1) {
-                <app-btn (click)="setActiveTab('apertura')" [active]="apertura">Apertura</app-btn>
-                <app-btn (click)="setActiveTab('clausura')" [active]="clausura">Clausura</app-btn>
+                @if (apertura || clausura) {
+                  <app-btn (click)="setActiveTab('apertura')" [active]="apertura">Apertura</app-btn>
+                  <app-btn (click)="setActiveTab('clausura')" [active]="clausura">Clausura</app-btn>
+                }
               }
               @if (category === 2) {
                 <app-btn (click)="setActiveTab('regional')" [active]="regional">Fase Regional</app-btn>
@@ -173,7 +175,7 @@
               <p class="text-white text-2xl font-bold">Rendimiento</p>
               <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
             </div>
-            <div class="grid grid-cols-6 gap-3">
+            <div class="grid grid-cols-6 gap-3 mb-5">
               <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
                 <p class="text-gold text-sm font-semibold truncate">Puntos</p>
                 <p class="text-white text-6xl font-bold truncate">
@@ -206,9 +208,21 @@
                 <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].gc }}</p>
               </div>
             </div>
+            <!-- Fixture -->
+            <div class="mb-5">
+              <p class="text-white text-2xl font-bold">Fixture</p>
+              <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
+            </div>
+            <div class="bg-night text-white p-5 grid grid-cols-1">
+              @if (filteredFixtureStage) {
+                <app-team-fixture [teamFixture]="filteredFixtureStage[activeLastGames]"></app-team-fixture>
+              }
+            </div>
           }
         </div>
       </div>
     </div>
   </div>
 </div>
+<!-- Information -->
+<app-title [title]="'Información'"></app-title>
