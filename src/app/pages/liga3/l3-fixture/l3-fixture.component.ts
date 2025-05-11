@@ -30,7 +30,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
       <div class="flex justify-center px-5">
         <div class="w-full lg:w-4/6">
           @if (regional) {
-            @if (filteredDataForFixtureRegional1.length > 0 && filteredDataForFixtureRegional2.length > 0 && filteredDataForFixtureRegional3.length > 0 && filteredDataForFixtureRegional4.length > 0) {
+            @if (filteredDataForFixtureRegional1 && filteredDataForFixtureRegional2 && filteredDataForFixtureRegional3 && filteredDataForFixtureRegional4) {
               <h3 class="text-4xl text-white font-bold">Regional Fecha {{ selectedRoundRegionalIndex + 1 }}</h3>
               <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
                 @for (round of filteredDataForFixtureRegional2; track $index) {
@@ -62,7 +62,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
             }
           }
           @if (final) {
-            @if (filteredDataForFixtureFinalA.length > 0 && filteredDataForFixtureFinalB.length > 0 && filteredDataForFixtureFinalC.length > 0 && filteredDataForFixtureFinalD.length > 0) {
+            @if (filteredDataForFixtureFinalA && filteredDataForFixtureFinalB && filteredDataForFixtureFinalC && filteredDataForFixtureFinalD) {
               <h3 class="text-4xl text-white font-bold">Final Fecha {{ selectedRoundFinalIndex + 1 }}</h3>
               <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
                 @for (round of filteredDataForFixtureFinalA; track $index) {
