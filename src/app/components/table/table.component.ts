@@ -3,10 +3,11 @@ import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { TeamTable } from '../../interfaces/ui-models/team-table';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-table',
-  imports: [FontAwesomeModule, CommonModule],
+  imports: [FontAwesomeModule, CommonModule, RouterLink],
   template: `
     <div class="bg-nightfall rounded-3xl font-semibold select-none">
       <div class="pt-5 px-0 sm:pt-8 sm:px-8 pb-1 overflow-x-auto">
@@ -33,7 +34,7 @@ import { TeamTable } from '../../interfaces/ui-models/team-table';
           <tbody class="text-gray-200">
             @if (data.length > 0) {
               @for (item of data; track $index) {
-                <tr class="h-8 sm:h-12 text-center hover:bg-gray-200 hover:text-night">
+                <tr [routerLink]="['../club', item.category, item.teamId]" class="h-8 sm:h-12 cursor-pointer text-center hover:bg-gray-200 hover:text-night">
                   @if ($index >= 0 && $index < config[0].quantity) {
                     <td [ngClass]="config[0].class"></td>
                   } @else if ($index >= config[0].quantity && $index < (config[0].quantity + config[1].quantity)) {

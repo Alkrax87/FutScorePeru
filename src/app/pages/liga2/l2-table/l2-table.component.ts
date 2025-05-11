@@ -193,6 +193,7 @@ export class L2TableComponent {
 
     for (const team of this.dataTeams) {
       const baseTeamData = {
+        category: team.category,
         teamId: team.teamId,
         name: team.name,
         abbreviation: team.abbreviation,

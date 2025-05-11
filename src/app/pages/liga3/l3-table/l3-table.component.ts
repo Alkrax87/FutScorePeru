@@ -197,6 +197,7 @@ export class L3TableComponent {
 
     for (const team of this.dataTeams) {
       const baseTeamData = {
+        category: team.category,
         teamId: team.teamId,
         name: team.name,
         abbreviation: team.abbreviation,
