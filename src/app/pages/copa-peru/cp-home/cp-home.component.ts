@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-cp-home',
   imports: [],
   templateUrl: './cp-home.component.html',
-  styleUrl: './cp-home.component.css'
+  styles: ``,
 })
 export class CpHomeComponent {
 
