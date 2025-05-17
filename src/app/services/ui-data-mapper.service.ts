@@ -11,12 +11,12 @@ export class UiDataMapperService {
 
   teamCardMapper(dataTeams: TeamData[], dataStadiums: StadiumData[]) {
     let newData: TeamCard[] = [];
-    const teamMap = new Map(
+    const stadiumMap = new Map(
       dataStadiums.map((stadium) => [stadium.stadiumId, stadium])
     );
 
     for (const team of dataTeams) {
-      const stadium = teamMap.get(team.stadium);
+      const stadium = stadiumMap.get(team.stadium);
 
       newData.push({
         category: team.category,
