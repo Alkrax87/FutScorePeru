@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
+import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
 import { TitleComponent } from "../../../components/title/title.component";
 import { TeamCardComponent } from "../../../components/team-card/team-card.component";
@@ -30,7 +31,8 @@ import { TeamCard } from '../../../interfaces/ui-models/team-card';
 export class L1TeamsComponent {
   constructor(
     private teamsService: FetchTeamDataService,
-    private stadiumService: FetchStadiumService
+    private stadiumService: FetchStadiumService,
+    private uiDataMapperService: UiDataMapperService
   ) {}
 
   private teamSubscription: Subscription | null = null;
@@ -48,32 +50,8 @@ export class L1TeamsComponent {
     });
 
     if (this.dataTeams && this.dataStadiums) {
-      this.getDataForCard();
+      this.dataTeamsCard = this.uiDataMapperService.teamCardMapper(this.dataTeams, this.dataStadiums);
     }
-  }
-
-  getDataForCard() {
-    const newData: TeamCard[] = [];
-    const teamMap = new Map(this.dataStadiums.map((stadium) => [stadium.stadiumId, stadium]));
-
-    for (const team of this.dataTeams) {
-      const stadium = teamMap.get(team.stadium);
-      newData.push({
-        category: team.category,
-        teamId: team.teamId,
-        name: team.name,
-        abbreviation: team.abbreviation,
-        image: team.image,
-        alt: team.alt,
-        color: team.color,
-        stadium: {
-          name: stadium?.name ?? "Por Definir",
-          capacity: stadium?.capacity ?? "",
-          location: stadium?.location ?? ""
-        }
-      });
-    }
-    this.dataTeamsCard = newData;
   }
 
   ngOnDestroy() {
