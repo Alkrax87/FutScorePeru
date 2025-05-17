@@ -22,7 +22,6 @@ export class UiDataMapperService {
         category: team.category,
         teamId: team.teamId,
         name: team.name,
-        abbreviation: team.abbreviation,
         image: team.image,
         alt: team.alt,
         color: team.color,

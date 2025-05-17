@@ -2,7 +2,6 @@ export interface TeamCard {
   category: number;
   teamId: string;
   name: string;
-  abbreviation: string;
   image: string;
   alt: string;
   color: {
