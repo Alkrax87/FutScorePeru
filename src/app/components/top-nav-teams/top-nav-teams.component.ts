@@ -1,20 +1,20 @@
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { TeamNav } from '../../interfaces/ui-models/team-nav';
 
 @Component({
   selector: 'app-top-nav-teams',
-  imports: [RouterModule, FontAwesomeModule],
+  imports: [RouterLink, FontAwesomeModule],
   template: `
     <div class="bg-gray-100 dark:bg-nightfall duration-500 select-none">
-      <div class="mx-auto hidden md:block md:w-11/12 lg:w-3/4">
-        <div class="flex space-x-4 lg:space-x-8">
+      <div class="mx-auto hidden md:block md:w-11/12 lg:w-4/5">
+        <div class="flex gap-4 lg:gap-6">
           <div class="flex items-center text-xs lg:text-sm">
             <div class="animate-fade-right text-nowrap delay-100">
               <span class="text-neutral-600 dark:text-neutral-200 duration-500">
-                Clubs <fa-icon class="ml-2" [icon]="Icon"></fa-icon>
+                Clubes <fa-icon class="ml-2" [icon]="Icon"></fa-icon>
               </span>
             </div>
           </div>
