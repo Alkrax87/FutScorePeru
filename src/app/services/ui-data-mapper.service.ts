@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { TeamNav } from '../interfaces/ui-models/team-nav';
-import { TeamData } from '../interfaces/api-models/team-data';
-import { StadiumData } from '../interfaces/api-models/stadium-data';
 import { TeamCard } from '../interfaces/ui-models/team-card';
 import { ManagerCarousel } from '../interfaces/ui-models/manager-carousel';
+import { TeamData } from '../interfaces/api-models/team-data';
+import { StadiumData } from '../interfaces/api-models/stadium-data';
 import { ManagerData } from '../interfaces/api-models/manager-data';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class UiDataMapperService {
   constructor() {}
 
   teamsNavMapper(dataTeams: TeamData[]): TeamNav[] {
-    let newData: TeamNav[] = [];
+    const newData = [];
 
     for (const team of dataTeams) {
       newData.push({
@@ -27,8 +27,8 @@ export class UiDataMapperService {
     return newData;
   }
 
-  teamCardMapper(dataTeams: TeamData[], dataStadiums: StadiumData[]) {
-    let newData: TeamCard[] = [];
+  teamCardMapper(dataTeams: TeamData[], dataStadiums: StadiumData[]): TeamCard[] {
+    const newData = [];
     const stadiumMap = new Map(
       dataStadiums.map((stadium) => [stadium.stadiumId, stadium])
     );
@@ -54,8 +54,8 @@ export class UiDataMapperService {
     return newData;
   }
 
-  managerCarouselMapper(dataTeams: TeamData[], dataManagers: ManagerData[]) {
-    let newData: ManagerCarousel[] = [];
+  managerCarouselMapper(dataTeams: TeamData[], dataManagers: ManagerData[]): ManagerCarousel[] {
+    const newData = [];
 
     for (const team of dataTeams) {
       const managers = dataManagers.filter(
