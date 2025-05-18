@@ -1,4 +1,6 @@
 export interface ManagerCarousel {
+  category: number,
+  teamId: string,
   name: string;
   image: string;
   alt: string;
