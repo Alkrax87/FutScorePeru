@@ -1,24 +1,26 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchManagerService } from '../../../services/fetch-manager.service';
+import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
-import { TitleComponent } from "../../../components/title/title.component";
+import { TitleComponent } from '../../../components/title/title.component';
+import { ManagerCarouselComponent } from '../../../components/manager-carousel/manager-carousel.component';
 import { TeamData } from '../../../interfaces/api-models/team-data';
-import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel';
-import { ManagerCarouselComponent } from "../../../components/manager-carousel/manager-carousel.component";
 import { ManagerData } from '../../../interfaces/api-models/manager-data';
+import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel';
 
 @Component({
   selector: 'app-l2-managers',
-  imports: [TitleComponent, ManagerCarouselComponent],
+  imports: [TitleComponent, ManagerCarouselComponent, RouterLink],
   template: `
     <app-title [title]="'Técnicos'"></app-title>
-    <div class="bg-night pt-5">
+    <div class="bg-night pt-5 select-none">
       <div class="flex justify-center">
         <div class="w-full md:w-3/5 lg:w-3/6 p-3 md:p-0">
           @for (item of dataCarousel; track $index) {
             <div class="mb-5">
-              <div class="flex items-center space-x-2">
+              <div class="flex w-fit items-center gap-2 cursor-pointer" [routerLink]="['../club', item.category, item.teamId]">
                 <img [src]="item.image" [alt]="item.alt" class="w-8 md:w-12">
                 <p class="text-white font-semibold text-sm md:text-xl">{{ item.name }}</p>
               </div>
@@ -35,7 +37,8 @@ import { ManagerData } from '../../../interfaces/api-models/manager-data';
 export class L2ManagersComponent {
   constructor(
     private teamsService: FetchTeamDataService,
-    private managerService: FetchManagerService
+    private managerService: FetchManagerService,
+    private uiDataMapperService: UiDataMapperService
   ) {}
 
   private teamSubscription: Subscription | null = null;
@@ -53,26 +56,8 @@ export class L2ManagersComponent {
     });
 
     if (this.dataTeams && this.dataManagers) {
-      this.getManagerData();
+      this.dataCarousel = this.uiDataMapperService.managerCarouselMapper(this.dataTeams, this.dataManagers);
     }
-  }
-
-  getManagerData() {
-    const mergedData = [];
-
-    if (this.dataTeams) {
-      for (const team of this.dataTeams) {
-        const managers = this.dataManagers.filter(manager => manager.teamId === team.teamId);
-        mergedData.push({
-          name: team.name,
-          image: team.image,
-          alt: team.alt,
-          manager: managers,
-        })
-      }
-    }
-
-    this.dataCarousel = mergedData;
   }
 
   ngOnDestroy() {

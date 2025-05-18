@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { TeamData } from '../interfaces/api-models/team-data';
 import { StadiumData } from '../interfaces/api-models/stadium-data';
 import { TeamCard } from '../interfaces/ui-models/team-card';
+import { ManagerCarousel } from '../interfaces/ui-models/manager-carousel';
+import { ManagerData } from '../interfaces/api-models/manager-data';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +32,27 @@ export class UiDataMapperService {
           capacity: stadium?.capacity ?? '',
           location: stadium?.location ?? '',
         },
+      });
+    }
+
+    return newData;
+  }
+
+  managerCarouselMapper(dataTeams: TeamData[], dataManagers: ManagerData[]) {
+    let newData: ManagerCarousel[] = [];
+
+    for (const team of dataTeams) {
+      const managers = dataManagers.filter(
+        (manager) => manager.teamId === team.teamId
+      );
+
+      newData.push({
+        category: team.category,
+        teamId: team.teamId,
+        name: team.name,
+        image: team.image,
+        alt: team.alt,
+        manager: managers,
       });
     }
 
