@@ -10,11 +10,11 @@ import { FetchPerformanceService } from '../../../services/fetch-performance.ser
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
 import { FetchManagerService } from '../../../services/fetch-manager.service';
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
+import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
+import { Subscription } from 'rxjs';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
-import { Subscription } from 'rxjs';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield, faRankingStar } from '@fortawesome/free-solid-svg-icons';
-import { TeamData } from '../../../interfaces/api-models/team-data';
 import { TeamNav } from '../../../interfaces/ui-models/team-nav';
 
 @Component({
@@ -40,11 +40,11 @@ export class L2MainComponent {
     private performanceService: FetchPerformanceService,
     private lastGamesService: FetchLastGamesService,
     private managersService: FetchManagerService,
-    private stadiumsService: FetchStadiumService
+    private stadiumsService: FetchStadiumService,
+    private uiDataMapperService: UiDataMapperService
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeams: TeamData[] = [];
   dataTeamsNav: TeamNav[] = [];
   navOptions = [
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
@@ -67,15 +67,9 @@ export class L2MainComponent {
     this.stadiumsService.fetchStadiums();
     this.teamSubscription = this.teamsService.dataTeamsL2$.subscribe({
       next: (data) => {
-        this.dataTeams = data;
-        this.getDataForNav();
+        this.dataTeamsNav = this.uiDataMapperService.teamsNavMapper(data);
       },
     });
-  }
-
-  getDataForNav() {
-    const newData: TeamNav[] = this.dataTeams ? this.dataTeams.map(({ category, teamId, imageThumbnail, alt }) => ({ category, teamId, imageThumbnail, alt })) : [];
-    this.dataTeamsNav = newData;
   }
 
   ngOnDestroy() {

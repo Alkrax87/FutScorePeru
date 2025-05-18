@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TeamNav } from '../interfaces/ui-models/team-nav';
 import { TeamData } from '../interfaces/api-models/team-data';
 import { StadiumData } from '../interfaces/api-models/stadium-data';
 import { TeamCard } from '../interfaces/ui-models/team-card';
@@ -10,6 +11,21 @@ import { ManagerData } from '../interfaces/api-models/manager-data';
 })
 export class UiDataMapperService {
   constructor() {}
+
+  teamsNavMapper(dataTeams: TeamData[]): TeamNav[] {
+    let newData: TeamNav[] = [];
+
+    for (const team of dataTeams) {
+      newData.push({
+        category: team.category,
+        teamId: team.teamId,
+        imageThumbnail: team.imageThumbnail,
+        alt: team.alt
+      });
+    }
+
+    return newData;
+  }
 
   teamCardMapper(dataTeams: TeamData[], dataStadiums: StadiumData[]) {
     let newData: TeamCard[] = [];
