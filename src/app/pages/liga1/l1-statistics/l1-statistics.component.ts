@@ -3,9 +3,10 @@ import { FetchTeamDataService } from '../../../services/fetch-team-data.service'
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
 import { TransformStatisticDataService } from '../../../services/transform-statistic-data.service';
 import { Subscription } from 'rxjs';
-import { TitleComponent } from "../../../components/title/title.component";
-import { StatisticsCardComponent } from "../../../components/statistics-card/statistics-card.component";
+import { TitleComponent } from '../../../components/title/title.component';
+import { StatisticsCardComponent } from '../../../components/statistics-card/statistics-card.component';
 import { TeamData } from '../../../interfaces/api-models/team-data';
+import { StatisticsData } from '../../../interfaces/api-models/statistics-data';
 import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
 
 @Component({
@@ -93,7 +94,7 @@ export class L1StatisticsComponent {
   private teamsSubscription: Subscription | null = null;
   private statisticsSubscription: Subscription | null = null;
   dataTeams: TeamData[] = [];
-  dataStatistics: any;
+  dataStatistics: StatisticsData | null = null;
   dataBestDefense: StatisticCard[] = [];
   dataWorstDefense: StatisticCard[] = [];
   dataMostGoals: StatisticCard[] = [];
