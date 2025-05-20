@@ -14,6 +14,7 @@ import { TeamMap } from '../../../interfaces/ui-models/team-map';
 import { CityCardComponent } from "../../../components/city-card/city-card.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
+import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 
 @Component({
   selector: 'app-l1-home',
@@ -26,11 +27,11 @@ export class L1HomeComponent {
     private divisionService: FetchDivisionService,
     private teamsService: FetchTeamDataService,
     private mapService: FetchMapService,
+    private uiDataMapperService: UiDataMapperService
   ) {}
 
   private unsubscribe$ = new Subject<void>();
   dataDivision: DivisionData | null = null;
-  dataTeams: TeamData[] = [];
   mapConstructor: MapElement[] = [];
   dataMap: TeamMap[] = [];
   regions: { name: string; teams: number }[] = [
@@ -55,27 +56,9 @@ export class L1HomeComponent {
       this.mapService.dataMapL1$,
     ]).pipe(takeUntil(this.unsubscribe$)).subscribe(([division, teams, map]) => {
       this.dataDivision = division;
-      this.dataTeams = teams;
       this.mapConstructor = map;
-
-      if (this.dataTeams) {
-        this.getDataForMap();
-      }
+      this.dataMap = this.uiDataMapperService.teamMapMapper(teams);
     })
-  }
-
-  getDataForMap() {
-    const mergedData = [];
-    for (const team of this.dataTeams) {
-      mergedData.push({
-        teamId: team.teamId,
-        category: team.category,
-        imageThumbnail: team.imageThumbnail,
-        alt: team.alt,
-        location: team.location,
-      })
-    }
-    this.dataMap = mergedData;
   }
 
   ngOnDestroy() {
