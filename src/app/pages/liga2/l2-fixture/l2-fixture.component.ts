@@ -59,7 +59,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
             @if (filteredDataForFixtureGruposPromotionA && filteredDataForFixtureGruposPromotionB && filteredDataForFixtureGruposRelegation) {
               <h3 class="text-4xl text-white font-bold">Grupos Fecha {{ selectedRoundRegionalIndex + 1 }}</h3>
               <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
-                @for (round of filteredDataForFixtureRegionalB; track $index) {
+                @for (round of filteredDataForFixtureGruposPromotionA; track $index) {
                   <button (click)="selectedRoundGruposIndex = $index"
                     class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none"
                     [ngClass]="{'bg-crimson': selectedRoundGruposIndex === $index}"
