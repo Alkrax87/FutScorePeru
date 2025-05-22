@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
+import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { DivisionInfoComponent } from "../../../components/division-info/division-info.component";
 import { MapComponent } from '../../../components/map/map.component';
 import { TitleComponent } from "../../../components/title/title.component";
+import { CityCardComponent } from "../../../components/city-card/city-card.component";
+import { LeagueSummaryCardComponent } from "../../../components/league-summary-card/league-summary-card.component";
 import { DivisionData } from '../../../interfaces/api-models/division-data';
-import { TeamData } from '../../../interfaces/api-models/team-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
-import { CityCardComponent } from "../../../components/city-card/city-card.component";
+import { LeagueSummaryCard } from '../../../interfaces/ui-models/league-summary-card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
-import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 
 @Component({
   selector: 'app-l1-home',
-  imports: [MapComponent, DivisionInfoComponent, TitleComponent, CityCardComponent, FontAwesomeModule],
+  imports: [MapComponent, DivisionInfoComponent, TitleComponent, CityCardComponent, FontAwesomeModule, LeagueSummaryCardComponent],
   templateUrl: './l1-home.component.html',
   styles: ``,
 })
@@ -48,6 +48,14 @@ export class L1HomeComponent {
     { name: 'Puno', teams: 1 },
   ];
   Shield = faShieldHalved;
+  summaryData: LeagueSummaryCard = {
+    teams: 18,
+    stages: {
+      total: 3,
+      description: 'Apertura, Clausura y PlayOffs',
+    },
+    objective: 'Campeón de la Liga 1',
+  }
 
   ngOnInit() {
     combineLatest([
