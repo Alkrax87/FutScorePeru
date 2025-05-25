@@ -15,10 +15,11 @@ import { TeamMap } from '../../../interfaces/ui-models/team-map';
 import { LeagueSummaryCard } from '../../../interfaces/ui-models/league-summary-card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
+import { LeagueProgressCardComponent } from "../../../components/league-progress-card/league-progress-card.component";
 
 @Component({
   selector: 'app-l1-home',
-  imports: [MapComponent, DivisionInfoComponent, TitleComponent, CityCardComponent, FontAwesomeModule, LeagueSummaryCardComponent],
+  imports: [MapComponent, DivisionInfoComponent, TitleComponent, CityCardComponent, FontAwesomeModule, LeagueSummaryCardComponent, LeagueProgressCardComponent],
   templateUrl: './l1-home.component.html',
   styles: ``,
 })
