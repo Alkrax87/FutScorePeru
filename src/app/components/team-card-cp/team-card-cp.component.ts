@@ -10,32 +10,30 @@ import { TeamCardCp } from '../../interfaces/ui-models/team-card-cp';
     <div class="bg-nightfall flex flex-col gap-3 text-white p-3">
       <div class="flex flex-col gap-3 items-center">
         <p class="text-2xl font-semibold">{{ data?.region }}</p>
-        <img [src]="data?.flag" [alt]="data?.alt" class="w-20">
+        <img [src]="data?.flag" alt="Flag" class="w-20">
       </div>
-      <div class="bg-brightnight flex gap-3 p-3">
-        <img [src]="data?.teams?.[0]?.image" [alt]="data?.teams?.[0]?.alt" class="w-16 h-16 min-h-16 min-w-16">
-        <div class="w-full flex flex-col justify-center">
-          <p class="font-semibold">{{ data?.teams?.[0]?.name }}</p>
-          <p class="text-neutral-300 text-xs">
-            <fa-icon [icon]="Location"></fa-icon> {{ data?.teams?.[0]?.city }}
-          </p>
+      @for (team of data?.teams; track $index) {
+        <div class="bg-brightnight flex gap-3 p-3">
+          <img [src]="team.image" [alt]="team.alt" class="w-16 h-16 min-h-16 min-w-16">
+          <div class="w-full flex flex-col justify-center">
+            <p class="font-semibold">{{ team.name }}</p>
+            <p class="text-neutral-300 text-xs">
+              <fa-icon [icon]="Location"></fa-icon> {{ team.city }}
+            </p>
+          </div>
+          <div>
+            @if ($index === 0) {
+              <fa-icon class="text-yellow-400" [icon]="Trophy"></fa-icon>
+            }
+            @if ($index === 1) {
+              <fa-icon class="text-neutral-300" [icon]="Trophy"></fa-icon>
+            }
+            @if ($index === 2) {
+              <fa-icon class="text-amber-600" [icon]="Trophy"></fa-icon>
+            }
+          </div>
         </div>
-        <div>
-          <fa-icon class="text-yellow-400" [icon]="Trophy"></fa-icon>
-        </div>
-      </div>
-      <div class="bg-brightnight flex gap-3 p-3">
-        <img [src]="data?.teams?.[1]?.image" [alt]="data?.teams?.[1]?.alt" class="w-16 h-16 min-h-16 min-w-16">
-        <div class="w-full flex flex-col justify-center">
-          <p class="font-semibold">{{ data?.teams?.[1]?.name }}</p>
-          <p class="text-neutral-300 text-xs">
-            <fa-icon [icon]="Location"></fa-icon> {{ data?.teams?.[1]?.city }}
-          </p>
-        </div>
-        <div>
-          <fa-icon class="text-neutral-400" [icon]="Trophy"></fa-icon>
-        </div>
-      </div>
+      }
     </div>
   `,
   styles: ``
