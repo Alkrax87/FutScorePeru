@@ -3,6 +3,7 @@ import { TeamNav } from '../interfaces/ui-models/team-nav';
 import { TeamMap } from '../interfaces/ui-models/team-map';
 import { TeamCard } from '../interfaces/ui-models/team-card';
 import { ManagerCarousel } from '../interfaces/ui-models/manager-carousel';
+import { StatisticCard } from '../interfaces/ui-models/statistic-card';
 import { TeamData } from '../interfaces/api-models/team-data';
 import { StadiumData } from '../interfaces/api-models/stadium-data';
 import { ManagerData } from '../interfaces/api-models/manager-data';
@@ -90,5 +91,25 @@ export class UiDataMapperService {
     }
 
     return newData;
+  }
+
+  statisticsCardMapper(dataTeams: TeamData[], statistics: any, valueKey: string): StatisticCard[] {
+    const teamMap = new Map(
+      dataTeams.map((team) => [team.teamId, team])
+    );
+
+    return statistics.map((element: any) => {
+      const team = teamMap.get(element.teamId);
+
+      return {
+        category: team?.category,
+        teamId: element.teamId,
+        name: team?.name,
+        abbreviation: team?.abbreviation,
+        image: team?.image,
+        alt: team?.alt,
+        value: element[valueKey],
+      };
+    });
   }
 }

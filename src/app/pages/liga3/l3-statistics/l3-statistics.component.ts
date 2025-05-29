@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
-import { TransformStatisticDataService } from '../../../services/transform-statistic-data.service';
+import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
 import { TitleComponent } from '../../../components/title/title.component';
 import { StatisticsCardComponent } from '../../../components/statistics-card/statistics-card.component';
@@ -88,13 +88,13 @@ export class L3StatisticsComponent {
   constructor(
     private teamsService: FetchTeamDataService,
     private statisticsService: FetchStatisticsService,
-    private transformStatisticService: TransformStatisticDataService,
+    private uiDataMapperService: UiDataMapperService
   ) {}
 
   private teamsSubscription: Subscription | null = null;
   private statisticsSubscription: Subscription | null = null;
   dataTeams: TeamData[] = [];
-  dataStatistics: StatisticsData | null = null;;
+  dataStatistics: StatisticsData | null = null;
   dataBestDefense: StatisticCard[] = [];
   dataWorstDefense: StatisticCard[] = [];
   dataMostGoals: StatisticCard[] = [];
@@ -114,20 +114,16 @@ export class L3StatisticsComponent {
     });
 
     if (this.dataTeams && this.dataStatistics) {
-      this.getDataForStatistics(this.dataTeams, this.dataStatistics);
+      this.dataBestDefense = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.bestDefense, 'gc');
+      this.dataWorstDefense = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.worstDefense, 'gc');
+      this.dataMostGoals = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostGoals, 'gf');
+      this.dataFewestGoals = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.fewestGoals, 'gf');
+      this.dataMostWins = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostWins, 'pg');
+      this.dataMostDraws = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostDraws, 'pe');
+      this.dataMostLosses = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostLosses, 'pp');
+      this.dataBestGoalDifference = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.bestGoalDifference, 'dg');
+      this.dataWorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.worstGoalDifference, 'dg');
     }
-  }
-
-  getDataForStatistics(teams: TeamData[], statistics: any) {
-    this.dataBestDefense = this.transformStatisticService.transformData(teams, statistics.bestDefense, 'gc');
-    this.dataWorstDefense = this.transformStatisticService.transformData(teams, statistics.worstDefense, 'gc');
-    this.dataMostGoals = this.transformStatisticService.transformData(teams, statistics.mostGoals, 'gf');
-    this.dataFewestGoals = this.transformStatisticService.transformData(teams, statistics.fewestGoals, 'gf');
-    this.dataMostWins = this.transformStatisticService.transformData(teams, statistics.mostWins, 'pg');
-    this.dataMostDraws = this.transformStatisticService.transformData(teams, statistics.mostDraws, 'pe');
-    this.dataMostLosses = this.transformStatisticService.transformData(teams, statistics.mostLosses, 'pp');
-    this.dataBestGoalDifference = this.transformStatisticService.transformData(teams, statistics.bestGoalDifference, 'dg');
-    this.dataWorstGoalDifference = this.transformStatisticService.transformData(teams, statistics.worstGoalDifference, 'dg');
   }
 
   ngOnDestroy() {
