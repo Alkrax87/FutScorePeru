@@ -26,19 +26,19 @@ import { L3StatisticsComponent } from './pages/liga3/l3-statistics/l3-statistics
 import { CpMainComponent } from './pages/copa-peru/cp-main/cp-main.component';
 import { CpHomeComponent } from './pages/copa-peru/cp-home/cp-home.component';
 import { CpTeamsComponent } from './pages/copa-peru/cp-teams/cp-teams.component';
-import { CpFixtureComponent } from './pages/copa-peru/cp-fixture/cp-fixture.component';
-import { CpTableComponent } from './pages/copa-peru/cp-table/cp-table.component';
+import { CpBracketsComponent } from './pages/copa-peru/cp-brackets/cp-brackets.component';
 import { NotFoundComponent } from './pages/main/not-found/not-found.component';
 import { TestComponent } from './pages/main/test/test.component';
 import { TeamPageComponent } from './pages/shared/team-page/team-page.component';
+import { LeaguePageComponent } from './pages/shared/league-page/league-page.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo:'main', pathMatch: 'full' },
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
   {
     path: 'main',
     component: IndexComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch:'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'about', component: AboutComponent },
       { path: 'social', component: SocialComponent },
@@ -49,7 +49,7 @@ export const routes: Routes = [
     path: 'liga1',
     component: L1MainComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch:'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: L1HomeComponent },
       { path: 'equipos', component: L1TeamsComponent },
       { path: 'fixture', component: L1FixtureComponent },
@@ -63,7 +63,7 @@ export const routes: Routes = [
     path: 'liga2',
     component: L2MainComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch:'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: L2HomeComponent },
       { path: 'equipos', component: L2TeamsComponent },
       { path: 'fixture', component: L2FixtureComponent },
@@ -77,7 +77,7 @@ export const routes: Routes = [
     path: 'liga3',
     component: L3MainComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch:'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: L3HomeComponent },
       { path: 'equipos', component: L3TeamsComponent },
       { path: 'fixture', component: L3FixtureComponent },
@@ -90,11 +90,11 @@ export const routes: Routes = [
     path: 'copa-peru',
     component: CpMainComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch:'full' },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: CpHomeComponent },
       { path: 'equipos', component: CpTeamsComponent },
-      { path: 'fixture', component: CpFixtureComponent },
-      { path: 'tabla', component: CpTableComponent },
+      { path: 'brackets', component: CpBracketsComponent },
+      { path: 'liga/:category/:teamId', component: LeaguePageComponent },
     ],
   },
   { path: '**', component: NotFoundComponent },
