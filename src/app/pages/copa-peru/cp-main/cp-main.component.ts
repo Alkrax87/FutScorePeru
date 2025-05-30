@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
-import { RouterOutlet } from '@angular/router';
-import { faWindowRestore, faBarsStaggered, faFlag } from '@fortawesome/free-solid-svg-icons';
+import { faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { TeamNav } from '../../../interfaces/ui-models/team-nav';
 
 @Component({
@@ -20,8 +20,7 @@ import { TeamNav } from '../../../interfaces/ui-models/team-nav';
 export class CpMainComponent {
   navOptions = [
     { name: 'Ligas', route: 'equipos', icon: faFlag },
-    { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
-    { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
+    { name: 'Brackets', route: 'brackets', icon: faSitemap },
   ];
   dataTeamsNav: TeamNav[] = [
     {
