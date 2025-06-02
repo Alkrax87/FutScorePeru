@@ -108,7 +108,7 @@
             <p class="text-white font-semibold truncate pb-2">
               <fa-icon [icon]="Stadium"></fa-icon> &nbsp; {{ teamData?.stadium?.name }}
             </p>
-            <img [src]="teamData?.stadium?.image" alt="STADIUM-image">
+            <img class="lg:h-40 xl:h-60 object-cover w-full" [src]="teamData?.stadium?.image" alt="STADIUM-image">
             <div class="text-white flex justify-between text-xs pt-1">
               <p><fa-icon [icon]="Users"></fa-icon> &nbsp; {{ teamData?.stadium?.capacity }}</p>
               <p><fa-icon [icon]="Location"></fa-icon> &nbsp; {{ teamData?.stadium?.location }}</p>
