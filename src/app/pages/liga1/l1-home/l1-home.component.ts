@@ -33,6 +33,8 @@ export class L1HomeComponent {
 
   private unsubscribe$ = new Subject<void>();
   dataDivision: DivisionData | null = null;
+  descriptionDivision: string = 'La Liga 1 es la máxima categoría del fútbol profesional en Perú, organizada por la Federación Peruana de Fútbol (FPF) y reúne a los mejores equipos del país en busca del título nacional.';
+  tagsDivision: string[] = ['Liga 1', 'Primera División', 'Liga Profesional']
   mapConstructor: MapElement[] = [];
   dataMap: TeamMap[] = [];
   regions: { name: string; teams: number }[] = [

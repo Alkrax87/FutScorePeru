@@ -33,6 +33,8 @@ export class L2HomeComponent {
 
   private unsubscribe$ = new Subject<void>();
   dataDivision: DivisionData | null = null;
+  descriptionDivision: string = 'La Liga 2 es la segunda categoría del fútbol profesional en Perú, organizada por la Federación Peruana de Fútbol (FPF), donde equipos buscan ascender a la Liga 1.';
+  tagsDivision: string[] = ['Liga 2', 'Segunda División', 'Liga Profesional'];
   mapConstructor: MapElement[] = [];
   dataMap: TeamMap[] = [];
   regions: { name: string; teams: number }[] = [

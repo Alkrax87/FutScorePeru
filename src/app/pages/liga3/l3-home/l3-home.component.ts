@@ -33,6 +33,8 @@ export class L3HomeComponent {
 
   private unsubscribe$ = new Subject<void>();
   dataDivision: DivisionData | null = null;
+  descriptionDivision: string = 'La Liga 3 es la tercera categoría del fútbol profesional en Perú, organizada por la Federación Peruana de Fútbol (FPF), donde equipos compiten por ascender a la Liga 2.';
+  tagsDivision: string[] = ['Liga 3', 'Tercera División', 'Liga Semiprofesional'];
   mapConstructor: MapElement[] = [];
   dataMap: TeamMap[] = [];
   regions: { name: string; teams: number }[] = [
