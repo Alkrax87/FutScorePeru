@@ -15,7 +15,7 @@ import { faCalendarAlt, faShieldHalved, faTrophy } from '@fortawesome/free-solid
               <fa-icon [icon]="Trophy" class="text-white text-4xl"></fa-icon>
             </div>
             <div class="my-auto">
-              <p class="text-white text-4xl font-semibold">{{ data?.name }}<sup>{{ data?.sup }}</sup> División</p>
+              <p class="text-white text-4xl font-semibold">{{ data?.category }}<sup>{{ data?.sup }}</sup> División</p>
             </div>
           </div>
           <div class="text-white flex flex-col sm:flex-row gap-5 mt-5">
