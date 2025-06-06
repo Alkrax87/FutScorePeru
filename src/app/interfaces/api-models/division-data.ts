@@ -1,5 +1,5 @@
 export interface DivisionData {
-  category: string;
+  category: number;
   name: string;
   sup: string;
   season: number;
