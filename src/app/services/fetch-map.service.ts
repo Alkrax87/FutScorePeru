@@ -15,14 +15,17 @@ export class FetchMapService {
   cachedMapL1: MapElement[] | null = null;
   cachedMapL2: MapElement[] | null = null;
   cachedMapL3: MapElement[] | null = null;
+  cachedMapCP: MapElement[] | null = null;
 
   private mapL1Subject = new BehaviorSubject<MapElement[]>([]);
   private mapL2Subject = new BehaviorSubject<MapElement[]>([]);
   private mapL3Subject = new BehaviorSubject<MapElement[]>([]);
+  private mapCPSubject = new BehaviorSubject<MapElement[]>([]);
 
   dataMapL1$ = this.mapL1Subject.asObservable();
   dataMapL2$ = this.mapL2Subject.asObservable();
   dataMapL3$ = this.mapL3Subject.asObservable();
+  dataMapCP$ = this.mapCPSubject.asObservable();
 
   fetchMapL1() {
     if (this.cachedMapL1) {
@@ -66,6 +69,21 @@ export class FetchMapService {
         this.mapL3Subject.next(response);
       },
       error: (error) => console.error('Failed to fetch (Liga3) map ', error),
+    });
+  }
+
+  fetchMapCP() {
+    if (this.cachedMapCP) {
+      this.mapCPSubject.next(this.cachedMapCP);
+      return;
+    }
+
+    this.http.get<MapElement[]>(this.backendUrl + '/map/4').subscribe({
+      next: (response) => {
+        this.cachedMapCP = response;
+        this.mapCPSubject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Copa Perú) map ', error),
     });
   }
 }
