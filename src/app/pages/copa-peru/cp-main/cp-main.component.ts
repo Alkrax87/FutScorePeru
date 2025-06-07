@@ -4,6 +4,8 @@ import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { TeamNav } from '../../../interfaces/ui-models/team-nav';
+import { FetchDivisionService } from '../../../services/fetch-division.service';
+import { FetchMapService } from '../../../services/fetch-map.service';
 
 @Component({
   selector: 'app-cp-main',
@@ -18,10 +20,11 @@ import { TeamNav } from '../../../interfaces/ui-models/team-nav';
   styles: ``,
 })
 export class CpMainComponent {
-  navOptions = [
-    { name: 'Ligas', route: 'equipos', icon: faFlag },
-    { name: 'Brackets', route: 'brackets', icon: faSitemap },
-  ];
+  constructor(
+    private divisionService: FetchDivisionService,
+    private mapService: FetchMapService,
+  ) {}
+
   dataTeamsNav: TeamNav[] = [
     {
       category: 4,
@@ -174,4 +177,13 @@ export class CpMainComponent {
       alt: 'LD25-logo',
     },
   ];
+  navOptions = [
+    { name: 'Ligas', route: 'equipos', icon: faFlag },
+    { name: 'Brackets', route: 'brackets', icon: faSitemap },
+  ];
+
+  ngOnInit() {
+    this.divisionService.fetchDivisionCP();
+    this.mapService.fetchMapCP();
+  }
 }

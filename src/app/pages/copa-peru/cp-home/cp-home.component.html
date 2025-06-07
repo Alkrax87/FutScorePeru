@@ -1,1 +1,31 @@
-<p>cp-home works!</p>
+<!-- Division -->
+<div class="select-none">
+  <img class="hidden md:block" src="assets/images/pages/Banner-cp.webp" alt="CP-Background">
+  <img class="block md:hidden" src="assets/images/pages/Banner-cp-vertical.webp" alt="CP-Background">
+  <app-division-info [data]="dataDivision" [description]="descriptionDivision" [tags]="tagsDivision"></app-division-info>
+</div>
+<!-- Map -->
+<div class="select-none bg-gray-100 dark:bg-nightfall dark:text-white duration-500 flex flex-wrap gap-5 justify-center w-full py-12 sm:py-20 px-5">
+  <div class="w-full md:w-6/12 xl:w-5/12 place-content-center">
+    <p class="text-2xl text-center font-bold">Distribución Geográfica</p>
+    <div class="bg-crimson skew-x-50 h-1.5 mt-1 w-72 mx-auto"></div>
+    <div class="flex flex-wrap justify-center my-4">
+      @for (region of regions; track $index) {
+        <div class="w-full sm:w-1/2 lg:w-1/2 xl:w-1/3">
+          <app-city-card [city]="region"></app-city-card>
+        </div>
+      }
+    </div>
+    <div class="flex gap-1 justify-center text-xs text-neutral-400">
+      <fa-icon [icon]="Shield"></fa-icon>
+      <p>Cantidad de equipos</p>
+    </div>
+  </div>
+  <div class="w-full md:w-5/12 xl:w-3/12 flex justify-center items-center">
+    <div class="w-full p-5 bg-night">
+      <app-map [map]="mapConstructor" [dataTeamsMap]="dataMap"></app-map>
+    </div>
+  </div>
+</div>
+<!-- Tournament -->
+<app-title [title]="'Formato'"></app-title>
