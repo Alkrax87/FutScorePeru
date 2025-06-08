@@ -3,6 +3,7 @@ export interface StatisticCard {
   teamId: string;
   name: string;
   image: string;
+  imageThumbnail: string;
   alt: string;
   value: number;
 }
