@@ -22,9 +22,7 @@ import { TeamNav } from '../../../interfaces/ui-models/team-nav';
   imports: [TopNavTeamsComponent, OptionsNavComponent, RouterOutlet],
   template: `
     <app-top-nav-teams [teams]="dataTeamsNav"></app-top-nav-teams>
-    <div class="hidden md:block h-2 bg-crimson"></div>
     <app-options-nav [options]="navOptions" [division]="'Liga 2'"></app-options-nav>
-    <div class="hidden md:block h-2 bg-crimson"></div>
     <router-outlet></router-outlet>
   `,
   styles: ``,

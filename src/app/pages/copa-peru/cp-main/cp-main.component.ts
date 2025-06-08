@@ -12,9 +12,7 @@ import { FetchMapService } from '../../../services/fetch-map.service';
   imports: [OptionsNavComponent, RouterOutlet, TopNavTeamsComponent],
   template: `
     <app-top-nav-teams [teams]="dataTeamsNav"></app-top-nav-teams>
-    <div class="hidden md:block h-2 bg-crimson"></div>
     <app-options-nav [options]="navOptions" [division]="'Copa Perú'"></app-options-nav>
-    <div class="hidden md:block h-2 bg-crimson"></div>
     <router-outlet></router-outlet>
   `,
   styles: ``,
