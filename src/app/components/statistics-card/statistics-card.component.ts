@@ -31,7 +31,7 @@ import { RouterModule } from '@angular/router';
               <div class="flex w-full">
                 <div class="text-xs font-semibold mr-3 my-auto">{{ $index + 1 }}</div>
                 <div class="flex gap-2">
-                  <img loading="lazy" [src]="item.image" [alt]="item.alt" class="h-6 w-6"/>
+                  <img loading="lazy" [src]="item.imageThumbnail" [alt]="item.alt" class="h-6 w-6"/>
                   <p class="my-auto text-sm font-semibold">{{ item.name }}</p>
                 </div>
               </div>

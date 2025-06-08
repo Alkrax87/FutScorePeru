@@ -107,6 +107,7 @@ export class UiDataMapperService {
         name: team?.name,
         abbreviation: team?.abbreviation,
         image: team?.image,
+        imageThumbnail: team?.imageThumbnail,
         alt: team?.alt,
         value: element[valueKey],
       };
