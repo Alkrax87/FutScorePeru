@@ -6,7 +6,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   selector: 'app-navbar',
   imports: [CommonModule, RouterLink, RouterLinkActive],
   template: `
-    <nav class="bg-night select-none">
+    <nav class="bg-night select-none sticky top-0 z-50">
       <!-- Desktop Menu -->
       <div class="w-full flex justify-between items-center">
         <!-- Left container -->
@@ -35,7 +35,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
           </svg>
         </button>
       </div>
-      <div class="h-2 bg-crimson"></div>
 
       <!-- Mobile Menu -->
       @if (isMenuOpen) {

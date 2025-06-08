@@ -9,9 +9,10 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
   imports: [RouterModule, FontAwesomeModule, FontAwesomeModule, CommonModule],
   template: `
     <!-- Desktop Menu -->
-    <div class="hidden md:block select-none">
+    <div class="hidden md:block select-none sticky top-14 z-40">
+      <div class="h-2 bg-crimson"></div>
       <div class="bg-crimson flex justify-center">
-        <div class="bg-gray-100 dark:bg-nightfall duration-500 md:w-11/12 lg:w-5/6 flex rounded-l-full rounded-r-full">
+        <div class="bg-gray-100 dark:bg-night duration-500 md:w-11/12 lg:w-5/6 flex rounded-l-full rounded-r-full">
           <div class="flex mx-auto">
             @for (item of options; track $index) {
               <a [routerLink]="item.route" class="w-32 lg:w-40 justify-items-center group relative inline-block px-4 py-4">
@@ -25,10 +26,12 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
           </div>
         </div>
       </div>
+      <div class="h-2 bg-crimson"></div>
     </div>
 
     <!-- Mobile Menu -->
-    <div class="block md:hidden">
+    <div class="block md:hidden sticky top-14 z-40">
+      <div class="block md:hidden h-2 bg-crimson"></div>
       <div class="w-full">
         <button (click)="toggleMenu()" class="w-full bg-gray-100 dark:bg-dark dark:text-white duration-500 py-2 border-b-4 border-b-gold">
           {{ division }}
