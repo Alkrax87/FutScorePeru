@@ -7,18 +7,15 @@ import { faCalendarAlt, faShieldHalved, faTrophy } from '@fortawesome/free-solid
   selector: 'app-division-info',
   imports: [FontAwesomeModule],
   template: `
-    <div class="bg-night py-12 sm:py-20 px-5">
+    <div class="bg-night py-5 px-5">
       <div class="flex flex-col md:flex-row w-full lg:w-4/5 xl:w-2/3 justify-center gap-10 mx-auto">
         <div class="w-full md:w-1/2">
           <div class="flex gap-5">
-            <div class="bg-crimson flex justify-center items-center rounded-full p-5">
-              <fa-icon [icon]="Trophy" class="text-white text-4xl"></fa-icon>
-            </div>
-            <div class="my-auto">
-              <p class="text-white text-4xl font-semibold">{{ data?.category }}<sup class="text-2xl">{{ data?.sup }}</sup> División</p>
+            <div class="w-full bg-crimson text-white text-center image py-4">
+              <p class="text-white text-4xl font-bold">{{ data?.category }}<sup class="text-2xl">{{ data?.sup }}</sup> División</p>
             </div>
           </div>
-          <div class="text-white flex flex-col sm:flex-row gap-5 mt-5">
+          <div class="text-white flex flex-col sm:flex-row gap-4 mt-4">
             <div class=" bg-nightfall w-full place-items-center p-5">
               <fa-icon [icon]="Calendar" class="text-3xl"></fa-icon>
               <p class="text-xl font-semibold">{{ data?.season }}</p>
@@ -44,7 +41,12 @@ import { faCalendarAlt, faShieldHalved, faTrophy } from '@fortawesome/free-solid
       </div>
     </div>
   `,
-  styles: ``,
+  styles: `
+    .image {
+      background-image: url('/assets/images/pages/Background-pattern.png');
+      background-size: cover;
+    }
+  `,
 })
 export class DivisionInfoComponent {
   @Input() data!: DivisionData | null;
