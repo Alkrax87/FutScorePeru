@@ -21,7 +21,7 @@ import { TeamNav } from '../../interfaces/ui-models/team-nav';
           </div>
           <div class="flex-grow flex justify-evenly overflow-hidden md:py-2 lg:py-4">
             @for (item of teams; track $index) {
-              <a [routerLink]="['club', item.category, item.teamId]" class="animate-fade-up delay-75">
+              <a [routerLink]="[item.category === 4 ? 'liga': 'club', item.category, item.teamId]" class="animate-fade-up delay-75">
                 <img [src]="item.imageThumbnail" [alt]="item.alt" class="md:w-6 md:h-6 lg:w-8 lg:h-8 object-contain"/>
               </a>
             }
