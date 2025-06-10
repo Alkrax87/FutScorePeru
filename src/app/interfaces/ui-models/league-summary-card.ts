@@ -1,5 +1,5 @@
 export interface LeagueSummaryCard {
-  teams: number;
+  teams: string;
   stages: {
     total: number;
     description: string;
