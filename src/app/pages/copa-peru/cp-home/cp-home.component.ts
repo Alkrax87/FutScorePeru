@@ -8,15 +8,17 @@ import { DivisionInfoComponent } from "../../../components/division-info/divisio
 import { MapComponent } from "../../../components/map/map.component";
 import { TitleComponent } from "../../../components/title/title.component";
 import { CityCardComponent } from "../../../components/city-card/city-card.component";
+import { LeagueSummaryCardComponent } from "../../../components/league-summary-card/league-summary-card.component";
 import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
+import { LeagueSummaryCard } from '../../../interfaces/ui-models/league-summary-card';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cp-home',
-  imports: [DivisionInfoComponent, CityCardComponent, FontAwesomeModule, MapComponent, TitleComponent],
+  imports: [DivisionInfoComponent, CityCardComponent, FontAwesomeModule, MapComponent, TitleComponent, LeagueSummaryCardComponent],
   templateUrl: './cp-home.component.html',
   styles: ``,
 })
@@ -30,7 +32,7 @@ export class CpHomeComponent {
 
   private unsubscribe$ = new Subject<void>();
   dataDivision: DivisionData | null = null;
-  descriptionDivision: string = 'La Copa Perú es un torneo de fútbol amateur en Perú, organizado por la Federación Peruana de Fútbol (FPF) y la Subcomisión Nacional de Fútbol Aficionado, que busca promover el talento local y dar oportunidades a equipos de diversas regiones del país.';
+  descriptionDivision: string = 'La Copa Perú es un torneo de fútbol amateur en Perú, organizado por la Federación Peruana de Fútbol (FPF) y la Subcomisión Nacional de Fútbol Aficionado, donde equipos de diversas regiones del país buscan ascender a la Liga 2 y Liga 3.';
   tagsDivision: string[] = ['Copa Perú', 'Cuarta Division', 'Fútbol Amateur'];
   mapConstructor: MapElement[] = [];
   dataMap: TeamMap[] = [];
@@ -61,6 +63,14 @@ export class CpHomeComponent {
     { name: 'Ucayali', teams: 2 },
   ];
   Shield = faShieldHalved;
+  summaryData: LeagueSummaryCard = {
+      teams: '+10k',
+      stages: {
+        total: 6,
+        description: 'Distrital, Provincial, Departamental y Nacional',
+      },
+      objective: 'Ascenso Liga 2 y Liga 3',
+    }
 
   ngOnInit() {
     combineLatest([

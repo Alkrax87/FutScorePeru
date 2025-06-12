@@ -51,7 +51,7 @@ export class L2HomeComponent {
   ];
   Shield = faShieldHalved;
   summaryData: LeagueSummaryCard = {
-    teams: 15,
+    teams: '15',
     stages: {
       total: 3,
       description: 'Fase Regional, Fase Grupos y PlayOffs',

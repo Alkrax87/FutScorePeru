@@ -52,12 +52,12 @@ export class L1HomeComponent {
   ];
   Shield = faShieldHalved;
   summaryData: LeagueSummaryCard = {
-    teams: 18,
+    teams: '18',
     stages: {
       total: 3,
       description: 'Apertura, Clausura y PlayOffs',
     },
-    objective: 'Campeón de la Liga 1',
+    objective: 'Campeón Nacional',
   }
 
   ngOnInit() {
