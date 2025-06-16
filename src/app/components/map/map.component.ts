@@ -25,13 +25,11 @@ import { RouterLink } from '@angular/router';
     @if (selected) {
       <div class="bg-nightfall absolute px-2 pb-2 border-gold border-2 bg-opacity-90 -translate-x-1/2 select-none" [ngStyle]="{'top.px': position?.y, 'left.px': position?.x}">
         <div class="flex justify-center">
-          <p class="text-white text-base md:text-lg text-center">{{ content }}</p>
+          <p class="text-white text-base md:text-lg text-center font-semibold">{{ content }}</p>
         </div>
         <div class="flex flex-wrap justify-center">
           @for (item of toolTipData; track $index) {
-            <a [routerLink]="['../', 'club', item.category, item.teamId]">
-              <img loading="lazy" class="w-8 md:w-10" [src]="item.imageThumbnail" [alt]="item.alt">
-            </a>
+            <img [routerLink]="['../', 'club', item.category, item.teamId]" loading="lazy" class="w-8 md:w-10 cursor-pointer" [src]="item.imageThumbnail" [alt]="item.alt">
           }
         </div>
       </div>
