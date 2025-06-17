@@ -94,7 +94,7 @@ export const routes: Routes = [
       { path: 'home', component: CpHomeComponent },
       { path: 'equipos', component: CpTeamsComponent },
       { path: 'brackets', component: CpBracketsComponent },
-      { path: 'liga/:category/:teamId', component: LeaguePageComponent },
+      { path: 'liga/:category/:leagueId', component: LeaguePageComponent },
     ],
   },
   { path: '**', component: NotFoundComponent },
