@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TeamInformation } from '../interfaces/api-models/team-information';
 import { Environments } from '../environment/environments';
 import { Observable } from 'rxjs';
+import { TeamInformation } from '../interfaces/api-models/team-information';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FetchTeamInformationService {
+export class FetchPageInformationService {
   private backendUrl = Environments.backendUrl;
 
   constructor(private http: HttpClient) {}
