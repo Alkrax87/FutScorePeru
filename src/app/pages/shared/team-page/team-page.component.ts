@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faInstagram, faTiktok, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark, faEllipsis, faFlag, faLink, faLocationDot, faRing, faUsers } from '@fortawesome/free-solid-svg-icons';
-import { FetchTeamInformationService } from '../../../services/fetch-team-information.service';
+import { FetchPageInformationService } from '../../../services/fetch-page-information.service';
 import { TeamInformation } from '../../../interfaces/api-models/team-information';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
@@ -33,7 +33,7 @@ export class TeamPageComponent {
     private divisionService: FetchDivisionService,
     private teamService: FetchTeamDataService,
     private resultsService: FetchResultsService,
-    private fetchTeamInformation: FetchTeamInformationService,
+    private fetchTeamInformation: FetchPageInformationService,
     private transformDataService: MatchesSetupService,
   ) {}
 
