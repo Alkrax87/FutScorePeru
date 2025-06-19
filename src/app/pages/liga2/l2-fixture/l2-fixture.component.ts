@@ -156,35 +156,40 @@ export class L2FixtureComponent {
       this.dataFixture?.regionalA,
       this.dataResults,
       this.dataStadium,
-      "regional"
+      "regional",
+      2
     );
     this.filteredDataForFixtureRegionalB = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.regionalB,
       this.dataResults,
       this.dataStadium,
-      "regional"
+      "regional",
+      2
     );
     this.filteredDataForFixtureGruposPromotionA = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.gruposPromotionA,
       this.dataResults,
       this.dataStadium,
-      "grupos"
+      "grupos",
+      2
     );
     this.filteredDataForFixtureGruposPromotionB = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.gruposPromotionB,
       this.dataResults,
       this.dataStadium,
-      "grupos"
+      "grupos",
+      2
     );
     this.filteredDataForFixtureGruposRelegation = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.gruposRelegation,
       this.dataResults,
       this.dataStadium,
-      "grupos"
+      "grupos",
+      2
     );
   }
 

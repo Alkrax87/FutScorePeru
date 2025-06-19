@@ -168,56 +168,64 @@ export class L3FixtureComponent {
       this.dataFixture?.regional1,
       this.dataResults,
       this.dataStadium,
-      "regional"
+      "regional",
+      3
     );
     this.filteredDataForFixtureRegional2 = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.regional2,
       this.dataResults,
       this.dataStadium,
-      "regional"
+      "regional",
+      3
     );
     this.filteredDataForFixtureRegional3 = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.regional3,
       this.dataResults,
       this.dataStadium,
-      "regional"
+      "regional",
+      3
     );
     this.filteredDataForFixtureRegional4 = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.regional4,
       this.dataResults,
       this.dataStadium,
-      "regional"
+      "regional",
+      3
     );
     this.filteredDataForFixtureFinalA = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.finalA,
       this.dataResults,
       this.dataStadium,
-      "final"
+      "final",
+      3
     );
     this.filteredDataForFixtureFinalB = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.finalB,
       this.dataResults,
       this.dataStadium,
-      "final"
+      "final",
+      3
     );
     this.filteredDataForFixtureFinalC = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.finalC,
       this.dataResults,
       this.dataStadium,
-      "final"
+      "final",
+      3
     );
     this.filteredDataForFixtureFinalD = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.finalD,
       this.dataResults,
       this.dataStadium,
-      "final"
+      "final",
+      3
     );
   }
 

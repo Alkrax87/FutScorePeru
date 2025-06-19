@@ -140,14 +140,16 @@ export class L1FixtureComponent {
       this.dataFixture?.apertura,
       this.dataResults,
       this.dataStadium,
-      'apertura'
+      'apertura',
+      1
     );
     this.filteredDataForFixtureClausura = this.matchesService.transformDataForFixture(
       this.dataTeams,
       this.dataFixture?.clausura,
       this.dataResults,
       this.dataStadium,
-      'clausura'
+      'clausura',
+      1
     );
   }
 
