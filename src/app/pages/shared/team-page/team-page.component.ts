@@ -134,6 +134,10 @@ export class TeamPageComponent {
         },
         error: (error) => console.log('Failed to fetch Team Information ', error)
       });
+
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
   }
 
