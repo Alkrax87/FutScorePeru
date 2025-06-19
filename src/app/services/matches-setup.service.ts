@@ -83,7 +83,8 @@ export class MatchesSetupService {
     fixture: any,
     results: ResultsData[],
     stadiums: StadiumData[],
-    stage: string
+    stage: string,
+    category: number,
   ) {
     const stadiumMap = new Map(stadiums.map((stadium) => [stadium.stadiumId, stadium]));
     const teamMap = new Map(teams.map((team) => [team.teamId, team]));
@@ -110,16 +111,19 @@ export class MatchesSetupService {
 
           rounds.push({
             stadium: stadium?.name ? stadium.name : "Sin Determinar",
-            team1: homeTeam.name,
-            team2: awayTeam.name,
-            abbreviation1: homeTeam.abbreviation,
-            abbreviation2: awayTeam.abbreviation,
-            logo1: homeTeam.image,
-            logo2: awayTeam.image,
-            alt1: homeTeam.alt,
-            alt2: awayTeam.alt,
-            result1: resultHome,
-            result2: resultAway,
+            category: category,
+            homeTeamId: homeTeam.teamId,
+            awayTeamId: awayTeam.teamId,
+            homeTeamName: homeTeam.name,
+            awayTeamName: awayTeam.name,
+            homeTeamAbbreviation: homeTeam.abbreviation,
+            awayTeamAbbreviation: awayTeam.abbreviation,
+            homeTeamImageThumbnail: homeTeam.imageThumbnail,
+            awayTeamImageThumbnail: awayTeam.imageThumbnail,
+            homeTeamAlt: homeTeam.alt,
+            awayTeamAlt: awayTeam.alt,
+            homeTeamResult: resultHome,
+            awayTeamResult: resultAway,
           });
         }
       }

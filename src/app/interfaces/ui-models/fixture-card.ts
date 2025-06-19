@@ -1,13 +1,16 @@
 export interface FixtureCard {
   stadium: string;
-  team1: string;
-  team2: string;
-  abbreviation1: string;
-  abbreviation2: string;
-  logo1: string;
-  logo2: string;
-  alt1: string;
-  alt2: string;
-  result1: string | number;
-  result2: string | number;
+  category: number;
+  homeTeamId: string;
+  awayTeamId: string;
+  homeTeamName: string;
+  awayTeamName: string;
+  homeTeamAbbreviation: string;
+  awayTeamAbbreviation: string;
+  homeTeamImageThumbnail: string;
+  awayTeamImageThumbnail: string;
+  homeTeamAlt: string;
+  awayTeamAlt: string;
+  homeTeamResult: string | number;
+  awayTeamResult: string | number;
 }
