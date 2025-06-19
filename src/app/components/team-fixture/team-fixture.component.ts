@@ -28,7 +28,7 @@ import { RouterLink } from '@angular/router';
             </div>
             <div class="bg-nightfall text-white flex gap-1 h-11">
               <div class="w-full flex justify-end items-center">
-                <img [routerLink]="['../', item.homeTeamId]" [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-8 mx-1"/>
+                <img [routerLink]="['../', item.homeTeamId]" [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-8 mx-1 cursor-pointer"/>
               </div>
               <div class="bg-brightnight flex justify-center items-center font-bold text-3xl min-w-10 max-w-10">
                 <p>{{ item.homeTeamScore }}</p>
@@ -37,7 +37,7 @@ import { RouterLink } from '@angular/router';
                 <p>{{ item.awayTeamScore }}</p>
               </div>
               <div class="w-full flex justify-start items-center">
-                <img [routerLink]="['../', item.awayTeamId]" [src]="item.awayTeamLogo" [alt]="item.awayTeamAlt" class="w-8 mx-1"/>
+                <img [routerLink]="['../', item.awayTeamId]" [src]="item.awayTeamLogo" [alt]="item.awayTeamAlt" class="w-8 mx-1 cursor-pointer"/>
               </div>
             </div>
           </div>
