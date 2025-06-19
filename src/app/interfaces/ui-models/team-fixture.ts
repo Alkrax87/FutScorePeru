@@ -1,4 +1,6 @@
 export interface TeamFixture {
+  homeTeamId: string;
+  awayTeamId: string;
   homeTeamLogo: string;
   awayTeamLogo: string;
   homeTeamAlt: string;

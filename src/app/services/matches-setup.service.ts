@@ -58,6 +58,8 @@ export class MatchesSetupService {
           const resultAway = awayResults[stage]?.[index] ?? "";
 
           mergedData.push({
+            homeTeamId: homeTeam.teamId,
+            awayTeamId: awayTeam.teamId,
             homeTeamLogo: homeTeam.image,
             awayTeamLogo: awayTeam.image,
             homeTeamAlt: homeTeam.alt,
