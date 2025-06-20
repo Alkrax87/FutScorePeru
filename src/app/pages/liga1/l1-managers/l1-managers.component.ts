@@ -15,11 +15,11 @@ import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel'
   imports: [TitleComponent, ManagerCarouselComponent, RouterLink],
   template: `
     <app-title [title]="'Técnicos'"></app-title>
-    <div class="bg-night pt-5 select-none">
+    <div class="bg-night p-5 select-none">
       <div class="flex justify-center">
-        <div class="w-full md:w-3/5 lg:w-3/6 p-3 md:p-0">
+        <div class="w-full md:w-4/5 xl:w-1/2 flex flex-col gap-5">
           @for (item of dataCarousel; track $index) {
-            <div class="mb-5">
+            <div>
               <div class="flex w-fit items-center gap-2 cursor-pointer" [routerLink]="['../club', item.category, item.teamId]">
                 <img [src]="item.image" [alt]="item.alt" class="w-8 md:w-12">
                 <p class="text-white font-semibold text-sm md:text-xl">{{ item.name }}</p>
