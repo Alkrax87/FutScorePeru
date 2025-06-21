@@ -11,16 +11,16 @@ import { FetchLastGamesService } from '../../../services/fetch-last-games.servic
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
-import { TopNavTeamsComponent } from '../../../components/top-nav-teams/top-nav-teams.component';
+import { TopNavItemsComponent } from '../../../components/top-nav-teams/top-nav-items.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faRankingStar } from "@fortawesome/free-solid-svg-icons";
-import { TeamNav } from '../../../interfaces/ui-models/team-nav';
+import { ItemNav } from '../../../interfaces/ui-models/item-nav';
 
 @Component({
   selector: 'app-l3-main',
-  imports: [TopNavTeamsComponent, OptionsNavComponent, RouterOutlet],
+  imports: [TopNavItemsComponent, OptionsNavComponent, RouterOutlet],
   template: `
-    <app-top-nav-teams [teams]="dataTeamsNav"></app-top-nav-teams>
+    <app-top-nav-items [items]="dataTeamsNav"></app-top-nav-items>
     <app-options-nav [options]="navOptions" [division]="'Liga 3'"></app-options-nav>
     <router-outlet></router-outlet>
   `,
@@ -41,7 +41,7 @@ export class L3MainComponent {
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeamsNav: TeamNav[] = [];
+  dataTeamsNav: ItemNav[] = [];
   navOptions = [
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
