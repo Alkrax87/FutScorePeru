@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TeamNav } from '../interfaces/ui-models/team-nav';
+import { ItemNav } from '../interfaces/ui-models/item-nav';
 import { TeamMap } from '../interfaces/ui-models/team-map';
 import { TeamCard } from '../interfaces/ui-models/team-card';
 import { ManagerCarousel } from '../interfaces/ui-models/manager-carousel';
@@ -7,6 +7,8 @@ import { StatisticCard } from '../interfaces/ui-models/statistic-card';
 import { TeamData } from '../interfaces/api-models/team-data';
 import { StadiumData } from '../interfaces/api-models/stadium-data';
 import { ManagerData } from '../interfaces/api-models/manager-data';
+import { LeagueData } from '../interfaces/api-models/league-data';
+import { TeamCardCp } from '../interfaces/ui-models/team-card-cp';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +16,7 @@ import { ManagerData } from '../interfaces/api-models/manager-data';
 export class UiDataMapperService {
   constructor() {}
 
-  teamsNavMapper(dataTeams: TeamData[]): TeamNav[] {
+  teamsNavMapper(dataTeams: TeamData[]): ItemNav[] {
     const newData = [];
 
     for (const team of dataTeams) {
@@ -112,5 +114,44 @@ export class UiDataMapperService {
         value: element[valueKey],
       };
     });
+  }
+
+  leagueNavMapper(dataLeagues: LeagueData[]): ItemNav[] {
+    const newData = [];
+
+    for (const league of dataLeagues) {
+      newData.push({
+        category: league.category,
+        leagueId: league.leagueId,
+        imageThumbnail: league.imageThumbnail,
+        alt: league.alt
+      });
+    }
+
+    return newData;
+  }
+
+  leagueCardMapper(dataLeague: LeagueData[]): TeamCardCp[] {
+    const newData = [];
+
+    for (const league of dataLeague) {
+      newData.push({
+        leagueId: league.leagueId,
+        category: league.category,
+        region: league.location,
+        flag: league.image,
+        color: {
+          c1: league.color.c1,
+          c2: league.color.c2,
+        },
+        teams: league.teams.map((team) => ({
+          name: team.name,
+          image: team.image,
+          city: team.city,
+        })),
+      });
+    }
+
+    return newData;
   }
 }
