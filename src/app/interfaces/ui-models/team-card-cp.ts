@@ -1,4 +1,6 @@
 export interface TeamCardCp {
+  leagueId: string;
+  category: number;
   region: string;
   flag: string;
   color: {
@@ -8,7 +10,6 @@ export interface TeamCardCp {
   teams: {
     name: string;
     image: string;
-    alt: string;
     city: string;
   }[];
 }
