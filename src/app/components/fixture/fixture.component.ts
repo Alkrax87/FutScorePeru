@@ -8,9 +8,9 @@ import { RouterLink } from '@angular/router';
   selector: 'app-fixture',
   imports: [FontAwesomeModule, RouterLink],
   template: `
-    <div class="bg-night select-none">
+    <div class="bg-night select-none flex flex-col gap-2">
       @for (item of data; track $index) {
-        <div class="py-1">
+        <div>
           <div class="flex justify-center">
             <div class="relative flex-none border-r-[18px] border-t-[18px] border-r-transparent border-t-night bg-white"></div>
             <div class="bg-white w-52 text-xs font-semibold text-center">
@@ -23,8 +23,8 @@ import { RouterLink } from '@angular/router';
             <div class="w-full flex justify-end">
               <div class="cursor-pointer flex items-center" [routerLink]="['../', 'club', item.category, item.homeTeamId]">
                 <p>
-                  <span class="hidden md:block">{{ item.homeTeamName }}</span>
-                  <span class="block md:hidden font-bold">{{ item.homeTeamAbbreviation }}</span>
+                  <span class="hidden sm:block">{{ item.homeTeamName }}</span>
+                  <span class="block sm:hidden font-bold">{{ item.homeTeamAbbreviation }}</span>
                 </p>
                 <img [src]="item.homeTeamImageThumbnail" [alt]="item.homeTeamAlt" class="w-9 mx-2"/>
               </div>
@@ -39,8 +39,8 @@ import { RouterLink } from '@angular/router';
               <div class="cursor-pointer flex items-center" [routerLink]="['../', 'club', item.category, item.awayTeamId]">
                 <img [src]="item.awayTeamImageThumbnail" [alt]="item.awayTeamAlt" class="w-9 mx-2"/>
                 <p>
-                  <span class="hidden md:block">{{ item.awayTeamName }}</span>
-                  <span class="block md:hidden font-bold">{{ item.awayTeamAbbreviation }}</span>
+                  <span class="hidden sm:block">{{ item.awayTeamName }}</span>
+                  <span class="block sm:hidden font-bold">{{ item.awayTeamAbbreviation }}</span>
                 </p>
               </div>
             </div>
