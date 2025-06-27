@@ -20,29 +20,31 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
   imports: [TitleComponent, FixtureComponent, BtnComponent, CommonModule],
   template: `
     <app-title [title]="'Fixture'"></app-title>
-    <div class="bg-night py-5">
+    <div class="bg-night p-5">
       <div class="flex justify-center">
-        <div class="w-full md:w-5/6 lg:w-6/12 grid sm:grid-cols-1 md:grid-cols-2 md:space-x-6 px-8 pb-5">
+        <div class="w-full md:w-5/6 lg:w-6/12 grid sm:grid-cols-1 md:grid-cols-2 md:space-x-6 px-8">
           <app-btn (click)="setActiveTab('regional')" [active]="regional">Fase Regional</app-btn>
           <app-btn (click)="setActiveTab('final')" [active]="final">Fase Final</app-btn>
         </div>
       </div>
-      <div class="flex justify-center px-5">
-        <div class="w-full lg:w-4/6">
+      <div class="flex justify-center">
+        <div class="w-full lg:w-5/6 xl:w-4/6 duration-500">
           @if (regional) {
             @if (filteredDataForFixtureRegional1 && filteredDataForFixtureRegional2 && filteredDataForFixtureRegional3 && filteredDataForFixtureRegional4) {
-              <h3 class="text-4xl text-white font-bold">Regional Fecha {{ selectedRoundRegionalIndex + 1 }}</h3>
-              <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
+              <h3 class="text-white text-3xl sm:text-4xl font-bold my-5 text-center md:text-start duration-500">
+                Regional <span class="text-crimson">Fecha {{ selectedRoundRegionalIndex + 1 }}</span>
+              </h3>
+              <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
                 @for (round of filteredDataForFixtureRegional2; track $index) {
                   <button (click)="selectedRoundRegionalIndex = $index"
-                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none"
+                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none duration-300"
                     [ngClass]="{'bg-crimson': selectedRoundRegionalIndex === $index}"
                   >
                     F{{ $index + 1}}
                   </button>
                 }
               </div>
-              <div class="bg-white skew-x-50 h-2 w-full mb-6"></div>
+              <div class="bg-white skew-x-50 h-2 w-full my-5"></div>
               <h3 class="text-4xl text-white font-bold">Grupo 1</h3>
               <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureRegional1[selectedRoundRegionalIndex ? selectedRoundRegionalIndex : 0]"></app-fixture>
@@ -63,18 +65,20 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
           }
           @if (final) {
             @if (filteredDataForFixtureFinalA && filteredDataForFixtureFinalB && filteredDataForFixtureFinalC && filteredDataForFixtureFinalD) {
-              <h3 class="text-4xl text-white font-bold">Final Fecha {{ selectedRoundFinalIndex + 1 }}</h3>
-              <div class="flex flex-wrap md:flex-nowrap justify-center gap-1 my-6">
+              <h3 class="text-white text-3xl sm:text-4xl font-bold my-5 text-center md:text-start duration-500">
+                Final Fecha <span class="text-crimson">{{ selectedRoundFinalIndex + 1 }}</span>
+              </h3>
+              <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
                 @for (round of filteredDataForFixtureFinalA; track $index) {
                   <button (click)="selectedRoundFinalIndex = $index"
-                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none"
+                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none duration-300"
                     [ngClass]="{'bg-crimson': selectedRoundFinalIndex === $index}"
                   >
                     F{{ $index + 1}}
                   </button>
                 }
               </div>
-              <div class="bg-white skew-x-50 h-2 w-full mb-6"></div>
+              <div class="bg-white skew-x-50 h-2 w-full my-5"></div>
               <h3 class="text-4xl text-white font-bold">Grupo Final 1</h3>
               <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureFinalA[selectedRoundFinalIndex ? selectedRoundFinalIndex : 0]"></app-fixture>
