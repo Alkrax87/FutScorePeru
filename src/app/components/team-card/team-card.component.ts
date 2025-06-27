@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-team-card',
   imports: [RouterLink, FontAwesomeModule, CommonModule],
   template: `
-    <div [routerLink]="['../', 'club', data?.category, data?.teamId]" class="flex cursor-pointer px-3 md:px-6 py-8 space-x-3"
+    <div [routerLink]="['../', 'club', data?.category, data?.teamId]" class="flex cursor-pointer px-3 md:px-6 py-4 sm:py-8 space-x-3 duration-300"
       [ngClass]="{'bg-nightfall text-white': !isHovered}"
       [style.backgroundColor]="isHovered ? data?.color?.c1 : ''"
       [style.color]="isHovered ? data?.color?.c2 || '#ffffff' : ''"
