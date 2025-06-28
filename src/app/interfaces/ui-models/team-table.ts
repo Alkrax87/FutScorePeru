@@ -3,7 +3,7 @@ export interface TeamTable {
   teamId: string;
   name: string;
   abbreviation: string;
-  image: string;
+  imageThumbnail: string;
   alt: string;
   lastgames: string[];
   performance: {
