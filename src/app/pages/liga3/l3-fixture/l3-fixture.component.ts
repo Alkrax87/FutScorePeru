@@ -66,7 +66,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
           @if (final) {
             @if (filteredDataForFixtureFinalA && filteredDataForFixtureFinalB && filteredDataForFixtureFinalC && filteredDataForFixtureFinalD) {
               <h3 class="text-white text-3xl sm:text-4xl font-bold my-5 text-center md:text-start duration-500">
-                Final Fecha <span class="text-crimson">{{ selectedRoundFinalIndex + 1 }}</span>
+                Final <span class="text-crimson">Fecha {{ selectedRoundFinalIndex + 1 }}</span>
               </h3>
               <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
                 @for (round of filteredDataForFixtureFinalA; track $index) {
@@ -80,16 +80,16 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               </div>
               <div class="bg-white skew-x-50 h-2 w-full my-5"></div>
               <h3 class="text-4xl text-white font-bold">Grupo Final 1</h3>
-              <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+              <div class="bg-crimson skew-x-50 h-2 w-60 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureFinalA[selectedRoundFinalIndex ? selectedRoundFinalIndex : 0]"></app-fixture>
               <h3 class="text-4xl text-white font-bold mt-3">Grupo Final 2</h3>
-              <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+              <div class="bg-crimson skew-x-50 h-2 w-60 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureFinalB[selectedRoundFinalIndex ? selectedRoundFinalIndex : 0]"></app-fixture>
               <h3 class="text-4xl text-white font-bold mt-3">Grupo Final 3</h3>
-              <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+              <div class="bg-crimson skew-x-50 h-2 w-60 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureFinalC[selectedRoundFinalIndex ? selectedRoundFinalIndex : 0]"></app-fixture>
               <h3 class="text-4xl text-white font-bold mt-3">Grupo Final 4</h3>
-              <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+              <div class="bg-crimson skew-x-50 h-2 w-60 my-3"></div>
               <app-fixture [data]="filteredDataForFixtureFinalD[selectedRoundFinalIndex ? selectedRoundFinalIndex : 0]"></app-fixture>
             } @else {
               <div class="flex h-64 justify-center items-center select-none">
