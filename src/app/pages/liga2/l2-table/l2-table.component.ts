@@ -5,8 +5,8 @@ import { FetchPerformanceService } from '../../../services/fetch-performance.ser
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
 import { SortDataTableService } from '../../../services/sort-data-table.service';
 import { Subscription } from 'rxjs';
-import { TitleComponent } from "../../../components/title/title.component";
-import { BtnComponent } from "../../../components/btn/btn.component";
+import { TitleComponent } from '../../../components/title/title.component';
+import { BtnComponent } from '../../../components/btn/btn.component';
 import { TableComponent } from '../../../components/table/table.component';
 import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { TeamData } from '../../../interfaces/api-models/team-data';
@@ -20,39 +20,39 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
   template: `
     <app-title [title]="'Tabla'"></app-title>
     <div class="bg-night py-5">
-      <div class="flex justify-center">
-        <div class="w-full md:w-5/6 lg:w-9/12 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 md:space-x-6 px-8 pb-5">
+      <div class="place-items-center">
+        <div class="w-full md:w-5/6 lg:w-9/12 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 md:gap-5 px-8 md:px-0">
           <app-btn (click)="setActiveTab('regional')" [active]="regional">Fase Regional</app-btn>
           <app-btn (click)="setActiveTab('grupos')" [active]="grupos">Fase Grupos</app-btn>
           <app-btn (click)="setActiveTab('playOff')" [active]="playOff">PlayOffs</app-btn>
         </div>
       </div>
       @if (regional) {
-        <div class="mx-4 md:mx-8 mb-5">
+        <div class="m-5">
           <h3 class="text-4xl text-white font-bold">Grupo A</h3>
-          <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+          <div class="bg-crimson skew-x-50 h-2 w-40 my-3"></div>
         </div>
         <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataRegionalA"></app-table>
-        <div class="mx-4 md:mx-8 my-5">
+        <div class="m-5">
           <h3 class="text-4xl text-white font-bold">Grupo B</h3>
-          <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+          <div class="bg-crimson skew-x-50 h-2 w-40 my-3"></div>
         </div>
         <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataRegionalB"></app-table>
       }
       @if (grupos) {
-        <div class="mx-4 md:mx-8 mb-5">
+        <div class="m-5">
           <h3 class="text-4xl text-white font-bold">Grupo Ascenso 1</h3>
-          <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+          <div class="bg-crimson skew-x-50 h-2 w-72 my-3"></div>
         </div>
         <app-table [config]="configGroupPromotion" [headers]="headers" [classification]="classificationPromotion" [data]="dataPromotion1"></app-table>
-        <div class="mx-4 md:mx-8 my-5">
+        <div class="m-5">
           <h3 class="text-4xl text-white font-bold">Grupo Ascenso 2</h3>
-          <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+          <div class="bg-crimson skew-x-50 h-2 w-72 my-3"></div>
         </div>
         <app-table [config]="configGroupPromotion" [headers]="headers" [classification]="classificationPromotion" [data]="dataPromotion2"></app-table>
-        <div class="mx-4 md:mx-8 my-5">
+        <div class="m-5">
           <h3 class="text-4xl text-white font-bold">Grupo Descenso</h3>
-          <div class="bg-crimson skew-x-50 h-2 w-44 my-3"></div>
+          <div class="bg-crimson skew-x-50 h-2 w-72 my-3"></div>
         </div>
         <app-table [config]="configGroupRelegation" [headers]="headers" [classification]="classificationRelegation" [data]="dataRelegation"></app-table>
       }
@@ -197,7 +197,7 @@ export class L2TableComponent {
         teamId: team.teamId,
         name: team.name,
         abbreviation: team.abbreviation,
-        image: team.image,
+        imageThumbnail: team.imageThumbnail,
         alt: team.alt,
       }
       const performance = performanceMap.get(team.teamId);

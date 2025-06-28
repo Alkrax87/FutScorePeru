@@ -5,7 +5,7 @@ import { FetchPerformanceService } from '../../../services/fetch-performance.ser
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
 import { SortDataTableService } from '../../../services/sort-data-table.service';
 import { Subscription } from 'rxjs';
-import { TitleComponent } from "../../../components/title/title.component";
+import { TitleComponent } from '../../../components/title/title.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
 import { TableComponent } from '../../../components/table/table.component';
 import { DivisionData } from '../../../interfaces/api-models/division-data';
@@ -20,8 +20,8 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
   template: `
     <app-title [title]="'Tabla'"></app-title>
     <div class="bg-night py-5">
-      <div class="flex justify-center">
-        <div class="w-full md:w-5/6 lg:w-9/12 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 md:space-x-6 px-8 pb-5">
+      <div class="place-items-center mb-5">
+        <div class="w-full md:w-5/6 lg:w-9/12 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 md:gap-5 px-8 md:px-0">
           <app-btn (click)="setActiveTab('acumulado')" [active]="acumulado">Acumulado</app-btn>
           <app-btn (click)="setActiveTab('apertura')" [active]="apertura">Apertura</app-btn>
           <app-btn (click)="setActiveTab('clausura')" [active]="clausura">Clausura</app-btn>
@@ -164,7 +164,7 @@ export class L1TableComponent {
         teamId: team.teamId,
         name: team.name,
         abbreviation: team.abbreviation,
-        image: team.image,
+        imageThumbnail: team.imageThumbnail,
         alt: team.alt,
       }
       const performance = performanceMap.get(team.teamId);
