@@ -7,8 +7,8 @@ import { TeamTable } from '../interfaces/ui-models/team-table';
 export class SortDataTableService {
   constructor() {}
 
-  sortTeams(tems: TeamTable[]) {
-    return tems.sort((a, b) =>
+  sortTeams(teams: TeamTable[]) {
+    return teams.sort((a, b) =>
       b.performance.points - a.performance.points ||
       b.performance.dg - a.performance.dg ||
       b.performance.gf - a.performance.gf
