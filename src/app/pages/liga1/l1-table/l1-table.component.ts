@@ -3,7 +3,7 @@ import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
-import { SortDataTableService } from '../../../services/sort-data-table.service';
+import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
 import { TitleComponent } from '../../../components/title/title.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
@@ -46,7 +46,7 @@ export class L1TableComponent {
     private teamsService: FetchTeamDataService,
     private performanceService: FetchPerformanceService,
     private lastGamesService: FetchLastGamesService,
-    private sortDataService: SortDataTableService,
+    private uiDataMapperService: UiDataMapperService
   ) {}
 
   private divisionSubscription: Subscription | null = null;
@@ -146,54 +146,25 @@ export class L1TableComponent {
     });
 
     if (this.dataDivision && this.dataTeams && this.dataPerformance && this.dataLastGames) {
-      this.getDataForTable();
+      this.dataApertura = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'apertura'
+      );
+      this.dataClausura = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'clausura'
+      );
+      this.dataAcumulado = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'acumulado'
+      );
     }
-  }
-
-  getDataForTable() {
-    const performanceMap = new Map(this.dataPerformance.map((performance) => [performance.teamId, performance]));
-    const lastGamesMap = new Map(this.dataLastGames.map((lastGames) => [lastGames.teamId, lastGames]));
-
-    let sortTeamsApertura:TeamTable[] = [];
-    let sortTeamsClausura:TeamTable[] = [];
-    let sortTeamsAcumulado:TeamTable[] = [];
-
-    for (const team of this.dataTeams) {
-      const baseTeamData = {
-        category: team.category,
-        teamId: team.teamId,
-        name: team.name,
-        abbreviation: team.abbreviation,
-        imageThumbnail: team.imageThumbnail,
-        alt: team.alt,
-      }
-      const performance = performanceMap.get(team.teamId);
-      const lastGames = lastGamesMap.get(team.teamId);
-
-      if (!performance?.apertura || !performance.clausura || !performance.acumulado || !lastGames?.apertura || !lastGames.clausura) return;
-
-      sortTeamsApertura.push({
-        ...baseTeamData,
-        performance: performance.apertura,
-        lastgames: lastGames.apertura.slice(-5),
-      });
-      sortTeamsClausura.push({
-        ...baseTeamData,
-        performance: performance.clausura,
-        lastgames: lastGames.clausura.slice(-5),
-      });
-      sortTeamsAcumulado.push({
-        ...baseTeamData,
-        performance: performance.acumulado,
-        lastgames: this.dataDivision?.stages[0].status
-        ? lastGames.apertura.slice(-5) as string[]
-        : lastGames.clausura.slice(-5) as string[],
-      });
-    }
-
-    this.dataApertura = this.sortDataService.sortTeams(sortTeamsApertura);
-    this.dataClausura = this.sortDataService.sortTeams(sortTeamsClausura);
-    this.dataAcumulado = this.sortDataService.sortTeams(sortTeamsAcumulado);
   }
 
   ngOnDestroy() {

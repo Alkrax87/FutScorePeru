@@ -3,7 +3,7 @@ import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
-import { SortDataTableService } from '../../../services/sort-data-table.service';
+import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
 import { TitleComponent } from '../../../components/title/title.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
@@ -86,7 +86,7 @@ export class L3TableComponent {
     private teamsService: FetchTeamDataService,
     private performanceService: FetchPerformanceService,
     private lastGamesService: FetchLastGamesService,
-    private sortDataService: SortDataTableService
+    private uiDataMapperService: UiDataMapperService
   ) {}
 
   private divisionSubscription: Subscription | null = null;
@@ -178,112 +178,63 @@ export class L3TableComponent {
     });
 
     if (this.dataTeams && this.dataPerformance && this.dataLastGames) {
-      this.getDataForTable();
+      this.dataRegional1 = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'regional',
+        '1'
+      );
+      this.dataRegional2 = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'regional',
+        '2'
+      );
+      this.dataRegional3 = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'regional',
+        '3'
+      );
+      this.dataRegional4 = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'regional',
+        '4'
+      );
+      this.dataFinalA = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'final',
+        "f1"
+      );
+      this.dataFinalB = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'final',
+        "f2"
+      );
+      this.dataFinalC = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'final',
+        "f3"
+      );
+      this.dataFinalD = this.uiDataMapperService.teamsTableMapper(
+        this.dataTeams,
+        this.dataPerformance,
+        this.dataLastGames,
+        'final',
+        "f4"
+      );
     }
-  }
-
-  getDataForTable() {
-    const performanceMap = new Map(this.dataPerformance.map((performance) => [performance.teamId, performance]));
-    const lastGamesMap = new Map(this.dataLastGames.map((lastGames) => [lastGames.teamId, lastGames]));
-
-    let sortTeamsRegional1: TeamTable[] = [];
-    let sortTeamsRegional2: TeamTable[] = [];
-    let sortTeamsRegional3: TeamTable[] = [];
-    let sortTeamsRegional4: TeamTable[] = [];
-    let sortTeamsFinalA: TeamTable[] = [];
-    let sortTeamsFinalB: TeamTable[] = [];
-    let sortTeamsFinalC: TeamTable[] = [];
-    let sortTeamsFinalD: TeamTable[] = [];
-
-    for (const team of this.dataTeams) {
-      const baseTeamData = {
-        category: team.category,
-        teamId: team.teamId,
-        name: team.name,
-        abbreviation: team.abbreviation,
-        imageThumbnail: team.imageThumbnail,
-        alt: team.alt,
-      }
-      const performance = performanceMap.get(team.teamId);
-      const lastGames = lastGamesMap.get(team.teamId);
-
-      if (!performance?.regional || !performance.final || !lastGames?.regional || !lastGames.final) return;
-
-      switch (team.groupFirstPhase) {
-        case "1":
-          sortTeamsRegional1.push({
-            ...baseTeamData,
-            performance: performance.regional,
-            lastgames: lastGames.regional.slice(-5),
-          });
-          break;
-        case "2":
-          sortTeamsRegional3.push({
-            ...baseTeamData,
-            performance: performance.regional,
-            lastgames: lastGames.regional.slice(-5),
-          });
-          break;
-        case "3":
-          sortTeamsRegional4.push({
-            ...baseTeamData,
-            performance: performance.regional,
-            lastgames: lastGames.regional.slice(-5),
-          });
-          break;
-        case "4":
-          sortTeamsRegional2.push({
-            ...baseTeamData,
-            performance: performance.regional,
-            lastgames: lastGames.regional.slice(-5),
-          });
-          break;
-        default:
-          break;
-      }
-
-      switch (team.groupSecondPhase) {
-        case "f1":
-          sortTeamsFinalA.push({
-            ...baseTeamData,
-            performance: performance.final,
-            lastgames: lastGames.final.slice(-5),
-          });
-          break;
-        case "f2":
-          sortTeamsFinalB.push({
-            ...baseTeamData,
-            performance: performance.final,
-            lastgames: lastGames.final.slice(-5),
-          });
-          break;
-        case "f3":
-          sortTeamsFinalC.push({
-            ...baseTeamData,
-            performance: performance.final,
-            lastgames: lastGames.final.slice(-5),
-          });
-          break;
-        case "f4":
-          sortTeamsFinalD.push({
-            ...baseTeamData,
-            performance: performance.final,
-            lastgames: lastGames.final.slice(-5),
-          });
-          break;
-        default:
-          break;
-      }
-    }
-
-    this.dataRegional1 = this.sortDataService.sortTeams(sortTeamsRegional1);
-    this.dataRegional2 = this.sortDataService.sortTeams(sortTeamsRegional2);
-    this.dataRegional3 = this.sortDataService.sortTeams(sortTeamsRegional3);
-    this.dataRegional4 = this.sortDataService.sortTeams(sortTeamsRegional4);
-    this.dataFinalA = this.sortDataService.sortTeams(sortTeamsFinalA);
-    this.dataFinalB = this.sortDataService.sortTeams(sortTeamsFinalB);
-    this.dataFinalC = this.sortDataService.sortTeams(sortTeamsFinalC);
-    this.dataFinalD = this.sortDataService.sortTeams(sortTeamsFinalD);
   }
 
   ngOnDestroy() {
