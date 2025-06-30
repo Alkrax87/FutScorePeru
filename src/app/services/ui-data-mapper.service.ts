@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { ItemNav } from '../interfaces/ui-models/item-nav';
 import { TeamMap } from '../interfaces/ui-models/team-map';
 import { TeamCard } from '../interfaces/ui-models/team-card';
+import { TeamTable } from '../interfaces/ui-models/team-table';
+import { PerformanceData } from '../interfaces/api-models/performance-data';
+import { LastGamesData } from '../interfaces/api-models/last-games-data';
 import { ManagerCarousel } from '../interfaces/ui-models/manager-carousel';
 import { StatisticCard } from '../interfaces/ui-models/statistic-card';
 import { TeamData } from '../interfaces/api-models/team-data';
@@ -72,6 +75,41 @@ export class UiDataMapperService {
     }
 
     return newData;
+  }
+
+  teamsTableMapper(dataTeams: TeamData[], dataPerformance: PerformanceData[], dataLastGames: LastGamesData[], stageKey: string, teamGroup?: string): TeamTable[] {
+    const newData: TeamTable[] = [];
+    const performanceMap = new Map(
+      dataPerformance.map((performance) => [performance.teamId, performance[stageKey as keyof PerformanceData]])
+    );
+    const lastGamesMap = new Map(
+      dataLastGames.map((lastGames) => [lastGames.teamId, lastGames[stageKey as keyof LastGamesData]]),
+    );
+
+    for (const team of dataTeams) {
+      if (team.groupFirstPhase === teamGroup || team.groupSecondPhase === teamGroup || !teamGroup) {
+        const teamPerformance = performanceMap.get(team.teamId) as TeamTable['performance'];
+        const teamLastGames = lastGamesMap.get(team.teamId) as string[];
+
+        newData.push({
+          category: team.category,
+          teamId: team.teamId,
+          name: team.name,
+          abbreviation: team.abbreviation,
+          imageThumbnail: team.imageThumbnail,
+          alt: team.alt,
+          performance: teamPerformance,
+          lastgames: teamLastGames ? teamLastGames.slice(-5) : ['','','','',''],
+        });
+      }
+    }
+
+    return newData.sort(
+      (a, b) =>
+        b.performance.points - a.performance.points ||
+        b.performance.dg - a.performance.dg ||
+        b.performance.gf - a.performance.gf
+    );
   }
 
   managerCarouselMapper(dataTeams: TeamData[], dataManagers: ManagerData[]): ManagerCarousel[] {
