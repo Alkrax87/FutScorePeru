@@ -3,20 +3,27 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLocationDot, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { TeamCardCp } from '../../interfaces/ui-models/team-card-cp';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-team-card-cp',
-  imports: [FontAwesomeModule, RouterLink],
+  imports: [FontAwesomeModule, RouterLink, CommonModule],
   template: `
-    <div class="bg-nightfall flex flex-col gap-3 text-white p-3">
+    <div [routerLink]="['../', 'liga', data?.category, data?.leagueId]" class="text-white flex flex-col gap-3 p-3 duration-300 cursor-pointer"
+      [ngClass]="{'bg-nightfall': !isHovered}"
+      [style.backgroundColor]="isHovered ? data?.color?.c1 : ''"
+      (mouseover)="isHovered = true"
+      (mouseout)="isHovered = false"
+    >
       <div class="flex flex-col gap-3 items-center">
         <p class="text-2xl font-semibold">{{ data?.region }}</p>
-        <div [routerLink]="['../', 'liga', data?.category, data?.leagueId]">
-          <img [src]="data?.flag" alt="Flag" class="w-40 cursor-pointer">
-        </div>
+        <img [src]="data?.flag" alt="Flag" class="w-40">
       </div>
       @for (team of data?.teams; track $index) {
-        <div class="bg-brightnight flex gap-1.5 sm:gap-3 p-3">
+        <div class="flex gap-1.5 sm:gap-3 p-3 duration-300"
+          [ngClass]="{'bg-brightnight text-white': !isHovered}"
+          [style.backgroundColor]="isHovered ? data?.color?.c2 : ''"
+        >
           <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" alt="CPTeam-logo" class="w-12 h-12 sm:w-16 sm:h-16">
           <div class="w-0 flex flex-1 flex-col justify-center">
             <p class="font-semibold truncate">{{ team.name }}</p>
@@ -43,6 +50,7 @@ import { RouterLink } from '@angular/router';
 })
 export class TeamCardCpComponent {
   @Input() data?: TeamCardCp;
+  isHovered: boolean = false;
   Trophy = faTrophy;
   Location = faLocationDot;
 }
