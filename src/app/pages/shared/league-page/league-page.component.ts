@@ -37,6 +37,10 @@ export class LeaguePageComponent {
         },
         error: (error) => console.log('Error fetching league information:', error)
       });
+
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     })
   };
 
