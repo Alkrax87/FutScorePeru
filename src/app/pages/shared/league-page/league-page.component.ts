@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFlag, faLocationDot, faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { LeagueInformation } from '../../../interfaces/api-models/league-information';
 import { FetchPageInformationService } from '../../../services/fetch-page-information.service';
-import { ActivatedRoute } from '@angular/router';
+import { LeagueInformation } from '../../../interfaces/api-models/league-information';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -20,7 +20,8 @@ import { Subject, takeUntil } from 'rxjs';
 export class LeaguePageComponent {
   constructor(
     private route: ActivatedRoute,
-    private fetchInformation: FetchPageInformationService
+    private fetchInformation: FetchPageInformationService,
+    private router: Router
   ) {}
 
   private destroy$ = new Subject<void>();
@@ -35,7 +36,9 @@ export class LeaguePageComponent {
         next: (response) => {
           this.data = response;
         },
-        error: (error) => console.log('Error fetching league information:', error)
+        error: () => {
+          this.router.navigate(['/not-found']);
+        }
       });
 
       if (typeof window !== 'undefined') {

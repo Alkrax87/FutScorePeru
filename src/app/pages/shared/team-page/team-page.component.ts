@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faInstagram, faTiktok, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark, faEllipsis, faFlag, faLink, faLocationDot, faRing, faUsers } from '@fortawesome/free-solid-svg-icons';
@@ -35,6 +35,7 @@ export class TeamPageComponent {
     private resultsService: FetchResultsService,
     private fetchTeamInformation: FetchPageInformationService,
     private transformDataService: MatchesSetupService,
+    private router: Router
   ) {}
 
   private divisionSubscription: Subscription | null = null;
@@ -132,7 +133,9 @@ export class TeamPageComponent {
             this.dataResults
           );
         },
-        error: (error) => console.log('Failed to fetch Team Information ', error)
+        error: () => {
+          this.router.navigate(['/not-found']);
+        }
       });
 
       if (typeof window !== 'undefined') {
