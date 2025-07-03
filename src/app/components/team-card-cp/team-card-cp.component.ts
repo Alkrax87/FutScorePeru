@@ -9,20 +9,20 @@ import { CommonModule } from '@angular/common';
   selector: 'app-team-card-cp',
   imports: [FontAwesomeModule, RouterLink, CommonModule],
   template: `
-    <div [routerLink]="['../', 'liga', data?.category, data?.leagueId]" class="text-white flex flex-col gap-3 p-3 duration-300 cursor-pointer"
+    <div [routerLink]="['../', 'liga', data.category, data.leagueId]" class="text-white flex flex-col gap-3 p-3 duration-300 cursor-pointer"
       [ngClass]="{'bg-nightfall': !isHovered}"
-      [style.backgroundColor]="isHovered ? data?.color?.c1 : ''"
+      [style.backgroundColor]="isHovered ? data.color.c1 : ''"
       (mouseover)="isHovered = true"
       (mouseout)="isHovered = false"
     >
       <div class="flex flex-col gap-3 items-center">
-        <p class="text-2xl font-semibold">{{ data?.region }}</p>
-        <img [src]="data?.flag" alt="Flag" class="w-40">
+        <p class="text-2xl font-semibold">{{ data.region }}</p>
+        <img [src]="data.flag" alt="Flag" class="w-40">
       </div>
-      @for (team of data?.teams; track $index) {
+      @for (team of data.teams; track $index) {
         <div class="flex gap-1.5 sm:gap-3 p-3 duration-300"
           [ngClass]="{'bg-brightnight text-white': !isHovered}"
-          [style.backgroundColor]="isHovered ? data?.color?.c2 : ''"
+          [style.backgroundColor]="isHovered ? data.color.c2 : ''"
         >
           <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" alt="CPTeam-logo" class="w-12 h-12 sm:w-16 sm:h-16">
           <div class="w-0 flex flex-1 flex-col justify-center">
@@ -49,7 +49,7 @@ import { CommonModule } from '@angular/common';
   styles: ``
 })
 export class TeamCardCpComponent {
-  @Input() data?: TeamCardCp;
+  @Input() data!: TeamCardCp;
   isHovered: boolean = false;
   Trophy = faTrophy;
   Location = faLocationDot;
