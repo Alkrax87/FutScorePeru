@@ -14,12 +14,12 @@ import { faCalendarAlt, faShieldHalved, faTrophy } from '@fortawesome/free-solid
             <p class="text-white text-4xl font-bold">{{ data?.category }}<sup class="text-2xl">{{ data?.sup }}</sup> División</p>
           </div>
           <div class="text-white flex gap-4 mt-4">
-            <div class=" bg-nightfall w-1/2 place-items-center p-5">
+            <div class=" bg-nightfall flex flex-col items-center w-1/2 p-5">
               <fa-icon [icon]="Calendar" class="text-3xl"></fa-icon>
               <p class="text-xl font-semibold">{{ data?.season }}</p>
               <p class="text-neutral-400">Temporada</p>
             </div>
-            <div class=" bg-nightfall w-1/2 place-items-center p-5">
+            <div class=" bg-nightfall flex flex-col items-center w-1/2 p-5">
               <fa-icon [icon]="Shield" class="text-3xl"></fa-icon>
               <p class="text-xl font-semibold">{{ data?.teams }}</p>
               <p class="text-neutral-400">Equipos</p>
