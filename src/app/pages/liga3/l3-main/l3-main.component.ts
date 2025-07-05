@@ -11,17 +11,17 @@ import { FetchLastGamesService } from '../../../services/fetch-last-games.servic
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
-import { TopNavItemsComponent } from '../../../components/top-nav-teams/top-nav-items.component';
+import { EntityNavBarComponent } from '../../../components/entity-nav-bar/entity-nav-bar.component';
 import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faRankingStar } from "@fortawesome/free-solid-svg-icons";
-import { ItemNav } from '../../../interfaces/ui-models/item-nav';
+import { EntityNav } from '../../../interfaces/ui-models/entity-nav';
 
 @Component({
   selector: 'app-l3-main',
-  imports: [TopNavItemsComponent, OptionsNavComponent, RouterOutlet],
+  imports: [EntityNavBarComponent, OptionsNavComponent, RouterOutlet],
   template: `
-    <app-top-nav-items [items]="dataTeamsNav"></app-top-nav-items>
-    <app-options-nav [options]="navOptions" [division]="'Liga 3'"></app-options-nav>
+    <app-entity-nav-bar [entities]="navEntities"></app-entity-nav-bar>
+    <app-options-nav [routes]="navRoutes" [division]="'Liga 3'"></app-options-nav>
     <router-outlet></router-outlet>
   `,
   styles: ``,
@@ -41,8 +41,8 @@ export class L3MainComponent {
   ) {}
 
   private teamSubscription: Subscription | null = null;
-  dataTeamsNav: ItemNav[] = [];
-  navOptions = [
+  navEntities: EntityNav[] = [];
+  navRoutes = [
     { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
@@ -61,7 +61,7 @@ export class L3MainComponent {
     this.stadiumsService.fetchStadiums();
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
       next: (data) => {
-        this.dataTeamsNav = this.uiDataMapperService.teamsNavMapper(data);
+        this.navEntities = this.uiDataMapperService.teamsNavMapper(data);
       }
     });
   }

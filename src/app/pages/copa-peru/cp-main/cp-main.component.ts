@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TopNavItemsComponent } from '../../../components/top-nav-teams/top-nav-items.component';
-import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
-import { faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
-import { ItemNav } from '../../../interfaces/ui-models/item-nav';
+import { FetchLeaguesService } from '../../../services/fetch-leagues.service';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
-import { FetchLeaguesService } from '../../../services/fetch-leagues.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
+import { EntityNavBarComponent } from '../../../components/entity-nav-bar/entity-nav-bar.component';
+import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
+import { faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
+import { EntityNav } from '../../../interfaces/ui-models/entity-nav';
 
 @Component({
   selector: 'app-cp-main',
-  imports: [OptionsNavComponent, RouterOutlet, TopNavItemsComponent],
+  imports: [EntityNavBarComponent, OptionsNavComponent, RouterOutlet],
   template: `
-    <app-top-nav-items [items]="dataTeamsNav"></app-top-nav-items>
-    <app-options-nav [options]="navOptions" [division]="'Copa Perú'"></app-options-nav>
+    <app-entity-nav-bar [entities]="navEntities" [leaguesBar]="true"></app-entity-nav-bar>
+    <app-options-nav [routes]="navRoutes" [division]="'Copa Perú'"></app-options-nav>
     <router-outlet></router-outlet>
   `,
   styles: ``,
@@ -29,8 +29,8 @@ export class CpMainComponent {
   ) {}
 
   private leaguesSubscription: Subscription | null = null;
-  dataTeamsNav: ItemNav[] = [];
-  navOptions = [
+  navEntities: EntityNav[] = [];
+  navRoutes = [
     { name: 'Ligas', route: 'equipos', icon: faFlag },
     { name: 'Brackets', route: 'brackets', icon: faSitemap },
   ];
@@ -41,7 +41,7 @@ export class CpMainComponent {
     this.mapService.fetchMapCP();
     this.leaguesSubscription = this.leaguesService.dataLeagues$.subscribe({
       next: (data) => {
-        this.dataTeamsNav = this.uiDataMapper.leagueNavMapper(data);
+        this.navEntities = this.uiDataMapper.leagueNavMapper(data);
       }
     });
   }
