@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ItemNav } from '../interfaces/ui-models/item-nav';
+import { entityNav } from '../interfaces/ui-models/entity-nav';
 import { TeamMap } from '../interfaces/ui-models/team-map';
 import { TeamCard } from '../interfaces/ui-models/team-card';
 import { TeamTable } from '../interfaces/ui-models/team-table';
@@ -19,7 +19,7 @@ import { TeamCardCp } from '../interfaces/ui-models/team-card-cp';
 export class UiDataMapperService {
   constructor() {}
 
-  teamsNavMapper(dataTeams: TeamData[]): ItemNav[] {
+  teamsNavMapper(dataTeams: TeamData[]): entityNav[] {
     const newData = [];
 
     for (const team of dataTeams) {
@@ -154,7 +154,7 @@ export class UiDataMapperService {
     });
   }
 
-  leagueNavMapper(dataLeagues: LeagueData[]): ItemNav[] {
+  leagueNavMapper(dataLeagues: LeagueData[]): entityNav[] {
     const newData = [];
 
     for (const league of dataLeagues) {

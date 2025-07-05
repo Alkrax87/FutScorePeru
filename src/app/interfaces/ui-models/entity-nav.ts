@@ -1,4 +1,4 @@
-export interface entityNav {
+export interface EntityNav {
   category: number;
   teamId?: string;
   leagueId?: string;
