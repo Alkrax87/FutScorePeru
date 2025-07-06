@@ -4,7 +4,7 @@ import { FetchTeamDataService } from '../../../services/fetch-team-data.service'
 import { FetchMapService } from '../../../services/fetch-map.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
-import { DivisionInfoComponent } from "../../../components/division-info/division-info.component";
+import { DivisionOverviewComponent } from "../../../components/division-overview/division-overview.component";
 import { MapComponent } from '../../../components/map/map.component';
 import { TitleComponent } from "../../../components/title/title.component";
 import { CityCardComponent } from "../../../components/city-card/city-card.component";
@@ -19,7 +19,7 @@ import { LeagueProgressCardComponent } from "../../../components/league-progress
 
 @Component({
   selector: 'app-l3-home',
-  imports: [MapComponent, DivisionInfoComponent, TitleComponent, CityCardComponent, FontAwesomeModule, LeagueSummaryCardComponent, LeagueProgressCardComponent],
+  imports: [MapComponent, DivisionOverviewComponent, TitleComponent, CityCardComponent, FontAwesomeModule, LeagueSummaryCardComponent, LeagueProgressCardComponent],
   templateUrl: './l3-home.component.html',
   styles: ``,
 })
