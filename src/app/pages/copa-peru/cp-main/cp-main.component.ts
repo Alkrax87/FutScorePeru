@@ -6,16 +6,16 @@ import { FetchMapService } from '../../../services/fetch-map.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
 import { EntityNavBarComponent } from '../../../components/entity-nav-bar/entity-nav-bar.component';
-import { OptionsNavComponent } from '../../../components/options-nav/options-nav.component';
+import { SectionSubnavComponent } from '../../../components/section-subnav/section-subnav.component';
 import { faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { EntityNav } from '../../../interfaces/ui-models/entity-nav';
 
 @Component({
   selector: 'app-cp-main',
-  imports: [EntityNavBarComponent, OptionsNavComponent, RouterOutlet],
+  imports: [EntityNavBarComponent, SectionSubnavComponent, RouterOutlet],
   template: `
     <app-entity-nav-bar [entities]="navEntities" [leaguesBar]="true"></app-entity-nav-bar>
-    <app-options-nav [routes]="navRoutes" [division]="'Copa Perú'"></app-options-nav>
+    <app-section-subnav [routes]="navRoutes" [division]="'Copa Perú'"></app-section-subnav>
     <router-outlet></router-outlet>
   `,
   styles: ``,
