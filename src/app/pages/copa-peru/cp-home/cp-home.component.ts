@@ -5,9 +5,8 @@ import { FetchMapService } from '../../../services/fetch-map.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { DivisionOverviewComponent } from "../../../components/division-overview/division-overview.component";
-import { MapComponent } from "../../../components/map/map.component";
+import { DivisionMapComponent } from "../../../components/division-map/division-map.component";
 import { TitleComponent } from "../../../components/title/title.component";
-import { CityCardComponent } from "../../../components/city-card/city-card.component";
 import { LeagueSummaryCardComponent } from "../../../components/league-summary-card/league-summary-card.component";
 import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
@@ -18,7 +17,7 @@ import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cp-home',
-  imports: [DivisionOverviewComponent, CityCardComponent, FontAwesomeModule, MapComponent, TitleComponent, LeagueSummaryCardComponent],
+  imports: [DivisionOverviewComponent, FontAwesomeModule, TitleComponent, LeagueSummaryCardComponent, DivisionMapComponent],
   templateUrl: './cp-home.component.html',
   styles: ``,
 })
