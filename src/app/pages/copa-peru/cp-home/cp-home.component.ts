@@ -6,18 +6,15 @@ import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { DivisionOverviewComponent } from "../../../components/division-overview/division-overview.component";
 import { DivisionMapComponent } from "../../../components/division-map/division-map.component";
-import { TitleComponent } from "../../../components/title/title.component";
-import { LeagueSummaryCardComponent } from "../../../components/league-summary-card/league-summary-card.component";
+import { DivisionSummaryComponent } from "../../../components/division-summary/division-summary.component";
 import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
-import { LeagueSummaryCard } from '../../../interfaces/ui-models/league-summary-card';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
+import { DivisionSummary } from '../../../interfaces/ui-models/division-summary';
 
 @Component({
   selector: 'app-cp-home',
-  imports: [DivisionOverviewComponent, FontAwesomeModule, TitleComponent, LeagueSummaryCardComponent, DivisionMapComponent],
+  imports: [DivisionOverviewComponent, DivisionMapComponent, DivisionSummaryComponent],
   templateUrl: './cp-home.component.html',
   styles: ``,
 })
@@ -61,15 +58,14 @@ export class CpHomeComponent {
     { name: 'Tumbes', teams: 2 },
     { name: 'Ucayali', teams: 2 },
   ];
-  Shield = faShieldHalved;
-  summaryData: LeagueSummaryCard = {
-      teams: '+10k',
-      stages: {
-        total: 6,
-        description: 'Distrital, Provincial, Departamental y Nacional',
-      },
-      objective: 'Ascenso Liga 2 y Liga 3',
-    }
+  summaryData: DivisionSummary = {
+    teams: '+10k',
+    stages: {
+      total: 4,
+      description: 'Distrital, Provincial, Departamental y Nacional',
+    },
+    objective: 'Ascenso Liga 2 y Liga 3',
+  }
 
   ngOnInit() {
     combineLatest([

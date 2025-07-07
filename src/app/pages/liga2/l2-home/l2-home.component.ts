@@ -6,19 +6,15 @@ import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest, Subject, takeUntil } from 'rxjs';
 import { DivisionOverviewComponent } from "../../../components/division-overview/division-overview.component";
 import { DivisionMapComponent } from "../../../components/division-map/division-map.component";
-import { TitleComponent } from "../../../components/title/title.component";
-import { LeagueSummaryCardComponent } from "../../../components/league-summary-card/league-summary-card.component";
+import { DivisionSummaryComponent } from "../../../components/division-summary/division-summary.component";
 import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
-import { LeagueSummaryCard } from '../../../interfaces/ui-models/league-summary-card';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
-import { LeagueProgressCardComponent } from "../../../components/league-progress-card/league-progress-card.component";
+import { DivisionSummary } from '../../../interfaces/ui-models/division-summary';
 
 @Component({
   selector: 'app-l2-home',
-  imports: [DivisionOverviewComponent, TitleComponent, FontAwesomeModule, LeagueSummaryCardComponent, LeagueProgressCardComponent, DivisionMapComponent],
+  imports: [DivisionOverviewComponent, DivisionMapComponent, DivisionSummaryComponent],
   templateUrl: './l2-home.component.html',
   styles: ``,
 })
@@ -48,14 +44,13 @@ export class L2HomeComponent {
     { name: 'San Martín', teams: 1 },
     { name: 'Tacna', teams: 1 },
   ];
-  Shield = faShieldHalved;
-  summaryData: LeagueSummaryCard = {
+  summaryData: DivisionSummary = {
     teams: '15',
     stages: {
       total: 3,
       description: 'Fase Regional, Fase Grupos y PlayOffs',
     },
-    objective: 'Ascenso a la Liga 1',
+    objective: 'Ascenso a Liga 1',
   }
 
   ngOnInit() {
