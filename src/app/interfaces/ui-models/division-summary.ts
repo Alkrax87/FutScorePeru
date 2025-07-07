@@ -1,4 +1,4 @@
-export interface LeagueSummaryCard {
+export interface DivisionSummary {
   teams: string;
   stages: {
     total: number;
