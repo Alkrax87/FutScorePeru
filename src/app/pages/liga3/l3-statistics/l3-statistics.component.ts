@@ -114,15 +114,15 @@ export class L3StatisticsComponent {
     });
 
     if (this.dataTeams && this.dataStatistics) {
-      this.dataBestDefense = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.bestDefense, 'gc');
-      this.dataWorstDefense = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.worstDefense, 'gc');
+      this.dataBestDefense = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.bestDefense, 'ga');
+      this.dataWorstDefense = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.worstDefense, 'ga');
       this.dataMostGoals = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostGoals, 'gf');
       this.dataFewestGoals = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.fewestGoals, 'gf');
-      this.dataMostWins = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostWins, 'pg');
-      this.dataMostDraws = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostDraws, 'pe');
-      this.dataMostLosses = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostLosses, 'pp');
-      this.dataBestGoalDifference = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.bestGoalDifference, 'dg');
-      this.dataWorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.worstGoalDifference, 'dg');
+      this.dataMostWins = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostWins, 'w');
+      this.dataMostDraws = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostDraws, 'd');
+      this.dataMostLosses = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.mostLosses, 'l');
+      this.dataBestGoalDifference = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.bestGoalDifference, 'gd');
+      this.dataWorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(this.dataTeams, this.dataStatistics.worstGoalDifference, 'gd');
     }
   }
 
