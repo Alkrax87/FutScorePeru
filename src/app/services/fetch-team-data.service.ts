@@ -30,7 +30,7 @@ export class FetchTeamDataService {
       return;
     }
 
-    this.http.get<TeamData[]>(this.backendUrl + '/teams/1').subscribe({
+    this.http.get<TeamData[]>(this.backendUrl + '/teams/category/1').subscribe({
       next: (response) => {
         this.cachedTeamsL1 = response;
         this.teamsL1Subject.next(response);
@@ -45,7 +45,7 @@ export class FetchTeamDataService {
       return;
     }
 
-    this.http.get<TeamData[]>(this.backendUrl + '/teams/2').subscribe({
+    this.http.get<TeamData[]>(this.backendUrl + '/teams/category/2').subscribe({
       next: (response) => {
         this.cachedTeamsL2 = response;
         this.teamsL2Subject.next(response);
@@ -60,7 +60,7 @@ export class FetchTeamDataService {
       return;
     }
 
-    this.http.get<TeamData[]>(this.backendUrl + '/teams/3').subscribe({
+    this.http.get<TeamData[]>(this.backendUrl + '/teams/category/3').subscribe({
       next: (response) => {
         this.cachedTeamsL3 = response;
         this.teamsL3Subject.next(response);
