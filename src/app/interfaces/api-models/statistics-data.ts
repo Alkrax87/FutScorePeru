@@ -1,11 +1,11 @@
 export interface StatisticsData {
-  bestDefense: { teamId: string; gc: number }[];
-  worstDefense: { teamId: string; gc: number }[];
+  bestDefense: { teamId: string; ga: number }[];
+  worstDefense: { teamId: string; ga: number }[];
   mostGoals: { teamId: string; gf: number }[];
   fewestGoals: { teamId: string; gf: number }[];
-  mostWins: { teamId: string; pg: number }[];
-  mostDraws: { teamId: string; pe: number }[];
-  mostLosses: { teamId: string; pp: number }[];
-  bestGoalDifference: { teamId: string; dg: number }[];
-  worstGoalDifference: { teamId: string; dg: number }[];
+  mostWins: { teamId: string; w: number }[];
+  mostDraws: { teamId: string; d: number }[];
+  mostLosses: { teamId: string; l: number }[];
+  bestGoalDifference: { teamId: string; gd: number }[];
+  worstGoalDifference: { teamId: string; gd: number }[];
 }

@@ -8,12 +8,12 @@ export interface TeamTable {
   lastgames: string[];
   performance: {
     points: number;
-    pj: number;
-    pg: number;
-    pe: number;
-    pp: number;
+    played: number;
+    w: number;
+    d: number;
+    l: number;
     gf: number;
-    gc: number;
-    dg: number;
+    ga: number;
+    gd: number;
   };
 }
