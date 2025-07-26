@@ -107,7 +107,7 @@ export class UiDataMapperService {
     return newData.sort(
       (a, b) =>
         b.performance.points - a.performance.points ||
-        b.performance.dg - a.performance.dg ||
+        b.performance.gd - a.performance.gd ||
         b.performance.gf - a.performance.gf
     );
   }
