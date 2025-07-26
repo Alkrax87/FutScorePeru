@@ -53,13 +53,13 @@ import { RouterLink } from '@angular/router';
                     </div>
                   </td>
                   <td class="bg-brightnight text-gray-200 font-bold text-sm md:text-lg">{{ item.performance.points }}</td>
-                  <td class="text-sm md:text-lg">{{ item.performance.pj }}</td>
-                  <td class="text-sm md:text-lg">{{ item.performance.pg }}</td>
-                  <td class="text-sm md:text-lg">{{ item.performance.pe }}</td>
-                  <td class="text-sm md:text-lg">{{ item.performance.pp }}</td>
+                  <td class="text-sm md:text-lg">{{ item.performance.played }}</td>
+                  <td class="text-sm md:text-lg">{{ item.performance.w }}</td>
+                  <td class="text-sm md:text-lg">{{ item.performance.d }}</td>
+                  <td class="text-sm md:text-lg">{{ item.performance.l }}</td>
                   <td class="text-sm md:text-lg">{{ item.performance.gf }}</td>
-                  <td class="text-sm md:text-lg">{{ item.performance.gc }}</td>
-                  <td class="text-sm md:text-lg">{{ item.performance.dg > 0 ? "+" + item.performance.dg : item.performance.dg }}</td>
+                  <td class="text-sm md:text-lg">{{ item.performance.ga }}</td>
+                  <td class="text-sm md:text-lg">{{ item.performance.gd > 0 ? "+" + item.performance.gd : item.performance.gd }}</td>
                   <td class="flex justify-center items-center h-9 md:h-12 gap-2 md:text-xl">
                     @for (lastGame of item.lastgames; track $index) {
                       @switch (lastGame) {
