@@ -30,7 +30,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsData[]>(this.backendUrl + '/results/1').subscribe({
+    this.http.get<ResultsData[]>(this.backendUrl + '/results/category/1').subscribe({
       next: (response) => {
         this.cachedResultsL1 = response;
         this.resultsL1Subject.next(response);
@@ -45,7 +45,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsData[]>(this.backendUrl + '/results/2').subscribe({
+    this.http.get<ResultsData[]>(this.backendUrl + '/results/category/2').subscribe({
       next: (response) => {
         this.cachedResultsL2 = response;
         this.resultsL2Subject.next(response);
@@ -60,7 +60,7 @@ export class FetchResultsService {
       return;
     }
 
-    this.http.get<ResultsData[]>(this.backendUrl + '/results/3').subscribe({
+    this.http.get<ResultsData[]>(this.backendUrl + '/results/category/3').subscribe({
       next: (response) => {
         this.cachedResultsL3 = response;
         this.resultsL3Subject.next(response);
