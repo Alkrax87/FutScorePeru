@@ -19,7 +19,7 @@ import { TeamCard } from '../../../interfaces/ui-models/team-card';
         <div class="flex justify-center">
           <div class="w-full lg:w-11/12 xl:w-10/12 grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 duration-500">
             @for (item of dataTeamsCard; track $index) {
-              <app-team-card class="truncate" [data]="item"></app-team-card>
+              <app-team-card [data]="item"></app-team-card>
             }
           </div>
         </div>
