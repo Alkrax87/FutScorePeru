@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
+import { CityCardComponent } from "../city-card/city-card.component";
+import { MapComponent } from "../map/map.component";
 import { MapElement } from '../../interfaces/api-models/map-element';
 import { TeamMap } from '../../interfaces/ui-models/team-map';
-import { CityCardComponent } from "../city-card/city-card.component";
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faShield } from '@fortawesome/free-solid-svg-icons';
-import { MapComponent } from "../map/map.component";
 
 @Component({
   selector: 'app-division-map',
@@ -43,5 +43,5 @@ export class DivisionMapComponent {
   @Input() regions!: { name: string; teams: number }[]
   @Input() mapConstructor!: MapElement[];
   @Input() dataMap!: TeamMap[];
-  Shield = faShield;
+  Shield = faShieldHalved;
 }
