@@ -180,24 +180,23 @@
                 <p class="text-gold text-sm font-semibold truncate">Puntos</p>
                 <p class="text-white text-6xl font-bold truncate">
                   {{
-                    teamData?.performance?.[activeLastGames].pg * 3 +
-                    teamData?.performance?.[activeLastGames].pe -
+                    teamData?.performance?.[activeLastGames].w * 3 + teamData?.performance?.[activeLastGames].d -
                     teamData?.performance?.[activeLastGames].sanction +
-                    teamData?.performance?.[activeLastGames].addition
+                    (teamData?.performance?.[activeLastGames].addition ?? 0)
                   }}
                 </p>
               </div>
               <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
                 <p class="text-gold text-sm font-semibold truncate">PG</p>
-                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].pg }}</p>
+                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].w }}</p>
               </div>
               <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
                 <p class="text-gold text-sm font-semibold truncate">PE</p>
-                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].pe }}</p>
+                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].d }}</p>
               </div>
               <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
                 <p class="text-gold text-sm font-semibold truncate">PP</p>
-                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].pp }}</p>
+                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].l }}</p>
               </div>
               <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
                 <p class="text-gold text-sm font-semibold truncate">GF</p>
@@ -205,7 +204,7 @@
               </div>
               <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
                 <p class="text-gold text-sm font-semibold truncate">GC</p>
-                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].gc }}</p>
+                <p class="text-white text-6xl font-bold truncate">{{ teamData?.performance?.[activeLastGames].ga }}</p>
               </div>
             </div>
             <!-- Fixture -->
