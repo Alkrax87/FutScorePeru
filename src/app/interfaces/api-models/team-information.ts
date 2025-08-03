@@ -32,47 +32,47 @@ export interface TeamInformation {
   },
   performance: {
     apertura?: {
-      pg: number;
-      pe: number;
-      pp: number;
+      w: number;
+      d: number;
+      l: number;
       gf: number;
-      gc: number;
+      ga: number;
       sanction: number;
       addition: number;
     };
     clausura?: {
-      pg: number;
-      pe: number;
-      pp: number;
+      w: number;
+      d: number;
+      l: number;
       gf: number;
-      gc: number;
+      ga: number;
       sanction: number;
       addition: number;
     };
     regional?: {
-      pg: number;
-      pe: number;
-      pp: number;
+      w: number;
+      d: number;
+      l: number;
       gf: number;
-      gc: number;
+      ga: number;
       sanction: number;
       addition: number;
     };
     grupos?: {
-      pg: number;
-      pe: number;
-      pp: number;
+      w: number;
+      d: number;
+      l: number;
       gf: number;
-      gc: number;
+      ga: number;
       sanction: number;
       addition: number;
     };
     final?: {
-      pg: number;
-      pe: number;
-      pp: number;
+      w: number;
+      d: number;
+      l: number;
       gf: number;
-      gc: number;
+      ga: number;
       sanction: number;
       addition: number;
     };
