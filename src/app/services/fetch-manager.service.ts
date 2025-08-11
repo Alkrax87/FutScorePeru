@@ -27,7 +27,7 @@ export class FetchManagerService {
       return;
     }
 
-    this.http.get<ManagerData[]>(this.backendUrl + '/managers/1').subscribe({
+    this.http.get<ManagerData[]>(this.backendUrl + '/managers/category/1').subscribe({
       next: (response) => {
         this.cachedManagersL1 = response;
         this.managersL1Subject.next(response);
@@ -42,7 +42,7 @@ export class FetchManagerService {
       return;
     }
 
-    this.http.get<ManagerData[]>(this.backendUrl + '/managers/2').subscribe({
+    this.http.get<ManagerData[]>(this.backendUrl + '/managers/category/2').subscribe({
       next: (response) => {
         this.cachedManagersL2 = response;
         this.managersL2Subject.next(response);
