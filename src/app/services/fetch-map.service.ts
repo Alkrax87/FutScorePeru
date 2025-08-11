@@ -33,7 +33,7 @@ export class FetchMapService {
       return;
     }
 
-    this.http.get<MapElement[]>(this.backendUrl + '/map/1').subscribe({
+    this.http.get<MapElement[]>(this.backendUrl + '/map/category/1').subscribe({
       next: (response) => {
         this.cachedMapL1 = response;
         this.mapL1Subject.next(response);
@@ -48,7 +48,7 @@ export class FetchMapService {
       return;
     }
 
-    this.http.get<MapElement[]>(this.backendUrl + '/map/2').subscribe({
+    this.http.get<MapElement[]>(this.backendUrl + '/map/category/2').subscribe({
       next: (response) => {
         this.cachedMapL2 = response;
         this.mapL2Subject.next(response);
@@ -63,7 +63,7 @@ export class FetchMapService {
       return;
     }
 
-    this.http.get<MapElement[]>(this.backendUrl + '/map/3').subscribe({
+    this.http.get<MapElement[]>(this.backendUrl + '/map/category/3').subscribe({
       next: (response) => {
         this.cachedMapL3 = response;
         this.mapL3Subject.next(response);
@@ -78,7 +78,7 @@ export class FetchMapService {
       return;
     }
 
-    this.http.get<MapElement[]>(this.backendUrl + '/map/4').subscribe({
+    this.http.get<MapElement[]>(this.backendUrl + '/map/category/4').subscribe({
       next: (response) => {
         this.cachedMapCP = response;
         this.mapCPSubject.next(response);
