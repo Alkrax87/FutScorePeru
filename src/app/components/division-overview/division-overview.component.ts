@@ -13,7 +13,7 @@ import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons
         <div class="w-full sm:w-1/2 place-content-center">
           <div class="bg-crimson text-white w-full text-center image p-3 md:p-5 duration-500">
             <p class="text-white font-bold text-3xl md:text-4xl duration-500">
-              {{ data?.category }}<sup class="text-xl md:text-2xl duration-500">{{ data?.sup }}</sup> División
+              {{ data?.divisionId }}<sup class="text-xl md:text-2xl duration-500">{{ data?.sup }}</sup> División
             </p>
           </div>
           <div class="text-white flex gap-3 md:gap-4 mt-3 md:mt-4 duration-500">
