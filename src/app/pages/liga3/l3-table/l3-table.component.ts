@@ -162,9 +162,9 @@ export class L3TableComponent {
   ngOnInit() {
     this.divisionSubscription = this.divisionService.dataDivisionL3$.subscribe({
       next: (data) => {
-        this.regional = data ? data.stages[0].status : false;
-        this.final = data ? data.stages[1].status : false;
-        this.playOff = data ? data.stages[2].status : false;
+        this.regional = data ? data.firstPhase.status : false;
+        this.final = data ? data.secondPhase.status : false;
+        this.playOff = data ? data.thirdPhase.status : false;
       }
     });
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({

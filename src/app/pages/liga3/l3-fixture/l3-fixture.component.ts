@@ -143,10 +143,10 @@ export class L3FixtureComponent {
   ngOnInit() {
     this.divisionSubscription = this.divisionService.dataDivisionL3$.subscribe({
       next: (data) => {
-        this.regional = data ? data.stages[0].status : false;
-        this.final = data ? data.stages[1].status : false;
-        this.selectedRoundRegionalIndex = data ? data.stages[0].inGame - 1 : 0;
-        this.selectedRoundFinalIndex = data ? data.stages[1].inGame - 1 : 0;
+        this.regional = data ? data.firstPhase.status : false;
+        this.final = data ? data.secondPhase.status : false;
+        this.selectedRoundRegionalIndex = data ? data.firstPhase.inGame - 1 : 0;
+        this.selectedRoundFinalIndex = data ? data.secondPhase.inGame - 1 : 0;
       }
     });
     this.stadiumSubscription = this.stadiumService.dataStadiums$.subscribe({

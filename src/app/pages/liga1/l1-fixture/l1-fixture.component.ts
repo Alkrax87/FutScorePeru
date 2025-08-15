@@ -115,10 +115,10 @@ export class L1FixtureComponent {
   ngOnInit() {
     this.divisionSubscription = this.divisionService.dataDivisionL1$.subscribe({
       next: (data) => {
-        this.apertura = data ? data.stages[0].status : false;
-        this.clausura = data ? data.stages[1].status : false;
-        this.selectedRoundAperturaIndex = data ? data.stages[0].inGame - 1: 0;
-        this.selectedRoundClausuraIndex = data ? data.stages[1].inGame - 1: 0;
+        this.apertura = data ? data.firstPhase.status : false;
+        this.clausura = data ? data.secondPhase.status : false;
+        this.selectedRoundAperturaIndex = data ? data.firstPhase.inGame - 1: 0;
+        this.selectedRoundClausuraIndex = data ? data.secondPhase.inGame - 1: 0;
       }
     });
     this.stadiumSubscription = this.stadiumService.dataStadiums$.subscribe({

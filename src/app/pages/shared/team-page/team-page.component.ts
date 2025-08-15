@@ -80,8 +80,8 @@ export class TeamPageComponent {
         case 1:
           this.divisionSubscription = this.divisionService.dataDivisionL1$.subscribe({
             next: (data) => {
-              this.apertura = data ? data.stages[0].status : false;
-              this.clausura = data ? data.stages[1].status : false;
+              this.apertura = data ? data.firstPhase.status : false;
+              this.clausura = data ? data.secondPhase.status : false;
             }
           });
           this.teamSubscription = this.teamService.dataTeamsL1$.subscribe({
@@ -94,8 +94,8 @@ export class TeamPageComponent {
         case 2:
           this.divisionSubscription = this.divisionService.dataDivisionL2$.subscribe({
             next: (data) => {
-              this.regional = data ? data.stages[0].status : false;
-              this.grupos = data ? data.stages[1].status : false;
+              this.regional = data ? data.firstPhase.status : false;
+              this.grupos = data ? data.secondPhase.status : false;
             }
           });
           this.teamSubscription = this.teamService.dataTeamsL2$.subscribe({
@@ -108,8 +108,8 @@ export class TeamPageComponent {
         case 3:
           this.divisionSubscription = this.divisionService.dataDivisionL3$.subscribe({
             next: (data) => {
-              this.regional = data ? data.stages[0].status : false;
-              this.final = data ? data.stages[1].status : false;
+              this.regional = data ? data.firstPhase.status : false;
+              this.final = data ? data.secondPhase.status : false;
             }
           });
           this.teamSubscription = this.teamService.dataTeamsL3$.subscribe({

@@ -31,9 +31,9 @@ export class HomeComponent {
   Check = faCheck;
 
   ngOnInit() {
-    this.teamsService.fetchTeamsL1();
-    this.teamsService.fetchTeamsL2();
-    this.teamsService.fetchTeamsL3();
+    // this.teamsService.fetchTeamsL1();
+    // this.teamsService.fetchTeamsL2();
+    // this.teamsService.fetchTeamsL3();
     this.teamsSubscription = combineLatest([
       this.teamsService.dataTeamsL1$,
       this.teamsService.dataTeamsL2$,
