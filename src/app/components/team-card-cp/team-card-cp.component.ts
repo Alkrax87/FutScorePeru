@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
         >
           <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" alt="CPTeam-logo" class="w-12 h-12 sm:w-16 sm:h-16">
           <div class="w-0 flex flex-1 flex-col justify-center">
-            <p class="font-semibold truncate">{{ team.name }}</p>
+            <p class="font-semibold truncate">{{ team.name ? team.name : 'Por Definir' }}</p>
             <p class="text-neutral-300 text-xs">
               <fa-icon [icon]="Location"></fa-icon> {{ team.city ? team.city : 'Por Definir' }}
             </p>
