@@ -1,17 +1,26 @@
 export interface LeagueInformation {
-  title: string;
-  flag: string;
-  foundation: number;
+  image: string;
+  alt: string;
+  location: string;
   teams: {
     name: string;
+    abbreviation: string;
     image: string;
-  }[],
-  topWinner: { name: string; image: string; province: string; winner: number };
-  leagues: string[];
-  allTimeWinners: {
-    year: number;
-    name: string;
-    image?: string;
-    province: string;
   }[];
+  information: {
+    topWinner: {
+      name: string;
+      image: string;
+      province: string;
+      winner: number;
+    };
+    foundation: number;
+    leagues: string[];
+    allTimeWinners: {
+      year: number;
+      name: string;
+      image?: string;
+      province: string;
+    }[];
+  };
 }
