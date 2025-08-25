@@ -2,21 +2,21 @@
 <div class="w-full bg-crimson text-white py-10 px-5 md:px-16 image min-h-[312px] flex flex-col lg:flex-row gap-5 select-none">
   <!-- Left Side -->
   <div class="w-full lg:w-8/12 flex flex-col lg:flex-row items-center justify-center gap-4 md:gap-5">
-    <img [src]="data?.flag" class="w-64" alt="Flag">
+    <img [src]="leagueData?.image" class="w-64" [alt]="leagueData?.alt">
     <div class="w-full flex flex-col items-center lg:items-start">
       <div class="bg-gold w-fit px-5 py-0.5 skew-x-30">
         <p class="-skew-x-30 font-semibold">Liga Departamental</p>
       </div>
-      <p class="font-bold text-4xl md:text-5xl my-2">{{ data?.title }}</p>
+      <p class="font-bold text-4xl md:text-5xl my-2">{{ leagueData?.location }}</p>
       <div class="flex items-center gap-2">
-        <p><fa-icon [icon]="Flag"></fa-icon> &nbsp;Fundación: <span class="font-semibold">{{ data?.foundation }}</span></p>
+        <p><fa-icon [icon]="Flag"></fa-icon> &nbsp;Fundación: <span class="font-semibold">{{ leagueData?.information?.foundation }}</span></p>
       </div>
     </div>
   </div>
   <!-- Right Side -->
   <div class="w-full lg:w-4/12 flex items-center justify-center">
     <div class="w-full sm:w-4/5 md:w-2/3 lg:w-full flex flex-col gap-4">
-      @for (team of data?.teams; track $index) {
+      @for (team of leagueData?.teams; track $index) {
         <div class="bg-night flex gap-3 p-2 w-full">
           <div class="w-full flex min-w-0 gap-2">
             <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" class="w-10 h-10 min-h-10 min-w-10" alt="TEAM-logo">
@@ -45,23 +45,23 @@
       <div class="bg-gold w-fit px-5 py-0.5 skew-x-30">
         <p class="-skew-x-30 font-semibold text-sm sm:text-base">Más Ganador</p>
       </div>
-      <p class="text-4xl font-bold text-center sm:text-start">{{ data?.topWinner?.name }}</p>
+      <p class="text-4xl font-bold text-center sm:text-start">{{ leagueData?.information?.topWinner?.name }}</p>
       <div class="flex gap-2 items-center">
         <div class="flex items-center justify-center rounded-full w-8 h-8 bg-green-600 text-white">
           <fa-icon [icon]="Trophy"></fa-icon>
         </div>
-        <p class="font-semibold">{{ data?.topWinner?.winner }} titulos conquistados</p>
+        <p class="font-semibold">{{ leagueData?.information?.topWinner?.winner }} titulos conquistados</p>
       </div>
       <div class="flex gap-2 items-center">
         <div class="flex items-center justify-center rounded-full w-8 h-8 bg-red-600 text-white">
           <fa-icon [icon]="Location"></fa-icon>
         </div>
-        <p class="font-semibold">Provincia de {{ data?.topWinner?.province }}</p>
+        <p class="font-semibold">Provincia de {{ leagueData?.information?.topWinner?.province }}</p>
       </div>
     </div>
     <div class="w-full sm:w-fit place-items-center sm:place-items-end">
       <div class="bg-night flex items-center justify-center p-5 w-48 h-48 rounded-full">
-        <img [src]="data?.topWinner?.image ? data?.topWinner?.image : 'assets/images/pages/no-team.webp'" class="w-full" alt="TEAM-logo">
+        <img [src]="leagueData?.information?.topWinner?.image ? leagueData?.information?.topWinner?.image : 'assets/images/pages/no-team.webp'" class="w-full" alt="TEAM-logo">
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@
     <p class="text-dark dark:text-white duration-500 text-5xl font-bold text-center">Ligas <span class="text-crimson">Provinciales</span></p>
   </div>
   <div class="w-full lg:w-4/5 mx-auto grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
-    @for (league of data?.leagues; track $index) {
+    @for (league of leagueData?.information?.leagues; track $index) {
       <div class="bg-white dark:bg-brightnight duration-500 p-3 sm:p-5 shadow-md col-span-1 flex gap-2 place-items-center truncate">
         <div class="bg-crimson min-w-8 h-8 sm:min-w-10 sm:h-10 rounded-full flex items-center justify-center">
           <fa-icon [icon]="Location" class="text-white"></fa-icon>
@@ -97,7 +97,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (team of data?.allTimeWinners; track $index) {
+        @for (team of leagueData?.information?.allTimeWinners; track $index) {
           <tr class="h-8 hover:bg-gray-200 hover:text-night">
             <td class="text-center">{{ team.year }}</td>
             <td>

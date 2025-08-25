@@ -26,7 +26,7 @@ export class LeaguePageComponent {
 
   private destroy$ = new Subject<void>();
   leagueId: string = '';
-  data: LeagueInformation | null = null;
+  leagueData: LeagueInformation | null = null;
 
   ngOnInit() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
@@ -34,7 +34,7 @@ export class LeaguePageComponent {
 
       this.fetchInformation.fetchLeagueInformation(this.leagueId).subscribe({
         next: (response) => {
-          this.data = response;
+          this.leagueData = response;
         },
         error: () => {
           this.router.navigate(['/not-found']);
