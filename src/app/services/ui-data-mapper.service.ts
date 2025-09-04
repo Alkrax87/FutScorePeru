@@ -12,6 +12,7 @@ import { StadiumData } from '../interfaces/api-models/stadium-data';
 import { ManagerData } from '../interfaces/api-models/manager-data';
 import { LeagueData } from '../interfaces/api-models/league-data';
 import { TeamCardCp } from '../interfaces/ui-models/team-card-cp';
+import { TeamCPData } from '../interfaces/api-models/team-cp-data';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +45,22 @@ export class UiDataMapperService {
         imageThumbnail: team.imageThumbnail,
         alt: team.alt,
         location: team.location,
+      });
+    }
+
+    return newData;
+  }
+
+  teamCPMapMapper(dataTeams: TeamCPData[]): TeamMap[] {
+    const newData = [];
+
+    for (const teamCP of dataTeams) {
+      newData.push({
+        category: 4,
+        teamId: teamCP.teamId,
+        imageThumbnail: teamCP.image,
+        alt: teamCP.abbreviation + '-logo',
+        location: teamCP.location,
       });
     }
 
