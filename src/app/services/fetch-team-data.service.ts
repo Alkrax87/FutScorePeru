@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { TeamData } from '../interfaces/api-models/team-data';
+import { TeamCPData } from '../interfaces/api-models/team-cp-data';
 
 @Injectable({
   providedIn: 'root',
@@ -15,14 +16,17 @@ export class FetchTeamDataService {
   cachedTeamsL1: TeamData[] | null = null;
   cachedTeamsL2: TeamData[] | null = null;
   cachedTeamsL3: TeamData[] | null = null;
+  cachedTeamsCP: TeamCPData[] | null = null;
 
   private teamsL1Subject = new BehaviorSubject<TeamData[]>([]);
   private teamsL2Subject = new BehaviorSubject<TeamData[]>([]);
   private teamsL3Subject = new BehaviorSubject<TeamData[]>([]);
+  private teamsCPSubject = new BehaviorSubject<TeamCPData[]>([]);
 
   dataTeamsL1$ = this.teamsL1Subject.asObservable();
   dataTeamsL2$ = this.teamsL2Subject.asObservable();
   dataTeamsL3$ = this.teamsL3Subject.asObservable();
+  dataTeamsCP$ = this.teamsCPSubject.asObservable();
 
   fetchTeamsL1() {
     if (this.cachedTeamsL1) {
@@ -66,6 +70,20 @@ export class FetchTeamDataService {
         this.teamsL3Subject.next(response);
       },
       error: (error) => console.error('Failed to fetch (Liga3) teams ', error),
+    });
+  }
+
+  fetchTeamsCP() {
+    if (this.cachedTeamsCP) {
+      this.teamsCPSubject.next(this.cachedTeamsCP);
+      return;
+    }
+
+    this.http.get<TeamCPData[]>(this.backendUrl + '/teamsCP').subscribe({
+      next: (response) => {
+        this.cachedTeamsCP = response;
+        this.teamsCPSubject.next(response);
+      },
     });
   }
 }
