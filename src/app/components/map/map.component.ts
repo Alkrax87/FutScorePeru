@@ -27,7 +27,11 @@ import { RouterLink } from '@angular/router';
         <p class="text-white text-base text-center font-semibold">{{ region }}</p>
         <div class="flex flex-wrap justify-center">
           @for (item of toolTipData; track $index) {
-            <img [routerLink]="['../', 'club', item.category, item.teamId]" loading="lazy" class="w-8 md:w-10 cursor-pointer" [src]="item.imageThumbnail ? item.imageThumbnail : 'assets/images/pages/no-team.webp'" [alt]="item.alt">
+            @if (item.category === 4) {
+              <img loading="lazy" class="w-8 md:w-10" [src]="item.imageThumbnail ? item.imageThumbnail : 'assets/images/pages/no-team.webp'" [alt]="item.alt">
+            } @else {
+              <img [routerLink]="['../', 'club', item.category, item.teamId]" loading="lazy" class="w-8 md:w-10 cursor-pointer" [src]="item.imageThumbnail ? item.imageThumbnail : 'assets/images/pages/no-team.webp'" [alt]="item.alt">
+            }
           }
         </div>
       </div>
