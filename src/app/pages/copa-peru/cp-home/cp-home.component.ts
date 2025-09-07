@@ -70,12 +70,12 @@ export class CpHomeComponent {
   ngOnInit() {
     combineLatest([
       this.divisionService.dataDivisionCP$,
-      // this.teamsService.dataTeamsCP$,
+      this.teamsService.dataTeamsCP$,
       this.mapService.dataMapCP$,
-    ]).pipe(takeUntil(this.unsubscribe$)).subscribe(([division, map]) => {
+    ]).pipe(takeUntil(this.unsubscribe$)).subscribe(([division, teams, map]) => {
       this.dataDivision = division;
       this.mapConstructor = map;
-      // this.dataMap = this.uiDataMapperService.teamMapMapper(teams);
+      this.dataMap = this.uiDataMapperService.teamCPMapMapper(teams);
     })
   }
 

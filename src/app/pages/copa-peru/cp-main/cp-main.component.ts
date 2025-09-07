@@ -9,6 +9,7 @@ import { EntityNavBarComponent } from '../../../components/entity-nav-bar/entity
 import { SectionSubnavComponent } from '../../../components/section-subnav/section-subnav.component';
 import { faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { EntityNav } from '../../../interfaces/ui-models/entity-nav';
+import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 
 @Component({
   selector: 'app-cp-main',
@@ -22,6 +23,7 @@ import { EntityNav } from '../../../interfaces/ui-models/entity-nav';
 })
 export class CpMainComponent {
   constructor(
+    private teamsService: FetchTeamDataService,
     private leaguesService: FetchLeaguesService,
     private divisionService: FetchDivisionService,
     private mapService: FetchMapService,
@@ -36,6 +38,7 @@ export class CpMainComponent {
   ];
 
   ngOnInit() {
+    this.teamsService.fetchTeamsCP();
     this.leaguesService.fetchLeagues();
     this.divisionService.fetchDivisionCP();
     this.mapService.fetchMapCP();
