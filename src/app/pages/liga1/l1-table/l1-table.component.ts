@@ -146,23 +146,34 @@ export class L1TableComponent {
     });
 
     if (this.dataDivision && this.dataTeams && this.dataPerformance && this.dataLastGames) {
+      let activePhase = '';
+      if (this.dataDivision.firstPhase.status) {
+        activePhase = 'apertura';
+      } else if (this.dataDivision.secondPhase.status) {
+        activePhase = 'clausura';
+      }
+
       this.dataApertura = this.uiDataMapperService.teamsTableMapper(
         this.dataTeams,
         this.dataPerformance,
         this.dataLastGames,
-        'apertura'
+        'apertura',
+        undefined,
       );
       this.dataClausura = this.uiDataMapperService.teamsTableMapper(
         this.dataTeams,
         this.dataPerformance,
         this.dataLastGames,
-        'clausura'
+        'clausura',
+        undefined,
       );
       this.dataAcumulado = this.uiDataMapperService.teamsTableMapper(
         this.dataTeams,
         this.dataPerformance,
         this.dataLastGames,
-        'acumulado'
+        'acumulado',
+        undefined,
+        activePhase,
       );
     }
   }
