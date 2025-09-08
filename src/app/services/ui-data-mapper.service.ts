@@ -94,13 +94,21 @@ export class UiDataMapperService {
     return newData;
   }
 
-  teamsTableMapper(dataTeams: TeamData[], dataPerformance: PerformanceData[], dataLastGames: LastGamesData[], stageKey: string, teamGroup?: string): TeamTable[] {
+  teamsTableMapper(dataTeams: TeamData[], dataPerformance: PerformanceData[], dataLastGames: LastGamesData[], phaseKey: string, teamGroup?: string, activePhase?: string): TeamTable[] {
     const newData: TeamTable[] = [];
+    let phaseLastGames = phaseKey;
+
+    if (activePhase !== undefined && activePhase !== null && activePhase !== '') {
+      phaseLastGames = activePhase;
+    }
+
+    console.log(phaseLastGames);
+
     const performanceMap = new Map(
-      dataPerformance.map((performance) => [performance.teamId, performance[stageKey as keyof PerformanceData]])
+      dataPerformance.map((performance) => [performance.teamId, performance[phaseKey as keyof PerformanceData]])
     );
     const lastGamesMap = new Map(
-      dataLastGames.map((lastGames) => [lastGames.teamId, lastGames[stageKey as keyof LastGamesData]]),
+      dataLastGames.map((lastGames) => [lastGames.teamId, lastGames[phaseLastGames as keyof LastGamesData]]),
     );
 
     for (const team of dataTeams) {
