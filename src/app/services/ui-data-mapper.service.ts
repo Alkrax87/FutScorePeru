@@ -102,8 +102,6 @@ export class UiDataMapperService {
       phaseLastGames = activePhase;
     }
 
-    console.log(phaseLastGames);
-
     const performanceMap = new Map(
       dataPerformance.map((performance) => [performance.teamId, performance[phaseKey as keyof PerformanceData]])
     );
