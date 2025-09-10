@@ -1,8 +1,9 @@
 export interface MatchCard {
-  keyIndex: string;
+  matchKey: string;
   teams: {
     name: string;
     image: string;
+    Location: string;
     results: {
       firstLegScore: number | null;
       secondLegScore: number | null;
