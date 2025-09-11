@@ -15,17 +15,14 @@ export class FetchFixtureService {
   cachedFixtureL1: FixtureData | null = null;
   cachedFixtureL2: FixtureData | null = null;
   cachedFixtureL3: FixtureData | null = null;
-  cachedFixtureCP: FixtureData | null = null;
 
   private fixtureL1Subject = new BehaviorSubject<FixtureData | null>(null);
   private fixtureL2Subject = new BehaviorSubject<FixtureData | null>(null);
   private fixtureL3Subject = new BehaviorSubject<FixtureData | null>(null);
-  private fixtureCPSubject = new BehaviorSubject<FixtureData | null>(null);
 
   dataFixtureL1$ = this.fixtureL1Subject.asObservable();
   dataFixtureL2$ = this.fixtureL2Subject.asObservable();
   dataFixtureL3$ = this.fixtureL3Subject.asObservable();
-  dataFixtureCP$ = this.fixtureCPSubject.asObservable();
 
   fetchFixtureL1() {
     if (this.cachedFixtureL1) {
@@ -69,21 +66,6 @@ export class FetchFixtureService {
         this.fixtureL3Subject.next(response);
       },
       error: (error) => console.error('Failed to fetch (Liga3) fixture ', error),
-    });
-  }
-
-  fetchFixtureCP() {
-    if (this.cachedFixtureCP) {
-      this.fixtureCPSubject.next(this.cachedFixtureCP);
-      return;
-    }
-
-    this.http.get<FixtureData>(this.backendUrl + '/fixture/4').subscribe({
-      next: (response) => {
-        this.cachedFixtureCP = response;
-        this.fixtureCPSubject.next(response);
-      },
-      error: (error) => console.error('Failed to fetch (Copa-Perú) fixture ', error),
     });
   }
 }
