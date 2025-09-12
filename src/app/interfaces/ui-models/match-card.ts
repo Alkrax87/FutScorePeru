@@ -3,7 +3,7 @@ export interface MatchCard {
   teams: {
     name: string;
     image: string;
-    Location: string;
+    location: string;
     results: {
       firstLegScore: number | null;
       secondLegScore: number | null;
