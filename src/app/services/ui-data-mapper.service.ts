@@ -13,6 +13,8 @@ import { ManagerData } from '../interfaces/api-models/manager-data';
 import { LeagueData } from '../interfaces/api-models/league-data';
 import { TeamCardCp } from '../interfaces/ui-models/team-card-cp';
 import { TeamCPData } from '../interfaces/api-models/team-cp-data';
+import { MatchCard } from '../interfaces/ui-models/match-card';
+import { BracketData } from '../interfaces/api-models/bracket-data';
 
 @Injectable({
   providedIn: 'root',
@@ -212,6 +214,46 @@ export class UiDataMapperService {
         })),
       });
     }
+
+    return newData;
+  }
+
+  bracketCardMapper(dataTeams: TeamCPData[], bracketData: BracketData[]): MatchCard[] {
+    const newData: MatchCard[] = [];
+    const teamMap = new Map(
+      dataTeams.map((team) => [team.teamId, team])
+    );
+
+    bracketData.forEach(bracket => {
+      const team1 = teamMap.get(bracket.teamA.teamId);
+      const team2 = teamMap.get(bracket.teamB.teamId);
+
+      newData.push({
+        matchKey: bracket.matchKey,
+        teams: [
+          {
+            name: team1?.name ? team1?.name : '',
+            image: team1?.image ? team1?.image : '',
+            location: team1?.location ? team1?.location : '',
+            results: {
+              firstLegScore: bracket.teamA.results.firstLegScore,
+              secondLegScore: bracket.teamA.results.secondLegScore,
+              penalties: bracket.teamA.results.penalties,
+            }
+          },
+          {
+            name: team2?.name ? team2?.name : '',
+            image: team2?.image ? team2?.image : '',
+            location: team2?.location ? team2?.location : '',
+            results: {
+              firstLegScore: bracket.teamB.results.firstLegScore,
+              secondLegScore: bracket.teamB.results.secondLegScore,
+              penalties: bracket.teamB.results.penalties,
+            }
+          }
+        ]
+      });
+    });
 
     return newData;
   }
