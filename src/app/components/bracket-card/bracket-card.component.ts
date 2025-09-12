@@ -8,7 +8,7 @@ import { faBullseye, faTrophy } from '@fortawesome/free-solid-svg-icons';
   imports: [FontAwesomeModule],
   template: `
     <div class="bg-night w-full flex justify-center ">
-      <div class="bg-nightfall text-white w-full p-3 sm:p-5 select-none">
+      <div class="bg-nightfall text-white w-full py-3 px-4 select-none">
         <div class="w-fit">
           <p class="text-base sm:text-xl font-semibold">{{ bracket.matchKey }}</p>
           <div class="bg-crimson h-1 w-full skew-x-50"></div>
@@ -19,20 +19,20 @@ import { faBullseye, faTrophy } from '@fortawesome/free-solid-svg-icons';
               <tr>
                 <th class="text-start w-full">Equipos</th>
                 @if (dualMatch) {
-                  <th class="min-w-10 sm:min-w-16">Ida</th>
-                  <th class="min-w-10 sm:min-w-20">Vuelta</th>
+                  <th class="min-w-10 sm:min-w-8">Ida</th>
+                  <th class="min-w-10 sm:min-w-12">Vuelta</th>
                 }
-                <th class="bg-brightnight pt-2 rounded-t-lg min-w-16 sm:min-w-24">{{ dualMatch ? 'Global' : 'Resultado' }}</th>
+                <th class="bg-brightnight pt-2 rounded-t-lg min-w-16 sm:min-w-20">{{ dualMatch ? 'Global' : 'Resultado' }}</th>
               </tr>
             </thead>
             <tbody class="text-gray-200 font-semibold text-xs sm:text-base">
               @for (team of bracket.teams; track $index) {
                 <tr>
-                  <td class="flex items-center gap-1">
+                  <td class="flex text-start items-center gap-1">
                     <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" alt="Team{{$index}}Bracket-Logo" class="w-8 sm:w-10">
-                    <div>
-                      <p>{{ team.name ? team.name : 'Por Definir' }}</p>
-                      <p class="text-neutral-400 text-tiny sm:text-xs -mt-1">{{ team.Location ? '(' + team.Location + ')' : '' }}</p>
+                    <div class="truncate">
+                      <p class="truncate">{{ team.name ? team.name : 'Por Definir' }}</p>
+                      <p class="text-neutral-400 text-tiny sm:text-xs -mt-1">{{ team.location ? '(' + team.location + ')' : '' }}</p>
                     </div>
                   </td>
                   @if (dualMatch) {
