@@ -230,6 +230,7 @@ export class UiDataMapperService {
 
       newData.push({
         matchKey: bracket.matchKey,
+        nextKey: bracket.nextKey,
         teams: [
           {
             name: team1?.name ? team1?.name : '',
