@@ -1,5 +1,6 @@
 export interface BracketData {
   matchKey: string;
+  nextKey: string;
   teamA: {
     teamId: string;
     results: {
