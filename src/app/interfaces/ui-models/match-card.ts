@@ -1,6 +1,6 @@
 export interface MatchCard {
   matchKey: string;
-  nextKey: string;
+  nextKey: string | null;
   teams: {
     name: string;
     image: string;
