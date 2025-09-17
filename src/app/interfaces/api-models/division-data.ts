@@ -9,23 +9,22 @@ export interface DivisionData {
     name: string;
     inGame: number;
     status: boolean;
-  },
+  };
   secondPhase: {
     name: string;
     inGame: number;
     status: boolean;
-  },
+  };
   thirdPhase: {
     name: string;
     status: boolean;
-  },
+  };
   brackets: {
-    bracket32: string;
-    bracket16: string;
-    bracket8: string;
-    bracket4: string;
-    bracket2: string;
-    bracket1: string;
-    bracketExtra: string;
-  }
+    bracket16: { name: string; status: boolean };
+    bracket8: { name: string; status: boolean };
+    bracket4: { name: string; status: boolean };
+    bracket2: { name: string; status: boolean };
+    bracket1: { name: string; status: boolean };
+    bracketExtra: { name: string; status: boolean };
+  };
 }
