@@ -41,7 +41,9 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
                   <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" alt="Team{{$index}}Bracket-Logo" class="w-8 sm:w-10 duration-500">
                   <div class="truncate">
                     <p class="truncate">{{ team.name ? team.name : 'Por Definir' }}</p>
-                    <p class="text-neutral-400 text-tiny sm:text-xs -mt-1 duration-500">{{ team.location ? '(' + team.location + ')' : '' }}</p>
+                    @if (team.location) {
+                      <p class="text-neutral-400 text-tiny sm:text-xs -mt-1 duration-500">{{ team.location }}</p>
+                    }
                   </div>
                 </td>
                 @if (dualMatch) {
