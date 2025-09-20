@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchLeaguesService } from '../../../services/fetch-leagues.service';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
@@ -9,7 +10,7 @@ import { EntityNavBarComponent } from '../../../components/entity-nav-bar/entity
 import { SectionSubnavComponent } from '../../../components/section-subnav/section-subnav.component';
 import { faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { EntityNav } from '../../../interfaces/ui-models/entity-nav';
-import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
+import { FetchBracketsService } from '../../../services/fetch-brackets.service';
 
 @Component({
   selector: 'app-cp-main',
@@ -26,6 +27,7 @@ export class CpMainComponent {
     private teamsService: FetchTeamDataService,
     private leaguesService: FetchLeaguesService,
     private divisionService: FetchDivisionService,
+    private bracketsService: FetchBracketsService,
     private mapService: FetchMapService,
     private uiDataMapper: UiDataMapperService
   ) {}
@@ -41,6 +43,7 @@ export class CpMainComponent {
     this.teamsService.fetchTeamsCP();
     this.leaguesService.fetchLeagues();
     this.divisionService.fetchDivisionCP();
+    this.bracketsService.fetchBracketsCP();
     this.mapService.fetchMapCP();
     this.leaguesSubscription = this.leaguesService.dataLeagues$.subscribe({
       next: (data) => {

@@ -8,6 +8,7 @@ import { FetchResultsService } from '../../../services/fetch-results.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
+import { FetchBracketsService } from '../../../services/fetch-brackets.service';
 import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
@@ -36,6 +37,7 @@ export class L3MainComponent {
     private statisticsService: FetchStatisticsService,
     private performanceService: FetchPerformanceService,
     private lastGamesService: FetchLastGamesService,
+    private bracketsService: FetchBracketsService,
     private stadiumsService: FetchStadiumService,
     private uiDataMapperService: UiDataMapperService
   ) {}
@@ -58,6 +60,7 @@ export class L3MainComponent {
     this.statisticsService.fetchStatisticsL3();
     this.performanceService.fetchPerformanceL3();
     this.lastGamesService.fetchLastGamesL3();
+    this.bracketsService.fetchBracketsL3();
     this.stadiumsService.fetchStadiums();
     this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
       next: (data) => {
