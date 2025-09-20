@@ -218,7 +218,7 @@ export class UiDataMapperService {
     return newData;
   }
 
-  bracketCardMapper(dataTeams: TeamCPData[], bracketData: BracketData[]): MatchCard[] {
+  bracketCardMapper(dataTeams: TeamCPData[] | TeamData[], bracketData: BracketData[]): MatchCard[] {
     const newData: MatchCard[] = [];
     const teamMap = new Map(
       dataTeams.map((team) => [team.teamId, team])
