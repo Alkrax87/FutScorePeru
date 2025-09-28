@@ -131,8 +131,12 @@ export class L2FixtureComponent {
   ngOnInit() {
     this.divisionSubscription = this.divisionService.dataDivisionL2$.subscribe({
       next: (data) => {
-        this.regional= data ? data.firstPhase.status : false;
-        this.grupos= data ? data.secondPhase.status : false;
+        if (data?.thirdPhase.status === true) {
+          this.grupos = true;
+        } else {
+          this.regional = data ? data.firstPhase.status : false;
+          this.grupos = data ? data.secondPhase.status : false;
+        }
         this.selectedRoundRegionalIndex = data ? data.firstPhase.inGame - 1: 0;
         this.selectedRoundGruposIndex = data ? data.secondPhase.inGame - 1: 0;
       }
