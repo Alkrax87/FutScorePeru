@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
-import { FetchDivisionService } from '../../../services/fetch-division.service';
-import { FetchMapService } from '../../../services/fetch-map.service';
-import { FetchFixtureService } from '../../../services/fetch-fixture.service';
-import { FetchResultsService } from '../../../services/fetch-results.service';
-import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
-import { FetchPerformanceService } from '../../../services/fetch-performance.service';
-import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
-import { FetchBracketsService } from '../../../services/fetch-brackets.service';
-import { FetchStadiumService } from '../../../services/fetch-stadium.service';
-import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
+import { FetchTeamDataService } from '../../services/fetch-team-data.service';
+import { FetchDivisionService } from '../../services/fetch-division.service';
+import { FetchMapService } from '../../services/fetch-map.service';
+import { FetchFixtureService } from '../../services/fetch-fixture.service';
+import { FetchResultsService } from '../../services/fetch-results.service';
+import { FetchStatisticsService } from '../../services/fetch-statistics.service';
+import { FetchPerformanceService } from '../../services/fetch-performance.service';
+import { FetchLastGamesService } from '../../services/fetch-last-games.service';
+import { FetchBracketsService } from '../../services/fetch-brackets.service';
+import { FetchStadiumService } from '../../services/fetch-stadium.service';
+import { UiDataMapperService } from '../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
-import { EntityNavBarComponent } from '../../../components/entity-nav-bar/entity-nav-bar.component';
-import { SectionSubnavComponent } from '../../../components/section-subnav/section-subnav.component';
+import { EntityNavBarComponent } from '../../components/entity-nav-bar/entity-nav-bar.component';
+import { SectionSubnavComponent } from '../../components/section-subnav/section-subnav.component';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faRankingStar } from "@fortawesome/free-solid-svg-icons";
-import { EntityNav } from '../../../interfaces/ui-models/entity-nav';
+import { EntityNav } from '../../interfaces/ui-models/entity-nav';
 
 @Component({
   selector: 'app-l3-main',

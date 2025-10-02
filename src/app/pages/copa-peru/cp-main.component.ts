@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
-import { FetchLeaguesService } from '../../../services/fetch-leagues.service';
-import { FetchDivisionService } from '../../../services/fetch-division.service';
-import { FetchMapService } from '../../../services/fetch-map.service';
-import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
+import { FetchTeamDataService } from '../../services/fetch-team-data.service';
+import { FetchLeaguesService } from '../../services/fetch-leagues.service';
+import { FetchDivisionService } from '../../services/fetch-division.service';
+import { FetchMapService } from '../../services/fetch-map.service';
+import { UiDataMapperService } from '../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
-import { EntityNavBarComponent } from '../../../components/entity-nav-bar/entity-nav-bar.component';
-import { SectionSubnavComponent } from '../../../components/section-subnav/section-subnav.component';
+import { EntityNavBarComponent } from '../../components/entity-nav-bar/entity-nav-bar.component';
+import { SectionSubnavComponent } from '../../components/section-subnav/section-subnav.component';
 import { faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
-import { EntityNav } from '../../../interfaces/ui-models/entity-nav';
-import { FetchBracketsService } from '../../../services/fetch-brackets.service';
+import { EntityNav } from '../../interfaces/ui-models/entity-nav';
+import { FetchBracketsService } from '../../services/fetch-brackets.service';
 
 @Component({
   selector: 'app-cp-main',
