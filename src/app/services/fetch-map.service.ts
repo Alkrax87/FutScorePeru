@@ -1,8 +1,8 @@
+import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { MapElement } from '../interfaces/api-models/map-element';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { MapElement } from '../interfaces/api-models/map-element';
 export class FetchMapService {
   private backendUrl = Environments.backendUrl;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   cachedMapL1: MapElement[] | null = null;
   cachedMapL2: MapElement[] | null = null;

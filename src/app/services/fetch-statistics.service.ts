@@ -1,8 +1,8 @@
+import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { StatisticsData } from '../interfaces/api-models/statistics-data';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { StatisticsData } from '../interfaces/api-models/statistics-data';
 export class FetchStatisticsService {
   private backendUrl = Environments.backendUrl;
 
-  constructor(private http:HttpClient) {}
+  private http = inject(HttpClient);
 
   cachedStatisticsL1: StatisticsData | null = null;
   cachedStatisticsL2: StatisticsData | null = null;

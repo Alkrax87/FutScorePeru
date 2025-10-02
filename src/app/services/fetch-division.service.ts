@@ -1,6 +1,6 @@
+import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { DivisionData } from '../interfaces/api-models/division-data';
 import { BehaviorSubject } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class FetchDivisionService {
   private backendUrl = Environments.backendUrl;
 
-  constructor(private http:HttpClient) {}
+  private http = inject(HttpClient);
 
   cachedDivisionL1: DivisionData | null = null;
   cachedDivisionL2: DivisionData | null = null;
@@ -33,12 +33,12 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.backendUrl + "/divisions/1").subscribe({
+    this.http.get<DivisionData>(this.backendUrl + '/divisions/1').subscribe({
       next: (response) => {
         this.cachedDivisionL1 = response;
         this.divisionL1Subject.next(response);
       },
-      error: (error) => console.error("Failed to fetch (Liga1) Division ", error),
+      error: (error) => console.error('Failed to fetch (Liga1) Division ', error),
     });
   }
 
@@ -48,12 +48,12 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.backendUrl + "/divisions/2").subscribe({
+    this.http.get<DivisionData>(this.backendUrl + '/divisions/2').subscribe({
       next: (response) => {
         this.cachedDivisionL2 = response;
         this.divisionL2Subject.next(response);
       },
-      error: (error) => console.error("Failed to fetch (Liga2) Division ", error),
+      error: (error) => console.error('Failed to fetch (Liga2) Division ', error),
     });
   }
 
@@ -63,12 +63,12 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.backendUrl + "/divisions/3").subscribe({
+    this.http.get<DivisionData>(this.backendUrl + '/divisions/3').subscribe({
       next: (response) => {
         this.cachedDivisionL3 = response;
         this.divisionL3Subject.next(response);
       },
-      error: (error) => console.error("Failed to fetch (Liga3) Division ", error),
+      error: (error) => console.error('Failed to fetch (Liga3) Division ', error),
     });
   }
 
@@ -78,12 +78,12 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.backendUrl + "/divisions/4").subscribe({
+    this.http.get<DivisionData>(this.backendUrl + '/divisions/4').subscribe({
       next: (response) => {
         this.cachedDivisionCP = response;
         this.divisionCPSubject.next(response);
       },
-      error: (error) => console.error("Failed to fetch (Copa Perú) Division ", error),
+      error: (error) => console.error('Failed to fetch (Copa Perú) Division ', error),
     });
   }
 }

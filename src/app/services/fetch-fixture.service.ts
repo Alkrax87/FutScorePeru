@@ -1,8 +1,8 @@
+import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { FixtureData } from '../interfaces/api-models/fixture-data';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { FixtureData } from '../interfaces/api-models/fixture-data';
 export class FetchFixtureService {
   private backendUrl = Environments.backendUrl;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   cachedFixtureL1: FixtureData | null = null;
   cachedFixtureL2: FixtureData | null = null;

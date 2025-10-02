@@ -1,8 +1,8 @@
+import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { LeagueData } from '../interfaces/api-models/league-data';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { LeagueData } from '../interfaces/api-models/league-data';
 export class FetchLeaguesService {
   private backendUrl = Environments.backendUrl;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   cachedLeagues: LeagueData[] | null = null;
 

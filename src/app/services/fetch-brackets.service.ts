@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { BracketsData } from '../interfaces/api-models/brackets-data';
@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 export class FetchBracketsService {
   private backendUrl = Environments.backendUrl;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   cachedBracketL1: BracketsData[] | null = null;
   cachedBracketL2: BracketsData[] | null = null;

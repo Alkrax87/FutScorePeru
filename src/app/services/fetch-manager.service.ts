@@ -1,8 +1,8 @@
+import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { ManagerData } from '../interfaces/api-models/manager-data';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { ManagerData } from '../interfaces/api-models/manager-data';
 export class FetchManagerService {
   private backendUrl = Environments.backendUrl;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   cachedManagersL1: ManagerData[] | null = null;
   cachedManagersL2: ManagerData[] | null = null;

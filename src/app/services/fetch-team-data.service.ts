@@ -1,9 +1,9 @@
+import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { TeamData } from '../interfaces/api-models/team-data';
 import { TeamCPData } from '../interfaces/api-models/team-cp-data';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ import { TeamCPData } from '../interfaces/api-models/team-cp-data';
 export class FetchTeamDataService {
   private backendUrl = Environments.backendUrl;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   cachedTeamsL1: TeamData[] | null = null;
   cachedTeamsL2: TeamData[] | null = null;

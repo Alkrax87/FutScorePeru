@@ -1,8 +1,8 @@
+import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { PerformanceData } from '../interfaces/api-models/performance-data';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { PerformanceData } from '../interfaces/api-models/performance-data';
 export class FetchPerformanceService {
   private backendUrl = Environments.backendUrl;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   cachedPerformanceL1: PerformanceData[] | null = null;
   cachedPerformanceL2: PerformanceData[] | null = null;

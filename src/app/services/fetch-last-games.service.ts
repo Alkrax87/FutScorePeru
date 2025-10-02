@@ -1,8 +1,8 @@
+import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { LastGamesData } from '../interfaces/api-models/last-games-data';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { LastGamesData } from '../interfaces/api-models/last-games-data';
 export class FetchLastGamesService {
   private backendUrl = Environments.backendUrl;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   cachedLastGamesL1: LastGamesData[] | null = null;
   cachedLastGamesL2: LastGamesData[] | null = null;
