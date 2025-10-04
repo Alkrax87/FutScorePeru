@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SectionSubnavComponent } from '../../../components/section-subnav/section-subnav.component';
+import { SectionSubnavComponent } from '../../components/section-subnav/section-subnav.component';
 import { faCircleInfo, faHouse, faShareNodes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
