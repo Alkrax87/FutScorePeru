@@ -10,7 +10,7 @@ export interface TeamCard {
   };
   stadium: {
     name: string;
-    capacity: string;
+    capacity: number;
     location: string;
   };
 }
