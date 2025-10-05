@@ -87,7 +87,7 @@ export class UiDataMapperService {
         color: team.color,
         stadium: {
           name: stadium?.name ?? 'Por Definir',
-          capacity: stadium?.capacity ?? '',
+          capacity: stadium?.capacity ?? 0,
           location: stadium?.location ?? '',
         },
       });
