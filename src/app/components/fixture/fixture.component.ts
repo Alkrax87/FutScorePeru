@@ -12,21 +12,21 @@ import { RouterLink } from '@angular/router';
       @for (item of data; track $index) {
         <div>
           <div class="flex justify-center">
-            <div class="relative flex-none border-r-[18px] border-t-[18px] border-r-transparent border-t-night bg-white"></div>
+            <div class="relative flex-none border-r-[16px] border-t-[16px] border-r-transparent border-t-night bg-white"></div>
             <div class="bg-white w-52 text-xs font-semibold text-center">
               <fa-icon [icon]="Location"></fa-icon>
               {{ item.stadium }}
             </div>
-            <div class="relative flex-none border-l-[18px] border-t-[18px] border-l-transparent border-t-night bg-white"></div>
+            <div class="relative flex-none border-l-[16px] border-t-[16px] border-l-transparent border-t-night bg-white"></div>
           </div>
-          <div class="bg-nightfall text-white flex justify-center gap-1 h-[50px]">
+          <div class="bg-nightfall text-white flex justify-center gap-1 h-12">
             <div class="w-full flex justify-end">
               <div class="cursor-pointer flex items-center" [routerLink]="['../', 'club', item.category, item.homeTeamId]">
-                <p>
+                <p class="text-sm font-semibold">
                   <span class="hidden sm:block">{{ item.homeTeamName }}</span>
                   <span class="block sm:hidden font-bold">{{ item.homeTeamAbbreviation }}</span>
                 </p>
-                <img [src]="item.homeTeamImageThumbnail" [alt]="item.homeTeamAlt" class="w-9 mx-2"/>
+                <img [src]="item.homeTeamImageThumbnail" [alt]="item.homeTeamAlt" class="w-9 mx-1"/>
               </div>
             </div>
             <div class="bg-brightnight flex justify-center items-center font-bold text-3xl min-w-11 max-w-11">
@@ -37,8 +37,8 @@ import { RouterLink } from '@angular/router';
             </div>
             <div class="w-full flex justify-start">
               <div class="cursor-pointer flex items-center" [routerLink]="['../', 'club', item.category, item.awayTeamId]">
-                <img [src]="item.awayTeamImageThumbnail" [alt]="item.awayTeamAlt" class="w-9 mx-2"/>
-                <p>
+                <img [src]="item.awayTeamImageThumbnail" [alt]="item.awayTeamAlt" class="w-9 mx-1"/>
+                <p class="text-sm font-semibold">
                   <span class="hidden sm:block">{{ item.awayTeamName }}</span>
                   <span class="block sm:hidden font-bold">{{ item.awayTeamAbbreviation }}</span>
                 </p>
