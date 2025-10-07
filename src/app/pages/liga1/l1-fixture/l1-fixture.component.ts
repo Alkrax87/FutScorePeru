@@ -7,9 +7,9 @@ import { FetchStadiumService } from '../../../services/fetch-stadium.service';
 import { FetchResultsService } from '../../../services/fetch-results.service';
 import { MatchesSetupService } from '../../../services/matches-setup.service';
 import { Subscription } from 'rxjs';
-import { TitleComponent } from "../../../components/title/title.component";
-import { BtnComponent } from "../../../components/btn/btn.component";
-import { FixtureComponent } from "../../../components/fixture/fixture.component";
+import { TitleComponent } from '../../../components/title/title.component';
+import { BtnComponent } from '../../../components/btn/btn.component';
+import { FixtureComponent } from '../../../components/fixture/fixture.component';
 import { TeamData } from '../../../interfaces/api-models/team-data';
 import { ResultsData } from '../../../interfaces/api-models/results-data';
 import { FixtureData } from '../../../interfaces/api-models/fixture-data';
@@ -20,9 +20,9 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
   imports: [TitleComponent, FixtureComponent, BtnComponent, CommonModule],
   template: `
     <app-title [title]="'Fixture'"></app-title>
-    <div class="bg-night p-5">
+    <div class="bg-night p-3 sm:p-5 duration-500 select-none">
       <div class="flex justify-center">
-        <div class="w-full md:w-5/6 lg:w-6/12 grid sm:grid-cols-1 md:grid-cols-2 md:space-x-6 px-8">
+        <div class="w-full md:w-5/6 lg:w-6/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-2 px-4 md:px-0">
           <app-btn (click)="setActiveTab('apertura')" [active]="apertura">Apertura</app-btn>
           <app-btn (click)="setActiveTab('clausura')" [active]="clausura">Clausura</app-btn>
         </div>
@@ -37,7 +37,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
                 @for (round of filteredDataForFixtureApertura; track $index) {
                   <button (click)="selectedRoundAperturaIndex = $index"
-                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none duration-300"
+                    class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-crimson outline-none duration-300"
                     [ngClass]="{'bg-crimson': selectedRoundAperturaIndex === $index}"
                   >
                     F{{ $index + 1 }}
@@ -60,7 +60,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
               <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
                 @for (round of filteredDataForFixtureClausura; track $index) {
                   <button (click)="selectedRoundClausuraIndex = $index"
-                    class="w-10 h-10 md:w-full max-w-16 text-sm bg-brightnight text-white hover:bg-crimson outline-none duration-300"
+                    class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-crimson outline-none duration-300"
                     [ngClass]="{'bg-crimson': selectedRoundClausuraIndex === $index}"
                   >
                     F{{ $index + 1 }}
@@ -117,21 +117,21 @@ export class L1FixtureComponent {
       next: (data) => {
         this.apertura = data ? data.firstPhase.status : false;
         this.clausura = data ? data.secondPhase.status : false;
-        this.selectedRoundAperturaIndex = data ? data.firstPhase.inGame - 1: 0;
-        this.selectedRoundClausuraIndex = data ? data.secondPhase.inGame - 1: 0;
-      }
+        this.selectedRoundAperturaIndex = data ? data.firstPhase.inGame - 1 : 0;
+        this.selectedRoundClausuraIndex = data ? data.secondPhase.inGame - 1 : 0;
+      },
     });
     this.stadiumSubscription = this.stadiumService.dataStadiums$.subscribe({
-      next: (data) => (this.dataStadium = data)
+      next: (data) => (this.dataStadium = data),
     });
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
-      next: (data) => (this.dataTeams = data)
+      next: (data) => (this.dataTeams = data),
     });
     this.fixtureSubscription = this.fixtureService.dataFixtureL1$.subscribe({
-      next: (data) => (this.dataFixture = data)
+      next: (data) => (this.dataFixture = data),
     });
     this.resultsSubscription = this.resultsService.dataResultsL1$.subscribe({
-      next: (data) => (this.dataResults = data)
+      next: (data) => (this.dataResults = data),
     });
     if (this.dataStadium && this.dataTeams && this.dataFixture && this.dataResults) {
       this.getFixtureData();
