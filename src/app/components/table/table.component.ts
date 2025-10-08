@@ -24,17 +24,17 @@ import { RouterLink } from '@angular/router';
                 } @else if ($index === 3) {
                   <th class="bg-brightnight rounded-t-lg min-w-14 md:min-w-16 duration-500">{{ header }}</th>
                 } @else if ($index === 11) {
-                  <th class="w-72 min-w-40">{{ header }}</th>
+                  <th class="w-72 min-w-32">{{ header }}</th>
                 } @else {
                   <th class="min-w-10 md:min-w-12 duration-500">{{ header }}</th>
                 }
               }
             </tr>
           </thead>
-          <tbody class="text-gray-200">
+          <tbody class="text-sm md:text-base duration-500">
             @if (data.length > 0) {
               @for (item of data; track $index) {
-                <tr [routerLink]="['../club', item.category, item.teamId]" class="h-9 md:h-11 cursor-pointer text-center hover:bg-gray-200 hover:text-night duration-500">
+                <tr [routerLink]="['../club', item.category, item.teamId]" class="group h-9 md:h-11 cursor-pointer text-center text-gray-200  hover:bg-gray-200 hover:text-night">
                   @if ($index >= 0 && $index < config[0].quantity) {
                     <td [ngClass]="config[0].class"></td>
                   } @else if ($index >= config[0].quantity && $index < (config[0].quantity + config[1].quantity)) {
@@ -44,23 +44,23 @@ import { RouterLink } from '@angular/router';
                   } @else {
                     <td></td>
                   }
-                  <td class="text-xs md:text-sm duration-500">{{ $index + 1 }}</td>
+                  <td class="text-xs md:text-sm">{{ $index + 1 }}</td>
                   <td>
-                    <div class="flex text-sm md:text-base duration-500">
+                    <div class="flex">
                       <img loading="lazy" [src]="item.imageThumbnail" [alt]="item.alt" class="w-7 md:w-8 duration-500"/>
                       <span class="hidden sm:block ml-2 truncate my-auto">{{ item.name }}</span>
                       <span class="sm:hidden ml-3 font-bold flex items-center text-center my-auto">{{ item.abbreviation }}</span>
                     </div>
                   </td>
-                  <td class="bg-brightnight text-gray-200 font-bold text-sm md:text-base duration-500">{{ item.performance.points }}</td>
-                  <td class="text-sm md:text-base duration-500">{{ item.performance.played }}</td>
-                  <td class="text-sm md:text-base duration-500">{{ item.performance.w }}</td>
-                  <td class="text-sm md:text-base duration-500">{{ item.performance.d }}</td>
-                  <td class="text-sm md:text-base duration-500">{{ item.performance.l }}</td>
-                  <td class="text-sm md:text-base duration-500">{{ item.performance.gf }}</td>
-                  <td class="text-sm md:text-base duration-500">{{ item.performance.ga }}</td>
-                  <td class="text-sm md:text-base duration-500">{{ item.performance.gd > 0 ? '+' + item.performance.gd : item.performance.gd }}</td>
-                  <td class="flex justify-center items-center h-9 md:h-11 gap-2 md:text-xl duration-500">
+                  <td class="bg-brightnight group-hover:bg-white group-hover:text-night group-hover:duration-0 font-bold ">{{ item.performance.points }}</td>
+                  <td>{{ item.performance.played }}</td>
+                  <td>{{ item.performance.w }}</td>
+                  <td>{{ item.performance.d }}</td>
+                  <td>{{ item.performance.l }}</td>
+                  <td>{{ item.performance.gf }}</td>
+                  <td>{{ item.performance.ga }}</td>
+                  <td>{{ item.performance.gd > 0 ? '+' + item.performance.gd : item.performance.gd }}</td>
+                  <td class="flex justify-center items-center h-9 md:h-11 gap-1 md:gap-2 text-lg md:text-xl duration-500">
                     @for (lastGame of item.lastgames; track $index) {
                       @switch (lastGame) {
                         @case ("w") {
