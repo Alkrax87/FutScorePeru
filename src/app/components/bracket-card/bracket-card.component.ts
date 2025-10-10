@@ -7,34 +7,34 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
   selector: 'app-bracket-card',
   imports: [FontAwesomeModule],
   template: `
-    <div class="bg-nightfall text-white w-full py-3 px-4 select-none">
+    <div class="bg-nightfall text-white w-full p-3 select-none">
       <div class="flex items-center justify-between">
         <div class="w-fit">
-          <p class="text-base sm:text-xl font-semibold">{{ bracket.matchKey }}</p>
+          <p class="text-base sm:text-lg font-semibold duration-500">{{ bracket.matchKey }}</p>
           <div class="bg-crimson h-1 w-full skew-x-50"></div>
         </div>
         @if (bracket.nextKey) {
           <div>
-            <div class="flex gap-1 text-xxs sm:text-xs rounded-full border border-gold px-2 text-gold">
+            <div class="flex gap-1 text-xxs sm:text-xs rounded-full border-2 border-gold px-2 text-gold duration-500">
               <fa-icon [icon]="Arrow"></fa-icon>
               <p>{{ bracket.nextKey }}</p>
             </div>
           </div>
         }
       </div>
-      <div class="overflow-x-auto mt-2">
+      <div class="overflow-x-auto mt-1">
         <table class="w-full">
-          <thead class="text-gray-300 border-b-2 text-xxs md:text-xs border-[#585858]">
+          <thead class="text-gray-300 border-b-2 text-xxs border-neutral-600">
             <tr>
               <th class="text-start w-full">Equipos</th>
               @if (dualMatch) {
-                <th class="min-w-8 sm:min-w-12">Ida</th>
-                <th class="min-w-10 sm:min-w-12">Vuelta</th>
+                <th class="min-w-6 lg:min-w-10 pt-2">Ida</th>
+                <th class="min-w-10 lg:min-w-12 pt-2">Vuelta</th>
               }
-              <th class="bg-brightnight pt-2 rounded-t-lg min-w-16 sm:min-w-20">{{ dualMatch ? 'Global' : 'Resultado' }}</th>
+              <th class="bg-brightnight rounded-t-lg min-w-14 pt-2">{{ dualMatch ? 'Global' : 'Resultado' }}</th>
             </tr>
           </thead>
-          <tbody class="text-gray-200 font-semibold text-xs sm:text-base duration-500">
+          <tbody class="text-gray-200 font-semibold text-xs sm:text-sm duration-500">
             @for (team of bracket.teams; track $index) {
               <tr>
                 <td class="flex text-start items-center gap-1">
@@ -51,7 +51,7 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
                   <td class="text-center">{{ team.results.secondLegScore }}</td>
                 }
                 <td class="bg-brightnight text-center font-bold">
-                  <div class="flex justify-center gap-2">
+                  <div class="flex justify-center gap-1">
                     @if (dualMatch) {
                       @if (team.results.firstLegScore !== null && team.results.secondLegScore !== null) {
                         <p>{{ team.results.firstLegScore + team.results.secondLegScore }}</p>
@@ -79,7 +79,7 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
         </table>
       </div>
       @if (classified) {
-        <div class="flex items-center justify-center py-1 gap-1 bg-gold text-xs sm:text-sm mt-1">
+        <div class="flex items-center justify-center py-0.5 gap-1 bg-gold text-xs sm:text-sm mt-1">
           <fa-icon [icon]="Trophy"></fa-icon><span class="font-semibold">{{ classified }}</span>clasificado.
         </div>
       }
