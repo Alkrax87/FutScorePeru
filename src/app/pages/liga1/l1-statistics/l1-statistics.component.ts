@@ -14,75 +14,75 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
   imports: [TitleComponent, StatisticsCardComponent],
   template: `
     <app-title [title]="'Estadísticas'"></app-title>
-    <div class="bg-night text-white p-5 select-none">
-      <div class="w-full xl:w-3/4 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 duration-500">
+    <div class="bg-night text-white p-3 sm:p-5 duration-500">
+      <div class="w-full xl:w-3/4 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 duration-500">
         <div>
-          <div class="mb-5">
-            <p class="text-2xl font-bold">Partidos Ganados</p>
-            <div class="bg-crimson skew-x-50 h-1.5 w-56 mt-2"></div>
+          <div class="w-fit">
+            <h3 class="text-2xl text-white font-bold">Partidos Ganados</h3>
+            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <app-statistics-card [data]="dataMostWins"></app-statistics-card>
         </div>
         <div>
-          <div class="mb-5">
-            <p class="text-2xl font-bold">Partidos Empatados</p>
-            <div class="bg-crimson skew-x-50 h-1.5 w-56 mt-2"></div>
+          <div class="w-fit">
+            <h3 class="text-2xl text-white font-bold">Partidos Empatados</h3>
+            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <app-statistics-card [data]="dataMostDraws"></app-statistics-card>
         </div>
         <div>
-          <div class="mb-5">
-            <p class="text-2xl font-bold">Partidos Perdidos</p>
-            <div class="bg-crimson skew-x-50 h-1.5 w-56 mt-2"></div>
+          <div class="w-fit">
+            <h3 class="text-2xl text-white font-bold">Partidos Perdidos</h3>
+            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <app-statistics-card [data]="dataMostLosses"></app-statistics-card>
         </div>
         <div>
-          <div class="mb-5">
-            <p class="text-2xl font-bold">Mejor Defensa (GC)</p>
-            <div class="bg-crimson skew-x-50 h-1.5 w-56 mt-2"></div>
+          <div class="w-fit">
+            <h3 class="text-2xl text-white font-bold">Mejor Defensa (GC)</h3>
+            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <app-statistics-card [data]="dataBestDefense"></app-statistics-card>
         </div>
         <div>
-          <div class="mb-5">
-            <p class="text-2xl font-bold">Peor Defensa (GC)</p>
-            <div class="bg-crimson skew-x-50 h-1.5 w-56 mt-2"></div>
+          <div class="w-fit">
+            <h3 class="text-2xl text-white font-bold">Peor Defensa (GC)</h3>
+            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <app-statistics-card [data]="dataWorstDefense"></app-statistics-card>
         </div>
         <div>
-          <div class="mb-5">
-            <p class="text-2xl font-bold">Más Goleador (GF)</p>
-            <div class="bg-crimson skew-x-50 h-1.5 w-60 mt-2"></div>
+          <div class="w-fit">
+            <h3 class="text-2xl text-white font-bold">Más Goleador (GF)</h3>
+            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <app-statistics-card [data]="dataMostGoals"></app-statistics-card>
         </div>
         <div>
-          <div class="mb-5">
-            <p class="text-2xl font-bold">Menos Goleador (GF)</p>
-            <div class="bg-crimson skew-x-50 h-1.5 w-60 mt-2"></div>
+          <div class="w-fit">
+            <h3 class="text-2xl text-white font-bold">Menos Goleador (GF)</h3>
+            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <app-statistics-card [data]="dataFewestGoals"></app-statistics-card>
         </div>
         <div>
-          <div class="mb-5">
-            <p class="text-2xl font-bold">Mejor Diferencia de Gol</p>
-            <div class="bg-crimson skew-x-50 h-1.5 w-60 mt-2"></div>
+          <div class="w-fit">
+            <h3 class="text-2xl text-white font-bold">Mejor Diferencia de Gol</h3>
+            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <app-statistics-card [data]="dataBestGoalDifference"></app-statistics-card>
         </div>
         <div>
-          <div class="mb-5">
-            <p class="text-2xl font-bold">Peor Diferencia de Gol</p>
-            <div class="bg-crimson skew-x-50 h-1.5 w-60 mt-2"></div>
+          <div class="w-fit">
+            <h3 class="text-2xl text-white font-bold">Peor Diferencia de Gol</h3>
+            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <app-statistics-card [data]="dataWorstGoalDifference"></app-statistics-card>
         </div>
       </div>
     </div>
   `,
-  styles: ``
+  styles: ``,
 })
 export class L1StatisticsComponent {
   constructor(
@@ -107,10 +107,10 @@ export class L1StatisticsComponent {
 
   ngOnInit() {
     this.teamsSubscription = this.teamsService.dataTeamsL1$.subscribe({
-      next: (data) => (this.dataTeams = data)
+      next: (data) => (this.dataTeams = data),
     });
     this.statisticsSubscription = this.statisticsService.dataStatisticsL1$.subscribe({
-      next: (data) => (this.dataStatistics = data)
+      next: (data) => (this.dataStatistics = data),
     });
 
     if (this.dataTeams && this.dataStatistics) {
