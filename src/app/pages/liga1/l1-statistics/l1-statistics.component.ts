@@ -14,7 +14,7 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
   imports: [TitleComponent, StatisticsCardComponent],
   template: `
     <app-title [title]="'Estadísticas'"></app-title>
-    <div class="bg-night text-white p-3 sm:p-5 duration-500">
+    <div class="bg-night text-white p-3 sm:p-5 duration-500 select-none">
       <div class="w-full xl:w-3/4 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 duration-500">
         <div>
           <div class="w-fit">
