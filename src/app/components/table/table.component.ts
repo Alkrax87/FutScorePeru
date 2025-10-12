@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-table',
   imports: [FontAwesomeModule, CommonModule, RouterLink],
   template: `
-    <div class="bg-nightfall flex flex-col gap-2 md:gap-4 rounded-3xl font-semibold select-none px-0 md:px-5 py-5 duration-500">
+    <div class="bg-nightfall flex flex-col gap-2 md:gap-4 rounded-3xl font-semibold px-0 md:px-5 py-5 duration-500">
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead class="text-neutral-300 border-b-4 text-xxs md:text-xs border-neutral-600 duration-500">
