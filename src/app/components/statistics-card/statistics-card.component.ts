@@ -1,17 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
+import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { RouterModule } from '@angular/router';
+import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
 
 @Component({
   selector: 'app-statistics-card',
   imports: [FontAwesomeModule, RouterModule],
   template: `
-    <div class="select-none">
+    <div>
       @for (item of data; track $index) {
         @if ($index == 0) {
-          <div [routerLink]="['../','club', item.category, item.teamId]" class="bg-crimson hover:bg-crimson-hover h-[136px] image rounded-t-xl flex justify-between p-2 cursor-pointer">
+          <div [routerLink]="['../', 'club', item.category, item.teamId]" class="bg-crimson hover:bg-crimson-hover h-[136px] image rounded-t-xl flex justify-between p-2 cursor-pointer">
             <div class="flex flex-col justify-between">
               <div>
                 <p class="font-bold text-xs">{{ $index + 1 }}</p>
@@ -24,7 +24,7 @@ import { RouterModule } from '@angular/router';
             </div>
           </div>
         } @else {
-          <div [routerLink]="['../','club', item.category, item.teamId]" class="bg-nightfall hover:bg-brightnight flex justify-between py-1.5 px-2 cursor-pointer">
+          <div [routerLink]="['../', 'club', item.category, item.teamId]" class="bg-nightfall hover:bg-brightnight flex justify-between py-1.5 px-2 cursor-pointer">
             <div class="flex w-full">
               <div class="text-xs font-semibold mr-3 my-auto">{{ $index + 1 }}</div>
               <div class="flex gap-2">
@@ -45,11 +45,10 @@ import { RouterModule } from '@angular/router';
     .image {
       background-image: url('/assets/images/pages/Background-pattern.png');
       background-size: cover;
-      font-size: 61px;
     }
   `,
 })
 export class StatisticsCardComponent {
-  @Input() data!:StatisticCard[];
+  @Input() data!: StatisticCard[];
   Arrow = faChevronRight;
 }
