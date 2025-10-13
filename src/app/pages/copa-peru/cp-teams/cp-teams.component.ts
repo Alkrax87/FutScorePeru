@@ -11,7 +11,7 @@ import { TeamCardCp } from '../../../interfaces/ui-models/team-card-cp';
   imports: [TitleComponent, TeamCardCpComponent],
   template: `
     <app-title [title]="'Ligas'"></app-title>
-    <div class="bg-night p-3 sm:p-5 duration-500">
+    <div class="bg-night p-3 sm:p-5 duration-500 select-none">
       <div class="flex justify-center">
         <div class="w-full lg:w-11/12 xl:w-10/12 grid gap-3 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 duration-500">
           @for (item of dataTeams; track $index) {
