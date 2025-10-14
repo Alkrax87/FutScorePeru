@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircleHalfStroke, faLayerGroup, faMoon, faShareNodes, faSun } from '@fortawesome/free-solid-svg-icons';
+import { faLayerGroup, faMoon, faShareNodes, faSun } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-fab',
@@ -20,7 +20,7 @@ import { faCircleHalfStroke, faLayerGroup, faMoon, faShareNodes, faSun } from '@
         <div class="flex justify-center items-center">
           <button
             class="hover:bg-none sm:hover:bg-crimson rounded-full text-white w-10 h-10 focus:outline-none"
-            [ngClass]="{'bg-crimson': isDarkMode, 'bg-nightfall': !isDarkMode}"
+            [ngClass]="{ 'bg-crimson': isDarkMode, 'bg-nightfall': !isDarkMode }"
             (click)="toggleDarkMode()"
           >
             <fa-icon [icon]="isDarkMode ? Light : Dark"></fa-icon>
