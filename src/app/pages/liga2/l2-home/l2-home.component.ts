@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
-import { combineLatest, Subject, takeUntil } from 'rxjs';
-import { DivisionOverviewComponent } from "../../../components/division-overview/division-overview.component";
-import { DivisionMapComponent } from "../../../components/division-map/division-map.component";
-import { DivisionSummaryComponent } from "../../../components/division-summary/division-summary.component";
+import { combineLatest } from 'rxjs';
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { DivisionOverviewComponent } from '../../../components/division-overview/division-overview.component';
+import { DivisionMapComponent } from '../../../components/division-map/division-map.component';
+import { DivisionSummaryComponent } from '../../../components/division-summary/division-summary.component';
 import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
@@ -19,14 +20,23 @@ import { DivisionSummary } from '../../../interfaces/ui-models/division-summary'
   styles: ``,
 })
 export class L2HomeComponent {
-  constructor(
-    private divisionService: FetchDivisionService,
-    private teamsService: FetchTeamDataService,
-    private mapService: FetchMapService,
-    private uiDataMapperService: UiDataMapperService
-  ) {}
+  divisionService = inject(FetchDivisionService);
+  teamsService = inject(FetchTeamDataService);
+  mapService = inject(FetchMapService);
+  uiDataMapperService = inject(UiDataMapperService);
 
-  private unsubscribe$ = new Subject<void>();
+  constructor() {
+    combineLatest([
+      this.divisionService.dataDivisionL2$,
+      this.teamsService.dataTeamsL2$,
+      this.mapService.dataMapL2$,
+    ]).pipe(takeUntilDestroyed()).subscribe(([division, teams, map]) => {
+      this.dataDivision = division;
+      this.mapConstructor = map;
+      this.dataMap = this.uiDataMapperService.teamMapMapper(teams);
+    });
+  }
+
   dataDivision: DivisionData | null = null;
   descriptionDivision: string = 'La Liga 2 es la segunda categoría del fútbol profesional en Perú, organizada por la Federación Peruana de Fútbol (FPF), donde equipos buscan ascender a la Liga 1.';
   tagsDivision: string[] = ['Liga 2', 'Segunda División', 'Liga Profesional'];
@@ -51,22 +61,5 @@ export class L2HomeComponent {
       description: 'Fase Regional, Fase Grupos y PlayOffs',
     },
     objective: 'Ascenso a Liga 1',
-  }
-
-  ngOnInit() {
-    combineLatest([
-      this.divisionService.dataDivisionL2$,
-      this.teamsService.dataTeamsL2$,
-      this.mapService.dataMapL2$,
-    ]).pipe(takeUntil(this.unsubscribe$)).subscribe(([division, teams, map]) => {
-      this.dataDivision = division;
-      this.mapConstructor = map;
-      this.dataMap = this.uiDataMapperService.teamMapMapper(teams);
-    })
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
+  };
 }

@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
-import { combineLatest, Subject, takeUntil } from 'rxjs';
-import { DivisionOverviewComponent } from "../../../components/division-overview/division-overview.component";
-import { DivisionMapComponent } from "../../../components/division-map/division-map.component";
-import { DivisionSummaryComponent } from "../../../components/division-summary/division-summary.component";
+import { combineLatest } from 'rxjs';
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { DivisionOverviewComponent } from '../../../components/division-overview/division-overview.component';
+import { DivisionMapComponent } from '../../../components/division-map/division-map.component';
+import { DivisionSummaryComponent } from '../../../components/division-summary/division-summary.component';
 import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
@@ -19,14 +20,23 @@ import { DivisionSummary } from '../../../interfaces/ui-models/division-summary'
   styles: ``,
 })
 export class CpHomeComponent {
-  constructor(
-    private divisionService: FetchDivisionService,
-    private teamsService: FetchTeamDataService,
-    private mapService: FetchMapService,
-    private uiDataMapperService: UiDataMapperService,
-  ) {}
+  divisionService = inject(FetchDivisionService);
+  teamsService = inject(FetchTeamDataService);
+  mapService = inject(FetchMapService);
+  uiDataMapperService = inject(UiDataMapperService);
 
-  private unsubscribe$ = new Subject<void>();
+  constructor() {
+    combineLatest([
+      this.divisionService.dataDivisionCP$,
+      this.teamsService.dataTeamsCP$,
+      this.mapService.dataMapCP$,
+    ]).pipe(takeUntilDestroyed()).subscribe(([division, teams, map]) => {
+      this.dataDivision = division;
+      this.mapConstructor = map;
+      this.dataMap = this.uiDataMapperService.teamCPMapMapper(teams);
+    });
+  }
+
   dataDivision: DivisionData | null = null;
   descriptionDivision: string = 'La Copa Perú es un torneo de fútbol amateur en Perú, organizado por la Federación Peruana de Fútbol (FPF) y la Subcomisión Nacional de Fútbol Aficionado, donde equipos de diversas regiones del país buscan ascender a la Liga 2 y Liga 3.';
   tagsDivision: string[] = ['Copa Perú', 'Cuarta Division', 'Fútbol Amateur'];
@@ -65,22 +75,5 @@ export class CpHomeComponent {
       description: 'Distrital, Provincial, Departamental y Nacional',
     },
     objective: 'Ascenso Liga 2 y Liga 3',
-  }
-
-  ngOnInit() {
-    combineLatest([
-      this.divisionService.dataDivisionCP$,
-      this.teamsService.dataTeamsCP$,
-      this.mapService.dataMapCP$,
-    ]).pipe(takeUntil(this.unsubscribe$)).subscribe(([division, teams, map]) => {
-      this.dataDivision = division;
-      this.mapConstructor = map;
-      this.dataMap = this.uiDataMapperService.teamCPMapMapper(teams);
-    })
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
+  };
 }
