@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-map',
   imports: [CommonModule, RouterLink],
   template: `
-    <svg class="fill-map-light dark:fill-map-dark duration-500 opacity-100 stroke-white stroke-map" viewBox="-60 0 1100 1470" xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+    <svg class="fill-map-light dark:fill-map-dark duration-500 opacity-100 stroke-white stroke-map" viewBox="0 0 1000 1474" xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
       @if (mapConstructor) {
         @for (mapItem of mapConstructor; track $index) {
           <path
