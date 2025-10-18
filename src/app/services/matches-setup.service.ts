@@ -133,4 +133,43 @@ export class MatchesSetupService {
 
     return mergedData;
   }
+
+  transformDataForHomeFixture(
+    teams: TeamData[],
+    fixture: any,
+    results: ResultsData[],
+    stage: string,
+    inGame: number
+  ) {
+    const teamMap = new Map(teams.map((team) => [team.teamId, team]));
+    const resultsMap = new Map(results.map((result: any) => [result.teamId, result]));
+
+    const mappedData = [];
+
+    for (const element of fixture[stage][inGame - 1]) {
+      const homeTeam = teamMap.get(element.home);
+      const awayTeam = teamMap.get(element.away);
+
+      if (homeTeam && awayTeam) {
+        const homeResults = resultsMap.get(homeTeam.teamId);
+        const awayResults = resultsMap.get(awayTeam.teamId);
+
+        const resultHome = homeResults[stage]?.[inGame - 1] ?? "";
+        const resultAway = awayResults[stage]?.[inGame - 1] ?? "";
+
+        mappedData.push({
+          homeTeamAbbreviation: homeTeam.abbreviation,
+          awayTeamAbbreviation: awayTeam.abbreviation,
+          homeTeamImageThumbnail: homeTeam.imageThumbnail,
+          awayTeamImageThumbnail: awayTeam.imageThumbnail,
+          homeTeamAlt: homeTeam.alt,
+          awayTeamAlt: awayTeam.alt,
+          homeTeamResult: resultHome,
+          awayTeamResult: resultAway,
+        });
+      }
+    }
+
+    return mappedData;
+  }
 }
