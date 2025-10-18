@@ -19,9 +19,9 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
   imports: [TitleComponent, TableComponent, BtnComponent],
   template: `
     <app-title [title]="'Tabla'"></app-title>
-    <div class="bg-night py-5">
-      <div class="place-items-center mb-5">
-        <div class="w-full md:w-5/6 lg:w-9/12 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 md:gap-5 px-8 md:px-0">
+    <div class="bg-night py-3 sm:py-5 duration-500 select-none">
+      <div class="flex justify-center px-3 sm:px-5 mb-3 sm:mb-5">
+        <div class="w-full md:w-5/6 lg:w-9/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-3 px-4 md:px-0">
           <app-btn (click)="setActiveTab('acumulado')" [active]="acumulado">Acumulado</app-btn>
           <app-btn (click)="setActiveTab('apertura')" [active]="apertura">Apertura</app-btn>
           <app-btn (click)="setActiveTab('clausura')" [active]="clausura">Clausura</app-btn>
@@ -133,16 +133,16 @@ export class L1TableComponent {
 
   ngOnInit() {
     this.divisionSubscription = this.divisionService.dataDivisionL1$.subscribe({
-      next: (data) => (this.dataDivision = data)
+      next: (data) => (this.dataDivision = data),
     });
     this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
-      next: (data) => (this.dataTeams = data)
+      next: (data) => (this.dataTeams = data),
     });
     this.performanceSubscription = this.performanceService.dataPerformanceL1$.subscribe({
-      next: (data) => (this.dataPerformance = data)
+      next: (data) => (this.dataPerformance = data),
     });
     this.lastGamesSubscription = this.lastGamesService.dataLastGamesL1$.subscribe({
-      next: (data) => (this.dataLastGames = data)
+      next: (data) => (this.dataLastGames = data),
     });
 
     if (this.dataDivision && this.dataTeams && this.dataPerformance && this.dataLastGames) {
@@ -158,14 +158,14 @@ export class L1TableComponent {
         this.dataPerformance,
         this.dataLastGames,
         'apertura',
-        undefined,
+        undefined
       );
       this.dataClausura = this.uiDataMapperService.teamsTableMapper(
         this.dataTeams,
         this.dataPerformance,
         this.dataLastGames,
         'clausura',
-        undefined,
+        undefined
       );
       this.dataAcumulado = this.uiDataMapperService.teamsTableMapper(
         this.dataTeams,
@@ -173,7 +173,7 @@ export class L1TableComponent {
         this.dataLastGames,
         'acumulado',
         undefined,
-        activePhase,
+        activePhase
       );
     }
   }

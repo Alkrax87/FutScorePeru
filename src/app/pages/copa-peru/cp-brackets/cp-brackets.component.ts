@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
-import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
-import { TitleComponent } from "../../../components/title/title.component";
-import { BtnComponent } from "../../../components/btn/btn.component";
-import { BracketCardComponent } from "../../../components/bracket-card/bracket-card.component";
-import { MatchCard } from '../../../interfaces/ui-models/match-card';
-import { TeamCPData } from '../../../interfaces/api-models/team-cp-data';
+import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchBracketsService } from '../../../services/fetch-brackets.service';
+import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
+import { Subscription } from 'rxjs';
+import { TitleComponent } from '../../../components/title/title.component';
+import { BtnComponent } from '../../../components/btn/btn.component';
+import { BracketCardComponent } from '../../../components/bracket-card/bracket-card.component';
+import { TeamCPData } from '../../../interfaces/api-models/team-cp-data';
 import { BracketsData } from '../../../interfaces/api-models/brackets-data';
+import { MatchCard } from '../../../interfaces/ui-models/match-card';
 
 @Component({
   selector: 'app-cp-brackets',
   imports: [TitleComponent, BtnComponent, RouterLink, BracketCardComponent],
   template: `
     <app-title [title]="'Brackets'"></app-title>
-    <div class="bg-night p-5">
+    <div class="bg-night p-3 sm:p-5 duration-500 select-none">
       @if (!dataBrackets) {
         <div class="bg-nightfall p-5 text-center">
           <p class="text-crimson font-semibold text-2xl">Copa Perú Etapa Nacional</p>
@@ -27,8 +27,8 @@ import { BracketsData } from '../../../interfaces/api-models/brackets-data';
           </div>
         </div>
       } @else {
-        <div class="flex justify-center mb-4">
-          <div class="flex gap-0 md:gap-4 w-full xl:w-4/5 px-5 flex-wrap md:flex-nowrap duration-500">
+        <div class="flex justify-center mb-3 sm:mb-5">
+          <div class="flex flex-wrap md:flex-nowrap w-full xl:w-4/5 gap-0 md:gap-4 px-4 xl:px-0 duration-500">
             <app-btn class="w-full" (click)="setActiveTab('b16')" [active]="bracket16">16avos</app-btn>
             <app-btn class="w-full" (click)="setActiveTab('b8')" [active]="bracket8">Octavos</app-btn>
             <app-btn class="w-full" (click)="setActiveTab('b4')" [active]="bracket4">Cuartos</app-btn>
@@ -36,149 +36,148 @@ import { BracketsData } from '../../../interfaces/api-models/brackets-data';
             <app-btn class="w-full" (click)="setActiveTab('b1')" [active]="bracket1">Final</app-btn>
           </div>
         </div>
-
         @if (bracket16) {
-          <div class="w-full flex justify-center">
-            <div class="w-full md:w-3/4 lg:w-full xl:w-3/4 duration-500">
-              <div class="grid gap-8">
-                <div>
-                  <div class="w-fit mb-4">
-                    <h1 class="text-3xl sm:text-4xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h1>
-                    <div class="bg-crimson skew-x-50 h-1.5 w-full mt-2"></div>
-                  </div>
-                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    @for (bracket of dataBrackets16Norte; track $index) {
-                      <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                    }
-                  </div>
-                </div>
-                <div>
-                  <div class="w-fit mb-4">
-                    <h1 class="text-3xl sm:text-4xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h1>
-                    <div class="bg-crimson skew-x-50 h-1.5 w-full mt-2"></div>
-                  </div>
-                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    @for (bracket of dataBrackets16Sur; track $index) {
-                      <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                    }
-                  </div>
-                </div>
+          <div class="flex flex-col justify-center w-full xl:w-3/4 gap-4 mx-auto duration-500">
+            <div>
+              <div class="w-fit">
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h3>
+                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                @for (bracket of dataBrackets16Norte; track $index) {
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                }
+              </div>
+            </div>
+            <div>
+              <div class="w-fit">
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h3>
+                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                @for (bracket of dataBrackets16Sur; track $index) {
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                }
               </div>
             </div>
           </div>
         }
         @if (bracket8) {
-          <div class="w-full flex justify-center">
-            <div class="w-full md:w-3/4 lg:w-full xl:w-3/4 duration-500">
-              <div class="grid gap-8">
-                <div>
-                  <div class="w-fit mb-4">
-                    <h1 class="text-3xl sm:text-4xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h1>
-                    <div class="bg-crimson skew-x-50 h-1.5 w-full mt-2"></div>
-                  </div>
-                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    @for (bracket of dataBrackets8Norte; track $index) {
-                      <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                    }
-                  </div>
-                </div>
-                <div>
-                  <div class="w-fit mb-4">
-                    <h1 class="text-3xl sm:text-4xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h1>
-                    <div class="bg-crimson skew-x-50 h-1.5 w-full mt-2"></div>
-                  </div>
-                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    @for (bracket of dataBrackets8Sur; track $index) {
-                      <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                    }
-                  </div>
-                </div>
+          <div class="flex flex-col justify-center w-full xl:w-3/4 gap-4 mx-auto duration-500">
+            <div>
+              <div class="w-fit">
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h3>
+                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                @for (bracket of dataBrackets8Norte; track $index) {
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                }
+              </div>
+            </div>
+            <div>
+              <div class="w-fit">
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h3>
+                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                @for (bracket of dataBrackets8Sur; track $index) {
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                }
               </div>
             </div>
           </div>
         }
         @if (bracket4) {
-          <div class="w-full flex justify-center">
-            <div class="w-full md:w-3/4 lg:w-full xl:w-3/4 duration-500">
-              <div class="grid gap-8">
-                <div>
-                  <div class="w-fit mb-4">
-                    <h1 class="text-3xl sm:text-4xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h1>
-                    <div class="bg-crimson skew-x-50 h-1.5 w-full mt-2"></div>
-                  </div>
-                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    @for (bracket of dataBrackets4Norte; track $index) {
-                      <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                    }
-                  </div>
-                </div>
-                <div>
-                  <div class="w-fit mb-4">
-                    <h1 class="text-3xl sm:text-4xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h1>
-                    <div class="bg-crimson skew-x-50 h-1.5 w-full mt-2"></div>
-                  </div>
-                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    @for (bracket of dataBrackets4Sur; track $index) {
-                      <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                    }
-                  </div>
-                </div>
+          <div class="flex flex-col justify-center w-full xl:w-3/4 gap-4 mx-auto duration-500">
+            <div>
+              <div class="w-fit">
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h3>
+                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                @for (bracket of dataBrackets4Norte; track $index) {
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                }
+              </div>
+            </div>
+            <div>
+              <div class="w-fit">
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h3>
+                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                @for (bracket of dataBrackets4Sur; track $index) {
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                }
               </div>
             </div>
           </div>
         }
         @if (bracket2) {
-          <div class="w-full flex justify-center">
-            <div class="w-full md:w-3/4 lg:w-full xl:w-3/4 duration-500">
-              <div class="grid gap-8">
-                <div>
-                  <div class="w-fit mb-4">
-                    <h1 class="text-3xl sm:text-4xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h1>
-                    <div class="bg-crimson skew-x-50 h-1.5 w-full mt-2"></div>
-                  </div>
-                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    @for (bracket of dataBrackets2Norte; track $index) {
-                      <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                    }
-                  </div>
-                </div>
-                <div>
-                  <div class="w-fit mb-4">
-                    <h1 class="text-3xl sm:text-4xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h1>
-                    <div class="bg-crimson skew-x-50 h-1.5 w-full mt-2"></div>
-                  </div>
-                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    @for (bracket of dataBrackets2Sur; track $index) {
-                      <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                    }
-                  </div>
-                </div>
+          <div class="flex flex-col justify-center w-full xl:w-3/4 gap-4 mx-auto duration-500">
+            <div>
+              <div class="w-fit">
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h3>
+                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                @for (bracket of dataBrackets2Norte; track $index) {
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="false"></app-bracket-card>
+                }
+              </div>
+            </div>
+            <div>
+              <div class="w-fit">
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h3>
+                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                @for (bracket of dataBrackets2Sur; track $index) {
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="false"></app-bracket-card>
+                }
               </div>
             </div>
           </div>
         }
         @if (bracket1) {
-          <div class="w-full flex justify-center">
-            <div class="w-full md:w-3/4 lg:w-full xl:w-3/4 duration-500">
-              <div class="flex flex-wrap lg:flex-nowrap gap-5">
-                <div class="w-full">
-                  <div class="w-fit mb-4">
-                    <h1 class="text-3xl sm:text-4xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h1>
-                    <div class="bg-crimson skew-x-50 h-1.5 w-full mt-2"></div>
-                  </div>
+          <div class="flex flex-col justify-center w-full xl:w-3/4 gap-4 mx-auto duration-500">
+            <div class="flex flex-col md:flex-row gap-2">
+              <div class="w-full md:w-1/2">
+                <div class="w-fit">
+                  <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h3>
+                  <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                </div>
+                <div class="">
                   @for (bracket of dataBrackets1Norte; track $index) {
                     <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
                   }
                 </div>
-                <div class="w-full">
-                  <div class="w-fit mb-4">
-                    <h1 class="text-3xl sm:text-4xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h1>
-                    <div class="bg-crimson skew-x-50 h-1.5 w-full mt-2"></div>
-                  </div>
+              </div>
+              <div class="w-full md:w-1/2">
+                <div class="w-fit">
+                  <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h3>
+                  <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                </div>
+                <div class="">
                   @for (bracket of dataBrackets1Sur; track $index) {
                     <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
                   }
                 </div>
+              </div>
+            </div>
+            <div>
+              <div class="w-fit">
+                <h3 class="text-3xl text-white font-bold">Final <span class="text-crimson">Copa Perú</span></h3>
+                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              </div>
+              <div class="text-white text-sm mt-2 mb-3">
+                <p><b class="text-gold">Final Copa Perú:</b> Los <b>campeones</b> de cada zona se enfrentan para definir al <b>Campeón</b> y <b>Subcampeón</b>.</p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                @for (bracket of dataBracketsFinal; track $index) {
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                }
               </div>
             </div>
           </div>
@@ -193,7 +192,7 @@ export class CpBracketsComponent {
     private divisionService: FetchDivisionService,
     private teamsService: FetchTeamDataService,
     private bracketsService: FetchBracketsService,
-    private uiDataMapperService: UiDataMapperService,
+    private uiDataMapperService: UiDataMapperService
   ) {}
 
   private divisionSubscription: Subscription | null = null;
@@ -211,6 +210,7 @@ export class CpBracketsComponent {
   dataBrackets2Sur: MatchCard[] = [];
   dataBrackets1Norte: MatchCard[] = [];
   dataBrackets1Sur: MatchCard[] = [];
+  dataBracketsFinal: MatchCard[] = [];
 
   bracket16: boolean = false;
   bracket8: boolean = false;
@@ -234,23 +234,25 @@ export class CpBracketsComponent {
         this.bracket4 = data ? data?.brackets.bracket4.status : false;
         this.bracket2 = data ? data?.brackets.bracket2.status : false;
         this.bracket1 = data ? data?.brackets.bracket1.status : false;
-      }
+      },
     });
     this.teamsSubscription = this.teamsService.dataTeamsCP$.subscribe({
-      next: (data) => (this.dataTeams = data)
+      next: (data) => (this.dataTeams = data),
     });
     this.bracketsSubscription = this.bracketsService.dataBracketsCP$.subscribe({
-      next: (data) => (this.dataBrackets = data)
+      next: (data) => (this.dataBrackets = data),
     });
 
     if (this.dataTeams && this.dataBrackets && this.dataBrackets.length > 0) {
       const bracket1 = this.dataBrackets[0];
       const bracket2 = this.dataBrackets[1];
+      const bracket3 = this.dataBrackets[2]
       if (
         bracket1.bracket16 && bracket1.bracket8 && bracket1.bracket4 && bracket1.bracket2 && bracket1.bracket1 &&
-        bracket2.bracket16 && bracket2.bracket8 && bracket2.bracket4 && bracket2.bracket2 && bracket2.bracket1
+        bracket2.bracket16 && bracket2.bracket8 && bracket2.bracket4 && bracket2.bracket2 && bracket2.bracket1 &&
+        bracket3.bracket1
       ) {
-        this.dataBrackets16Norte = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket1.bracket16!);
+        this.dataBrackets16Norte = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket1.bracket16);
         this.dataBrackets16Sur = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket2.bracket16);
         this.dataBrackets8Norte = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket1.bracket8);
         this.dataBrackets8Sur = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket2.bracket8);
@@ -260,6 +262,7 @@ export class CpBracketsComponent {
         this.dataBrackets2Sur = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket2.bracket2);
         this.dataBrackets1Norte = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket1.bracket1);
         this.dataBrackets1Sur = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket2.bracket1);
+        this.dataBracketsFinal = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket3.bracket1);
       }
     }
   }
