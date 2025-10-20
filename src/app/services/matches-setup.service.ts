@@ -148,28 +148,30 @@ export class MatchesSetupService {
     const mappedData = [];
 
     for (const stage of stages) {
-      for (const element of fixture[stage][inGame - 1]) {
+      const stageData = fixture?.[stage]?.[inGame - 1];
+      if (!Array.isArray(stageData)) continue;
+
+      for (const element of stageData) {
         const homeTeam = teamMap.get(element.home);
         const awayTeam = teamMap.get(element.away);
+        if (!homeTeam || !awayTeam) continue;
 
-        if (homeTeam && awayTeam) {
-          const homeResults = resultsMap.get(homeTeam.teamId);
-          const awayResults = resultsMap.get(awayTeam.teamId);
+        const homeResults = resultsMap.get(homeTeam.teamId);
+        const awayResults = resultsMap.get(awayTeam.teamId);
 
-          const resultAway = awayResults[property ? property : stage]?.[inGame - 1] ?? "";
-          const resultHome = homeResults[property ? property : stage]?.[inGame - 1] ?? "";
+        const resultAway = awayResults?.[property ? property : stage]?.[inGame - 1] ?? "";
+        const resultHome = homeResults?.[property ? property : stage]?.[inGame - 1] ?? "";
 
-          mappedData.push({
-            homeTeamAbbreviation: homeTeam.abbreviation,
-            awayTeamAbbreviation: awayTeam.abbreviation,
-            homeTeamImageThumbnail: homeTeam.imageThumbnail,
-            awayTeamImageThumbnail: awayTeam.imageThumbnail,
-            homeTeamAlt: homeTeam.alt,
-            awayTeamAlt: awayTeam.alt,
-            homeTeamResult: resultHome,
-            awayTeamResult: resultAway,
-          });
-        }
+        mappedData.push({
+          homeTeamAbbreviation: homeTeam.abbreviation,
+          awayTeamAbbreviation: awayTeam.abbreviation,
+          homeTeamImageThumbnail: homeTeam.imageThumbnail,
+          awayTeamImageThumbnail: awayTeam.imageThumbnail,
+          homeTeamAlt: homeTeam.alt,
+          awayTeamAlt: awayTeam.alt,
+          homeTeamResult: resultHome,
+          awayTeamResult: resultAway,
+        });
       }
     }
 
