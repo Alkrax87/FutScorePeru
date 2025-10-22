@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EntityNav } from '../interfaces/ui-models/entity-nav';
 import { TeamMap } from '../interfaces/ui-models/team-map';
+import { TeamCarousel } from '../interfaces/ui-models/team-carousel';
 import { TeamCard } from '../interfaces/ui-models/team-card';
 import { TeamTable } from '../interfaces/ui-models/team-table';
 import { PerformanceData } from '../interfaces/api-models/performance-data';
@@ -15,6 +16,7 @@ import { TeamCardCp } from '../interfaces/ui-models/team-card-cp';
 import { TeamCPData } from '../interfaces/api-models/team-cp-data';
 import { MatchCard } from '../interfaces/ui-models/match-card';
 import { BracketData } from '../interfaces/api-models/bracket-data';
+import { TeamCompactTable } from '../interfaces/ui-models/team-compact-table';
 
 @Injectable({
   providedIn: 'root',
@@ -48,6 +50,21 @@ export class UiDataMapperService {
         alt: team.alt,
         location: team.location,
       });
+    }
+
+    return newData;
+  }
+
+  teamCarouselMapper(dataTeams: TeamData[] | TeamCPData[]): TeamCarousel[] {
+    const newData: TeamCarousel[] = [];
+
+    for (const team of dataTeams) {
+      newData.push({
+        teamId: team.teamId,
+        abbreviation: team.abbreviation,
+        image: team.image,
+        alt: 'alt' in team ? team.alt : team.abbreviation + '-logo',
+      })
     }
 
     return newData;
@@ -125,6 +142,41 @@ export class UiDataMapperService {
           alt: team.alt,
           performance: teamPerformance,
           lastgames: teamLastGames ? teamLastGames.slice(-5) : ['','','','',''],
+        });
+      }
+    }
+
+    return newData.sort(
+      (a, b) =>
+        b.performance.points - a.performance.points ||
+        b.performance.gd - a.performance.gd ||
+        b.performance.gf - a.performance.gf
+    );
+  }
+
+  teamsTableCompactMapper(dataTeams: TeamData[], dataPerformance: PerformanceData[], phaseKey: string, teamGroup?: string): TeamCompactTable[] {
+    const newData: TeamCompactTable[] = [];
+
+    const performanceMap = new Map(
+      dataPerformance.map((performance) => [performance.teamId, performance[phaseKey as keyof PerformanceData]])
+    );
+
+    for (const team of dataTeams) {
+      if (team.groupFirstPhase === teamGroup || team.groupSecondPhase === teamGroup || !teamGroup) {
+        const teamPerformance = performanceMap.get(team.teamId) as TeamCompactTable['performance'] | undefined;
+
+        newData.push({
+          category: team.category,
+          teamId: team.teamId,
+          name: team.name,
+          abbreviation: team.abbreviation,
+          imageThumbnail: team.imageThumbnail,
+          alt: team.alt,
+          performance: {
+            points: teamPerformance?.points ?? 0,
+            gf: teamPerformance?.gf ?? 0,
+            gd: teamPerformance?.gd ?? 0,
+          },
         });
       }
     }
