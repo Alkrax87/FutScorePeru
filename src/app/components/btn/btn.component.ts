@@ -1,10 +1,13 @@
+import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-btn',
-  imports: [],
+  imports: [NgClass],
   template: `
-    <button class="switch-button bg-crimson w-full select-none outline-none" [class]="{'active' : active}">
+    <button class="switch-button bg-crimson w-full select-none outline-none"
+      [ngClass]="{ active: active, 'btn-small': small, 'btn-base': !small }"
+    >
       <span>
         <ng-content></ng-content>
       </span>
@@ -14,11 +17,16 @@ import { Component, Input } from '@angular/core';
     .active {
       background: #dc143c;
     }
+    .btn-base {
+      padding: 0.9rem 0rem;
+    }
+    .btn-small {
+      padding: 0.3rem 0rem;
+    }
     .switch-button {
       border: none;
       font-size: 16px;
       font-weight: 700;
-      padding: 0.9rem 2rem;
       overflow: hidden;
       transform: skew(30deg);
     }
@@ -59,4 +67,5 @@ import { Component, Input } from '@angular/core';
 })
 export class BtnComponent {
   @Input() active: boolean = false;
+  @Input() small: boolean = false;
 }
