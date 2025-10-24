@@ -42,9 +42,9 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
             }
           </div>
         </om-marquee>
-        <div class="text-crimson font-bold text-sm flex justify-end">
+        <div class="text-crimson hover:text-crimson-hover font-bold text-sm flex justify-end">
           <span [routerLink]="'../fixture'" class="cursor-pointer">
-            FIXTURE COMPLETO &nbsp;<fa-icon [icon]="Arrow"></fa-icon>
+            FIXTURE COMPLETO <fa-icon [icon]="Arrow"></fa-icon>
           </span>
         </div>
       </div>

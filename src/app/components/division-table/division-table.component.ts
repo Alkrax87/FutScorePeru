@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
               <th class="w-1 min-w-1 max-w-1"></th>
               <th class="w-8 min-w-8 max-w-8">Pos</th>
               <th class="min-w-20 sm:min-w-52 text-start duration-500">Club</th>
-              <th class="bg-brightnight rounded-t-lg min-w-14 pt-1">PTS</th>
+              <th class="bg-brightnight rounded-t-lg min-w-14 max-w-14 pt-1">PTS</th>
             </tr>
           </thead>
           <tbody>
@@ -34,11 +34,10 @@ import { RouterLink } from '@angular/router';
                 <td>
                   <div class="flex items-center">
                     <img loading="lazy" [src]="item.imageThumbnail" [alt]="item.alt" class="w-6 h-6"/>
-                    <span class="hidden sm:block ml-2 truncate my-auto">{{ item.name }}</span>
-                    <span class="sm:hidden ml-3 font-bold flex items-center text-center my-auto">{{ item.abbreviation }}</span>
+                    <span class="ml-2 truncate my-auto">{{ item.name }}</span>
                   </div>
                 </td>
-                <td class="bg-brightnight group-hover:bg-white group-hover:text-night group-hover:duration-0 font-bold">{{ item.performance.points }}</td>
+                <td class="bg-brightnight group-hover:bg-white group-hover:text-night group-hover:duration-0 font-bold w-14 max-w-14">{{ item.performance.points }}</td>
               </tr>
             }
           </tbody>
