@@ -123,7 +123,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBrackets2Norte; track $index) {
-                  <app-bracket-card [bracket]="bracket" [dualMatch]="false"></app-bracket-card>
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
                 }
               </div>
             </div>
@@ -134,7 +134,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBrackets2Sur; track $index) {
-                  <app-bracket-card [bracket]="bracket" [dualMatch]="false"></app-bracket-card>
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
                 }
               </div>
             </div>
@@ -150,7 +150,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
                 </div>
                 <div class="">
                   @for (bracket of dataBrackets1Norte; track $index) {
-                    <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                    <app-bracket-card [bracket]="bracket" [dualMatch]="false"></app-bracket-card>
                   }
                 </div>
               </div>
@@ -161,7 +161,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
                 </div>
                 <div class="">
                   @for (bracket of dataBrackets1Sur; track $index) {
-                    <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                    <app-bracket-card [bracket]="bracket" [dualMatch]="false"></app-bracket-card>
                   }
                 </div>
               </div>
@@ -176,7 +176,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBracketsFinal; track $index) {
-                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="false"></app-bracket-card>
                 }
               </div>
             </div>
