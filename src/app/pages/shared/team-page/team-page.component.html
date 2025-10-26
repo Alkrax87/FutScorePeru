@@ -137,9 +137,9 @@
           </div>
           @if (activeLastGames) {
             <!-- Lastgames -->
-            <div class="mb-5">
-              <p class="text-white text-2xl font-bold">Resultados</p>
-              <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
+            <div class="w-fit">
+              <h3 class="text-2xl text-white font-bold">Resultados</h3>
+              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <div class="bg-brightnight p-3 flex gap-1 sm:gap-0 justify-center sm:justify-evenly flex-wrap sm:flex-nowrap rounded-3xl">
               @for (lastGame of teamData?.lastgames?.[activeLastGames]; track $index) {
@@ -171,9 +171,9 @@
               </div>
             </div>
             <!-- Performance -->
-            <div class="mb-5">
-              <p class="text-white text-2xl font-bold">Rendimiento</p>
-              <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
+            <div class="w-fit">
+              <h3 class="text-2xl text-white font-bold">Rendimiento</h3>
+              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <div class="grid grid-cols-6 gap-3 mb-5">
               <div class="bg-brightnight p-3 rounded-2xl w-full min-w-20 col-span-3 md:col-span-2 lg:col-span-1">
@@ -208,9 +208,9 @@
               </div>
             </div>
             <!-- Fixture -->
-            <div class="mb-5">
-              <p class="text-white text-2xl font-bold">Fixture</p>
-              <div class="bg-crimson skew-x-50 h-1.5 w-36 my-2"></div>
+            <div class="w-fit">
+              <h3 class="text-2xl text-white font-bold">Fixture</h3>
+              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <div class="bg-night text-white p-5 grid grid-cols-1">
               @if (filteredFixtureStage) {

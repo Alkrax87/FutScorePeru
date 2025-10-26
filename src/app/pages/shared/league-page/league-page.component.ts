@@ -10,12 +10,7 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'app-league-page',
   imports: [FontAwesomeModule],
   templateUrl: './league-page.component.html',
-  styles: `
-    .image {
-      background-image: url('/assets/images/pages/Background-pattern.png');
-      background-size: cover;
-    }
-  `,
+  styles: ``,
 })
 export class LeaguePageComponent {
   constructor(

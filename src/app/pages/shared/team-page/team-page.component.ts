@@ -20,12 +20,7 @@ import { ResultsData } from '../../../interfaces/api-models/results-data';
   selector: 'app-team-page',
   imports: [FontAwesomeModule, BtnComponent, TeamFixtureComponent, TitleComponent],
   templateUrl: './team-page.component.html',
-  styles: `
-    .image {
-      background-image: url('/assets/images/pages/Background-pattern.png');
-      background-size: cover;
-    }
-  `,
+  styles: ``,
 })
 export class TeamPageComponent {
   constructor(
