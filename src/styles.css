@@ -20,3 +20,8 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #7a7a7a;
 }
+
+.background-pattern {
+  background-image: url('/assets/images/pages/Background-pattern.png');
+  background-size: cover;
+}
