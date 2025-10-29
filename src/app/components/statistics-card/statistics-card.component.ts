@@ -11,7 +11,7 @@ import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
     <div>
       @for (item of data; track $index) {
         @if ($index == 0) {
-          <div [routerLink]="['../', 'club', item.category, item.teamId]" class="bg-crimson hover:bg-crimson-hover h-[136px] image rounded-t-xl flex justify-between p-2 cursor-pointer">
+          <div [routerLink]="['../', 'club', item.category, item.teamId]" class="bg-crimson hover:bg-crimson-hover background-pattern h-[136px] rounded-t-xl flex justify-between p-2 cursor-pointer">
             <div class="flex flex-col justify-between">
               <div>
                 <p class="font-bold text-xs">{{ $index + 1 }}</p>
@@ -41,12 +41,7 @@ import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
       }
     </div>
   `,
-  styles: `
-    .image {
-      background-image: url('/assets/images/pages/Background-pattern.png');
-      background-size: cover;
-    }
-  `,
+  styles: ``,
 })
 export class StatisticsCardComponent {
   @Input() data!: StatisticCard[];
