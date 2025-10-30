@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EntityNav } from '../interfaces/ui-models/entity-nav';
+import { TeamDivision } from '../interfaces/ui-models/team-division';
 import { TeamMap } from '../interfaces/ui-models/team-map';
 import { TeamCarousel } from '../interfaces/ui-models/team-carousel';
 import { TeamCard } from '../interfaces/ui-models/team-card';
@@ -49,6 +50,21 @@ export class UiDataMapperService {
         imageThumbnail: team.imageThumbnail,
         alt: team.alt,
         location: team.location,
+      });
+    }
+
+    return newData;
+  }
+
+  teamDivisionMapper(dataTeams: TeamData[]): TeamDivision[] {
+    const newData = [];
+
+    for (const team of dataTeams) {
+      newData.push({
+        category: team.category,
+        teamId: team.teamId,
+        imageThumbnail: team.imageThumbnail,
+        alt: team.alt
       });
     }
 
