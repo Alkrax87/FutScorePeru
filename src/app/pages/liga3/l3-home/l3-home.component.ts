@@ -12,22 +12,24 @@ import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { MatchesSetupService } from '../../../services/matches-setup.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { DivisionFixtureComponent } from "../../../components/division-fixture/division-fixture.component";
 import { DivisionOverviewComponent } from '../../../components/division-overview/division-overview.component';
 import { BtnComponent } from "../../../components/btn/btn.component";
 import { DivisionTableComponent } from "../../../components/division-table/division-table.component";
 import { DivisionMapComponent } from '../../../components/division-map/division-map.component';
 import { DivisionSummaryComponent } from '../../../components/division-summary/division-summary.component';
-import { DivisionFixtureComponent } from "../../../components/division-fixture/division-fixture.component";
+import { DivisionTeamsComponent } from "../../../components/division-teams/division-teams.component";
 import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
 import { FixtureCompactCard } from '../../../interfaces/ui-models/fixture-compact-card';
 import { TeamCompactTable } from '../../../interfaces/ui-models/team-compact-table';
 import { DivisionSummary } from '../../../interfaces/ui-models/division-summary';
+import { TeamDivision } from '../../../interfaces/ui-models/team-division';
 
 @Component({
   selector: 'app-l3-home',
-  imports: [FontAwesomeModule, DivisionOverviewComponent, DivisionMapComponent, DivisionSummaryComponent, DivisionFixtureComponent, DivisionTableComponent, RouterLink, BtnComponent],
+  imports: [FontAwesomeModule, DivisionOverviewComponent, DivisionMapComponent, DivisionSummaryComponent, DivisionFixtureComponent, DivisionTableComponent, RouterLink, BtnComponent, DivisionTeamsComponent],
   templateUrl: './l3-home.component.html',
   styles: ``,
 })
@@ -53,6 +55,7 @@ export class L3HomeComponent {
       this.dataDivision = division;
       this.mapConstructor = map;
       this.dataMap = this.uiDataMapperService.teamMapMapper(teams);
+      this.teams = this.uiDataMapperService.teamDivisionMapper(teams);
 
       if (division) {
         if (division.thirdPhase.status === true) {
@@ -145,6 +148,7 @@ export class L3HomeComponent {
     { name: 'Tumbes', teams: 1 },
     { name: 'Ucayali', teams: 1 },
   ];
+  teams: TeamDivision[] = [];
   Arrow = faAngleDoubleRight;
   summaryData: DivisionSummary = {
     teams: '37',

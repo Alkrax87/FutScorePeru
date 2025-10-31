@@ -34,7 +34,9 @@
     </div>
   </div>
 </div>
-<!-- Map -->
-<app-division-map [regions]="regions" [mapConstructor]="mapConstructor" [dataMap]="dataMap"></app-division-map>
 <!-- Tournament -->
 <app-division-summary [summaryData]="summaryData"></app-division-summary>
+<!-- Teams -->
+<app-division-teams [division]="{name: 'Liga 1', logo: './assets/images/pages/liga-1.webp'}" [teams]="teams"></app-division-teams>
+<!-- Map -->
+<app-division-map [regions]="regions" [mapConstructor]="mapConstructor" [dataMap]="dataMap"></app-division-map>
