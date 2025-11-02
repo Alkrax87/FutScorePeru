@@ -1,42 +1,27 @@
 <!-- Main -->
-<div class="bg-night md:py-10 py-0 select-none bg">
-  <div class="w-full flex flex-col-reverse md:flex-row items-center">
-    <div class="w-full md:w-7/12 lg:w-1/2 relative overflow-hidden bg-neutral-100 dark:bg-nightfall duration-500 px-5 flex flex-col items-center md:py-20 py-16 rounded-none md:rounded-3xl ml-0 md:ml-5 left-0 md:left-10">
-      <div class="w-96 h-96 absolute -left-44 sm:-left-32 -top-56 sm:-top-48 z-0">
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-          <path class="fill-crimson" d="M43.8,-29.1C54.8,-21.2,60.4,-3.1,55.3,10C50.3,23.2,34.6,31.3,16.8,43C-1.1,54.7,-21.1,70,-37.3,66.4C-53.6,62.8,-66.1,40.4,-67.9,19.3C-69.6,-1.7,-60.6,-21.4,-47.5,-29.8C-34.3,-38.2,-17.2,-35.2,-0.4,-34.9C16.4,-34.6,32.9,-37,43.8,-29.1Z" transform="translate(100 100)" />
-        </svg>
-      </div>
-      <h1 class="font-bold text-5xl sm:text-6xl z-10 flex truncate dark:text-white duration-500">
-        FutScore&nbsp;<div class="bg-crimson text-white w-fit px-3 py-1 rounded-lg">Perú</div>
+<div class="w-full h-screen relative select-none">
+  <!-- Basckground -->
+  <img class="absolute h-full inset-0 w-full object-cover" src="./assets/images/pages/Banner-main.webp" alt="Banner-main">
+  <div class="absolute h-full bg-black inset-0 bg-opacity-50"></div>
+  <!-- Content -->
+  <div class="absolute flex flex-col justify-center items-center h-full inset-0">
+    <div class="w-full flex flex-col gap-5 items-center sm:w-[628px] px-3 sm:px-0 duration-500 text-center">
+      <h1 class="font-bold text-7xl sm:text-8xl sm:flex truncate text-white duration-500">
+        FutScore<div class="bg-crimson w-fit mx-auto px-2 py-1 rounded-lg">Perú</div>
       </h1>
-      <p class="text-neutral-500 dark:text-neutral-300 duration-500 my-5 w-full sm:w-96 text-center">
+      <p class="text-white text-base sm:text-lg">
         Descubre el fútbol peruano en todas sus categorías: Liga 1, Liga 2, Liga 3 y Copa Perú, con datos y cobertura actualizada.
       </p>
-      <div class="text-white flex flex-wrap justify-center gap-3 mb-5 text-sm md:text-base">
-        <div class="bg-nightfall dark:bg-brightnight duration-500 px-3 py-1 rounded-full">
-          <fa-icon class="text-gold" [icon]="Check"></fa-icon> Clubes
-        </div>
-        <div class="bg-nightfall dark:bg-brightnight duration-500 px-3 py-1 rounded-full">
-          <fa-icon class="text-gold" [icon]="Check"></fa-icon> Fixture
-        </div>
-        <div class="bg-nightfall dark:bg-brightnight duration-500 px-3 py-1 rounded-full">
-          <fa-icon class="text-gold" [icon]="Check"></fa-icon> Posiciones
-        </div>
-        <div class="bg-nightfall dark:bg-brightnight duration-500 px-3 py-1 rounded-full">
-          <fa-icon class="text-gold" [icon]="Check"></fa-icon> Estadísticas
-        </div>
-        <div class="bg-nightfall dark:bg-brightnight duration-500 px-3 py-1 rounded-full">
-          <fa-icon class="text-gold" [icon]="Check"></fa-icon> Técnicos
-        </div>
-        <div class="bg-nightfall dark:bg-brightnight duration-500 px-3 py-1 rounded-full">
-          <fa-icon class="text-gold" [icon]="Check"></fa-icon> Y mucho más
-        </div>
+      <div class="text-white flex flex-wrap justify-center gap-3 text-sm md:text-base duration-500">
+        @for (tag of tags; track $index) {
+          <div class="bg-nightfall px-3 py-1 rounded-full">
+            <fa-icon class="text-gold" [icon]="Check"></fa-icon> {{ tag }}
+          </div>
+        }
       </div>
-      <app-btn class="w-4/5 sm:w-2/5" [active]="true" (click)="scrollTo()">Ir a Ligas</app-btn>
-    </div>
-    <div class="w-full md:w-5/12 lg:w-1/2 flex justify-end">
-      <img class="rounded-l-none md:rounded-l-3xl w-full h-full md:h-[600px] object-cover" src="https://picsum.photos/1500/800" alt="Main-IMAGE">
+      <div class="px-4 w-5/6 sm:w-80">
+        <app-btn (click)="scrollTo()">Ir a Ligas</app-btn>
+      </div>
     </div>
   </div>
 </div>

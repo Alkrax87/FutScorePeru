@@ -19,6 +19,8 @@ import { BtnComponent } from "../../../components/btn/btn.component";
 export class HomeComponent {
   Check = faCheck;
 
+  tags: string[] = ['Clubes', 'Fixture', 'Resultados', 'Posiciones', 'Estadísticas', 'Técnicos', 'Y mucho más'];
+
   divisions: {
     title: string;
     image: string;
