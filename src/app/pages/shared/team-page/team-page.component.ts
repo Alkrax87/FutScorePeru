@@ -89,8 +89,12 @@ export class TeamPageComponent {
         case 2:
           this.divisionSubscription = this.divisionService.dataDivisionL2$.subscribe({
             next: (data) => {
-              this.regional = data ? data.firstPhase.status : false;
-              this.grupos = data ? data.secondPhase.status : false;
+              if (data?.thirdPhase.status === true) {
+                this.grupos = true;
+              } else {
+                this.regional = data ? data.firstPhase.status : false;
+                this.grupos = data ? data.secondPhase.status : false;
+              }
             }
           });
           this.teamSubscription = this.teamService.dataTeamsL2$.subscribe({
@@ -103,8 +107,12 @@ export class TeamPageComponent {
         case 3:
           this.divisionSubscription = this.divisionService.dataDivisionL3$.subscribe({
             next: (data) => {
-              this.regional = data ? data.firstPhase.status : false;
-              this.final = data ? data.secondPhase.status : false;
+              if (data?.thirdPhase.status === true) {
+                this.final = true;
+              } else {
+                this.regional = data ? data.firstPhase.status : false;
+                this.final = data ? data.secondPhase.status : false;
+              }
             }
           });
           this.teamSubscription = this.teamService.dataTeamsL3$.subscribe({
