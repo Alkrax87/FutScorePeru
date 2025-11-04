@@ -1,43 +1,42 @@
-<!-- Title -->
-<div class="w-full bg-crimson text-white image pb-5 md:py-9 pl-0 lg:pl-16 select-none">
-  <div class="w-full flex md:flex-row flex-col-reverse items-center gap-5">
-    <!-- Left Side -->
-    <div class="w-full flex gap-3 md:gap-5 md:min-w-[500px] lg:min-w-[540px]">
-      <div class="my-auto">
-        <img [src]="teamData?.image" [alt]="teamData?.alt" class="min-w-24 w-24 md:min-w-28 md:h-28 lg:min-w-36 lg:h-36">
+<!-- Main -->
+<div class="w-full h-[436px] relative select-none">
+  <!-- Basckground -->
+  <img class="absolute h-full inset-0 w-full object-cover md:object-top" [src]="teamData?.background" alt="TEAM-background">
+  <div class="absolute h-full bg-black inset-0 bg-opacity-50"></div>
+  <!-- Content -->
+  <div class="absolute flex text-white flex-col justify-center items-center h-full inset-0">
+    <div class="w-full flex flex-col sm:flex-row gap-3 items-center px-3 sm:px-5 lg:px-16 duration-500">
+      <div class="bg-white rounded-full p-5 w-fit h-fit">
+        <img [src]="teamData?.image" [alt]="teamData?.alt" class="w-24 min-w-24 sm:w-36 sm:min-w-36 duration-500">
       </div>
-      <div class="w-full flex flex-col justify-center gap-1 sm:gap-2">
-        <div class="bg-gold w-fit px-5 py-0.5 skew-x-30">
-          <p class="-skew-x-30 font-semibold text-sm sm:text-base">{{ teamData?.division }}</p>
+      <div class="w-full">
+        <div class="bg-gold w-fit px-5 py-0.5 skew-x-30 mx-auto sm:mx-0">
+          <p class="-skew-x-30 font-semibold text-sm sm:text-base duration-500">{{ teamData?.division }}</p>
         </div>
-        <p class="font-bold text-4xl md:text-5xl lg:text-6xl">{{ teamData?.name }}</p>
-        <div class="flex flex-col sm:flex-row gap-1 sm:gap-5 pt-2 text-sm lg:text-base">
-          <p>
+        <p class="font-bold text-5xl sm:text-6xl text-center sm:text-start duration-500">{{ teamData?.name }}</p>
+        <div class="flex gap-3 justify-between sm:justify-start text-sm sm:text-base pt-2 duration-500">
+          <p class="truncate">
             <fa-icon [icon]="Location"></fa-icon> &nbsp;Región: <span class="font-semibold">{{ teamData?.location }}</span>
           </p>
-          <p class="text-gold hidden sm:block"><fa-icon [icon]="Divider"></fa-icon></p>
-          <p>
+          <p class="text-gold"><fa-icon [icon]="Divider"></fa-icon></p>
+          <p class="truncate">
             <fa-icon [icon]="Flag"></fa-icon> &nbsp;Fundación: <span class="font-semibold">{{ teamData?.foundation }}</span>
           </p>
         </div>
       </div>
     </div>
-    <!-- Right Side -->
-    <div class="w-full flex md:justify-end">
-      <img [src]="teamData?.background" alt="TEAM-background" class="rounded-l-none md:rounded-l-3xl w-full md:w-[570px] h-52 md:max-h-80 md:min-h-80 md:h-fit object-cover">
-    </div>
   </div>
 </div>
 <!-- Content -->
-<div class="bg-night p-5">
+<div class="bg-night p-3 sm:p-5">
   <div class="w-full flex justify-center">
     <div class=" w-full lg:w-full xl:w-11/12">
-      <div class="grid grid-cols-8 gap-5 select-none">
+      <div class="grid grid-cols-8 gap-3 sm:gap-5 select-none">
         <!-- Social Media -->
         <div class="bg-neutral-100 col-span-8 md:col-span-4 lg:col-span-2 row-start-1 lg:row-start-1">
           <div class="w-full bg-crimson text-white image px-5 py-3">
             <div class="h-full flex justify-center md:justify-start items-center">
-              <p class="text-xl font-bold">Redes Sociales</p>
+              <p class="text-lg font-bold">Redes Sociales</p>
             </div>
           </div>
           <div class="p-2">
@@ -84,7 +83,7 @@
         <div class="bg-neutral-100 col-span-8 md:col-span-4 lg:col-span-2 row-start-2 md:row-start-1 lg:row-start-2">
           <div class="w-full bg-crimson text-white image px-5 py-3">
             <div class="h-full flex justify-center md:justify-start items-center">
-              <p class="text-xl font-bold">Sitio Web</p>
+              <p class="text-lg font-bold">Sitio Web</p>
             </div>
           </div>
           <div class="p-3 truncate text-center">
@@ -101,7 +100,7 @@
         <div class="bg-nightfall col-span-8 lg:col-span-2 row-start-4 md:row-start-3 lg:row-start-3">
           <div class="w-full bg-crimson text-white image px-5 py-3">
             <div class="h-full flex justify-center md:justify-start items-center">
-              <p class="text-xl font-bold">Estadio</p>
+              <p class="text-lg font-bold">Estadio</p>
             </div>
           </div>
           <div class="p-5">
