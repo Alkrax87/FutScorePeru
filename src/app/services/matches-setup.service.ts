@@ -163,6 +163,10 @@ export class MatchesSetupService {
         const resultHome = homeResults?.[property ? property : stage]?.[inGame - 1] ?? "";
 
         mappedData.push({
+          homeTeamCategory: homeTeam.category,
+          awayTeamCategory: awayTeam.category,
+          homeTeamId: homeTeam.teamId,
+          awayTeamId: awayTeam.teamId,
           homeTeamAbbreviation: homeTeam.abbreviation,
           awayTeamAbbreviation: awayTeam.abbreviation,
           homeTeamImageThumbnail: homeTeam.imageThumbnail,
