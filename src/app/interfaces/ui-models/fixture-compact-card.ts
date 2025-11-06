@@ -1,4 +1,8 @@
 export interface FixtureCompactCard {
+  homeTeamCategory: number;
+  awayTeamCategory: number;
+  homeTeamId: string;
+  awayTeamId: string;
   homeTeamAbbreviation: string;
   awayTeamAbbreviation: string;
   homeTeamImageThumbnail: string;
