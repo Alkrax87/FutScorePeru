@@ -18,7 +18,7 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
                   <div class="bg-crimson h-1"></div>
                   <div class="flex justify-between p-3 gap-1">
                     <!-- Left -->
-                    <div>
+                    <div class="cursor-pointer" [routerLink]="['../club', item.homeTeamCategory, item.homeTeamId]">
                       <img [src]="item.homeTeamImageThumbnail" [alt]="item.homeTeamAlt" class="w-8 md:w-12 duration-500"/>
                       <p class="text-neutral-100 text-center text-xs md:text-sm font-semibold duration-500">{{ item.homeTeamAbbreviation }}</p>
                     </div>
@@ -30,7 +30,7 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
                       </div>
                     </div>
                     <!-- Right -->
-                    <div>
+                    <div class="cursor-pointer" [routerLink]="['../club', item.awayTeamCategory, item.awayTeamId]">
                       <img [src]="item.awayTeamImageThumbnail" [alt]="item.awayTeamAlt" class="w-8 md:w-12 duration-500"/>
                       <p class="text-neutral-100 text-center text-xs md:text-sm font-semibold duration-500">{{ item.awayTeamAbbreviation }}</p>
                      </div>
@@ -44,7 +44,7 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
                   <div class="bg-crimson h-1"></div>
                   <div class="flex justify-between p-3 gap-1">
                     <!-- Left -->
-                    <div>
+                    <div class="cursor-pointer" [routerLink]="['../club', item.homeTeamCategory, item.homeTeamId]">
                       <img [src]="item.homeTeamImageThumbnail" [alt]="item.homeTeamAlt" class="w-8 md:w-12 duration-500"/>
                       <p class="text-neutral-100 text-center text-xs md:text-sm font-semibold duration-500">{{ item.homeTeamAbbreviation }}</p>
                     </div>
@@ -56,7 +56,7 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
                       </div>
                     </div>
                     <!-- Right -->
-                    <div>
+                    <div class="cursor-pointer" [routerLink]="['../club', item.awayTeamCategory, item.awayTeamId]">
                       <img [src]="item.awayTeamImageThumbnail" [alt]="item.awayTeamAlt" class="w-8 md:w-12 duration-500"/>
                       <p class="text-neutral-100 text-center text-xs md:text-sm font-semibold duration-500">{{ item.awayTeamAbbreviation }}</p>
                      </div>
@@ -70,7 +70,7 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
                   <div class="bg-crimson h-1"></div>
                   <div class="flex justify-between p-3 gap-1">
                     <!-- Left -->
-                    <div>
+                    <div class="cursor-pointer" [routerLink]="['../club', item.homeTeamCategory, item.homeTeamId]">
                       <img [src]="item.homeTeamImageThumbnail" [alt]="item.homeTeamAlt" class="w-8 md:w-12 duration-500"/>
                       <p class="text-neutral-100 text-center text-xs md:text-sm font-semibold duration-500">{{ item.homeTeamAbbreviation }}</p>
                     </div>
@@ -82,7 +82,7 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
                       </div>
                     </div>
                     <!-- Right -->
-                    <div>
+                    <div class="cursor-pointer" [routerLink]="['../club', item.awayTeamCategory, item.awayTeamId]">
                       <img [src]="item.awayTeamImageThumbnail" [alt]="item.awayTeamAlt" class="w-8 md:w-12 duration-500"/>
                       <p class="text-neutral-100 text-center text-xs md:text-sm font-semibold duration-500">{{ item.awayTeamAbbreviation }}</p>
                      </div>
