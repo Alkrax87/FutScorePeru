@@ -1,5 +1,5 @@
 <!-- Main -->
-<div class="w-full h-[436px] relative select-none">
+<div class="w-full h-[540px] sm:h-[440px] relative select-none duration-500">
   <!-- Basckground -->
   <img class="absolute h-full inset-0 w-full object-cover md:object-top" [src]="teamData?.background" alt="TEAM-background">
   <div class="absolute h-full bg-black inset-0 bg-opacity-50"></div>
@@ -13,8 +13,10 @@
         <div class="bg-gold w-fit px-5 py-0.5 skew-x-30 mx-auto sm:mx-0">
           <p class="-skew-x-30 font-semibold text-sm sm:text-base duration-500">{{ teamData?.division }}</p>
         </div>
-        <p class="font-bold text-5xl sm:text-6xl text-center sm:text-start duration-500">{{ teamData?.name }}</p>
-        <div class="flex gap-3 justify-between sm:justify-start text-sm sm:text-base pt-2 duration-500">
+        <p class="font-bold text-5xl sm:text-6xl text-center sm:text-start duration-500">
+          {{ teamData?.name }}
+        </p>
+        <div class="flex gap-3 justify-evenly sm:justify-start text-sm sm:text-base py-2 duration-500">
           <p class="truncate">
             <fa-icon [icon]="Location"></fa-icon> &nbsp;Región: <span class="font-semibold">{{ teamData?.location }}</span>
           </p>
@@ -23,64 +25,48 @@
             <fa-icon [icon]="Flag"></fa-icon> &nbsp;Fundación: <span class="font-semibold">{{ teamData?.foundation }}</span>
           </p>
         </div>
+        <!-- Social Media -->
+        <div class="flex justify-center sm:justify-start gap-2 duration-500">
+          @if (teamData?.social?.facebook) {
+            <a target="_blank" rel="" [href]="teamData?.social?.facebook" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
+              <fa-icon class="text-lg" [icon]="Facebook"></fa-icon>
+            </a>
+          }
+          @if (teamData?.social?.instagram) {
+            <a target="_blank" rel="noopener" [href]="teamData?.social?.instagram" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
+              <fa-icon class="text-lg" [icon]="Instagram"></fa-icon>
+            </a>
+          }
+          @if (teamData?.social?.twitter) {
+            <a target="_blank" rel="noopener" [href]="teamData?.social?.twitter" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
+              <fa-icon class="text-lg" [icon]="Twitter"></fa-icon>
+            </a>
+          }
+          @if (teamData?.social?.youtube) {
+            <a target="_blank" rel="noopener" [href]="teamData?.social?.youtube" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
+              <fa-icon class="text-lg" [icon]="Youtube"></fa-icon>
+            </a>
+          }
+          @if (teamData?.social?.tiktok) {
+            <a target="_blank" rel="noopener" [href]="teamData?.social?.tiktok" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
+              <fa-icon class="text-lg" [icon]="Tiktok"></fa-icon>
+            </a>
+          }
+        </div>
       </div>
     </div>
   </div>
 </div>
+<!-- Options -->
+<div class="bg-crimson w-full h-12">
+
+</div>
 <!-- Content -->
-<div class="bg-night p-3 sm:p-5">
-  <div class="w-full flex justify-center">
-    <div class=" w-full lg:w-full xl:w-11/12">
+<div class="bg-night p-3 sm:p-5 lg:px-16">
+    <div class="w-full">
       <div class="grid grid-cols-8 gap-3 sm:gap-5 select-none">
-        <!-- Social Media -->
-        <div class="bg-neutral-100 col-span-8 md:col-span-4 lg:col-span-2 row-start-1 lg:row-start-1">
-          <div class="w-full bg-crimson text-white image px-5 py-3">
-            <div class="h-full flex justify-center md:justify-start items-center">
-              <p class="text-lg font-bold">Redes Sociales</p>
-            </div>
-          </div>
-          <div class="p-2">
-            <div class="flex justify-center gap-3">
-              @if (teamData?.social?.facebook) {
-                <a target="_blank" rel="noopener noreferrer" [href]="teamData?.social?.facebook"
-                  class="rounded-full text-night hover:text-white flex items-center justify-center w-8 h-8 hover:bg-blue-700 duration-300"
-                >
-                  <fa-icon class="text-lg" [icon]="Facebook"></fa-icon>
-                </a>
-              }
-              @if (teamData?.social?.instagram) {
-                <a target="_blank" rel="noopener noreferrer" [href]="teamData?.social?.instagram"
-                  class="rounded-full text-night hover:text-white flex items-center justify-center w-8 h-8 hover:bg-gradient-to-tr hover:from-yellow-400 hover:to-pink-500 duration-300"
-                >
-                  <fa-icon class="text-lg" [icon]="Instagram"></fa-icon>
-                </a>
-              }
-              @if (teamData?.social?.twitter) {
-                <a target="_blank" rel="noopener noreferrer" [href]="teamData?.social?.twitter"
-                  class="rounded-full text-night hover:text-white flex items-center justify-center w-8 h-8 hover:bg-night duration-300"
-                >
-                  <fa-icon class="text-lg" [icon]="Twitter"></fa-icon>
-                </a>
-              }
-              @if (teamData?.social?.youtube) {
-                <a target="_blank" rel="noopener noreferrer" [href]="teamData?.social?.youtube"
-                  class="rounded-full text-night hover:text-white flex items-center justify-center w-8 h-8 hover:bg-red-600 duration-300"
-                >
-                  <fa-icon class="text-lg" [icon]="Youtube"></fa-icon>
-                </a>
-              }
-              @if (teamData?.social?.tiktok) {
-                <a target="_blank" rel="noopener noreferrer" [href]="teamData?.social?.tiktok"
-                  class="rounded-full text-night hover:text-white flex items-center justify-center w-8 h-8 hover:bg-night duration-300"
-                >
-                  <fa-icon class="text-lg" [icon]="Tiktok"></fa-icon>
-                </a>
-              }
-            </div>
-          </div>
-        </div>
         <!-- Website -->
-        <div class="bg-neutral-100 col-span-8 md:col-span-4 lg:col-span-2 row-start-2 md:row-start-1 lg:row-start-2">
+        <div class="bg-neutral-100 col-span-8 md:col-span-4 lg:col-span-2 row-start-1 lg:row-start-1">
           <div class="w-full bg-crimson text-white image px-5 py-3">
             <div class="h-full flex justify-center md:justify-start items-center">
               <p class="text-lg font-bold">Sitio Web</p>
@@ -97,7 +83,7 @@
           </div>
         </div>
         <!-- Stadium -->
-        <div class="bg-nightfall col-span-8 lg:col-span-2 row-start-4 md:row-start-3 lg:row-start-3">
+        <div class="bg-nightfall col-span-8 md:col-span-4 lg:col-span-2 row-start-2 md:row-start-1 lg:row-start-2">
           <div class="w-full bg-crimson text-white image px-5 py-3">
             <div class="h-full flex justify-center md:justify-start items-center">
               <p class="text-lg font-bold">Estadio</p>
@@ -220,7 +206,6 @@
         </div>
       </div>
     </div>
-  </div>
 </div>
 <!-- Information -->
 <app-title [title]="'Información'"></app-title>
