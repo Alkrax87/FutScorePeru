@@ -21,19 +21,19 @@ import { CommonModule } from '@angular/common';
       </div>
       <div class="w-full truncate">
         <div class="w-full truncate font-semibold text-sm">{{ data.name }}</div>
-        <div class="flex text-xs gap-1 text-neutral-300" [style.color]="isHovered ? data.color.c2 + 'de' : ''">
+        <div class="flex text-xs gap-1 text-neutral-300 duration-300" [style.color]="isHovered ? data.color.c2 + 'de' : ''">
           <div class="flex justify-center min-w-4">
             <fa-icon [icon]="Ring" class="text-xs"></fa-icon>
           </div>
           <div class="truncate">{{ data.stadium.name }}</div>
         </div>
-        <div class="flex text-xs gap-1 text-neutral-300" [style.color]="isHovered ? data.color.c2 + 'de' : ''">
+        <div class="flex text-xs gap-1 text-neutral-300 duration-300" [style.color]="isHovered ? data.color.c2 + 'de' : ''">
           <div class="flex justify-center min-w-4">
             <fa-icon [icon]="Users" class="text-xs"></fa-icon>
           </div>
           <div class="truncate">{{ formatNumber(data.stadium.capacity!) }}</div>
         </div>
-        <div class="flex text-xs gap-1 text-neutral-300" [style.color]="isHovered ? data.color.c2 + 'de' : ''">
+        <div class="flex text-xs gap-1 text-neutral-300 duration-300" [style.color]="isHovered ? data.color.c2 + 'de' : ''">
           <div class="flex justify-center min-w-4">
             <fa-icon [icon]="LocationDot" class="text-xs"></fa-icon>
           </div>
