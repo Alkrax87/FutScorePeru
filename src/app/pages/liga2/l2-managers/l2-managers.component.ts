@@ -15,7 +15,7 @@ import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel'
   imports: [TitleComponent, ManagerCarouselComponent, RouterLink],
   template: `
     <app-title [title]="'Técnicos'"></app-title>
-    <div class="bg-night p-3 sm:p-5 duration-500 select-none">
+    <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
       <div class="flex justify-center">
         <div class="w-full md:w-4/5 xl:w-1/2 flex flex-col gap-3 sm:gap-5 duration-500">
           @for (item of dataCarousel; track $index) {
