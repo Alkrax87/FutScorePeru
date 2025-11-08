@@ -19,7 +19,7 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
   imports: [TitleComponent, TableComponent, BtnComponent],
   template: `
     <app-title [title]="'Tabla'"></app-title>
-    <div class="bg-night py-3 sm:py-5 duration-500 select-none">
+    <div class="bg-night py-10 lg:py-16 duration-500 select-none">
       <div class="flex justify-center px-3 sm:px-5 mb-3 sm:mb-5">
         <div class="w-full md:w-5/6 lg:w-9/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-3 px-4 md:px-0">
           <app-btn (click)="setActiveTab('acumulado')" [active]="acumulado">Acumulado</app-btn>

@@ -20,7 +20,7 @@ import { StadiumData } from '../../../interfaces/api-models/stadium-data';
   imports: [TitleComponent, FixtureComponent, BtnComponent, CommonModule],
   template: `
     <app-title [title]="'Fixture'"></app-title>
-    <div class="bg-night p-3 sm:p-5 duration-500 select-none">
+    <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
       <div class="flex justify-center">
         <div class="w-full md:w-5/6 lg:w-6/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-2 px-4 md:px-0">
           <app-btn (click)="setActiveTab('apertura')" [active]="apertura">Apertura</app-btn>
