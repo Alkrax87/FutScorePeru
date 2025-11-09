@@ -1,12 +1,28 @@
 import { Component, Input } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-title',
-  imports: [],
+  imports: [FontAwesomeModule, RouterLink, RouterLinkActive],
   template: `
-    <div class="w-full h-48 text-6xl bg-crimson text-white background-pattern md:px-16 select-none">
-      <div class="h-full flex justify-center md:justify-start items-center">
-        <p class="font-bold">{{ title }}</p>
+    <div class="w-full h-52 flex flex-col justify-between pt-10 pb-8 bg-crimson text-white background-pattern px-4 sm:px-5 lg:px-16 select-none duration-500">
+      <div class="flex gap-2 font-bold text-xs sm:text-sm items-center duration-500">
+        <div [routerLink]="routeSections[0]" class="cursor-pointer hover:opacity-100 hover:duration-200 opacity-70">
+          HOME
+        </div>
+        <fa-icon [icon]="Arrow" class="opacity-70"></fa-icon>
+        <div [routerLink]="['/', routeSections[1]]" class="cursor-pointer hover:opacity-100 hover:duration-200 opacity-70">
+          {{ routeSections[1].toUpperCase() }}
+        </div>
+        <fa-icon [icon]="Arrow" class="opacity-70"></fa-icon>
+        <div [routerLink]="['/', routeSections[1], routeSections[2]]" routerLinkActive="text-white" class="cursor-pointer hover:opacity-100 hover:duration-200">
+          {{ routeSections[2].toUpperCase() }}
+        </div>
+      </div>
+      <div class="font-bold flex md:justify-start items-center duration-500">
+        <p class="font-bold text-6xl">{{ title }}</p>
       </div>
     </div>
   `,
@@ -14,4 +30,11 @@ import { Component, Input } from '@angular/core';
 })
 export class TitleComponent {
   @Input() title!: string;
+
+  routeSections: string[] = [];
+  Arrow = faCaretRight;
+
+  constructor(private router: Router) {
+    this.routeSections = router.url.split('/');
+  }
 }
