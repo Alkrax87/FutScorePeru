@@ -1,42 +1,11 @@
-<!-- Fixture -->
-<app-division-fixture [stageData]="stageData" [fixture]="fixture" [duration]="'90s'"></app-division-fixture>
 <!-- Main -->
-<div class="bg-night flex flex-col md:flex-row gap-5 px-3 sm:px-5 pb-10 md:pb-24 select-none duration-500">
-  <div class="flex flex-col gap-3 sm:gap-5 duration-500">
-    <img class="hidden lg:block w-full" src="assets/images/pages/Banner-l1.webp" alt="L1-Background">
-    <img class="block lg:hidden" src="assets/images/pages/Banner-l1-vertical.webp" alt="L1-Background">
-    <app-division-overview [data]="dataDivision" [description]="descriptionDivision" [tags]="tagsDivision"></app-division-overview>
-  </div>
-  <div>
-    <div class="bg-crimson text-white w-full text-center background-pattern p-2 duration-500">
-      <p class="text-white font-bold text-3xl md:text-xl duration-500">Tabla de Posiciones</p>
-    </div>
-    <div class="flex flex-col px-3 my-3">
-      <app-btn (click)="setActiveTab('acumulado')" [active]="acumulado" [small]="true">Acumulado</app-btn>
-      <app-btn (click)="setActiveTab('apertura')" [active]="apertura" [small]="true">Apertura</app-btn>
-      <app-btn (click)="setActiveTab('clausura')" [active]="clausura" [small]="true">Clausura</app-btn>
-    </div>
-    <div>
-      @if (acumulado) {
-        <app-division-table [data]="tableAcumulado" [config]="configAcumulado"></app-division-table>
-      }
-      @if (apertura) {
-        <app-division-table [data]="tableApertura" [config]="configApertura"></app-division-table>
-      }
-      @if (clausura) {
-        <app-division-table [data]="tableClausura" [config]="configClausura"></app-division-table>
-      }
-      <div class="font-bold text-sm flex justify-end mt-2">
-        <span [routerLink]="'../tabla'" class="text-crimson hover:text-crimson-hover cursor-pointer">
-          TABLAS COMPLETAS &nbsp;<fa-icon [icon]="Arrow"></fa-icon>
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Tournament -->
-<app-division-summary [summaryData]="summaryData"></app-division-summary>
-<!-- Teams -->
-<app-division-teams [division]="{name: 'Liga 1', logo: './assets/images/pages/liga-1.webp'}" [teams]="teams"></app-division-teams>
+<img class="hidden md:block w-full" src="./assets/images/pages/Banner-l1.webp" alt="L1-Background">
+<img class="block md:hidden" src="assets/images/pages/Banner-l1-vertical.webp" alt="L1-Background">
+<!-- Fixture -->
+<app-division-fixture [fixture]="fixture"></app-division-fixture>
 <!-- Map -->
 <app-division-map [regions]="regions" [mapConstructor]="mapConstructor" [dataMap]="dataMap"></app-division-map>
+<!-- Teams -->
+<app-division-teams [division]="{name: 'Liga 1', logo: './assets/images/pages/liga-1.webp'}" [teams]="teams"></app-division-teams>
+<!-- Tournament -->
+<app-division-summary [summaryData]="summaryData"></app-division-summary>
