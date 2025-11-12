@@ -92,7 +92,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: CpHomeComponent },
-      { path: 'equipos', component: CpTeamsComponent },
+      { path: 'ligas', component: CpTeamsComponent },
       { path: 'brackets', component: CpBracketsComponent },
       { path: 'liga/:category/:leagueId', component: LeaguePageComponent },
     ],

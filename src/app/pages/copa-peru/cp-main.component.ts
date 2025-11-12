@@ -35,7 +35,7 @@ export class CpMainComponent {
   private leaguesSubscription: Subscription | null = null;
   navEntities: EntityNav[] = [];
   navRoutes = [
-    { name: 'Ligas', route: 'equipos', icon: faFlag },
+    { name: 'Ligas', route: 'ligas', icon: faFlag },
     { name: 'Brackets', route: 'brackets', icon: faSitemap },
   ];
 
