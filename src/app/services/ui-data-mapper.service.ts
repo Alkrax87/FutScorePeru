@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { EntityNav } from '../interfaces/ui-models/entity-nav';
 import { TeamDivision } from '../interfaces/ui-models/team-division';
 import { TeamMap } from '../interfaces/ui-models/team-map';
-import { TeamCarousel } from '../interfaces/ui-models/team-carousel';
 import { TeamCard } from '../interfaces/ui-models/team-card';
 import { TeamTable } from '../interfaces/ui-models/team-table';
 import { PerformanceData } from '../interfaces/api-models/performance-data';
@@ -71,16 +70,13 @@ export class UiDataMapperService {
     return newData;
   }
 
-  teamCarouselMapper(dataTeams: TeamData[] | TeamCPData[]): TeamCarousel[] {
-    const newData: TeamCarousel[] = [];
+  teamDivisionMapperCP(dataTeams: TeamCPData[]): TeamDivision[] {
+    const newData = [];
 
     for (const team of dataTeams) {
       newData.push({
-        teamId: team.teamId,
-        abbreviation: team.abbreviation,
-        image: team.image,
-        alt: 'alt' in team ? team.alt : team.abbreviation + '-logo',
-      })
+        imageThumbnail: team.image,
+      });
     }
 
     return newData;
