@@ -25,7 +25,7 @@ import { L3TableComponent } from './pages/liga3/l3-table/l3-table.component';
 import { L3StatisticsComponent } from './pages/liga3/l3-statistics/l3-statistics.component';
 import { CpMainComponent } from './pages/copa-peru/cp-main.component';
 import { CpHomeComponent } from './pages/copa-peru/cp-home/cp-home.component';
-import { CpTeamsComponent } from './pages/copa-peru/cp-teams/cp-teams.component';
+import { CpLeaguesComponent } from './pages/copa-peru/cp-leagues/cp-leagues.component';
 import { CpBracketsComponent } from './pages/copa-peru/cp-brackets/cp-brackets.component';
 import { NotFoundComponent } from './pages/main/not-found/not-found.component';
 import { TestComponent } from './pages/main/test/test.component';
@@ -92,7 +92,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: CpHomeComponent },
-      { path: 'ligas', component: CpTeamsComponent },
+      { path: 'ligas', component: CpLeaguesComponent },
       { path: 'brackets', component: CpBracketsComponent },
       { path: 'liga/:category/:leagueId', component: LeaguePageComponent },
     ],
