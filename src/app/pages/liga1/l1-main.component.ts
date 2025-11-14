@@ -45,7 +45,7 @@ export class L1MainComponent {
   private teamSubscription: Subscription | null = null;
   navEntities: EntityNav[] = [];
   navRoutes = [
-    { name: 'Clubes', route: 'equipos', icon: faShieldHalved },
+    { name: 'Clubes', route: 'clubes', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
     { name: 'Técnicos', route: 'tecnicos', icon: faUserShield },
