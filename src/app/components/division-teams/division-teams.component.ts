@@ -15,7 +15,7 @@ import { BtnComponent } from "../btn/btn.component";
           </div>
         </div>
       </div>
-      <div class="bg-night px-3 sm:px-5 py-10 md:py-20 duration-500">
+      <div class="bg-night px-3 sm:px-5 py-10 md:py-24 duration-500">
         <div class="w-full lg:w-5/6 xl:w-2/3 duration-500 mx-auto">
           <p class="text-white text-center text-2xl font-semibold">Clubes <span class="text-crimson">{{ division.name }}</span></p>
           <div class="flex flex-wrap gap-4 justify-center mx-auto mt-2 mb-6">
