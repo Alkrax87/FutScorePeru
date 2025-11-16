@@ -126,7 +126,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
                 <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <app-bracket-card [bracket]="dataPlayOffs1[0]" [dualMatch]="true"></app-bracket-card>
+                <app-bracket-card [bracket]="dataPlayOffs1[0]" [dualMatch]="true" [lastMatch]="'Campeón Liga 3'"></app-bracket-card>
               </div>
             </div>
             <div>
@@ -139,7 +139,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataPlayOffsExtra; track $index) {
-                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                  <app-bracket-card [bracket]="bracket" [dualMatch]="true" [lastMatch]="'Ganador Play-Off'"></app-bracket-card>
                 }
               </div>
             </div>

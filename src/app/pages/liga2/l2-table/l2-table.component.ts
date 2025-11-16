@@ -105,7 +105,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
                 <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <app-bracket-card [bracket]="dataPlayOffs1[0]" [dualMatch]="true"></app-bracket-card>
+                <app-bracket-card [bracket]="dataPlayOffs1[0]" [dualMatch]="true" [lastMatch]="'Campeón Liga 2'"></app-bracket-card>
               </div>
             </div>
             <div>
@@ -118,9 +118,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
                 <p><b class="text-gold">Subcampeón:</b> El equipo <b>ganador del repechaje</b> y el <b>perdedor de la final</b> se enfrentan para definir el subcampeón de la <b>Liga 2</b>.</p>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                @for (bracket of dataPlayOffsExtra; track $index) {
-                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                }
+                <app-bracket-card [bracket]="dataPlayOffsExtra[0]" [dualMatch]="true"></app-bracket-card>
+                <app-bracket-card [bracket]="dataPlayOffsExtra[1]" [dualMatch]="true" [lastMatch]="'Subcampeón Liga 2'"></app-bracket-card>
               </div>
             </div>
           </div>
