@@ -80,7 +80,7 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
       </div>
       @if (classified) {
         <div class="flex items-center justify-center py-0.5 gap-1 bg-gold text-xs sm:text-sm mt-1">
-          <fa-icon [icon]="Trophy"></fa-icon><span class="font-semibold">{{ classified }}</span>clasificado.
+          <fa-icon [icon]="Trophy"></fa-icon><span class="font-semibold">{{ classified }}</span>{{ lastMatch ? lastMatch : 'clasificado.' }}
         </div>
       }
     </div>
@@ -90,6 +90,7 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
 export class BracketCardComponent {
   @Input() bracket!: MatchCard;
   @Input() dualMatch: boolean = false;
+  @Input() lastMatch?: string;
   classified: string | null = null;
 
   Arrow = faAnglesRight;
