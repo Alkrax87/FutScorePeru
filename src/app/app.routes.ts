@@ -61,17 +61,7 @@ export const routes: Routes = [
       { path: 'tabla', component: L1TableComponent, title: 'Liga 1 | Tabla' },
       { path: 'tecnicos', component: L1ManagersComponent, title: 'Liga 1 | Técnicos' },
       { path: 'estadisticas', component: L1StatisticsComponent, title: 'Liga 1 | Estadísticas' },
-      {
-        path: 'club/:category/:teamId',
-        component: TeamPageComponent,
-        children: [
-          { path: '', redirectTo: 'general', pathMatch: 'full' },
-          { path: 'general', component: OverviewComponent },
-          { path: 'resultados', component: ResultsComponent },
-          { path: 'estadio', component: StadiumComponent },
-          { path: 'club', component: ClubComponent },
-        ],
-      },
+      { path: 'club/:category/:teamId', component: TeamPageComponent },
     ],
   },
   {
@@ -86,17 +76,7 @@ export const routes: Routes = [
       { path: 'tabla', component: L2TableComponent, title: 'Liga 2 | Tabla' },
       { path: 'tecnicos', component: L2ManagersComponent, title: 'Liga 2 | Técnicos' },
       { path: 'estadisticas', component: L2StatisticsComponent, title: 'Liga 2 | Estadísticas' },
-      {
-        path: 'club/:category/:teamId',
-        component: TeamPageComponent,
-        children: [
-          { path: '', redirectTo: 'general', pathMatch: 'full' },
-          { path: 'general', component: OverviewComponent },
-          { path: 'resultados', component: ResultsComponent },
-          { path: 'estadio', component: StadiumComponent },
-          { path: 'club', component: ClubComponent },
-        ],
-      },
+      { path: 'club/:category/:teamId', component: TeamPageComponent },
     ],
   },
   {
@@ -110,17 +90,7 @@ export const routes: Routes = [
       { path: 'fixture', component: L3FixtureComponent, title: 'Liga 3 | Fixture' },
       { path: 'tabla', component: L3TableComponent, title: 'Liga 3 | Tabla' },
       { path: 'estadisticas', component: L3StatisticsComponent, title: 'Liga 3 | Estadísticas' },
-      {
-        path: 'club/:category/:teamId',
-        component: TeamPageComponent,
-        children: [
-          { path: '', redirectTo: 'general', pathMatch: 'full' },
-          { path: 'general', component: OverviewComponent },
-          { path: 'resultados', component: ResultsComponent },
-          { path: 'estadio', component: StadiumComponent },
-          { path: 'club', component: ClubComponent },
-        ],
-      },
+      { path: 'club/:category/:teamId', component: TeamPageComponent },
     ],
   },
   {
