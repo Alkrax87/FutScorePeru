@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
         @if (item.free) {
           <div>
             <div class="flex relative top-4">
-              <div class="bg-crimson w-24 px-3 text-center font-semibold flex items-center justify-center">Fecha {{ $index + 1 }}</div>
+              <div class="bg-crimson text-white w-24 px-3 text-center font-semibold flex items-center justify-center">Fecha {{ $index + 1 }}</div>
               <div class="
                 relative right-[0.1px] w-0 h-0 border-solid
                 border-t-[32px] border-r-0 border-b-0 border-l-[32px]
@@ -26,7 +26,7 @@ import { RouterLink } from '@angular/router';
         } @else {
           <div>
             <div class="flex relative top-4">
-              <div class="bg-crimson w-24 px-3 text-center font-semibold flex items-center justify-center">Fecha {{ $index + 1 }}</div>
+              <div class="bg-crimson text-white w-24 px-3 text-center font-semibold flex items-center justify-center">Fecha {{ $index + 1 }}</div>
               <div class="
                 relative right-[0.1px] w-0 h-0 border-solid
                 border-t-[32px] border-r-0 border-b-0 border-l-[32px]
