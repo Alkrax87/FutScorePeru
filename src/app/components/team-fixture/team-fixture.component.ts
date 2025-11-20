@@ -6,38 +6,42 @@ import { RouterLink } from '@angular/router';
   selector: 'app-team-fixture',
   imports: [RouterLink],
   template: `
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+    <div class="grid gap-x-3 sm:gap-x-5 grid-cols-[repeat(auto-fit,_minmax(280px,_1fr))] max-w-screen-xl mx-auto duration-500 select-none">
       @for (item of teamFixture; track $index) {
         @if (item.free) {
           <div>
-            <div class="flex flex-col items-center">
-              <p class="font-semibold text-lg">Fecha {{ $index + 1 }}</p>
-              <div class="bg-crimson skew-x-50 h-1 w-28 mb-2"></div>
+            <div class="flex relative top-4">
+              <div class="bg-crimson w-24 px-3 text-center font-semibold flex items-center justify-center">Fecha {{ $index + 1 }}</div>
+              <div class="
+                relative right-[0.1px] w-0 h-0 border-solid
+                border-t-[32px] border-r-0 border-b-0 border-l-[32px]
+                border-t-transparent  border-r-transparent border-b-transparent border-l-crimson
+              "></div>
             </div>
-            <div class="bg-nightfall text-white flex gap-1 h-11">
-              <div class="w-full flex justify-center items-center font-semibold">
-                <img [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-8 mx-1"/> Descansa
-              </div>
+            <div class="bg-white dark:bg-nightfall py-12 px-3 duration-500 flex justify-center items-center gap-2">
+              <img [routerLink]="['../', item.homeTeamId]" [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-16 cursor-pointer"/>
+              <p class="text-brightnight dark:text-white text-2xl font-bold duration-500">Descansa</p>
             </div>
           </div>
         } @else {
           <div>
-            <div class="flex flex-col items-center">
-              <p class="font-semibold text-lg">Fecha {{ $index + 1 }}</p>
-              <div class="bg-crimson skew-x-50 h-1 w-28 mb-2"></div>
+            <div class="flex relative top-4">
+              <div class="bg-crimson w-24 px-3 text-center font-semibold flex items-center justify-center">Fecha {{ $index + 1 }}</div>
+              <div class="
+                relative right-[0.1px] w-0 h-0 border-solid
+                border-t-[32px] border-r-0 border-b-0 border-l-[32px]
+                border-t-transparent  border-r-transparent border-b-transparent border-l-crimson
+              "></div>
             </div>
-            <div class="bg-nightfall text-white flex gap-1 h-11">
-              <div class="w-full flex justify-end items-center">
-                <img [routerLink]="['../', item.homeTeamId]" [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-8 mx-1 cursor-pointer"/>
-              </div>
-              <div class="bg-brightnight flex justify-center items-center font-bold text-3xl min-w-10 max-w-10">
-                <p>{{ item.homeTeamScore }}</p>
-              </div>
-              <div class="bg-brightnight flex justify-center items-center font-bold text-3xl min-w-10 max-w-10">
-                <p>{{ item.awayTeamScore }}</p>
-              </div>
-              <div class="w-full flex justify-start items-center">
-                <img [routerLink]="['../', item.awayTeamId]" [src]="item.awayTeamLogo" [alt]="item.awayTeamAlt" class="w-8 mx-1 cursor-pointer"/>
+            <div class="bg-white dark:bg-nightfall py-12 px-3 duration-500">
+              <div class="flex justify-between mx-auto">
+                <img [routerLink]="['../', item.homeTeamId]" [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-16 cursor-pointer"/>
+                <div class="flex items-center gap-1 font-bold text-5xl text-brightnight dark:text-white duration-500">
+                  <p>{{ item.homeTeamScore }}</p>
+                  <p>-</p>
+                  <p>{{ item.awayTeamScore }}</p>
+                </div>
+                <img [routerLink]="['../', item.awayTeamId]" [src]="item.awayTeamLogo" [alt]="item.awayTeamAlt" class="w-16 cursor-pointer"/>
               </div>
             </div>
           </div>
@@ -45,8 +49,8 @@ import { RouterLink } from '@angular/router';
       }
     </div>
   `,
-  styles: ``
+  styles: ``,
 })
 export class TeamFixtureComponent {
-  @Input() teamFixture!:TeamFixture[];
+  @Input() teamFixture!: TeamFixture[];
 }
