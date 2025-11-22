@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from "@angular/router";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
@@ -13,9 +12,6 @@ import { MatchesSetupService } from '../../../services/matches-setup.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { DivisionFixtureComponent } from "../../../components/division-fixture/division-fixture.component";
-import { DivisionOverviewComponent } from '../../../components/division-overview/division-overview.component';
-import { BtnComponent } from "../../../components/btn/btn.component";
-import { DivisionTableComponent } from "../../../components/division-table/division-table.component";
 import { DivisionMapComponent } from '../../../components/division-map/division-map.component';
 import { DivisionTeamsComponent } from "../../../components/division-teams/division-teams.component";
 import { DivisionSummaryComponent } from '../../../components/division-summary/division-summary.component';
@@ -29,7 +25,7 @@ import { TeamDivision } from '../../../interfaces/ui-models/team-division';
 
 @Component({
   selector: 'app-l1-home',
-  imports: [FontAwesomeModule, DivisionOverviewComponent, DivisionMapComponent, DivisionSummaryComponent, DivisionFixtureComponent, DivisionTableComponent, RouterLink, BtnComponent, DivisionTeamsComponent],
+  imports: [FontAwesomeModule, DivisionMapComponent, DivisionSummaryComponent, DivisionFixtureComponent, DivisionTeamsComponent],
   templateUrl: './l1-home.component.html',
   styles: ``,
 })
@@ -62,18 +58,10 @@ export class L1HomeComponent {
           this.fixture = this.matchesService.transformDataForHomeFixture(
             teams, fixture, results, ['apertura'], division.firstPhase.inGame ?? 0
           );
-          this.stageData = {
-            name: 'APERTURA',
-            inGame: division.firstPhase.inGame ?? 1
-          }
         } else {
           this.fixture = this.matchesService.transformDataForHomeFixture(
             teams, fixture, results, ['clausura'], division.secondPhase.inGame ?? 0
           );
-          this.stageData = {
-            name: 'CLAUSURA',
-            inGame: division.secondPhase.inGame ?? 1
-          }
         }
       }
 
@@ -81,6 +69,10 @@ export class L1HomeComponent {
       this.tableClausura = this.uiDataMapperService.teamsTableCompactMapper(teams, performance, 'clausura', undefined);
       this.tableAcumulado = this.uiDataMapperService.teamsTableCompactMapper(teams, performance, 'acumulado', undefined);
     });
+
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   dataDivision: DivisionData | null = null;
@@ -106,7 +98,6 @@ export class L1HomeComponent {
     { class: 'bg-sudamericana', quantity: 4 },
     { class: 'bg-relegation', quantity: 3 },
   ];
-  stageData!: { name: string, inGame: number };
   descriptionDivision: string = 'La Liga 1 es la máxima categoría del fútbol profesional en Perú, organizada por la Federación Peruana de Fútbol (FPF) y reúne a los mejores equipos del país en busca del título nacional.';
   tagsDivision: string[] = ['Liga 1', 'Primera División', 'Liga Profesional'];
   mapConstructor: MapElement[] = [];

@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
@@ -13,9 +12,6 @@ import { MatchesSetupService } from '../../../services/matches-setup.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { DivisionFixtureComponent } from "../../../components/division-fixture/division-fixture.component";
-import { DivisionOverviewComponent } from '../../../components/division-overview/division-overview.component';
-import { BtnComponent } from "../../../components/btn/btn.component";
-import { DivisionTableComponent } from "../../../components/division-table/division-table.component";
 import { DivisionMapComponent } from '../../../components/division-map/division-map.component';
 import { DivisionTeamsComponent } from "../../../components/division-teams/division-teams.component";
 import { DivisionSummaryComponent } from '../../../components/division-summary/division-summary.component';
@@ -29,7 +25,7 @@ import { TeamDivision } from '../../../interfaces/ui-models/team-division';
 
 @Component({
   selector: 'app-l2-home',
-  imports: [FontAwesomeModule, DivisionOverviewComponent, DivisionMapComponent, DivisionSummaryComponent, DivisionFixtureComponent, DivisionTableComponent, RouterLink, BtnComponent, DivisionTeamsComponent],
+  imports: [FontAwesomeModule, DivisionMapComponent, DivisionSummaryComponent, DivisionFixtureComponent, DivisionTeamsComponent],
   templateUrl: './l2-home.component.html',
   styles: ``,
 })
@@ -66,18 +62,10 @@ export class L2HomeComponent {
         }
 
         if (division.firstPhase.status) {
-          this.stageData = {
-            name: 'REGIONAL',
-            inGame: division.firstPhase.inGame ?? 1
-          }
           this.fixture = this.matchesService.transformDataForHomeFixture(
             teams, fixture, results, ['gruposPromotionA', 'gruposPromotionB', 'gruposRelegation'], division.firstPhase.inGame ?? 0, 'regional'
           );
         } else {
-          this.stageData = {
-            name: 'GRUPOS',
-            inGame: division.secondPhase.inGame ?? 1
-          }
           this.fixture = this.matchesService.transformDataForHomeFixture(
             teams, fixture, results, ['gruposPromotionA', 'gruposPromotionB', 'gruposRelegation'], division.secondPhase.inGame ?? 0, 'grupos'
           );
@@ -90,6 +78,10 @@ export class L2HomeComponent {
       this.tablePromotion2 = this.uiDataMapperService.teamsTableCompactMapper(teams, performance, 'grupos', 'p2');
       this.tableRelegation = this.uiDataMapperService.teamsTableCompactMapper(teams, performance, 'grupos', 'r');
     });
+
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   dataDivision: DivisionData | null = null;
@@ -116,7 +108,6 @@ export class L2HomeComponent {
     { class: '', quantity: 0 },
     { class: 'bg-relegation', quantity: 1 },
   ];
-  stageData!: { name: string, inGame: number };
   descriptionDivision: string = 'La Liga 2 es la segunda categoría del fútbol profesional en Perú, organizada por la Federación Peruana de Fútbol (FPF), donde equipos buscan ascender a la Liga 1.';
   tagsDivision: string[] = ['Liga 2', 'Segunda División', 'Liga Profesional'];
   mapConstructor: MapElement[] = [];
