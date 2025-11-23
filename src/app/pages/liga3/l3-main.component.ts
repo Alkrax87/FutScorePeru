@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FetchTeamDataService } from '../../services/fetch-team-data.service';
 import { FetchDivisionService } from '../../services/fetch-division.service';
@@ -11,7 +11,7 @@ import { FetchLastGamesService } from '../../services/fetch-last-games.service';
 import { FetchBracketsService } from '../../services/fetch-brackets.service';
 import { FetchStadiumService } from '../../services/fetch-stadium.service';
 import { UiDataMapperService } from '../../services/ui-data-mapper.service';
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EntityNavBarComponent } from '../../components/entity-nav-bar/entity-nav-bar.component';
 import { SectionSubnavComponent } from '../../components/section-subnav/section-subnav.component';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faRankingStar } from "@fortawesome/free-solid-svg-icons";
@@ -28,21 +28,18 @@ import { EntityNav } from '../../interfaces/ui-models/entity-nav';
   styles: ``,
 })
 export class L3MainComponent {
-  constructor(
-    private teamsService: FetchTeamDataService,
-    private divisionService: FetchDivisionService,
-    private mapService: FetchMapService,
-    private fixtureService: FetchFixtureService,
-    private resultsService: FetchResultsService,
-    private statisticsService: FetchStatisticsService,
-    private performanceService: FetchPerformanceService,
-    private lastGamesService: FetchLastGamesService,
-    private bracketsService: FetchBracketsService,
-    private stadiumsService: FetchStadiumService,
-    private uiDataMapperService: UiDataMapperService
-  ) {}
+  private teamsService = inject(FetchTeamDataService);
+  private divisionService = inject(FetchDivisionService);
+  private mapService = inject(FetchMapService);
+  private fixtureService = inject(FetchFixtureService);
+  private resultsService = inject(FetchResultsService);
+  private statisticsService = inject(FetchStatisticsService);
+  private performanceService = inject(FetchPerformanceService);
+  private lastGamesService = inject(FetchLastGamesService);
+  private bracketsService = inject(FetchBracketsService);
+  private stadiumsService = inject(FetchStadiumService);
+  private uiDataMapperService = inject(UiDataMapperService);
 
-  private teamSubscription: Subscription | null = null;
   navEntities: EntityNav[] = [];
   navRoutes = [
     { name: 'Clubes', route: 'clubes', icon: faShieldHalved },
@@ -50,6 +47,12 @@ export class L3MainComponent {
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
     { name: 'Estadísticas', route: 'estadisticas', icon: faRankingStar },
   ];
+
+  constructor() {
+    this.teamsService.dataTeamsL3$.pipe(takeUntilDestroyed()).subscribe({
+      next: (data) => this.navEntities = this.uiDataMapperService.teamsNavMapper(data)
+    });
+  }
 
   ngOnInit() {
     this.teamsService.fetchTeamsL3();
@@ -62,14 +65,5 @@ export class L3MainComponent {
     this.lastGamesService.fetchLastGamesL3();
     this.bracketsService.fetchBracketsL3();
     this.stadiumsService.fetchStadiums();
-    this.teamSubscription = this.teamsService.dataTeamsL3$.subscribe({
-      next: (data) => {
-        this.navEntities = this.uiDataMapperService.teamsNavMapper(data);
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.teamSubscription?.unsubscribe();
   }
 }
