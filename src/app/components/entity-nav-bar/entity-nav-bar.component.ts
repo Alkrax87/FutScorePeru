@@ -9,8 +9,8 @@ import { EntityNav } from '../../interfaces/ui-models/entity-nav';
   imports: [RouterLink, FontAwesomeModule],
   template: `
     <div class="bg-gray-100 dark:bg-night duration-500 select-none">
-      <div class="mx-auto hidden md:block md:w-11/12 lg:w-4/5">
-        <div class="flex gap-4 lg:gap-6">
+      <div class="mx-auto hidden md:block max-w-screen-xl px-3 sm:px-5">
+        <div class="flex gap-4">
           <div class="flex items-center text-xs lg:text-sm">
             <div class="animate-fade-right text-nowrap delay-100">
               <span class="text-neutral-600 dark:text-neutral-200 duration-500">
