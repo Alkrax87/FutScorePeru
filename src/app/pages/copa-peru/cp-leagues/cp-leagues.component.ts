@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FetchLeaguesService } from '../../../services/fetch-leagues.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from "../../../components/title/title.component";
 import { TeamCardCpComponent } from "../../../components/team-card-cp/team-card-cp.component";
 import { TeamCardCp } from '../../../interfaces/ui-models/team-card-cp';
@@ -12,35 +12,24 @@ import { TeamCardCp } from '../../../interfaces/ui-models/team-card-cp';
   template: `
     <app-title [title]="'Ligas'"></app-title>
     <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
-      <div class="flex justify-center">
-        <div class="w-full lg:w-11/12 xl:w-10/12 grid gap-3 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 duration-500">
-          @for (item of dataTeams; track $index) {
-            <app-team-card-cp [data]="dataTeams[$index]"></app-team-card-cp>
-          }
-        </div>
+      <div class="grid grid-cols-[repeat(auto-fit,_minmax(310px,_1fr))] gap-3 sm:gap-5 max-w-screen-xl mx-auto duration-500">
+        @for (item of dataLeagues; track $index) {
+          <app-team-card-cp [data]="dataLeagues[$index]"></app-team-card-cp>
+        }
       </div>
     </div>
   `,
   styles: ``,
 })
 export class CpLeaguesComponent {
-  constructor(
-    private leagueService: FetchLeaguesService,
-    private uiDataMapperService: UiDataMapperService
-  ) {}
+  private leaguesService = inject(FetchLeaguesService);
+  private uiDataMapperService = inject(UiDataMapperService);
 
-  private leaguesSubscription: Subscription | null = null;
-  dataTeams: TeamCardCp[] = [];
+  dataLeagues: TeamCardCp[] = [];
 
-  ngOnInit() {
-    this.leaguesSubscription = this.leagueService.dataLeagues$.subscribe({
-      next: (data) => {
-        this.dataTeams = this.uiDataMapperService.leagueCardMapper(data);
-      },
+  constructor() {
+    this.leaguesService.dataLeagues$.pipe(takeUntilDestroyed()).subscribe({
+      next: (data) => this.dataLeagues = this.uiDataMapperService.leagueCardMapper(data)
     });
-  }
-
-  ngOnDestroy() {
-    this.leaguesSubscription?.unsubscribe();
   }
 }
