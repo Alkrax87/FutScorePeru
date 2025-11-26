@@ -7,8 +7,8 @@ import { DivisionSummary } from '../../interfaces/ui-models/division-summary';
   selector: 'app-division-summary',
   imports: [FontAwesomeModule],
   template: `
-    <div class="bg-neutral-100 dark:bg-nightfall dark:text-white px-3 sm:px-5 py-10 md:py-24 select-none duration-500">
-      <div class="w-full lg:w-5/6 xl:w-2/3 duration-500 mx-auto">
+    <div class="bg-neutral-100 dark:bg-nightfall dark:text-white px-3 sm:px-5 py-12 md:py-24 select-none duration-500">
+      <div class="max-w-screen-xl mx-auto">
         <div class="flex items-center gap-4 mb-5">
           <fa-icon [icon]="Trophy" size="2x" class="text-crimson"></fa-icon>
           <div>

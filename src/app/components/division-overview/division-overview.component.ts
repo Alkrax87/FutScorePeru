@@ -7,10 +7,10 @@ import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons
   selector: 'app-division-overview',
   imports: [FontAwesomeModule],
   template: `
-    <div class="bg-night select-none duration-500">
-      <div class="flex flex-col xl:flex-row w-full gap-3 sm:gap-5 duration-500">
+    <div class="bg-night px-3 sm:px-5 py-12 md:py-24 select-none duration-500">
+      <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row gap-3 sm:gap-5 duration-500">
         <!-- Summary -->
-        <div class="w-full xl:w-1/2 place-content-center">
+        <div class="w-full md:w-1/2 place-content-center">
           <div class="bg-crimson text-white w-full text-center image p-3 lg:p-5 duration-500">
             <p class="text-white font-bold text-3xl lg:text-4xl duration-500">
               {{ data?.divisionId }}<sup class="text-xl lg:text-2xl duration-500">{{ data?.sup }}</sup> División
@@ -30,7 +30,7 @@ import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons
           </div>
         </div>
         <!-- About -->
-        <div class="w-full xl:w-1/2 place-content-center">
+        <div class="w-full md:w-1/2 place-content-center">
           <div class="w-fit">
             <h3 class="text-2xl text-white font-bold">Acerca de</h3>
             <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
