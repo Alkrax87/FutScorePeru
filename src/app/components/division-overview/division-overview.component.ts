@@ -7,7 +7,7 @@ import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons
   selector: 'app-division-overview',
   imports: [FontAwesomeModule],
   template: `
-    <div class="bg-night px-3 sm:px-5 py-12 md:py-24 select-none duration-500">
+    <div class="bg-night px-3 sm:px-5 pb-12 md:pb-24 pt-6 md:pt-12 select-none duration-500">
       <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row gap-3 sm:gap-5 duration-500">
         <!-- Summary -->
         <div class="w-full md:w-1/2 place-content-center">
