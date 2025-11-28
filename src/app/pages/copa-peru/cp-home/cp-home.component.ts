@@ -7,15 +7,17 @@ import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { DivisionOverviewComponent } from '../../../components/division-overview/division-overview.component';
 import { DivisionMapComponent } from '../../../components/division-map/division-map.component';
+import { DivisionTeamsComponent } from "../../../components/division-teams/division-teams.component";
 import { DivisionSummaryComponent } from '../../../components/division-summary/division-summary.component';
 import { DivisionData } from '../../../interfaces/api-models/division-data';
 import { MapElement } from '../../../interfaces/api-models/map-element';
 import { TeamMap } from '../../../interfaces/ui-models/team-map';
 import { DivisionSummary } from '../../../interfaces/ui-models/division-summary';
+import { TeamDivision } from '../../../interfaces/ui-models/team-division';
 
 @Component({
   selector: 'app-cp-home',
-  imports: [DivisionOverviewComponent, DivisionMapComponent, DivisionSummaryComponent],
+  imports: [DivisionOverviewComponent, DivisionMapComponent, DivisionSummaryComponent, DivisionTeamsComponent],
   templateUrl: './cp-home.component.html',
   styles: ``,
 })
@@ -34,7 +36,12 @@ export class CpHomeComponent {
       this.dataDivision = division;
       this.mapConstructor = map;
       this.dataMap = this.uiDataMapperService.teamCPMapMapper(teams);
+      this.teams =  this.uiDataMapperService.teamDivisionMapperCP(teams);
     });
+
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   dataDivision: DivisionData | null = null;
@@ -68,6 +75,7 @@ export class CpHomeComponent {
     { name: 'Tumbes', teams: 2 },
     { name: 'Ucayali', teams: 2 },
   ];
+  teams: TeamDivision[] = [];
   summaryData: DivisionSummary = {
     teams: '+10k',
     stages: {

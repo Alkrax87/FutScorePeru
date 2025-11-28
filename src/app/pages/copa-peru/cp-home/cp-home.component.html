@@ -5,5 +5,7 @@
 <app-division-overview [data]="dataDivision" [description]="descriptionDivision" [tags]="tagsDivision"></app-division-overview>
 <!-- Map -->
 <app-division-map [regions]="regions" [mapConstructor]="mapConstructor" [dataMap]="dataMap"></app-division-map>
+<!-- Teams -->
+<app-division-teams [division]="{name: 'Copa Perú', logo: './assets/images/pages/copa-peru.webp', toLeagues: true }" [teams]="teams"></app-division-teams>
 <!-- Tournament -->
 <app-division-summary [summaryData]="summaryData"></app-division-summary>

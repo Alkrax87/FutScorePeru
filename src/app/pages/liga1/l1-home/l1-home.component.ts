@@ -12,6 +12,7 @@ import { MatchesSetupService } from '../../../services/matches-setup.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { DivisionFixtureComponent } from "../../../components/division-fixture/division-fixture.component";
+import { DivisionOverviewComponent } from "../../../components/division-overview/division-overview.component";
 import { DivisionMapComponent } from '../../../components/division-map/division-map.component';
 import { DivisionTeamsComponent } from "../../../components/division-teams/division-teams.component";
 import { DivisionSummaryComponent } from '../../../components/division-summary/division-summary.component';
@@ -25,7 +26,7 @@ import { TeamDivision } from '../../../interfaces/ui-models/team-division';
 
 @Component({
   selector: 'app-l1-home',
-  imports: [FontAwesomeModule, DivisionMapComponent, DivisionSummaryComponent, DivisionFixtureComponent, DivisionTeamsComponent],
+  imports: [FontAwesomeModule, DivisionMapComponent, DivisionSummaryComponent, DivisionFixtureComponent, DivisionTeamsComponent, DivisionOverviewComponent],
   templateUrl: './l1-home.component.html',
   styles: ``,
 })
