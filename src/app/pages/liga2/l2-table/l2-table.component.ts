@@ -1,20 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
 import { FetchBracketsService } from '../../../services/fetch-brackets.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
-import { Subscription } from 'rxjs';
+import { combineLatest } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from '../../../components/title/title.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
 import { TableComponent } from '../../../components/table/table.component';
 import { BracketCardComponent } from '../../../components/bracket-card/bracket-card.component';
-import { DivisionData } from '../../../interfaces/api-models/division-data';
-import { TeamData } from '../../../interfaces/api-models/team-data';
-import { PerformanceData } from '../../../interfaces/api-models/performance-data';
-import { LastGamesData } from '../../../interfaces/api-models/last-games-data';
-import { BracketsData } from '../../../interfaces/api-models/brackets-data';
 import { TeamTable } from '../../../interfaces/ui-models/team-table';
 import { MatchCard } from '../../../interfaces/ui-models/match-card';
 
@@ -23,7 +19,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
   imports: [TitleComponent, TableComponent, BtnComponent, BracketCardComponent],
   template: `
     <app-title [title]="'Tabla'"></app-title>
-    <div class="bg-night py-10 lg:py-16 duration-500 select-none">
+    <div class="bg-night py-10 lg:py-16 px-3 sm:px-5 duration-500 select-none">
       <div class="flex justify-center px-3 sm:px-5 mb-3 sm:mb-5">
         <div class="w-full md:w-5/6 lg:w-9/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-3 px-4 md:px-0">
           <app-btn (click)="setActiveTab('regional')" [active]="regional">Fase Regional</app-btn>
@@ -32,7 +28,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
         </div>
       </div>
       @if (regional) {
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4 -mx-3 sm:-mx-5">
           <div>
             <div class="w-fit px-5">
               <h3 class="text-3xl text-white font-bold">Grupo A</h3>
@@ -50,7 +46,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
         </div>
       }
       @if (grupos) {
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4 -mx-3 sm:-mx-5">
           <div>
             <div class="w-fit px-5">
               <h3 class="text-3xl text-white font-bold">Grupo Ascenso 1</h3>
@@ -76,7 +72,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
       }
       @if (playOff) {
         @if (dataPlayOffs4.length > 0 && dataPlayOffs2.length > 0 && dataPlayOffs1.length > 0 && dataPlayOffsExtra.length > 0) {
-          <div class="flex flex-col justify-center w-full xl:w-3/4 gap-4 mx-auto px-3 sm:px-5 duration-500">
+          <div class="max-w-screen-xl mx-auto flex flex-col justify-center gap-4">
             <div>
               <div class="w-fit">
                 <h3 class="text-3xl text-white font-bold">Cuartos de Final</h3>
@@ -134,58 +130,18 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
   styles: ``,
 })
 export class L2TableComponent {
-  constructor(
-    private divisionService: FetchDivisionService,
-    private teamsService: FetchTeamDataService,
-    private performanceService: FetchPerformanceService,
-    private lastGamesService: FetchLastGamesService,
-    private bracketsService: FetchBracketsService,
-    private uiDataMapperService: UiDataMapperService
-  ) {}
+  private divisionService = inject(FetchDivisionService);
+  private teamsService = inject(FetchTeamDataService);
+  private performanceService = inject(FetchPerformanceService);
+  private lastGamesService = inject(FetchLastGamesService);
+  private bracketsService = inject(FetchBracketsService);
+  private uiDataMapperService = inject(UiDataMapperService);
 
-  private divisionSubscription: Subscription | null = null;
-  private teamSubscription: Subscription | null = null;
-  private performanceSubscription: Subscription | null = null;
-  private lastGamesSubscription: Subscription | null = null;
-  private bracketsSubscription: Subscription | null = null;
-  dataDivision: DivisionData | null = null;
-  dataTeams: TeamData[] = [];
-  dataPerformance: PerformanceData[] = [];
-  dataLastGames: LastGamesData[] = [];
-  dataBrackets: BracketsData[] = [];
   regional: boolean = false;
   grupos: boolean = false;
   playOff: boolean = false;
 
-  setActiveTab(tab: String) {
-    this.regional = tab === 'regional';
-    this.grupos = tab === 'grupos';
-    this.playOff = tab === 'playOff';
-  }
-
-  headers: string[] = [
-    '',
-    'Pos',
-    'Club',
-    'PTS',
-    'PJ',
-    'PG',
-    'PE',
-    'PP',
-    'GF',
-    'GC',
-    'DIF',
-    'Últimas 5 Fechas',
-  ];
-  dataRegionalA: TeamTable[] = [];
-  dataRegionalB: TeamTable[] = [];
-  dataPromotion1: TeamTable[] = [];
-  dataPromotion2: TeamTable[] = [];
-  dataRelegation: TeamTable[] = [];
-  dataPlayOffs4: MatchCard[] = [];
-  dataPlayOffs2: MatchCard[] = [];
-  dataPlayOffs1: MatchCard[] = [];
-  dataPlayOffsExtra: MatchCard[] = [];
+  headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC','DIF', 'Últimas 5 Fechas'];
   configRegional: { class: string; quantity: number }[] = [
     { class: 'bg-gpromotion', quantity: 5 },
     { class: '', quantity: 0 },
@@ -232,82 +188,48 @@ export class L2TableComponent {
       class: 'bg-relegation',
     },
   ];
+  dataRegionalA: TeamTable[] = [];
+  dataRegionalB: TeamTable[] = [];
+  dataPromotion1: TeamTable[] = [];
+  dataPromotion2: TeamTable[] = [];
+  dataRelegation: TeamTable[] = [];
+  dataPlayOffs4: MatchCard[] = [];
+  dataPlayOffs2: MatchCard[] = [];
+  dataPlayOffs1: MatchCard[] = [];
+  dataPlayOffsExtra: MatchCard[] = [];
 
-  ngOnInit() {
-    this.divisionSubscription = this.divisionService.dataDivisionL2$.subscribe({
-      next: (data) => {
-        this.regional = data ? data.firstPhase.status : false;
-        this.grupos = data ? data.secondPhase.status : false;
-        this.playOff = data ? data.thirdPhase.status : false;
-      },
-    });
-    this.teamSubscription = this.teamsService.dataTeamsL2$.subscribe({
-      next: (data) => (this.dataTeams = data),
-    });
-    this.performanceSubscription = this.performanceService.dataPerformanceL2$.subscribe({
-      next: (data) => (this.dataPerformance = data),
-    });
-    this.lastGamesSubscription = this.lastGamesService.dataLastGamesL2$.subscribe({
-      next: (data) => (this.dataLastGames = data),
-    });
-    this.bracketsSubscription = this.bracketsService.dataBracketsL2$.subscribe({
-      next: (data) => (this.dataBrackets = data),
-    });
+  constructor() {
+    combineLatest([
+      this.divisionService.dataDivisionL2$,
+      this.teamsService.dataTeamsL2$,
+      this.performanceService.dataPerformanceL2$,
+      this.lastGamesService.dataLastGamesL2$,
+      this.bracketsService.dataBracketsL2$,
+    ]).pipe(takeUntilDestroyed()).subscribe({
+      next: ([division, teams, performance, lastgames, brackets]) => {
+        this.regional = division?.firstPhase.status || false;
+        this.grupos = division?.secondPhase.status || false;
+        this.playOff = division?.thirdPhase.status || false;
 
-    if (this.dataTeams && this.dataPerformance && this.dataLastGames) {
-      this.dataRegionalA = this.uiDataMapperService.teamsTableMapper(
-        this.dataTeams,
-        this.dataPerformance,
-        this.dataLastGames,
-        'regional',
-        'a'
-      );
-      this.dataRegionalB = this.uiDataMapperService.teamsTableMapper(
-        this.dataTeams,
-        this.dataPerformance,
-        this.dataLastGames,
-        'regional',
-        'b'
-      );
-      this.dataPromotion1 = this.uiDataMapperService.teamsTableMapper(
-        this.dataTeams,
-        this.dataPerformance,
-        this.dataLastGames,
-        'grupos',
-        'p1'
-      );
-      this.dataPromotion2 = this.uiDataMapperService.teamsTableMapper(
-        this.dataTeams,
-        this.dataPerformance,
-        this.dataLastGames,
-        'grupos',
-        'p2'
-      );
-      this.dataRelegation = this.uiDataMapperService.teamsTableMapper(
-        this.dataTeams,
-        this.dataPerformance,
-        this.dataLastGames,
-        'grupos',
-        'r'
-      );
-    }
+        this.dataRegionalA = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'regional', 'a');
+        this.dataRegionalB = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'regional', 'b');
+        this.dataPromotion1 = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'grupos', 'p1');
+        this.dataPromotion2 = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'grupos', 'p2');
+        this.dataRelegation = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'grupos', 'r');
 
-    if (this.dataTeams && this.dataBrackets && this.dataBrackets.length > 0) {
-      const bracket = this.dataBrackets[0];
-      if (bracket.bracket4 && bracket.bracket2 && bracket.bracket1 && bracket.bracketExtra) {
-        this.dataPlayOffs4 = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket.bracket4);
-        this.dataPlayOffs2 = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket.bracket2);
-        this.dataPlayOffs1 = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket.bracket1);
-        this.dataPlayOffsExtra = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket.bracketExtra);
+        if (brackets[0] && brackets[0].bracket4 && brackets[0].bracket2 && brackets[0].bracket1 && brackets[0].bracketExtra) {
+          this.dataPlayOffs4 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket4);
+          this.dataPlayOffs2 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket2);
+          this.dataPlayOffs1 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket1);
+          this.dataPlayOffsExtra = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracketExtra);
+        }
       }
-    }
+    });
   }
 
-  ngOnDestroy() {
-    this.divisionSubscription?.unsubscribe();
-    this.teamSubscription?.unsubscribe();
-    this.performanceSubscription?.unsubscribe();
-    this.lastGamesSubscription?.unsubscribe();
-    this.bracketsSubscription?.unsubscribe();
+  setActiveTab(tab: String) {
+    this.regional = tab === 'regional';
+    this.grupos = tab === 'grupos';
+    this.playOff = tab === 'playOff';
   }
 }

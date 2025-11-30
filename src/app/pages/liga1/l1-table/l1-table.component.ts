@@ -1,17 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchPerformanceService } from '../../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
-import { Subscription } from 'rxjs';
+import { combineLatest } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from '../../../components/title/title.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
 import { TableComponent } from '../../../components/table/table.component';
-import { DivisionData } from '../../../interfaces/api-models/division-data';
-import { TeamData } from '../../../interfaces/api-models/team-data';
-import { PerformanceData } from '../../../interfaces/api-models/performance-data';
-import { LastGamesData } from '../../../interfaces/api-models/last-games-data';
 import { TeamTable } from '../../../interfaces/ui-models/team-table';
 
 @Component({
@@ -41,49 +38,17 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
   styles: ``,
 })
 export class L1TableComponent {
-  constructor(
-    private divisionService: FetchDivisionService,
-    private teamsService: FetchTeamDataService,
-    private performanceService: FetchPerformanceService,
-    private lastGamesService: FetchLastGamesService,
-    private uiDataMapperService: UiDataMapperService
-  ) {}
+  private divisionService = inject(FetchDivisionService);
+  private teamsService = inject(FetchTeamDataService);
+  private performanceService = inject(FetchPerformanceService);
+  private lastGamesService = inject(FetchLastGamesService);
+  private uiDataMapperService = inject(UiDataMapperService);
 
-  private divisionSubscription: Subscription | null = null;
-  private teamSubscription: Subscription | null = null;
-  private performanceSubscription: Subscription | null = null;
-  private lastGamesSubscription: Subscription | null = null;
-  dataDivision: DivisionData | null = null;
-  dataTeams: TeamData[] = [];
-  dataPerformance: PerformanceData[] = [];
-  dataLastGames: LastGamesData[] = [];
   acumulado: boolean = true;
   apertura: boolean = false;
   clausura: boolean = false;
 
-  setActiveTab(tab: String) {
-    this.acumulado = tab === 'acumulado';
-    this.apertura = tab === 'apertura';
-    this.clausura = tab === 'clausura';
-  }
-
-  headers: string[] = [
-    '',
-    'Pos',
-    'Club',
-    'PTS',
-    'PJ',
-    'PG',
-    'PE',
-    'PP',
-    'GF',
-    'GC',
-    'DIF',
-    'Últimas 5 Fechas',
-  ];
-  dataApertura: TeamTable[] = [];
-  dataClausura: TeamTable[] = [];
-  dataAcumulado: TeamTable[] = [];
+  headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimas 5 Fechas'];
   configApertura: { class: string; quantity: number }[] = [
     { class: 'bg-gold', quantity: 1 },
     { class: '', quantity: 0 },
@@ -130,58 +95,35 @@ export class L1TableComponent {
       class: 'bg-gold',
     },
   ];
+  dataApertura: TeamTable[] = [];
+  dataClausura: TeamTable[] = [];
+  dataAcumulado: TeamTable[] = [];
 
-  ngOnInit() {
-    this.divisionSubscription = this.divisionService.dataDivisionL1$.subscribe({
-      next: (data) => (this.dataDivision = data),
-    });
-    this.teamSubscription = this.teamsService.dataTeamsL1$.subscribe({
-      next: (data) => (this.dataTeams = data),
-    });
-    this.performanceSubscription = this.performanceService.dataPerformanceL1$.subscribe({
-      next: (data) => (this.dataPerformance = data),
-    });
-    this.lastGamesSubscription = this.lastGamesService.dataLastGamesL1$.subscribe({
-      next: (data) => (this.dataLastGames = data),
-    });
+  constructor() {
+    combineLatest([
+      this.divisionService.dataDivisionL1$,
+      this.teamsService.dataTeamsL1$,
+      this.performanceService.dataPerformanceL1$,
+      this.lastGamesService.dataLastGamesL1$,
+    ]).pipe(takeUntilDestroyed()).subscribe({
+      next: ([division, teams, performance, lastgames]) => {
+        let activePhase = '';
+        if (division?.firstPhase.status) {
+          activePhase = 'apertura';
+        } else if (division?.secondPhase.status) {
+          activePhase = 'clausura';
+        }
 
-    if (this.dataDivision && this.dataTeams && this.dataPerformance && this.dataLastGames) {
-      let activePhase = '';
-      if (this.dataDivision.firstPhase.status) {
-        activePhase = 'apertura';
-      } else if (this.dataDivision.secondPhase.status) {
-        activePhase = 'clausura';
+        this.dataApertura = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'apertura', undefined);
+        this.dataClausura = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'clausura', undefined);
+        this.dataAcumulado = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'acumulado', undefined, activePhase);
       }
-
-      this.dataApertura = this.uiDataMapperService.teamsTableMapper(
-        this.dataTeams,
-        this.dataPerformance,
-        this.dataLastGames,
-        'apertura',
-        undefined
-      );
-      this.dataClausura = this.uiDataMapperService.teamsTableMapper(
-        this.dataTeams,
-        this.dataPerformance,
-        this.dataLastGames,
-        'clausura',
-        undefined
-      );
-      this.dataAcumulado = this.uiDataMapperService.teamsTableMapper(
-        this.dataTeams,
-        this.dataPerformance,
-        this.dataLastGames,
-        'acumulado',
-        undefined,
-        activePhase
-      );
-    }
+    })
   }
 
-  ngOnDestroy() {
-    this.teamSubscription?.unsubscribe();
-    this.performanceSubscription?.unsubscribe();
-    this.lastGamesSubscription?.unsubscribe();
-    this.divisionSubscription?.unsubscribe();
+  setActiveTab(tab: String) {
+    this.acumulado = tab === 'acumulado';
+    this.apertura = tab === 'apertura';
+    this.clausura = tab === 'clausura';
   }
 }
