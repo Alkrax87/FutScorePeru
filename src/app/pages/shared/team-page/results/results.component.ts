@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BtnComponent } from "../../../../components/btn/btn.component";
 import { TeamFixtureComponent } from "../../../../components/team-fixture/team-fixture.component";
-import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faCircleCheck, faCircleExclamation, faCircleMinus, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { TeamInformation } from '../../../../interfaces/api-models/team-information';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DivisionData } from '../../../../interfaces/api-models/division-data';
@@ -29,49 +29,64 @@ import { DivisionData } from '../../../../interfaces/api-models/division-data';
         </div>
       </div>
       <!-- Content -->
-      <div class="max-w-screen-xl mx-auto px-3 sm:px-5">
+      <div class="max-w-screen-xl mx-auto px-3 sm:px-5 duration-500">
         @if (activeLastGames) {
-          <!-- Results -->
-          <div class="w-fit">
-            <h3 class="text-3xl text-white font-bold">Resultados</h3>
-            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-          </div>
-          <div class="bg-white dark:bg-nightfall p-3 flex gap-2 sm:gap-0 justify-center sm:justify-evenly flex-wrap sm:flex-nowrap rounded-3xl duration-500">
-            @for (lastGame of teamLastGames?.[activeLastGames]; track $index) {
-              @switch (lastGame) {
-                @case ("w") {
-                  <fa-icon class="text-xl text-green-600" [icon]="Win"></fa-icon>
-                }
-                @case ("d") {
-                  <fa-icon class="text-xl text-neutral-300" [icon]="Draw"></fa-icon>
-                }
-                @case ("l") {
-                  <fa-icon class="text-xl text-red-600" [icon]="Lose"></fa-icon>
-                }
-                @default {
-                  <fa-icon class="text-xl text-neutral-400" [icon]="Default"></fa-icon>
+          @if (teamFixture[activeLastGames]) {
+            <!-- Results -->
+            <div class="w-fit">
+              <h3 class="text-3xl text-white font-bold">Resultados</h3>
+              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+            </div>
+            <div class="bg-white dark:bg-nightfall p-3 flex gap-2 sm:gap-0 justify-center sm:justify-evenly flex-wrap sm:flex-nowrap rounded-3xl duration-500">
+              @for (lastGame of teamLastGames?.[activeLastGames]; track $index) {
+                @switch (lastGame) {
+                  @case ("w") {
+                    <fa-icon class="text-xl text-green-600" [icon]="Win"></fa-icon>
+                  }
+                  @case ("d") {
+                    <fa-icon class="text-xl text-neutral-300" [icon]="Draw"></fa-icon>
+                  }
+                  @case ("l") {
+                    <fa-icon class="text-xl text-red-600" [icon]="Lose"></fa-icon>
+                  }
+                  @default {
+                    <fa-icon class="text-xl text-neutral-400" [icon]="Default"></fa-icon>
+                  }
                 }
               }
-            }
-          </div>
-          <div class="flex justify-center gap-5 text-sm py-1">
-            <div class="text-neutral-400">
-              <fa-icon class="text-xs text-green-600" [icon]="Win"></fa-icon> Victoria
             </div>
-            <div class="text-neutral-400">
-              <fa-icon class="text-xs text-neutral-300" [icon]="Draw"></fa-icon> Empate
+            <div class="flex justify-center gap-5 text-sm py-1">
+              <div class="text-neutral-400">
+                <fa-icon class="text-xs text-green-600" [icon]="Win"></fa-icon> Victoria
+              </div>
+              <div class="text-neutral-400">
+                <fa-icon class="text-xs text-neutral-300" [icon]="Draw"></fa-icon> Empate
+              </div>
+              <div class="text-neutral-400">
+                <fa-icon class="text-xs text-red-600" [icon]="Lose"></fa-icon> Derrota
+              </div>
             </div>
-            <div class="text-neutral-400">
-              <fa-icon class="text-xs text-red-600" [icon]="Lose"></fa-icon> Derrota
-            </div>
-          </div>
-          <!-- Fixture -->
-          @if (teamFixture) {
+            <!-- Fixture -->
             <div class="w-fit">
               <h3 class="text-3xl text-white font-bold">Fixture</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <app-team-fixture [teamFixture]="teamFixture[activeLastGames]"></app-team-fixture>
+          } @else {
+            <div class="w-fit mx-auto p-5 duration-500">
+              <div class="flex flex-col gap-4 items-center">
+                <div class="flex text-white bg-crimson rounded-full px-4 py-1 gap-2 font-semibold">
+                  @if (division?.firstPhase?.status) {
+                    <fa-icon [icon]="Exclamation"></fa-icon>
+                    <p>Fixture por definir</p>
+                  } @else if (division?.secondPhase?.status || division?.thirdPhase?.status) {
+                    <fa-icon [icon]="Exclamation"></fa-icon>
+                    <p>No clasificado</p>
+                  }
+                </div>
+                <img [src]="teamLogo" alt="Team-Logo" class="w-32" />
+              </div>
+            </div>
           }
         }
       </div>
@@ -84,6 +99,7 @@ export class ResultsComponent {
   @Input() category?: number;
   @Input() teamLastGames?: TeamInformation['lastgames'];
   @Input() teamFixture?: any;
+  @Input() teamLogo?: string;
 
   apertura: boolean = false;
   clausura: boolean = false;
@@ -95,6 +111,7 @@ export class ResultsComponent {
   Draw = faCircleMinus;
   Lose = faCircleXmark;
   Default = faCircle;
+  Exclamation = faCircleExclamation;
 
   ngOnInit() {
     if (this.division && this.category) {
