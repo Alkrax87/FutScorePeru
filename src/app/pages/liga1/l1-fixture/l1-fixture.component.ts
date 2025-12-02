@@ -100,8 +100,12 @@ export class L1FixtureComponent {
       this.stadiumService.dataStadiums$,
     ]).pipe(takeUntilDestroyed()).subscribe({
       next: ([division, teams, fixture, results, stadiums]) => {
-        this.apertura = division ? division.firstPhase.status : false;
-        this.clausura = division ? division.secondPhase.status : false;
+        if (division?.thirdPhase.status === true) {
+          this.clausura = true;
+        } else {
+          this.apertura = division ? division.firstPhase.status : false;
+          this.clausura = division ? division.secondPhase.status : false;
+        }
         this.selectedRoundAperturaIndex = division ? division.firstPhase.inGame - 1 : 0;
         this.selectedRoundClausuraIndex = division ? division.secondPhase.inGame - 1 : 0;
         this.filteredDataForFixtureApertura = this.matchesService.transformDataForFixture(teams, fixture?.apertura, results, stadiums, 'apertura', 1);
