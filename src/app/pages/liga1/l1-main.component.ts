@@ -8,6 +8,7 @@ import { FetchResultsService } from '../../services/fetch-results.service';
 import { FetchStatisticsService } from '../../services/fetch-statistics.service';
 import { FetchPerformanceService } from '../../services/fetch-performance.service';
 import { FetchLastGamesService } from '../../services/fetch-last-games.service';
+import { FetchBracketsService } from '../../services/fetch-brackets.service';
 import { FetchManagerService } from '../../services/fetch-manager.service';
 import { FetchStadiumService } from '../../services/fetch-stadium.service';
 import { UiDataMapperService } from '../../services/ui-data-mapper.service';
@@ -36,6 +37,7 @@ export class L1MainComponent {
   private statisticsService = inject(FetchStatisticsService);
   private performanceService = inject(FetchPerformanceService);
   private lastGamesService = inject(FetchLastGamesService);
+  private bracketsService = inject(FetchBracketsService);
   private managersService = inject(FetchManagerService);
   private stadiumsService = inject(FetchStadiumService);
   private uiDataMapperService = inject(UiDataMapperService);
@@ -64,6 +66,7 @@ export class L1MainComponent {
     this.statisticsService.fetchStatisticsL1();
     this.performanceService.fetchPerformanceL1();
     this.lastGamesService.fetchLastGamesL1();
+    this.bracketsService.fetchBracketsL1();
     this.managersService.fetchManagersL1();
     this.stadiumsService.fetchStadiums();
   }
