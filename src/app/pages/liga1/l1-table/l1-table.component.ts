@@ -38,11 +38,11 @@ import { BracketCardComponent } from "../../../components/bracket-card/bracket-c
       }
     </div>
     @if (playOff) {
-      <div class="bg-crimson background-pattern px-16 py-12 select-none">
-        <p class="text-white font-bold text-6xl">Fase de Play-Offs</p>
+      <div class="bg-crimson background-pattern px-3 md:px-16 py-12 select-none duration-500">
+        <p class="text-white font-bold text-6xl text-center md:text-start">Fase de Play-Offs</p>
       </div>
-      <div class="bg-night w-full py-10 lg:py-16 duration-500 select-none">
-        <div class="max-w-screen-xl mx-auto px-3 sm:px-5 xl:px-0 duration-500">
+      <div class="bg-night py-10 lg:py-16 px-3 sm:px-5 duration-500 select-none">
+        <div class="max-w-screen-xl mx-auto">
           <div class="flex flex-col md:flex-row gap-2">
             <div class="w-full md:w-1/2">
               <div class="w-fit">
