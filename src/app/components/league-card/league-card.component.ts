@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAngleRight, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-league-card',
-  imports: [RouterModule, FontAwesomeModule],
+  imports: [RouterLink, FontAwesomeModule],
   template: `
-    <div>
+    <div class="shadow-md">
       <div class="bg-nightfall border-none">
         <div class="bg-white dark:bg-brightnight transition dark:transition duration-300 dark:duration-300 pt-5 px-9 overflow-hidden relative rounded-br-[30px]">
           <div class="w-20 h-20 bg-crimson rounded-full absolute -right-5 -top-7"></div>
