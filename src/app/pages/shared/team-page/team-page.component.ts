@@ -2,25 +2,32 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faInstagram, faTiktok, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark, faEllipsis, faFlag, faLink, faLocationDot, faRing, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsis, faFlag, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FetchPageInformationService } from '../../../services/fetch-page-information.service';
 import { TeamInformation } from '../../../interfaces/api-models/team-information';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 import { FetchDivisionService } from '../../../services/fetch-division.service';
-import { BtnComponent } from "../../../components/btn/btn.component";
 import { MatchesSetupService } from '../../../services/matches-setup.service';
-import { TeamFixtureComponent } from "../../../components/team-fixture/team-fixture.component";
-import { TitleComponent } from "../../../components/title/title.component";
 import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
 import { FetchResultsService } from '../../../services/fetch-results.service';
 import { TeamData } from '../../../interfaces/api-models/team-data';
 import { ResultsData } from '../../../interfaces/api-models/results-data';
+import { Title } from '@angular/platform-browser';
+import { OverviewComponent } from "./overview/overview.component";
+import { ResultsComponent } from "./results/results.component";
+import { StadiumComponent } from "./stadium/stadium.component";
+import { ClubComponent } from "./club/club.component";
+import { DivisionData } from '../../../interfaces/api-models/division-data';
 
 @Component({
   selector: 'app-team-page',
-  imports: [FontAwesomeModule, BtnComponent, TeamFixtureComponent, TitleComponent],
+  imports: [FontAwesomeModule, OverviewComponent, ResultsComponent, StadiumComponent, ClubComponent],
   templateUrl: './team-page.component.html',
-  styles: ``,
+  styles: `
+    *::-webkit-scrollbar {
+      display: none;
+    }
+  `,
 })
 export class TeamPageComponent {
   constructor(
@@ -30,41 +37,22 @@ export class TeamPageComponent {
     private resultsService: FetchResultsService,
     private fetchTeamInformation: FetchPageInformationService,
     private transformDataService: MatchesSetupService,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) {}
 
   private divisionSubscription: Subscription | null = null;
   private teamSubscription: Subscription | null = null;
   private resultsSubscription: Subscription | null = null;
   private destroy$ = new Subject<void>();
+
   teamId: string = "";
   category: number = 0;
-  apertura: boolean = false;
-  clausura: boolean = false;
-  regional: boolean = false;
-  grupos: boolean = false;
-  final: boolean = false;
+  division: DivisionData | null = null;
   teamData: TeamInformation | null = null;
   dataTeams: TeamData[] = [];
   dataResults: ResultsData[] = [];
   filteredFixtureStage: any;
-
-  setActiveTab(tab: String) {
-    this.apertura = tab === 'apertura';
-    this.clausura = tab === 'clausura';
-    this.regional = tab === 'regional';
-    this.grupos = tab === 'grupos';
-    this.final = tab === 'final';
-  }
-
-  get activeLastGames(): string | null {
-    if (this.apertura) return 'apertura';
-    if (this.clausura) return 'clausura';
-    if (this.regional) return 'regional';
-    if (this.grupos) return 'grupos';
-    if (this.final) return 'final';
-    return null;
-  }
 
   ngOnInit() {
     this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
@@ -74,10 +62,7 @@ export class TeamPageComponent {
       switch (this.category) {
         case 1:
           this.divisionSubscription = this.divisionService.dataDivisionL1$.subscribe({
-            next: (data) => {
-              this.apertura = data ? data.firstPhase.status : false;
-              this.clausura = data ? data.secondPhase.status : false;
-            }
+            next: (data) => (this.division = data)
           });
           this.teamSubscription = this.teamService.dataTeamsL1$.subscribe({
             next: (data) => (this.dataTeams = data)
@@ -88,14 +73,7 @@ export class TeamPageComponent {
           break;
         case 2:
           this.divisionSubscription = this.divisionService.dataDivisionL2$.subscribe({
-            next: (data) => {
-              if (data?.thirdPhase.status === true) {
-                this.grupos = true;
-              } else {
-                this.regional = data ? data.firstPhase.status : false;
-                this.grupos = data ? data.secondPhase.status : false;
-              }
-            }
+            next: (data) => (this.division = data)
           });
           this.teamSubscription = this.teamService.dataTeamsL2$.subscribe({
             next: (data) => (this.dataTeams = data)
@@ -106,14 +84,7 @@ export class TeamPageComponent {
           break;
         case 3:
           this.divisionSubscription = this.divisionService.dataDivisionL3$.subscribe({
-            next: (data) => {
-              if (data?.thirdPhase.status === true) {
-                this.final = true;
-              } else {
-                this.regional = data ? data.firstPhase.status : false;
-                this.final = data ? data.secondPhase.status : false;
-              }
-            }
+            next: (data) => (this.division = data)
           });
           this.teamSubscription = this.teamService.dataTeamsL3$.subscribe({
             next: (data) => (this.dataTeams = data)
@@ -135,6 +106,7 @@ export class TeamPageComponent {
             response.fixture,
             this.dataResults
           );
+          this.title.setTitle(response.division + ' | ' + response.name);
         },
         error: () => {
           this.router.navigate(['/not-found']);
@@ -149,19 +121,31 @@ export class TeamPageComponent {
 
   Flag = faFlag;
   Location = faLocationDot;
-  Stadium = faRing;
   Divider = faEllipsis;
-  Users = faUsers;
-  Web = faLink;
   Facebook = faFacebookF;
   Instagram = faInstagram;
   Twitter = faXTwitter;
   Youtube = faYoutube;
   Tiktok = faTiktok;
-  Win = faCircleCheck;
-  Draw = faCircleMinus;
-  Lose = faCircleXmark;
-  Default = faCircle;
+
+  options = [
+    { name: 'General', section: 'overview' },
+    { name: 'Resultados', section: 'results' },
+    { name: 'Estadio', section: 'stadium' },
+    { name: 'Club', section: 'club' },
+  ];
+
+  overview: boolean = true;
+  results: boolean = false;
+  stadium: boolean = false;
+  club: boolean = false;
+
+  setActiveSection(tab: String) {
+    this.overview = tab === 'overview';
+    this.results = tab === 'results';
+    this.stadium = tab === 'stadium';
+    this.club = tab === 'club';
+  }
 
   ngOnDestroy() {
     this.destroy$.next();
