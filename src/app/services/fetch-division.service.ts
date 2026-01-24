@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { DivisionData } from '../interfaces/api-models/division-data';
+import { Division } from '../interfaces/api-models/division';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -12,15 +12,15 @@ export class FetchDivisionService {
 
   private http = inject(HttpClient);
 
-  cachedDivisionL1: DivisionData | null = null;
-  cachedDivisionL2: DivisionData | null = null;
-  cachedDivisionL3: DivisionData | null = null;
-  cachedDivisionCP: DivisionData | null = null;
+  cachedDivisionL1: Division | null = null;
+  cachedDivisionL2: Division | null = null;
+  cachedDivisionL3: Division | null = null;
+  cachedDivisionCP: Division | null = null;
 
-  private divisionL1Subject = new BehaviorSubject<DivisionData | null>(null);
-  private divisionL2Subject = new BehaviorSubject<DivisionData | null>(null);
-  private divisionL3Subject = new BehaviorSubject<DivisionData | null>(null);
-  private divisionCPSubject = new BehaviorSubject<DivisionData | null>(null);
+  private divisionL1Subject = new BehaviorSubject<Division | null>(null);
+  private divisionL2Subject = new BehaviorSubject<Division | null>(null);
+  private divisionL3Subject = new BehaviorSubject<Division | null>(null);
+  private divisionCPSubject = new BehaviorSubject<Division | null>(null);
 
   dataDivisionL1$ = this.divisionL1Subject.asObservable();
   dataDivisionL2$ = this.divisionL2Subject.asObservable();
@@ -33,7 +33,7 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.backendUrl + '/divisions/1').subscribe({
+    this.http.get<Division>(this.backendUrl + '/divisions/category/1').subscribe({
       next: (response) => {
         this.cachedDivisionL1 = response;
         this.divisionL1Subject.next(response);
@@ -48,7 +48,7 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.backendUrl + '/divisions/2').subscribe({
+    this.http.get<Division>(this.backendUrl + '/divisions/category/2').subscribe({
       next: (response) => {
         this.cachedDivisionL2 = response;
         this.divisionL2Subject.next(response);
@@ -63,7 +63,7 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.backendUrl + '/divisions/3').subscribe({
+    this.http.get<Division>(this.backendUrl + '/divisions/category/3').subscribe({
       next: (response) => {
         this.cachedDivisionL3 = response;
         this.divisionL3Subject.next(response);
@@ -78,7 +78,7 @@ export class FetchDivisionService {
       return;
     }
 
-    this.http.get<DivisionData>(this.backendUrl + '/divisions/4').subscribe({
+    this.http.get<Division>(this.backendUrl + '/divisions/category/4').subscribe({
       next: (response) => {
         this.cachedDivisionCP = response;
         this.divisionCPSubject.next(response);

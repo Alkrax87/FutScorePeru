@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DivisionData } from '../../interfaces/api-models/division-data';
+import { Division } from '../../interfaces/api-models/division';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,7 +13,7 @@ import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons
         <div class="w-full md:w-1/2 place-content-center">
           <div class="bg-crimson background-pattern text-white w-full text-center image p-3 lg:p-5 duration-500">
             <p class="text-white font-bold text-3xl lg:text-4xl duration-500">
-              {{ data?.divisionId }}<sup class="text-xl lg:text-2xl duration-500">{{ data?.sup }}</sup> División
+              {{ data?.category }}<sup class="text-xl lg:text-2xl duration-500">{{ data?.sup }}</sup> División
             </p>
           </div>
           <div class="text-white flex gap-3 mt-3 duration-500">
@@ -35,10 +35,10 @@ import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons
             <h3 class="text-2xl text-white font-bold">Acerca de</h3>
             <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
-          <p class="text-neutral-300 my-2 sm:my-4 text-justify">{{ description }}</p>
+          <p class="text-neutral-300 my-2 sm:my-4 text-justify">{{ data?.description }}</p>
           <div class="flex flex-wrap gap-3">
-            @for (item of tags; track $index) {
-              <p class="text-neutral-200 px-4 text-sm rounded-full border-2 border-gold text-nowrap">{{ tags[$index] }}</p>
+            @for (tag of data?.tags; track $index) {
+              <p class="text-neutral-200 px-4 text-sm rounded-full border-2 border-gold text-nowrap">{{ tag }}</p>
             }
           </div>
         </div>
@@ -48,9 +48,7 @@ import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons
   styles: ``,
 })
 export class DivisionOverviewComponent {
-  @Input() data!: DivisionData | null;
-  @Input() description!: string;
-  @Input() tags!: string[];
+  @Input() data!: Division | null;
 
   Calendar = faCalendarAlt;
   Shield = faShieldHalved;
