@@ -1,24 +1,24 @@
 import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { StatisticsData } from '../interfaces/api-models/statistics-data';
+import { Statistics } from '../interfaces/api-models/statistics';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FetchStatisticsService {
   private backendUrl = Environments.backendUrl;
 
   private http = inject(HttpClient);
 
-  cachedStatisticsL1: StatisticsData | null = null;
-  cachedStatisticsL2: StatisticsData | null = null;
-  cachedStatisticsL3: StatisticsData | null = null;
+  cachedStatisticsL1: Statistics | null = null;
+  cachedStatisticsL2: Statistics | null = null;
+  cachedStatisticsL3: Statistics | null = null;
 
-  private statisticsL1Subject = new BehaviorSubject<StatisticsData | null>(null);
-  private statisticsL2Subject = new BehaviorSubject<StatisticsData | null>(null);
-  private statisticsL3Subject = new BehaviorSubject<StatisticsData | null>(null);
+  private statisticsL1Subject = new BehaviorSubject<Statistics | null>(null);
+  private statisticsL2Subject = new BehaviorSubject<Statistics | null>(null);
+  private statisticsL3Subject = new BehaviorSubject<Statistics | null>(null);
 
   dataStatisticsL1$ = this.statisticsL1Subject.asObservable();
   dataStatisticsL2$ = this.statisticsL2Subject.asObservable();
@@ -30,7 +30,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>(this.backendUrl + '/statistics/1').subscribe({
+    this.http.get<Statistics>(this.backendUrl + '/statistics/category/1').subscribe({
       next: (response) => {
         this.cachedStatisticsL1 = response;
         this.statisticsL1Subject.next(response);
@@ -45,7 +45,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>(this.backendUrl + '/statistics/2').subscribe({
+    this.http.get<Statistics>(this.backendUrl + '/statistics/category/2').subscribe({
       next: (response) => {
         this.cachedStatisticsL2 = response;
         this.statisticsL2Subject.next(response);
@@ -60,7 +60,7 @@ export class FetchStatisticsService {
       return;
     }
 
-    this.http.get<StatisticsData>(this.backendUrl + '/statistics/3').subscribe({
+    this.http.get<Statistics>(this.backendUrl + '/statistics/category/3').subscribe({
       next: (response) => {
         this.cachedStatisticsL3 = response;
         this.statisticsL3Subject.next(response);
