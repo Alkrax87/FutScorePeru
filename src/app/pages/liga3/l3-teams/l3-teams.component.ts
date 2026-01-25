@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
-import { FetchStadiumService } from '../../../services/fetch-stadium.service';
+import { FetchTeamsService } from '../../../services/fetch-teams.service';
+import { FetchStadiumsService } from '../../../services/fetch-stadiums.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -24,14 +24,14 @@ import { TeamCard } from '../../../interfaces/ui-models/team-card';
   styles: ``,
 })
 export class L3TeamsComponent {
-  private teamsService = inject(FetchTeamDataService);
-  private stadiumService = inject(FetchStadiumService);
+  private teamsService = inject(FetchTeamsService);
+  private stadiumsService = inject(FetchStadiumsService);
   private uiDataMapperService = inject(UiDataMapperService);
 
   dataTeamsCard: TeamCard[] = [];
 
   constructor() {
-    combineLatest([this.teamsService.dataTeamsL3$, this.stadiumService.dataStadiums$,]).pipe(takeUntilDestroyed()).subscribe({
+    combineLatest([this.teamsService.teamsL3$, this.stadiumsService.stadiums$,]).pipe(takeUntilDestroyed()).subscribe({
       next: ([teams, stadiums]) => this.dataTeamsCard = this.uiDataMapperService.teamCardMapper(teams, stadiums)
     });
   }
