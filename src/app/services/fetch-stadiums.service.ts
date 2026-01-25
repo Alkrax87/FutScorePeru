@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class FetchStadiumService {
+export class FetchStadiumsService {
   private backendUrl = Environments.backendUrl;
 
   private http = inject(HttpClient);
@@ -16,7 +16,7 @@ export class FetchStadiumService {
 
   private stadiumsSubject = new BehaviorSubject<StadiumData[]>([]);
 
-  dataStadiums$ = this.stadiumsSubject.asObservable();
+  stadiums$ = this.stadiumsSubject.asObservable();
 
   fetchStadiums() {
     if (this.cachedStadiums) {
@@ -24,12 +24,12 @@ export class FetchStadiumService {
       return;
     }
 
-    this.http.get<StadiumData[]>(this.backendUrl + "/stadiums").subscribe({
+    this.http.get<StadiumData[]>(this.backendUrl + '/stadiums').subscribe({
       next: (response) => {
         this.cachedStadiums = response;
         this.stadiumsSubject.next(response);
       },
-      error: (error) => console.error("Failed to fetch stadiums ", error),
+      error: (error) => console.error('Failed to fetch Stadiums ', error),
     });
   }
 }
