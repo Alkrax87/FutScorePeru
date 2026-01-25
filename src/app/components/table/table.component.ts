@@ -35,11 +35,11 @@ import { RouterLink } from '@angular/router';
             @if (data.length > 0) {
               @for (item of data; track $index) {
                 <tr [routerLink]="['../club', item.category, item.teamId]" class="group h-9 md:h-11 cursor-pointer text-center text-gray-200  hover:bg-gray-200 hover:text-night">
-                  @if ($index >= 0 && $index < config[0].quantity) {
+                  @if (config[0] && config[0].active && $index >= 0 && $index < config[0].quantity!) {
                     <td [ngClass]="config[0].class"></td>
-                  } @else if ($index >= config[0].quantity && $index < (config[0].quantity + config[1].quantity)) {
+                  } @else if (config[1] && config[1].active && $index >= config[0].quantity! && $index < (config[0].quantity! + config[1].quantity!)) {
                     <td [ngClass]="config[1].class"></td>
-                  } @else if ($index >= (data.length - config[2].quantity)) {
+                  } @else if (config[2] && config[2].active && $index >= (data.length - config[2].quantity!)) {
                     <td [ngClass]="config[2].class"></td>
                   } @else {
                     <td></td>
@@ -83,7 +83,7 @@ import { RouterLink } from '@angular/router';
             } @else {
               <tr>
                 <td colspan="12">
-                  <div class="h-16 flex justify-center items-center text-2xl">
+                  <div class="text-white h-16 flex justify-center items-center text-2xl">
                     Datos de la tabla por definir...
                   </div>
                 </td>
@@ -93,12 +93,14 @@ import { RouterLink } from '@angular/router';
         </table>
       </div>
       <div class="flex flex-col gap-0.5">
-        @for (item of classification; track $index) {
-          <div class="flex gap-2 h-6 md:h-8 duration-500">
-            <div class="w-1" [ngClass]="item.class"></div>
-            <img loading="lazy" [src]="item.image" alt="classification-logo" class="h-6 md:h-8 w-6 md:w-8 duration-500"/>
-            <p class="text-neutral-200 text-sm flex items-center my-auto">{{ item.name }}</p>
-          </div>
+        @for (item of config; track $index) {
+          @if (item.active) {
+            <div class="flex gap-2 h-6 md:h-8 duration-500">
+              <div class="w-1" [ngClass]="item.class"></div>
+              <img loading="lazy" [src]="item.image" alt="classification-logo" class="h-6 md:h-8 w-6 md:w-8 duration-500"/>
+              <p class="text-neutral-200 text-sm flex items-center my-auto">{{ item.name }}</p>
+            </div>
+          }
         }
       </div>
     </div>
@@ -106,10 +108,10 @@ import { RouterLink } from '@angular/router';
   styles: ``,
 })
 export class TableComponent {
-  @Input() config!: { class: string; quantity: number }[];
+  @Input() config!: { active: boolean; name?: string; image?: string; class?: string; quantity?: number }[];
   @Input() headers!: string[];
   @Input() data!: TeamTable[];
-  @Input() classification!: { name: string; image: string; class: string }[];
+
   Win = faCircleCheck;
   Draw = faCircleMinus;
   Lose = faCircleXmark;
