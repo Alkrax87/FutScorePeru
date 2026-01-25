@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { ManagerData } from '../interfaces/api-models/manager-data';
+import { Manager } from '../interfaces/api-models/manager';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -12,11 +12,11 @@ export class FetchManagerService {
 
   private http = inject(HttpClient);
 
-  cachedManagersL1: ManagerData[] | null = null;
-  cachedManagersL2: ManagerData[] | null = null;
+  cachedManagersL1: Manager[] | null = null;
+  cachedManagersL2: Manager[] | null = null;
 
-  private managersL1Subject = new BehaviorSubject<ManagerData[]>([]);
-  private managersL2Subject = new BehaviorSubject<ManagerData[]>([]);
+  private managersL1Subject = new BehaviorSubject<Manager[]>([]);
+  private managersL2Subject = new BehaviorSubject<Manager[]>([]);
 
   dataManagersL1$ = this.managersL1Subject.asObservable();
   dataManagersL2$ = this.managersL2Subject.asObservable();
@@ -27,7 +27,7 @@ export class FetchManagerService {
       return;
     }
 
-    this.http.get<ManagerData[]>(this.backendUrl + '/managers/category/1').subscribe({
+    this.http.get<Manager[]>(this.backendUrl + '/managers/category/1').subscribe({
       next: (response) => {
         this.cachedManagersL1 = response;
         this.managersL1Subject.next(response);
@@ -42,7 +42,7 @@ export class FetchManagerService {
       return;
     }
 
-    this.http.get<ManagerData[]>(this.backendUrl + '/managers/category/2').subscribe({
+    this.http.get<Manager[]>(this.backendUrl + '/managers/category/2').subscribe({
       next: (response) => {
         this.cachedManagersL2 = response;
         this.managersL2Subject.next(response);

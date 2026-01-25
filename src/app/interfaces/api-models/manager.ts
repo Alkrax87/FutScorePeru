@@ -1,4 +1,4 @@
-export interface ManagerData {
+export interface Manager {
   managerId: string;
   teamId: string;
   name: string;
