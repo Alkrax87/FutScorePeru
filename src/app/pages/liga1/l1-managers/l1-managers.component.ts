@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
-import { FetchManagerService } from '../../../services/fetch-manager.service';
+import { FetchTeamsService } from '../../../services/fetch-teams.service';
+import { FetchManagersService } from '../../../services/fetch-managers.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -34,14 +34,14 @@ import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel'
   styles: ``,
 })
 export class L1ManagersComponent {
-  private teamsService = inject(FetchTeamDataService);
-  private managerService = inject(FetchManagerService);
+  private teamsService = inject(FetchTeamsService);
+  private managersService = inject(FetchManagersService);
   private uiDataMapperService = inject(UiDataMapperService);
 
   dataCarousel: ManagerCarousel[] = [];
 
   constructor() {
-    combineLatest([this.teamsService.dataTeamsL1$, this.managerService.dataManagersL1$]).pipe(takeUntilDestroyed()).subscribe({
+    combineLatest([this.teamsService.teamsL1$, this.managersService.managersL1$]).pipe(takeUntilDestroyed()).subscribe({
       next: ([teams, managers]) => this.dataCarousel = this.uiDataMapperService.managerCarouselMapper(teams, managers)
     });
   }

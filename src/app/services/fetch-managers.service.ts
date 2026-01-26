@@ -7,19 +7,19 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class FetchManagerService {
+export class FetchManagersService {
   private backendUrl = Environments.backendUrl;
 
   private http = inject(HttpClient);
 
-  cachedManagersL1: Manager[] | null = null;
-  cachedManagersL2: Manager[] | null = null;
+  private cachedManagersL1: Manager[] | null = null;
+  private cachedManagersL2: Manager[] | null = null;
 
   private managersL1Subject = new BehaviorSubject<Manager[]>([]);
   private managersL2Subject = new BehaviorSubject<Manager[]>([]);
 
-  dataManagersL1$ = this.managersL1Subject.asObservable();
-  dataManagersL2$ = this.managersL2Subject.asObservable();
+  managersL1$ = this.managersL1Subject.asObservable();
+  managersL2$ = this.managersL2Subject.asObservable();
 
   fetchManagersL1() {
     if (this.cachedManagersL1) {
@@ -32,7 +32,7 @@ export class FetchManagerService {
         this.cachedManagersL1 = response;
         this.managersL1Subject.next(response);
       },
-      error: (error) => console.error('Failed to fetch (Liga1) managers ', error),
+      error: (error) => console.error('Failed to fetch (Liga1) Managers ', error),
     });
   }
 
@@ -47,7 +47,7 @@ export class FetchManagerService {
         this.cachedManagersL2 = response;
         this.managersL2Subject.next(response);
       },
-      error: (error) => console.error('Failed to fetch (Liga2) managers ', error),
+      error: (error) => console.error('Failed to fetch (Liga2) Managers ', error),
     });
   }
 }
