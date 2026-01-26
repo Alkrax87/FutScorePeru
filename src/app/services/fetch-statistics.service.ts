@@ -12,17 +12,17 @@ export class FetchStatisticsService {
 
   private http = inject(HttpClient);
 
-  cachedStatisticsL1: Statistics | null = null;
-  cachedStatisticsL2: Statistics | null = null;
-  cachedStatisticsL3: Statistics | null = null;
+  private cachedStatisticsL1: Statistics | null = null;
+  private cachedStatisticsL2: Statistics | null = null;
+  private cachedStatisticsL3: Statistics | null = null;
 
   private statisticsL1Subject = new BehaviorSubject<Statistics | null>(null);
   private statisticsL2Subject = new BehaviorSubject<Statistics | null>(null);
   private statisticsL3Subject = new BehaviorSubject<Statistics | null>(null);
 
-  dataStatisticsL1$ = this.statisticsL1Subject.asObservable();
-  dataStatisticsL2$ = this.statisticsL2Subject.asObservable();
-  dataStatisticsL3$ = this.statisticsL3Subject.asObservable();
+  statisticsL1$ = this.statisticsL1Subject.asObservable();
+  statisticsL2$ = this.statisticsL2Subject.asObservable();
+  statisticsL3$ = this.statisticsL3Subject.asObservable();
 
   fetchStatisticsL1() {
     if (this.cachedStatisticsL1) {
@@ -35,7 +35,7 @@ export class FetchStatisticsService {
         this.cachedStatisticsL1 = response;
         this.statisticsL1Subject.next(response);
       },
-      error: (error) => console.error('Failed to fetch (Liga 1) statistics ', error),
+      error: (error) => console.error('Failed to fetch (Liga 1) Statistics ', error),
     });
   }
 
@@ -50,7 +50,7 @@ export class FetchStatisticsService {
         this.cachedStatisticsL2 = response;
         this.statisticsL2Subject.next(response);
       },
-      error: (error) => console.error('Failed to fetch (Liga 2) statistics ', error),
+      error: (error) => console.error('Failed to fetch (Liga 2) Statistics ', error),
     });
   }
 
@@ -65,7 +65,7 @@ export class FetchStatisticsService {
         this.cachedStatisticsL3 = response;
         this.statisticsL3Subject.next(response);
       },
-      error: (error) => console.error('Failed to fetch (Liga 3) statistics ', error),
+      error: (error) => console.error('Failed to fetch (Liga 3) Statistics ', error),
     });
   }
 }
