@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { StadiumData } from '../interfaces/api-models/stadium-data';
+import { Stadium } from '../interfaces/api-models/stadium';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -12,9 +12,9 @@ export class FetchStadiumsService {
 
   private http = inject(HttpClient);
 
-  cachedStadiums: StadiumData[] | null = null;
+  private cachedStadiums: Stadium[] | null = null;
 
-  private stadiumsSubject = new BehaviorSubject<StadiumData[]>([]);
+  private stadiumsSubject = new BehaviorSubject<Stadium[]>([]);
 
   stadiums$ = this.stadiumsSubject.asObservable();
 
@@ -24,7 +24,7 @@ export class FetchStadiumsService {
       return;
     }
 
-    this.http.get<StadiumData[]>(this.backendUrl + '/stadiums').subscribe({
+    this.http.get<Stadium[]>(this.backendUrl + '/stadiums').subscribe({
       next: (response) => {
         this.cachedStadiums = response;
         this.stadiumsSubject.next(response);

@@ -1,4 +1,4 @@
-export interface StadiumData {
+export interface Stadium {
   stadiumId: number;
   name: string;
   capacity: number;
