@@ -99,7 +99,9 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
           </div>
         </div>
       } @else {
-        <div class="text-white h-32 flex justify-center items-center text-2xl font-semibold">Datos estadísticos por definir...</div>
+        <div class="flex h-64 justify-center items-center select-none">
+          <h3 class="text-2xl text-white font-bold">Datos estadísticos por definir...</h3>
+        </div>
       }
     </div>
   `,
