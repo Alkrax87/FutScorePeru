@@ -7,25 +7,25 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class FetchDivisionService {
+export class FetchDivisionsService {
   private backendUrl = Environments.backendUrl;
 
   private http = inject(HttpClient);
 
-  cachedDivisionL1: Division | null = null;
-  cachedDivisionL2: Division | null = null;
-  cachedDivisionL3: Division | null = null;
-  cachedDivisionCP: Division | null = null;
+  private cachedDivisionL1: Division | null = null;
+  private cachedDivisionL2: Division | null = null;
+  private cachedDivisionL3: Division | null = null;
+  private cachedDivisionCP: Division | null = null;
 
   private divisionL1Subject = new BehaviorSubject<Division | null>(null);
   private divisionL2Subject = new BehaviorSubject<Division | null>(null);
   private divisionL3Subject = new BehaviorSubject<Division | null>(null);
   private divisionCPSubject = new BehaviorSubject<Division | null>(null);
 
-  dataDivisionL1$ = this.divisionL1Subject.asObservable();
-  dataDivisionL2$ = this.divisionL2Subject.asObservable();
-  dataDivisionL3$ = this.divisionL3Subject.asObservable();
-  dataDivisionCP$ = this.divisionCPSubject.asObservable();
+  divisionL1$ = this.divisionL1Subject.asObservable();
+  divisionL2$ = this.divisionL2Subject.asObservable();
+  divisionL3$ = this.divisionL3Subject.asObservable();
+  divisionCP$ = this.divisionCPSubject.asObservable();
 
   fetchDivisionL1() {
     if (this.cachedDivisionL1) {
