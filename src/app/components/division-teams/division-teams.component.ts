@@ -31,7 +31,7 @@ import { BtnComponent } from "../btn/btn.component";
             @if (division.toLeagues) {
               <app-btn routerLink="../ligas" class="w-4/5 sm:w-96">Ir a Ligas</app-btn>
             } @else {
-              <app-btn routerLink="../equipos" class="w-4/5 sm:w-96">Ir a Clubes</app-btn>
+              <app-btn routerLink="../clubes" class="w-4/5 sm:w-96">Ir a Clubes</app-btn>
             }
           </div>
         </div>

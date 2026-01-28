@@ -22,7 +22,7 @@ import { DivisionSummary } from '../../interfaces/ui-models/division-summary';
             <div class="bg-crimson text-white flex justify-center items-center rounded-full w-14 h-14">
               <fa-icon [icon]="Shield" class="text-3xl"></fa-icon>
             </div>
-            <p class="font-semibold text-lg mt-2">{{ summaryData.teams }} Equipos</p>
+            <p class="font-semibold text-lg mt-2">{{ division.teams }} Equipos</p>
             <p class="text-neutral-500 text-sm">Participantes en el torneo</p>
           </div>
           <!-- 2 -->
@@ -30,15 +30,15 @@ import { DivisionSummary } from '../../interfaces/ui-models/division-summary';
             <div class="bg-crimson text-white flex justify-center items-center rounded-full w-14 h-14">
               <fa-icon [icon]="Flag" class="text-3xl"></fa-icon>
             </div>
-            <p class="font-semibold text-lg mt-2">{{ summaryData.stages.total }} Etapas</p>
-            <p class="text-neutral-500 text-sm">{{ summaryData.stages.description }}</p>
+            <p class="font-semibold text-lg mt-2">{{ division.phases }} Etapas</p>
+            <p class="text-neutral-500 text-sm">{{ division.description }}</p>
           </div>
           <!-- 3 -->
           <div class="bg-white dark:bg-night px-3 py-5 place-items-center shadow-md duration-500">
             <div class="bg-crimson text-white flex justify-center items-center rounded-full w-14 h-14">
               <fa-icon [icon]="Trophy" class="text-3xl"></fa-icon>
             </div>
-            <p class="font-semibold text-lg mt-2">{{ summaryData.objective }}</p>
+            <p class="font-semibold text-lg mt-2">{{ division.goal }}</p>
             <p class="text-neutral-500 text-sm">Objetivo final del torneo</p>
           </div>
         </div>
@@ -48,7 +48,8 @@ import { DivisionSummary } from '../../interfaces/ui-models/division-summary';
   styles: ``,
 })
 export class DivisionSummaryComponent {
-  @Input() summaryData!: DivisionSummary;
+  @Input() division!: DivisionSummary;
+
   Shield = faShieldHalved;
   Trophy = faTrophy;
   Flag = faFlag;

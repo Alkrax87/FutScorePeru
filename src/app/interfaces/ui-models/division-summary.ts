@@ -1,8 +1,6 @@
 export interface DivisionSummary {
-  teams: string;
-  stages: {
-    total: number;
-    description: string;
-  };
-  objective: string;
+  teams: number;
+  phases: number;
+  description: string;
+  goal: string;
 }
