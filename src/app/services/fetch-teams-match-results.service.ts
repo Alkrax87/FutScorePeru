@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class FetchResultsService {
+export class FetchTeamsMatchResultsService {
   private backendUrl = Environments.backendUrl;
 
   private http = inject(HttpClient);
