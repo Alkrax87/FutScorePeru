@@ -1,49 +1,75 @@
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { FixtureCard } from '../../interfaces/ui-models/fixture-card';
 import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
 
 @Component({
   selector: 'app-fixture',
-  imports: [FontAwesomeModule, RouterLink],
+  imports: [FontAwesomeModule, RouterLink, DatePipe],
   template: `
-    <div class="bg-night select-none flex flex-col gap-2">
+    <div class="bg-night select-none flex flex-col gap-8">
       @for (item of data; track $index) {
         <div>
-          <div class="flex justify-center">
-            <div class="relative flex-none border-r-[16px] border-t-[16px] border-r-transparent border-t-night bg-white"></div>
-            <div class="bg-white w-52 text-xs font-semibold text-center">
-              <fa-icon [icon]="Location"></fa-icon>
-              {{ item.stadium }}
-            </div>
-            <div class="relative flex-none border-l-[16px] border-t-[16px] border-l-transparent border-t-night bg-white"></div>
+          <!-- Date -->
+          <div class="flex justify-center items-center mb-3">
+            @if (item.date) {
+              <span class="bg-crimson text-white px-5 font-semibold py-1">{{ item.date | date:'EEEE d MMMM' }}</span>
+            } @else {
+              <span class="bg-crimson text-white px-5 font-semibold py-1">Por Definir</span>
+            }
           </div>
-          <div class="bg-nightfall text-white flex justify-center gap-1 h-12">
-            <div class="w-full flex justify-end">
-              <div class="cursor-pointer flex items-center" [routerLink]="['../', 'club', item.category, item.homeTeamId]">
-                <p class="text-sm font-semibold">
-                  <span class="hidden sm:block">{{ item.homeTeamName }}</span>
-                  <span class="block sm:hidden font-bold">{{ item.homeTeamAbbreviation }}</span>
-                </p>
-                <img [src]="item.homeTeamImageThumbnail" [alt]="item.homeTeamAlt" class="w-9 mx-1"/>
+          <!-- Matches -->
+          <div class="flex flex-col gap-1.5">
+            @for (match of item.matches; track $index) {
+              <div>
+                <!-- Group -->
+                @if (match.group) {
+                  <div class="flex justify-center">
+                    <div class="relative flex-none border-r-[16px] border-t-[16px] border-r-transparent border-t-night bg-white"></div>
+                    <div class="bg-white w-fit text-xs px-4 font-semibold text-center">Grupo {{ match.group.toUpperCase() }}</div>
+                    <div class="relative flex-none border-l-[16px] border-t-[16px] border-l-transparent border-t-night bg-white"></div>
+                  </div>
+                }
+                <!-- Match -->
+                <div class="bg-nightfall text-white flex justify-center gap-1 p-1">
+                  <!-- Left Team-->
+                  <div class="w-full flex justify-end">
+                    <div class="cursor-pointer flex items-center" [routerLink]="['../', 'club', match.category, match.homeTeamId]">
+                      <p class="text-sm font-semibold">
+                        <span class="hidden sm:block">{{ match.homeTeamName }}</span>
+                        <span class="block sm:hidden font-bold">{{ match.homeTeamAbbreviation }}</span>
+                      </p>
+                      <img [src]="match.homeTeamImageThumbnail" [alt]="match.homeTeamAlt" class="w-10 mx-1"/>
+                    </div>
+                  </div>
+                  <!-- Match Results -->
+                  <div class="flex min-w-24 gap-1">
+                    @if (match.homeTeamResult !== null && match.awayTeamResult !== null) {
+                      <div class="bg-brightnight flex justify-center items-center font-bold -my-1 text-3xl w-full">
+                        <p>{{ match.homeTeamResult }}</p>
+                      </div>
+                      <div class="bg-brightnight flex justify-center items-center font-bold -my-1 text-3xl w-full">
+                        <p>{{ match.awayTeamResult }}</p>
+                      </div>
+                    } @else {
+                      <div class="w-full text-center my-auto font-bold">{{ match.date ? (match.date | date:'H:mm') : '-' }}</div>
+                    }
+                  </div>
+                  <!-- Right Team-->
+                  <div class="w-full flex justify-start">
+                    <div class="cursor-pointer flex items-center" [routerLink]="['../', 'club', match.category, match.awayTeamId]">
+                      <img [src]="match.awayTeamImageThumbnail" [alt]="match.awayTeamAlt" class="w-10 mx-1"/>
+                      <p class="text-sm font-semibold">
+                        <span class="block sm:hidden font-bold">{{ match.awayTeamAbbreviation }}</span>
+                        <span class="hidden sm:block">{{ match.awayTeamName }}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="bg-brightnight flex justify-center items-center font-bold text-3xl min-w-11 max-w-11">
-              <p>{{ item.homeTeamResult }}</p>
-            </div>
-            <div class="bg-brightnight flex justify-center items-center font-bold text-3xl min-w-11 max-w-11">
-              <p>{{ item.awayTeamResult }}</p>
-            </div>
-            <div class="w-full flex justify-start">
-              <div class="cursor-pointer flex items-center" [routerLink]="['../', 'club', item.category, item.awayTeamId]">
-                <img [src]="item.awayTeamImageThumbnail" [alt]="item.awayTeamAlt" class="w-9 mx-1"/>
-                <p class="text-sm font-semibold">
-                  <span class="hidden sm:block">{{ item.awayTeamName }}</span>
-                  <span class="block sm:hidden font-bold">{{ item.awayTeamAbbreviation }}</span>
-                </p>
-              </div>
-            </div>
+            }
           </div>
         </div>
       }
@@ -52,6 +78,6 @@ import { RouterLink } from '@angular/router';
   styles: ``,
 })
 export class FixtureComponent {
-  @Input() data!: FixtureCard[];
+  @Input() data!: FixtureByDate[];
   Location = faLocationDot;
 }
