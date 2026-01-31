@@ -1,21 +1,21 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FetchTeamDataService } from '../../services/fetch-team-data.service';
-import { FetchDivisionService } from '../../services/fetch-division.service';
-import { FetchMapService } from '../../services/fetch-map.service';
-import { FetchFixtureService } from '../../services/fetch-fixture.service';
-import { FetchResultsService } from '../../services/fetch-results.service';
-import { FetchStatisticsService } from '../../services/fetch-statistics.service';
-import { FetchPerformanceService } from '../../services/fetch-performance.service';
-import { FetchLastGamesService } from '../../services/fetch-last-games.service';
-import { FetchBracketsService } from '../../services/fetch-brackets.service';
-import { FetchManagerService } from '../../services/fetch-manager.service';
-import { FetchStadiumService } from '../../services/fetch-stadium.service';
-import { UiDataMapperService } from '../../services/ui-data-mapper.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield, faRankingStar } from '@fortawesome/free-solid-svg-icons';
+import { FetchTeamsService } from '../../services/fetch-teams.service';
+import { FetchDivisionsService } from '../../services/fetch-divisions.service';
+import { FetchMapService } from '../../services/fetch-map.service';
+import { FetchStadiumsService } from '../../services/fetch-stadiums.service';
+import { FetchFixturesService } from '../../services/fetch-fixtures.service';
+import { FetchTeamsMatchResultsService } from '../../services/fetch-teams-match-results.service';
+import { FetchTeamsPerformanceService } from '../../services/fetch-teams-performance.service';
+import { FetchTeamsFormService } from '../../services/fetch-teams-form.service';
+import { FetchBracketsService } from '../../services/fetch-brackets.service';
+import { FetchManagersService } from '../../services/fetch-managers.service';
+import { FetchStatisticsService } from '../../services/fetch-statistics.service';
+import { UiDataMapperService } from '../../services/ui-data-mapper.service';
 import { EntityNavBarComponent } from '../../components/entity-nav-bar/entity-nav-bar.component';
 import { SectionSubnavComponent } from '../../components/section-subnav/section-subnav.component';
-import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield, faRankingStar } from '@fortawesome/free-solid-svg-icons';
 import { EntityNav } from '../../interfaces/ui-models/entity-nav';
 
 @Component({
@@ -29,17 +29,17 @@ import { EntityNav } from '../../interfaces/ui-models/entity-nav';
   styles: ``,
 })
 export class L1MainComponent {
-  private teamsService = inject(FetchTeamDataService);
-  private divisionService = inject(FetchDivisionService);
+  private teamsService = inject(FetchTeamsService);
+  private divisionsService = inject(FetchDivisionsService);
   private mapService = inject(FetchMapService);
-  private fixtureService = inject(FetchFixtureService);
-  private resultsService = inject(FetchResultsService);
-  private statisticsService = inject(FetchStatisticsService);
-  private performanceService = inject(FetchPerformanceService);
-  private lastGamesService = inject(FetchLastGamesService);
+  private stadiumsService = inject(FetchStadiumsService);
+  private fixturesService = inject(FetchFixturesService);
+  private teamsMatchResultsService = inject(FetchTeamsMatchResultsService);
+  private teamsPerformanceService = inject(FetchTeamsPerformanceService);
+  private teamsFormService = inject(FetchTeamsFormService);
   private bracketsService = inject(FetchBracketsService);
-  private managersService = inject(FetchManagerService);
-  private stadiumsService = inject(FetchStadiumService);
+  private managersService = inject(FetchManagersService);
+  private statisticsService = inject(FetchStatisticsService);
   private uiDataMapperService = inject(UiDataMapperService);
 
   navEntities: EntityNav[] = [];
@@ -52,22 +52,22 @@ export class L1MainComponent {
   ];
 
   constructor() {
-    this.teamsService.dataTeamsL1$.pipe(takeUntilDestroyed()).subscribe({
+    this.teamsService.teamsL1$.pipe(takeUntilDestroyed()).subscribe({
       next: (data) => this.navEntities = this.uiDataMapperService.teamsNavMapper(data)
     });
   }
 
   ngOnInit() {
     this.teamsService.fetchTeamsL1();
-    this.divisionService.fetchDivisionL1();
+    this.divisionsService.fetchDivisionL1();
     this.mapService.fetchMapL1();
-    this.fixtureService.fetchFixtureL1();
-    this.resultsService.fetchResultsL1();
-    this.statisticsService.fetchStatisticsL1();
-    this.performanceService.fetchPerformanceL1();
-    this.lastGamesService.fetchLastGamesL1();
+    this.stadiumsService.fetchStadiums();
+    this.fixturesService.fetchFixtureL1();
+    this.teamsMatchResultsService.fetchTeamsMatchResultsL1();
+    this.teamsPerformanceService.fetchTeamsPerformanceL1();
+    this.teamsFormService.fetchTeamsFormL1();
     this.bracketsService.fetchBracketsL1();
     this.managersService.fetchManagersL1();
-    this.stadiumsService.fetchStadiums();
+    this.statisticsService.fetchStatisticsL1();
   }
 }
