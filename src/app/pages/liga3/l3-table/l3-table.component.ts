@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { FetchDivisionService } from '../../../services/fetch-division.service';
-import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
-import { FetchPerformanceService } from '../../../services/fetch-performance.service';
-import { FetchLastGamesService } from '../../../services/fetch-last-games.service';
+import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
+import { FetchTeamsService } from '../../../services/fetch-teams.service';
+import { FetchTeamsPerformanceService } from '../../../services/fetch-teams-performance.service';
+import { FetchTeamsFormService } from '../../../services/fetch-teams-form.service';
 import { FetchBracketsService } from '../../../services/fetch-brackets.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest } from 'rxjs';
@@ -19,75 +19,75 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
   imports: [TitleComponent, TableComponent, BtnComponent, BracketCardComponent],
   template: `
     <app-title [title]="'Tabla'"></app-title>
-    <div class="bg-night py-10 lg:py-16 px-3 sm:px-5 duration-500 select-none">
+    <div class="bg-night py-10 lg:py-16 duration-500 select-none">
       <div class="flex justify-center px-3 sm:px-5 mb-3 sm:mb-5">
         <div class="w-full md:w-5/6 lg:w-9/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-3 px-4 md:px-0">
-          <app-btn (click)="setActiveTab('regional')" [active]="regional">Fase Regional</app-btn>
-          <app-btn (click)="setActiveTab('final')" [active]="final">Fase Final</app-btn>
+          <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Fase Regional</app-btn>
+          <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Fase Final</app-btn>
           <app-btn (click)="setActiveTab('playOff')" [active]="playOff">Play-Offs</app-btn>
         </div>
       </div>
-      @if (regional) {
-        <div class="flex flex-col gap-4 -mx-3 sm:-mx-5">
+      @if (phase1) {
+        <div class="flex flex-col gap-4">
           <div>
-            <div class="w-fit px-5">
+            <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo 1</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataRegional1"></app-table>
+            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional1"></app-table>
           </div>
           <div>
-            <div class="w-fit px-5">
+            <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo 2</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataRegional3"></app-table>
+            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional3"></app-table>
           </div>
           <div>
-            <div class="w-fit px-5">
+            <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo 3</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataRegional4"></app-table>
+            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional4"></app-table>
           </div>
           <div>
-            <div class="w-fit px-5">
+            <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo 4</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configRegional" [headers]="headers" [classification]="classificationRegional" [data]="dataRegional2"></app-table>
+            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional2"></app-table>
           </div>
         </div>
       }
-      @if (final) {
-        <div class="flex flex-col gap-4 -mx-3 sm:-mx-5">
+      @if (phase2) {
+        <div class="flex flex-col gap-4">
           <div>
-            <div class="w-fit px-5">
+            <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo A</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configFinal" [headers]="headers" [classification]="classificationFinal" [data]="dataFinalA"></app-table>
+            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalA"></app-table>
           </div>
           <div>
-            <div class="w-fit px-5">
+            <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo B</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configFinal" [headers]="headers" [classification]="classificationFinal" [data]="dataFinalB"></app-table>
+            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalB"></app-table>
           </div>
           <div>
-            <div class="w-fit px-5">
+            <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo C</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configFinal" [headers]="headers" [classification]="classificationFinal" [data]="dataFinalC"></app-table>
+            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalC"></app-table>
           </div>
           <div>
-            <div class="w-fit px-5">
+            <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo D</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configFinal" [headers]="headers" [classification]="classificationFinal" [data]="dataFinalD"></app-table>
+            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalD"></app-table>
           </div>
         </div>
       }
@@ -151,55 +151,34 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
   styles: ``,
 })
 export class L3TableComponent {
-  private divisionService = inject(FetchDivisionService);
-  private teamsService = inject(FetchTeamDataService);
-  private performanceService = inject(FetchPerformanceService);
-  private lastGamesService = inject(FetchLastGamesService);
+  private divisionsService = inject(FetchDivisionsService);
+  private teamsService = inject(FetchTeamsService);
+  private teamsPerformanceService = inject(FetchTeamsPerformanceService);
+  private teamsFormService = inject(FetchTeamsFormService);
   private bracketsService = inject(FetchBracketsService);
   private uiDataMapperService = inject(UiDataMapperService);
 
-  regional: boolean = false;
-  final: boolean = false;
+  phase1: boolean = false;
+  phase2: boolean = false;
   playOff: boolean = false;
 
   headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimas 5 Fechas'];
-  configRegional: { class: string; quantity: number }[] = [
-    { class: 'bg-gpromotion', quantity: 4 },
-    { class: '', quantity: 0 },
-    { class: 'bg-relegation', quantity: 1 },
+  configPhase1 = [
+    { active: true, name: 'Grupos de Ascenso', image: 'assets/images/pages/Group-Promotion.svg', class: 'bg-gpromotion', quantity: 4 },
+    { active: false },
+    { active: true, name: 'Descenso', image: 'assets/images/pages/Relegation.svg', class: 'bg-relegation', quantity: 1 },
   ];
-  configFinal: { class: string; quantity: number }[] = [
-    { class: 'bg-quarter', quantity: 2 },
-    { class: '', quantity: 0 },
-    { class: '', quantity: 0 },
+  configPhase2 = [
+    { active: true, name: 'PlayOffs', image: 'assets/images/pages/Bracket-Quarter.svg', class: 'bg-quarter', quantity: 2},
   ];
-  classificationRegional = [
-    {
-      name: 'Grupos de Ascenso',
-      image: 'assets/images/pages/Group-Promotion.svg',
-      class: 'bg-gpromotion',
-    },
-    {
-      name: 'Descenso',
-      image: 'assets/images/pages/Relegation.svg',
-      class: 'bg-relegation',
-    },
-  ];
-  classificationFinal = [
-    {
-      name: 'PlayOffs',
-      image: 'assets/images/pages/Bracket-Quarter.svg',
-      class: 'bg-quarter',
-    },
-  ];
-  dataRegional1: TeamTable[] = [];
-  dataRegional2: TeamTable[] = [];
-  dataRegional3: TeamTable[] = [];
-  dataRegional4: TeamTable[] = [];
-  dataFinalA: TeamTable[] = [];
-  dataFinalB: TeamTable[] = [];
-  dataFinalC: TeamTable[] = [];
-  dataFinalD: TeamTable[] = [];
+  dataPhase1Regional1: TeamTable[] = [];
+  dataPhase1Regional2: TeamTable[] = [];
+  dataPhase1Regional3: TeamTable[] = [];
+  dataPhase1Regional4: TeamTable[] = [];
+  dataPhase2FinalA: TeamTable[] = [];
+  dataPhase2FinalB: TeamTable[] = [];
+  dataPhase2FinalC: TeamTable[] = [];
+  dataPhase2FinalD: TeamTable[] = [];
   dataPlayOffs4: MatchCard[] = [];
   dataPlayOffs2: MatchCard[] = [];
   dataPlayOffs1: MatchCard[] = [];
@@ -207,25 +186,25 @@ export class L3TableComponent {
 
   constructor() {
     combineLatest([
-      this.divisionService.dataDivisionL3$,
-      this.teamsService.dataTeamsL3$,
-      this.performanceService.dataPerformanceL3$,
-      this.lastGamesService.dataLastGamesL3$,
-      this.bracketsService.dataBracketsL3$,
+      this.divisionsService.divisionL3$,
+      this.teamsService.teamsL3$,
+      this.teamsPerformanceService.teamsPerformanceL3$,
+      this.teamsFormService.teamsFormL3$,
+      this.bracketsService.bracketsL3$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([division, teams, performance, lastgames, brackets]) => {
-        this.regional = division?.firstPhase.status || false;
-        this.final = division?.secondPhase.status || false;
-        this.playOff = division?.thirdPhase.status || false;
+      next: ([division, teams, teamsPerformance, teamsForm, brackets]) => {
+        this.phase1 = division?.phase1.status || false;
+        this.phase2 = division?.phase2.status || false;
+        this.playOff = division?.phase3.status || false;
 
-        this.dataRegional1 = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'regional', '1');
-        this.dataRegional2 = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'regional', '2');
-        this.dataRegional3 = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'regional', '3');
-        this.dataRegional4 = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'regional', '4');
-        this.dataFinalA = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'final', 'f1');
-        this.dataFinalB = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'final', 'f2');
-        this.dataFinalC = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'final', 'f3');
-        this.dataFinalD = this.uiDataMapperService.teamsTableMapper(teams, performance, lastgames, 'final', 'f4');
+        this.dataPhase1Regional1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', '1');
+        this.dataPhase1Regional2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', '2');
+        this.dataPhase1Regional3 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', '3');
+        this.dataPhase1Regional4 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', '4');
+        this.dataPhase2FinalA = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f1');
+        this.dataPhase2FinalB = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f2');
+        this.dataPhase2FinalC = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f3');
+        this.dataPhase2FinalD = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f4');
 
         if (brackets[0] && brackets[0].bracket4 && brackets[0].bracket2 && brackets[0].bracket1 && brackets[0].bracketExtra) {
           this.dataPlayOffs4 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket4);
@@ -238,8 +217,8 @@ export class L3TableComponent {
   }
 
   setActiveTab(tab: String) {
-    this.regional = tab === 'regional';
-    this.final = tab === 'final';
+    this.phase1 = tab === 'phase1';
+    this.phase2 = tab === 'phase2';
     this.playOff = tab === 'playOff';
   }
 }
