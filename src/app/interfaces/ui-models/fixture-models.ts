@@ -1,5 +1,4 @@
-export interface FixtureCard {
-  stadium: string;
+export interface FixtureMatch {
   category: number;
   homeTeamId: string;
   awayTeamId: string;
@@ -11,6 +10,14 @@ export interface FixtureCard {
   awayTeamImageThumbnail: string;
   homeTeamAlt: string;
   awayTeamAlt: string;
-  homeTeamResult: string | number;
-  awayTeamResult: string | number;
+  homeTeamResult: null | number;
+  awayTeamResult: null | number;
+  postponed: boolean;
+  date: Date | null;
+  group: string | null;
+}
+
+export interface FixtureByDate {
+  date: Date | null;
+  matches: FixtureMatch[];
 }
