@@ -1,70 +1,71 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FetchDivisionService } from '../../../services/fetch-division.service';
-import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
-import { FetchFixtureService } from '../../../services/fetch-fixture.service';
-import { FetchStadiumService } from '../../../services/fetch-stadium.service';
-import { FetchResultsService } from '../../../services/fetch-results.service';
+import { NgClass } from '@angular/common';
+import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
+import { FetchTeamsService } from '../../../services/fetch-teams.service';
+import { FetchTeamsMatchResultsService } from '../../../services/fetch-teams-match-results.service';
+import { FetchFixturesService } from '../../../services/fetch-fixtures.service';
 import { MatchesSetupService } from '../../../services/matches-setup.service';
 import { combineLatest } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from '../../../components/title/title.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
 import { FixtureComponent } from '../../../components/fixture/fixture.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-l1-fixture',
-  imports: [TitleComponent, FixtureComponent, BtnComponent, CommonModule],
+  imports: [TitleComponent, FixtureComponent, BtnComponent, NgClass],
   template: `
     <app-title [title]="'Fixture'"></app-title>
     <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
-      <div class="flex justify-center">
-        <div class="w-full md:w-5/6 lg:w-6/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-2 px-4 md:px-0">
-          <app-btn (click)="setActiveTab('apertura')" [active]="apertura">Apertura</app-btn>
-          <app-btn (click)="setActiveTab('clausura')" [active]="clausura">Clausura</app-btn>
-        </div>
+      <!-- Switch -->
+      <div class="mx-auto w-full md:w-5/6 lg:w-6/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-2 px-4 md:px-0">
+        <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Apertura</app-btn>
+        <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Clausura</app-btn>
       </div>
+      <!-- Content -->
       <div class="max-w-screen-xl mx-auto">
-        @if (apertura) {
-          @if (filteredDataForFixtureApertura) {
+        <!-- Phase 1 -->
+        @if (phase1) {
+          @if (computedFixturePhase1 && computedFixturePhase1.length > 0) {
             <h3 class="text-white text-3xl sm:text-4xl font-bold my-5 text-center md:text-start duration-500">
-              Apertura <span class="text-crimson">Fecha {{ selectedRoundAperturaIndex + 1 }}</span>
+              Apertura <span class="text-crimson">Fecha {{ selectedPhase1Index + 1 }}</span>
             </h3>
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
-              @for (round of filteredDataForFixtureApertura; track $index) {
-                <button (click)="selectedRoundAperturaIndex = $index"
+              @for (round of computedFixturePhase1; track $index) {
+                <button (click)="selectedPhase1Index = $index"
                   class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-crimson outline-none duration-300"
-                  [ngClass]="{'bg-crimson': selectedRoundAperturaIndex === $index}"
+                  [ngClass]="{'bg-crimson': selectedPhase1Index === $index}"
                 >
                   F{{ $index + 1 }}
                 </button>
               }
             </div>
             <div class="bg-white skew-x-50 h-2 w-full my-5"></div>
-            <app-fixture [data]="filteredDataForFixtureApertura[selectedRoundAperturaIndex ? selectedRoundAperturaIndex : 0]"></app-fixture>
+            <app-fixture [data]="computedFixturePhase1[selectedPhase1Index ? selectedPhase1Index : 0]"></app-fixture>
           } @else {
             <div class="flex h-64 justify-center items-center select-none">
               <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
             </div>
           }
         }
-        @if (clausura) {
-          @if (filteredDataForFixtureClausura) {
+        <!-- Phase 2 -->
+        @if (phase2) {
+          @if (computedFixturePhase2 && computedFixturePhase2.length > 0) {
             <h3 class="text-white text-3xl sm:text-4xl font-bold my-5 text-center md:text-start duration-500">
-              Clausura <span class="text-crimson">Fecha {{ selectedRoundClausuraIndex + 1 }}</span>
+              Clausura <span class="text-crimson">Fecha {{ selectedPhase2Index + 1 }}</span>
             </h3>
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
-              @for (round of filteredDataForFixtureClausura; track $index) {
-                <button (click)="selectedRoundClausuraIndex = $index"
+              @for (round of computedFixturePhase2; track $index) {
+                <button (click)="selectedPhase2Index = $index"
                   class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-crimson outline-none duration-300"
-                  [ngClass]="{'bg-crimson': selectedRoundClausuraIndex === $index}"
+                  [ngClass]="{'bg-crimson': selectedPhase2Index === $index}"
                 >
                   F{{ $index + 1 }}
                 </button>
               }
             </div>
             <div class="bg-white skew-x-50 h-2 w-full my-5"></div>
-            <app-fixture [data]="filteredDataForFixtureClausura[selectedRoundClausuraIndex ? selectedRoundClausuraIndex : 0]"></app-fixture>
+            <app-fixture [data]="computedFixturePhase2[selectedPhase2Index ? selectedPhase2Index : 0]"></app-fixture>
           } @else {
             <div class="flex h-64 justify-center items-center select-none">
               <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
@@ -77,45 +78,43 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styles: ``,
 })
 export class L1FixtureComponent {
-  private divisionService = inject(FetchDivisionService);
-  private teamsService = inject(FetchTeamDataService);
-  private fixtureService = inject(FetchFixtureService);
-  private resultsService = inject(FetchResultsService);
-  private stadiumService = inject(FetchStadiumService);
+  private divisionsService = inject(FetchDivisionsService);
+  private teamsService = inject(FetchTeamsService);
+  private teamsMatchResultsService = inject(FetchTeamsMatchResultsService);
+  private fixturesService = inject(FetchFixturesService);
   private matchesService = inject(MatchesSetupService);
 
-  apertura: boolean = false;
-  clausura: boolean = false;
-  selectedRoundAperturaIndex: number = 0;
-  selectedRoundClausuraIndex: number = 0;
-  filteredDataForFixtureApertura: any;
-  filteredDataForFixtureClausura: any;
+  phase1: boolean = false;
+  phase2: boolean = false;
+  selectedPhase1Index: number = 0;
+  selectedPhase2Index: number = 0;
+  computedFixturePhase1: any;
+  computedFixturePhase2: any;
 
   constructor() {
     combineLatest([
-      this.divisionService.dataDivisionL1$,
-      this.teamsService.dataTeamsL1$,
-      this.fixtureService.dataFixtureL1$,
-      this.resultsService.dataResultsL1$,
-      this.stadiumService.dataStadiums$,
+      this.divisionsService.divisionL1$,
+      this.teamsService.teamsL1$,
+      this.teamsMatchResultsService.teamsMatchResultsL1$,
+      this.fixturesService.fixtureL1$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([division, teams, fixture, results, stadiums]) => {
-        if (division?.thirdPhase.status === true) {
-          this.clausura = true;
+      next: ([division, teams, teamsMatchResults, fixture]) => {
+        if (division?.phase3.status === true) {
+          this.phase2 = true;
         } else {
-          this.apertura = division ? division.firstPhase.status : false;
-          this.clausura = division ? division.secondPhase.status : false;
+          this.phase1 = division ? division.phase1.status : false;
+          this.phase2 = division ? division.phase2.status : false;
         }
-        this.selectedRoundAperturaIndex = division ? division.firstPhase.inGame - 1 : 0;
-        this.selectedRoundClausuraIndex = division ? division.secondPhase.inGame - 1 : 0;
-        this.filteredDataForFixtureApertura = this.matchesService.transformDataForFixture(teams, fixture?.apertura, results, stadiums, 'apertura', 1);
-        this.filteredDataForFixtureClausura = this.matchesService.transformDataForFixture(teams, fixture?.clausura, results, stadiums, 'clausura', 1);
+        this.selectedPhase1Index = division ? division.phase1.inGame - 1 : 0;
+        this.selectedPhase2Index = division ? division.phase2.inGame - 1 : 0;
+        this.computedFixturePhase1 = this.matchesService.transformDataForFixture(teams, fixture?.phase1, teamsMatchResults, 'phase1', 1);
+        this.computedFixturePhase2 = this.matchesService.transformDataForFixture(teams, fixture?.phase2, teamsMatchResults, 'phase2', 1);
       }
     });
   }
 
   setActiveTab(tab: String) {
-    this.apertura = tab === 'apertura';
-    this.clausura = tab === 'clausura';
+    this.phase1 = tab === 'phase1';
+    this.phase2 = tab === 'phase2';
   }
 }
