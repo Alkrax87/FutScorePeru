@@ -1,13 +1,22 @@
 <!-- Main -->
 <img class="hidden md:block w-full" src="./assets/images/pages/Banner-l3.webp" alt="L3-Background">
 <img class="block md:hidden" src="assets/images/pages/Banner-l3-vertical.webp" alt="L3-Background">
-<!-- Fixture -->
-<app-division-fixture [fixture]="fixture"></app-division-fixture>
 <!-- Division -->
-<app-division-overview [data]="dataDivision" [description]="descriptionDivision" [tags]="tagsDivision"></app-division-overview>
+@if (dataDivision) {
+  <app-division-overview [division]="dataDivision"></app-division-overview>
+}
 <!-- Map -->
 <app-division-map [regions]="regions" [mapConstructor]="mapConstructor" [dataMap]="dataMap"></app-division-map>
 <!-- Teams -->
-<app-division-teams [division]="{name: 'Liga 3', logo: './assets/images/pages/liga-3.webp'}" [teams]="teams"></app-division-teams>
-<!-- Tournament -->
-<app-division-summary [summaryData]="summaryData"></app-division-summary>
+@if (dataDivision) {
+  <app-division-teams
+    [division]="{ name: dataDivision.name, logo: dataDivision.image }"
+    [teams]="dataTeams"
+  ></app-division-teams>
+}
+<!-- Tournament Summary -->
+@if (dataDivisionSummary) {
+  <app-division-summary
+    [division]="dataDivisionSummary"
+  ></app-division-summary>
+}
