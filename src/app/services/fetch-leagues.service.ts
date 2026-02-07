@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { LeagueData } from '../interfaces/api-models/league-data';
+import { League } from '../interfaces/api-models/league';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -12,11 +12,11 @@ export class FetchLeaguesService {
 
   private http = inject(HttpClient);
 
-  cachedLeagues: LeagueData[] | null = null;
+  private cachedLeagues: League[] | null = null;
 
-  private leaguesSubject = new BehaviorSubject<LeagueData[]>([]);
+  private leaguesSubject = new BehaviorSubject<League[]>([]);
 
-  dataLeagues$ = this.leaguesSubject.asObservable();
+  leagues$ = this.leaguesSubject.asObservable();
 
   fetchLeagues() {
     if (this.cachedLeagues) {
@@ -24,12 +24,12 @@ export class FetchLeaguesService {
       return;
     }
 
-    this.http.get<LeagueData[]>(this.backendUrl + '/leagues').subscribe({
+    this.http.get<League[]>(this.backendUrl + '/leagues').subscribe({
       next: (response) => {
         this.cachedLeagues = response;
         this.leaguesSubject.next(response);
       },
-      error: (error) => console.error('Failed to fetch leagues', error),
+      error: (error) => console.error('Failed to fetch (Copa Perú) Leagues', error),
     });
   }
 }

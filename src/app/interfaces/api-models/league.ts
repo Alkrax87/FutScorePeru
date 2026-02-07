@@ -1,4 +1,4 @@
-export interface LeagueData {
+export interface League {
   category: number;
   leagueId: string;
   image: string;
@@ -15,5 +15,5 @@ export interface LeagueData {
     abbreviation: string;
     image: string;
     city: string;
-  }[]
+  }[];
 }
