@@ -1,4 +1,4 @@
-export interface TeamCPData {
+export interface TeamCP {
   teamId: string;
   name: string;
   abbreviation: string;
