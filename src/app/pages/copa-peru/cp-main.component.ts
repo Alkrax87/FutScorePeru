@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FetchTeamDataService } from '../../services/fetch-team-data.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { FetchLeaguesService } from '../../services/fetch-leagues.service';
-import { FetchDivisionService } from '../../services/fetch-division.service';
+import { FetchTeamsCPService } from '../../services/fetch-teams-cp.service';
+import { FetchDivisionsService } from '../../services/fetch-divisions.service';
 import { FetchMapService } from '../../services/fetch-map.service';
 import { FetchBracketsService } from '../../services/fetch-brackets.service';
 import { UiDataMapperService } from '../../services/ui-data-mapper.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EntityNavBarComponent } from '../../components/entity-nav-bar/entity-nav-bar.component';
 import { SectionSubnavComponent } from '../../components/section-subnav/section-subnav.component';
-import { faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
 import { EntityNav } from '../../interfaces/ui-models/entity-nav';
 
 @Component({
@@ -23,9 +23,9 @@ import { EntityNav } from '../../interfaces/ui-models/entity-nav';
   styles: ``,
 })
 export class CpMainComponent {
-  private teamsService = inject(FetchTeamDataService);
   private leaguesService = inject(FetchLeaguesService);
-  private divisionService = inject(FetchDivisionService);
+  private teamsCPService = inject(FetchTeamsCPService);
+  private divisionsService = inject(FetchDivisionsService);
   private mapService = inject(FetchMapService);
   private bracketsService = inject(FetchBracketsService);
   private uiDataMapperService = inject(UiDataMapperService);
@@ -37,16 +37,16 @@ export class CpMainComponent {
   ];
 
   constructor() {
-    this.leaguesService.dataLeagues$.pipe(takeUntilDestroyed()).subscribe({
+    this.leaguesService.leagues$.pipe(takeUntilDestroyed()).subscribe({
       next: (data) => this.navEntities = this.uiDataMapperService.leagueNavMapper(data)
     });
   }
 
   ngOnInit() {
-    this.teamsService.fetchTeamsCP();
     this.leaguesService.fetchLeagues();
-    this.divisionService.fetchDivisionCP();
-    this.bracketsService.fetchBracketsCP();
+    this.teamsCPService.fetchTeamsCP();
+    this.divisionsService.fetchDivisionCP();
     this.mapService.fetchMapCP();
+    this.bracketsService.fetchBracketsCP();
   }
 }
