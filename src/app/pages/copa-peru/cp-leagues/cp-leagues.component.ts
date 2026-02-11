@@ -28,7 +28,7 @@ export class CpLeaguesComponent {
   dataLeagues: TeamCardCp[] = [];
 
   constructor() {
-    this.leaguesService.dataLeagues$.pipe(takeUntilDestroyed()).subscribe({
+    this.leaguesService.leagues$.pipe(takeUntilDestroyed()).subscribe({
       next: (data) => this.dataLeagues = this.uiDataMapperService.leagueCardMapper(data)
     });
   }
