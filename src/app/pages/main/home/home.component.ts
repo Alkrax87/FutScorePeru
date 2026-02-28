@@ -30,13 +30,13 @@ export class HomeComponent {
     {
       title: 'Liga 1',
       image: 'assets/images/pages/liga-1.webp',
-      teams: 19,
+      teams: 18,
       routes: '/liga1',
     },
     {
       title: 'Liga 2',
       image: 'assets/images/pages/liga-2.webp',
-      teams: 15,
+      teams: 18,
       routes: '/liga2',
     },
     {
