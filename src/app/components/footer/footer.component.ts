@@ -42,7 +42,7 @@ import { faFeather } from "@fortawesome/free-solid-svg-icons";
         </div>
       </div>
       <div class="w-full py-2 text-white text-center bg-crimson font-semibold mt-12">
-        <a href="https://www.mavp_projects.com">&copy; 2025 MAVP Projects</a>
+        <a href="https://www.mavp_projects.com">&copy; {{ year }} MAVP Projects</a>
       </div>
     </footer>
   `,
@@ -50,6 +50,8 @@ import { faFeather } from "@fortawesome/free-solid-svg-icons";
 })
 export class FooterComponent {
   Feather = faFeather;
+
+  year = new Date().getFullYear();
 
   routesWeb = [
     { path: 'main/home', name: 'Home' },
