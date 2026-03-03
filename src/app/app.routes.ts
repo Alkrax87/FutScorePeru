@@ -30,10 +30,6 @@ import { CpBracketsComponent } from './pages/copa-peru/cp-brackets/cp-brackets.c
 import { NotFoundComponent } from './pages/main/not-found/not-found.component';
 import { TestComponent } from './pages/main/test/test.component';
 import { TeamPageComponent } from './pages/shared/team-page/team-page.component';
-import { OverviewComponent } from './pages/shared/team-page/overview/overview.component';
-import { ResultsComponent } from './pages/shared/team-page/results/results.component';
-import { StadiumComponent } from './pages/shared/team-page/stadium/stadium.component';
-import { ClubComponent } from './pages/shared/team-page/club/club.component';
 import { LeaguePageComponent } from './pages/shared/league-page/league-page.component';
 
 export const routes: Routes = [
@@ -102,7 +98,7 @@ export const routes: Routes = [
       { path: 'home', component: CpHomeComponent },
       { path: 'ligas', component: CpLeaguesComponent, title: 'Copa Perú | Ligas' },
       { path: 'brackets', component: CpBracketsComponent, title: 'Copa Perú | Brackets' },
-      { path: 'liga/:category/:leagueId', component: LeaguePageComponent },
+      { path: 'liga/:leagueId', component: LeaguePageComponent },
     ],
   },
   { path: 'not-found', component: NotFoundComponent },
