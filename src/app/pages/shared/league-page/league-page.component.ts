@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFlag, faLocationDot, faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { FetchPageInformationService } from '../../../services/fetch-page-information.service';
-import { LeagueInformation } from '../../../interfaces/api-models/league-information';
-import { Subject, takeUntil } from 'rxjs';
 import { Title } from '@angular/platform-browser';
+import { FetchPageProfileService } from '../../../services/fetch-page-profile.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LeaguePageProfile } from '../../../interfaces/api-models/leaguePageProfile';
+import { switchMap } from 'rxjs';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-league-page',
@@ -14,43 +16,37 @@ import { Title } from '@angular/platform-browser';
   styles: ``,
 })
 export class LeaguePageComponent {
-  constructor(
-    private route: ActivatedRoute,
-    private fetchInformation: FetchPageInformationService,
-    private router: Router,
-    private title: Title
-  ) {}
+  private route = inject(ActivatedRoute);
+  private destroyRef = inject(DestroyRef);
+  private fetchPageProfile = inject(FetchPageProfileService);
+  private title = inject(Title);
+  private router = inject(Router);
+  private viewPortScoller = inject(ViewportScroller);
 
-  private destroy$ = new Subject<void>();
   leagueId: string = '';
-  leagueData: LeagueInformation | null = null;
+  league: LeaguePageProfile | null = null;
 
   ngOnInit() {
-    this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
-      this.leagueId = params['leagueId'];
+    this.route.params.pipe(
+      takeUntilDestroyed(this.destroyRef),
+      switchMap((params) => {
+        this.leagueId = params['leagueId'];
+        return this.fetchPageProfile.fetchLeagueProfile(this.leagueId);
+      })
+    ).subscribe({
+      next: (response) => {
+        this.league = response;
+        this.title.setTitle('Copa Perú | ' + response.leagueData.location);
 
-      this.fetchInformation.fetchLeagueInformation(this.leagueId).subscribe({
-        next: (response) => {
-          this.leagueData = response;
-          this.title.setTitle('Copa Perú | ' + response.location);
-        },
-        error: () => {
-          this.router.navigate(['/not-found']);
-        },
-      });
-
-      if (typeof window !== 'undefined') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+        if (typeof window !== 'undefined') {
+          this.viewPortScoller.scrollToPosition([0, 0]);
+        }
+      },
+      error: () => this.router.navigate(['/not-found'])
     });
   }
 
   Flag = faFlag;
   Trophy = faTrophy;
   Location = faLocationDot;
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 }
