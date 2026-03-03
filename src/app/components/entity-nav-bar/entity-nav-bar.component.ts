@@ -19,10 +19,18 @@ import { EntityNav } from '../../interfaces/ui-models/entity-nav';
             </div>
           </div>
           <div class="flex-grow flex justify-evenly overflow-hidden md:py-2 lg:py-4">
-            @for (entity of entities; track $index) {
-              <a [routerLink]="[entity.category === 4 ? 'liga': 'club', entity.category, entity.category === 4 ? entity.leagueId : entity.teamId]" class="animate-fade-up delay-75">
-                <img [src]="entity.imageThumbnail" [alt]="entity.alt" class="md:w-6 md:h-6 lg:w-8 lg:h-8 object-contain"/>
-              </a>
+            @if (leaguesBar) {
+              @for (entity of entities; track $index) {
+                <a [routerLink]="['liga', entity.leagueId]" class="animate-fade-up delay-75">
+                  <img [src]="entity.imageThumbnail" [alt]="entity.alt" class="md:w-6 md:h-6 lg:w-8 lg:h-8 object-contain"/>
+                </a>
+              }
+            } @else {
+              @for (entity of entities; track $index) {
+                <a [routerLink]="['club', entity.category, entity.teamId]" class="animate-fade-up delay-75">
+                  <img [src]="entity.imageThumbnail" [alt]="entity.alt" class="md:w-6 md:h-6 lg:w-8 lg:h-8 object-contain"/>
+                </a>
+              }
             }
           </div>
         </div>
