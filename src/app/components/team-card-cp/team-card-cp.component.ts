@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-team-card-cp',
   imports: [FontAwesomeModule, RouterLink, CommonModule],
   template: `
-    <div [routerLink]="['../', 'liga', data.category, data.leagueId]" class="text-white flex flex-col gap-4 p-2 duration-300 cursor-pointer"
+    <div [routerLink]="['../', 'liga', data.leagueId]" class="text-white flex flex-col gap-4 p-2 duration-300 cursor-pointer"
       [ngClass]="{'bg-nightfall': !isHovered}"
       [style.backgroundColor]="isHovered ? data.color.c1 : ''"
       (mouseover)="isHovered = true"
