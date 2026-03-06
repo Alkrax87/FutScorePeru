@@ -16,10 +16,11 @@ import { faCalendar, faLocationDot, faUsers } from '@fortawesome/free-solid-svg-
           <div class="flex flex-col md:flex-row gap-5">
             <!-- Image -->
             <div class="w-full">
-              <img [src]="stadium.image" class="w-full h-[560px] rounded-xl object-cover">
+              <img [src]="stadium.image" class="w-full  rounded-xl object-cover">
             </div>
             <!-- Details -->
             <div class="w-full md:w-80 rounded-xl border-2 border-crimson p-5 h-fit">
+              <!-- Capacity -->
               <div>
                 <div class="flex gap-2 text-gold text-sm font-semibold">
                   <fa-icon [icon]="Users"></fa-icon>
@@ -28,14 +29,7 @@ import { faCalendar, faLocationDot, faUsers } from '@fortawesome/free-solid-svg-
                 <p class="text-3xl font-bold text-white">{{ stadium.capacity }}</p>
               </div>
               <div class="w-full h-0.5 my-5 bg-crimson rounded-full"></div>
-              <div>
-                <div class="flex gap-2 text-gold text-sm font-semibold">
-                  <fa-icon [icon]="Calendar"></fa-icon>
-                  <p>INAUGURACIÓN</p>
-                </div>
-                <p class="text-3xl font-bold text-white">-</p>
-              </div>
-              <div class="w-full h-0.5 my-5 bg-crimson rounded-full"></div>
+              <!-- Location -->
               <div>
                 <div class="flex gap-2 text-gold text-sm font-semibold">
                   <fa-icon [icon]="Location"></fa-icon>

@@ -1,62 +1,64 @@
 <!-- Main -->
-<div class="w-full h-[540px] sm:h-[440px] relative select-none duration-500">
-  <!-- Basckground -->
-  <img class="absolute h-full inset-0 w-full object-cover md:object-top" [src]="teamData?.background" alt="TEAM-background">
-  <div class="absolute h-full bg-black inset-0 bg-opacity-50"></div>
-  <!-- Content -->
-  <div class="absolute flex text-white flex-col justify-center items-center h-full inset-0">
-    <div class="w-full flex flex-col sm:flex-row gap-3 items-center px-3 sm:px-5 lg:px-16 duration-500">
-      <div class="bg-white rounded-full p-5 w-fit h-fit">
-        <img [src]="teamData?.image" [alt]="teamData?.alt" class="w-24 min-w-24 sm:w-36 sm:min-w-36 duration-500">
-      </div>
-      <div class="w-full">
-        <div class="bg-gold w-fit px-5 py-0.5 skew-x-30 mx-auto sm:mx-0">
-          <p class="-skew-x-30 font-semibold text-sm sm:text-base duration-500">{{ teamData?.division }}</p>
+@if (team) {
+  <div class="w-full h-[540px] sm:h-[440px] relative select-none duration-500">
+    <!-- Background -->
+    <img class="absolute h-full inset-0 w-full object-cover md:object-top" [src]="team.teamData.background" alt="TEAM-background">
+    <div class="absolute h-full bg-black inset-0 bg-opacity-50"></div>
+    <!-- Content -->
+    <div class="absolute flex text-white flex-col justify-center items-center h-full inset-0">
+      <div class="w-full flex flex-col sm:flex-row gap-3 items-center px-3 sm:px-5 lg:px-16 duration-500">
+        <div class="bg-white rounded-full p-5 w-fit h-fit">
+          <img [src]="team.teamData.image" [alt]="team.teamData.alt" class="w-24 min-w-24 sm:w-36 sm:min-w-36 duration-500">
         </div>
-        <p class="font-bold text-5xl sm:text-6xl text-center sm:text-start duration-500">
-          {{ teamData?.name }}
-        </p>
-        <div class="flex gap-3 justify-evenly sm:justify-start text-sm sm:text-base py-2 duration-500">
-          <p class="truncate">
-            <fa-icon [icon]="Location"></fa-icon> &nbsp;Región: <span class="font-semibold">{{ teamData?.location }}</span>
-          </p>
-          <p class="text-gold"><fa-icon [icon]="Divider"></fa-icon></p>
-          <p class="truncate">
-            <fa-icon [icon]="Flag"></fa-icon> &nbsp;Fundación: <span class="font-semibold">{{ teamData?.foundation }}</span>
-          </p>
-        </div>
-        <!-- Social Media -->
-        <div class="flex justify-center sm:justify-start gap-2 duration-500">
-          @if (teamData?.social?.facebook) {
-            <a target="_blank" rel="" [href]="teamData?.social?.facebook" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
-              <fa-icon class="text-lg" [icon]="Facebook"></fa-icon>
-            </a>
-          }
-          @if (teamData?.social?.instagram) {
-            <a target="_blank" rel="noopener" [href]="teamData?.social?.instagram" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
-              <fa-icon class="text-lg" [icon]="Instagram"></fa-icon>
-            </a>
-          }
-          @if (teamData?.social?.twitter) {
-            <a target="_blank" rel="noopener" [href]="teamData?.social?.twitter" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
-              <fa-icon class="text-lg" [icon]="Twitter"></fa-icon>
-            </a>
-          }
-          @if (teamData?.social?.youtube) {
-            <a target="_blank" rel="noopener" [href]="teamData?.social?.youtube" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
-              <fa-icon class="text-lg" [icon]="Youtube"></fa-icon>
-            </a>
-          }
-          @if (teamData?.social?.tiktok) {
-            <a target="_blank" rel="noopener" [href]="teamData?.social?.tiktok" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
-              <fa-icon class="text-lg" [icon]="Tiktok"></fa-icon>
-            </a>
-          }
+        <div class="w-full">
+          <div class="bg-gold w-fit px-5 py-0.5 skew-x-30 mx-auto sm:mx-0">
+            <p class="-skew-x-30 font-semibold text-sm sm:text-base duration-500">Liga {{ team.teamData.category }}</p>
+          </div>
+          <p class="font-bold text-5xl sm:text-6xl text-center sm:text-start duration-500">{{ team.teamData.name }}</p>
+          <div class="flex gap-3 justify-evenly sm:justify-start text-sm sm:text-base py-2 duration-500">
+            <p class="truncate">
+              <fa-icon [icon]="Location"></fa-icon> &nbsp;Región: <span class="font-semibold">{{ team.teamData.location }}</span>
+            </p>
+            <p class="text-gold"><fa-icon [icon]="Divider"></fa-icon></p>
+            <p class="truncate">
+              <fa-icon [icon]="Flag"></fa-icon> &nbsp;Fundación: <span class="font-semibold">{{ team.teamDetailsData.founded }}</span>
+            </p>
+          </div>
+          <!-- Social Media -->
+          <div class="flex justify-center sm:justify-start gap-2 duration-500">
+            @if (team.teamDetailsData.social) {
+              @if (team.teamDetailsData.social.facebook) {
+                <a target="_blank" rel="noopener" [href]="team.teamDetailsData.social.facebook" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
+                  <fa-icon class="text-lg" [icon]="Facebook"></fa-icon>
+                </a>
+              }
+              @if (team.teamDetailsData.social.instagram) {
+                <a target="_blank" rel="noopener" [href]="team.teamDetailsData.social.instagram" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
+                  <fa-icon class="text-lg" [icon]="Instagram"></fa-icon>
+                </a>
+              }
+              @if (team.teamDetailsData.social.twitter) {
+                <a target="_blank" rel="noopener" [href]="team.teamDetailsData.social.twitter" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
+                  <fa-icon class="text-lg" [icon]="Twitter"></fa-icon>
+                </a>
+              }
+              @if (team.teamDetailsData.social.youtube) {
+                <a target="_blank" rel="noopener" [href]="team.teamDetailsData.social.youtube" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
+                  <fa-icon class="text-lg" [icon]="Youtube"></fa-icon>
+                </a>
+              }
+              @if (team.teamDetailsData.social.tiktok) {
+                <a target="_blank" rel="noopener" [href]="team.teamDetailsData.social.tiktok" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">
+                  <fa-icon class="text-lg" [icon]="Tiktok"></fa-icon>
+                </a>
+              }
+            }
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+}
 <!-- Options -->
 <div class="bg-crimson text-white w-full h-12 flex justify-start sm:justify-center gap-2 overflow-auto select-none">
   @for (option of options; track $index) {
@@ -65,21 +67,11 @@
     </button>
   }
 </div>
+<!-- Content -->
 @if (overview) {
   <app-overview></app-overview>
 }
-@if (results) {
-  <app-results
-    [category]="category"
-    [division]="division!"
-    [teamLastGames]="teamData?.lastgames"
-    [teamFixture]="filteredFixtureStage"
-    [teamLogo]="teamData?.image"
-  ></app-results> }
+
 @if (stadium) {
-  <app-stadium
-    [stadium]="teamData?.stadium"
-  ></app-stadium> }
-@if (club) {
-  <app-club></app-club>
+  <app-stadium [stadium]="team?.stadiumData"></app-stadium>
 }
