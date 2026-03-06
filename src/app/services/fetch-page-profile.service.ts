@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TeamPageProfile } from '../interfaces/api-models/team-page-profile';
+import { TeamPageProfile } from '../interfaces/api-models/teamPageProfile';
 import { LeaguePageProfile } from '../interfaces/api-models/leaguePageProfile';
 
 @Injectable({

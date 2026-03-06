@@ -29,4 +29,10 @@ export interface TeamPageProfile {
       tiktok?: string;
     };
   };
+  stadiumData: {
+    name: string;
+    capacity: number;
+    location: string;
+    image: string;
+  }
 }
