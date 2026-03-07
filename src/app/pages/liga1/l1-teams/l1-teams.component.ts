@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchStadiumsService } from '../../../services/fetch-stadiums.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
@@ -24,6 +25,7 @@ import { TeamCard } from '../../../interfaces/ui-models/team-card';
   styles: ``,
 })
 export class L1TeamsComponent {
+  private viewPortScoller = inject(ViewportScroller);
   private teamsService = inject(FetchTeamsService);
   private stadiumsService = inject(FetchStadiumsService);
   private uiDataMapperService = inject(UiDataMapperService);
@@ -31,8 +33,14 @@ export class L1TeamsComponent {
   dataTeamsCard: TeamCard[] = [];
 
   constructor() {
-    combineLatest([this.teamsService.teamsL1$, this.stadiumsService.stadiums$,]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([teams, stadiums]) => this.dataTeamsCard = this.uiDataMapperService.teamCardMapper(teams, stadiums)
+    this.stadiumsService.fetchStadiums();
+
+    combineLatest([this.teamsService.teamsL1$, this.stadiumsService.stadiums$]).pipe(takeUntilDestroyed()).subscribe({
+      next: ([teams, stadiums]) => (this.dataTeamsCard = this.uiDataMapperService.teamCardMapper(teams, stadiums)),
     });
+
+    if (typeof window !== 'undefined') {
+      this.viewPortScoller.scrollToPosition([0, 0]);
+    }
   }
 }

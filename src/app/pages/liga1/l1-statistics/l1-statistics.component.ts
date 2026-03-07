@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
@@ -108,6 +109,7 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
   styles: ``,
 })
 export class L1StatisticsComponent {
+  private viewPortScoller = inject(ViewportScroller);
   private teamsService = inject(FetchTeamsService);
   private statisticsService = inject(FetchStatisticsService);
   private uiDataMapperService = inject(UiDataMapperService);
@@ -123,6 +125,8 @@ export class L1StatisticsComponent {
   dataWorstGoalDifference: StatisticCard[] = [];
 
   constructor() {
+    this.statisticsService.fetchStatisticsL1();
+
     combineLatest([this.teamsService.teamsL1$, this.statisticsService.statisticsL1$]).pipe(takeUntilDestroyed()).subscribe({
       next: ([teams, statistics]) => {
         this.dataBestDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.bestDefense, 'ga');
@@ -136,5 +140,9 @@ export class L1StatisticsComponent {
         this.dataWorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.worstGoalDifference, 'gd');
       }
     });
+
+    if (typeof window !== 'undefined') {
+      this.viewPortScoller.scrollToPosition([0, 0]);
+    }
   }
 }

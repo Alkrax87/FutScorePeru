@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchTeamsPerformanceService } from '../../../services/fetch-teams-performance.service';
@@ -70,6 +71,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
   styles: ``,
 })
 export class L1TableComponent {
+  private viewPortScoller = inject(ViewportScroller);
   private divisionsService = inject(FetchDivisionsService);
   private teamsService = inject(FetchTeamsService);
   private teamsPerformanceService = inject(FetchTeamsPerformanceService);
@@ -82,7 +84,7 @@ export class L1TableComponent {
   phase2: boolean = false;
   playOff: boolean = false;
 
-  headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimas 5 Fechas'];
+  headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
   configOverall = [
     { active: true, name: 'Copa Libertadores', image: 'assets/images/pages/Libertadores.webp', class: 'bg-libertadores', quantity: 4 },
     { active: true, name: 'Copa Sudamericana', image: 'assets/images/pages/Sudamericana.webp', class: 'bg-sudamericana', quantity: 4 },
@@ -101,6 +103,9 @@ export class L1TableComponent {
   dataPlayOff1: MatchCard[] = [];
 
   constructor() {
+    this.teamsPerformanceService.fetchTeamsPerformanceL1();
+    this.teamsFormService.fetchTeamsFormL1();
+
     combineLatest([
       this.divisionsService.divisionL1$,
       this.teamsService.teamsL1$,
@@ -126,7 +131,11 @@ export class L1TableComponent {
           this.dataPlayOff1 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket1);
         }
       }
-    })
+    });
+
+    if (typeof window !== 'undefined') {
+      this.viewPortScoller.scrollToPosition([0, 0]);
+    }
   }
 
   setActiveTab(tab: String) {
