@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
@@ -22,12 +23,15 @@ import { DivisionSummary } from '../../../interfaces/ui-models/division-summary'
   styles: ``,
 })
 export class L3HomeComponent {
-  divisionsService = inject(FetchDivisionsService);
-  teamsService = inject(FetchTeamsService);
-  mapService = inject(FetchMapService);
-  uiDataMapperService = inject(UiDataMapperService);
+  private viewPortScoller = inject(ViewportScroller);
+  private divisionsService = inject(FetchDivisionsService);
+  private teamsService = inject(FetchTeamsService);
+  private mapService = inject(FetchMapService);
+  private uiDataMapperService = inject(UiDataMapperService);
 
   constructor() {
+    this.mapService.fetchMapL3();
+
     combineLatest([
       this.divisionsService.divisionL3$,
       this.teamsService.teamsL3$,
@@ -54,7 +58,7 @@ export class L3HomeComponent {
     });
 
     if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      this.viewPortScoller.scrollToPosition([0, 0]);
     }
   }
 

@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchTeamsPerformanceService } from '../../../services/fetch-teams-performance.service';
@@ -41,21 +42,21 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
               <h3 class="text-3xl text-white font-bold">Grupo 2</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional3"></app-table>
+            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional2"></app-table>
           </div>
           <div>
             <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo 3</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional4"></app-table>
+            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional3"></app-table>
           </div>
           <div>
             <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo 4</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional2"></app-table>
+            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional4"></app-table>
           </div>
         </div>
       }
@@ -151,6 +152,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
   styles: ``,
 })
 export class L3TableComponent {
+  private viewPortScoller = inject(ViewportScroller);
   private divisionsService = inject(FetchDivisionsService);
   private teamsService = inject(FetchTeamsService);
   private teamsPerformanceService = inject(FetchTeamsPerformanceService);
@@ -162,7 +164,7 @@ export class L3TableComponent {
   phase2: boolean = false;
   playOff: boolean = false;
 
-  headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimas 5 Fechas'];
+  headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
   configPhase1 = [
     { active: true, name: 'Grupos de Ascenso', image: 'assets/images/pages/Group-Promotion.svg', class: 'bg-gpromotion', quantity: 4 },
     { active: false },
@@ -185,6 +187,9 @@ export class L3TableComponent {
   dataPlayOffsExtra: MatchCard[] = [];
 
   constructor() {
+    this.teamsPerformanceService.fetchTeamsPerformanceL3();
+    this.teamsFormService.fetchTeamsFormL3();
+
     combineLatest([
       this.divisionsService.divisionL3$,
       this.teamsService.teamsL3$,
@@ -214,6 +219,10 @@ export class L3TableComponent {
         }
       }
     });
+
+    if (typeof window !== 'undefined') {
+      this.viewPortScoller.scrollToPosition([0, 0]);
+    }
   }
 
   setActiveTab(tab: String) {

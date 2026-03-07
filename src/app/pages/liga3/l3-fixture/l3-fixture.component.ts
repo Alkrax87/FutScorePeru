@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { NgClass, ViewportScroller } from '@angular/common';
 import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchTeamsMatchResultsService } from '../../../services/fetch-teams-match-results.service';
@@ -42,7 +42,6 @@ import { FixtureComponent } from '../../../components/fixture/fixture.component'
             </div>
             <div class="bg-white skew-x-50 h-2 w-full my-5"></div>
             <app-fixture [data]="computedFixturePhase1[selectedPhase1Index ? selectedPhase1Index : 0]"></app-fixture>
-
           } @else {
             <div class="flex h-64 justify-center items-center select-none">
               <h3 class="text-2xl text-white font-bold">Fixture por definir...</h3>
@@ -79,6 +78,7 @@ import { FixtureComponent } from '../../../components/fixture/fixture.component'
   styles: ``,
 })
 export class L3FixtureComponent {
+  private viewPortScoller = inject(ViewportScroller);
   private divisionsService = inject(FetchDivisionsService);
   private teamsService = inject(FetchTeamsService);
   private teamsMatchResultsService = inject(FetchTeamsMatchResultsService);
@@ -93,6 +93,9 @@ export class L3FixtureComponent {
   computedFixturePhase2: any;
 
   constructor() {
+    this.fixturesService.fetchFixtureL3();
+    this.teamsMatchResultsService.fetchTeamsMatchResultsL3();
+
     combineLatest([
       this.divisionsService.divisionL3$,
       this.teamsService.teamsL3$,
@@ -112,6 +115,10 @@ export class L3FixtureComponent {
         this.computedFixturePhase2 = this.matchesService.transformDataForFixture(teams, fixture?.phase2, teamsMatchResults, 'phase2', 3);
       }
     });
+
+    if (typeof window !== 'undefined') {
+      this.viewPortScoller.scrollToPosition([0, 0]);
+    }
   }
 
   setActiveTab(tab: String) {
