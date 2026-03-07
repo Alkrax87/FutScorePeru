@@ -4,15 +4,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserShield, faRankingStar } from '@fortawesome/free-solid-svg-icons';
 import { FetchTeamsService } from '../../services/fetch-teams.service';
 import { FetchDivisionsService } from '../../services/fetch-divisions.service';
-import { FetchMapService } from '../../services/fetch-map.service';
-import { FetchStadiumsService } from '../../services/fetch-stadiums.service';
-import { FetchFixturesService } from '../../services/fetch-fixtures.service';
-import { FetchTeamsMatchResultsService } from '../../services/fetch-teams-match-results.service';
-import { FetchTeamsPerformanceService } from '../../services/fetch-teams-performance.service';
-import { FetchTeamsFormService } from '../../services/fetch-teams-form.service';
-import { FetchBracketsService } from '../../services/fetch-brackets.service';
-import { FetchManagersService } from '../../services/fetch-managers.service';
-import { FetchStatisticsService } from '../../services/fetch-statistics.service';
 import { UiDataMapperService } from '../../services/ui-data-mapper.service';
 import { EntityNavBarComponent } from '../../components/entity-nav-bar/entity-nav-bar.component';
 import { SectionSubnavComponent } from '../../components/section-subnav/section-subnav.component';
@@ -31,15 +22,6 @@ import { EntityNav } from '../../interfaces/ui-models/entity-nav';
 export class L2MainComponent {
   private teamsService = inject(FetchTeamsService);
   private divisionsService = inject(FetchDivisionsService);
-  private mapService = inject(FetchMapService);
-  private stadiumsService = inject(FetchStadiumsService);
-  private fixturesService = inject(FetchFixturesService);
-  private teamsMatchResultsService = inject(FetchTeamsMatchResultsService);
-  private teamsPerformanceService = inject(FetchTeamsPerformanceService);
-  private teamsFormService = inject(FetchTeamsFormService);
-  private bracketsService = inject(FetchBracketsService);
-  private managersService = inject(FetchManagersService);
-  private statisticsService = inject(FetchStatisticsService);
   private uiDataMapperService = inject(UiDataMapperService);
 
   navEntities: EntityNav[] = [];
@@ -52,22 +34,11 @@ export class L2MainComponent {
   ];
 
   constructor() {
-    this.teamsService.teamsL2$.pipe(takeUntilDestroyed()).subscribe({
-      next: (data) => this.navEntities = this.uiDataMapperService.teamsNavMapper(data)
-    });
-  }
-
-  ngOnInit() {
     this.teamsService.fetchTeamsL2();
     this.divisionsService.fetchDivisionL2();
-    this.mapService.fetchMapL2();
-    this.stadiumsService.fetchStadiums();
-    this.fixturesService.fetchFixtureL2();
-    this.teamsMatchResultsService.fetchTeamsMatchResultsL2();
-    this.teamsPerformanceService.fetchTeamsPerformanceL2();
-    this.teamsFormService.fetchTeamsFormL2();
-    this.bracketsService.fetchBracketsL2();
-    this.managersService.fetchManagersL2();
-    this.statisticsService.fetchStatisticsL2();
+
+    this.teamsService.teamsL2$.pipe(takeUntilDestroyed()).subscribe({
+      next: (data) => (this.navEntities = this.uiDataMapperService.teamsNavMapper(data)),
+    });
   }
 }

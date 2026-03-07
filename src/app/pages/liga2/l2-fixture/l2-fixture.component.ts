@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { NgClass } from '@angular/common';
+import { NgClass, ViewportScroller } from '@angular/common';
 import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchTeamsMatchResultsService } from '../../../services/fetch-teams-match-results.service';
@@ -78,6 +78,7 @@ import { FixtureComponent } from '../../../components/fixture/fixture.component'
   styles: ``,
 })
 export class L2FixtureComponent {
+  private viewPortScoller = inject(ViewportScroller);
   private divisionsService = inject(FetchDivisionsService);
   private teamsService = inject(FetchTeamsService);
   private teamsMatchResultsService = inject(FetchTeamsMatchResultsService);
@@ -92,6 +93,9 @@ export class L2FixtureComponent {
   computedFixturePhase2: any;
 
   constructor() {
+    this.fixturesService.fetchFixtureL2();
+    this.teamsMatchResultsService.fetchTeamsMatchResultsL2();
+
     combineLatest([
       this.divisionsService.divisionL2$,
       this.teamsService.teamsL2$,
@@ -111,6 +115,10 @@ export class L2FixtureComponent {
         this.computedFixturePhase2 = this.matchesService.transformDataForFixture(teams, fixture?.phase2, teamsMatchResults, 'phase2', 2);
       }
     });
+
+    if (typeof window !== 'undefined') {
+      this.viewPortScoller.scrollToPosition([0, 0]);
+    }
   }
 
   setActiveTab(tab: String) {

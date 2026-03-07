@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchManagersService } from '../../../services/fetch-managers.service';
@@ -34,6 +35,7 @@ import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel'
   styles: ``,
 })
 export class L2ManagersComponent {
+  private viewPortScoller = inject(ViewportScroller);
   private teamsService = inject(FetchTeamsService);
   private managersService = inject(FetchManagersService);
   private uiDataMapperService = inject(UiDataMapperService);
@@ -41,8 +43,14 @@ export class L2ManagersComponent {
   dataCarousel: ManagerCarousel[] = [];
 
   constructor() {
+    this.managersService.fetchManagersL2();
+
     combineLatest([this.teamsService.teamsL2$, this.managersService.managersL2$]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([teams, managers]) => this.dataCarousel = this.uiDataMapperService.managerCarouselMapper(teams, managers)
+      next: ([teams, managers]) => (this.dataCarousel = this.uiDataMapperService.managerCarouselMapper(teams, managers)),
     });
+
+    if (typeof window !== 'undefined') {
+      this.viewPortScoller.scrollToPosition([0, 0]);
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchTeamsPerformanceService } from '../../../services/fetch-teams-performance.service';
@@ -130,6 +131,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
   styles: ``,
 })
 export class L2TableComponent {
+  private viewPortScoller = inject(ViewportScroller);
   private divisionsService = inject(FetchDivisionsService);
   private teamsService = inject(FetchTeamsService);
   private teamsPerformanceService = inject(FetchTeamsPerformanceService);
@@ -141,7 +143,7 @@ export class L2TableComponent {
   phase2: boolean = false;
   playOff: boolean = false;
 
-  headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimas 5 Fechas'];
+  headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
   configPhase1 = [
     { active: true, name: 'Grupo de Ascenso', image: 'assets/images/pages/Group-Promotion.svg', class: 'bg-gpromotion', quantity: 6 },
     { active: false },
@@ -167,6 +169,9 @@ export class L2TableComponent {
   dataPlayOffsExtra: MatchCard[] = [];
 
   constructor() {
+    this.teamsPerformanceService.fetchTeamsPerformanceL2();
+    this.teamsFormService.fetchTeamsFormL2();
+
     combineLatest([
       this.divisionsService.divisionL2$,
       this.teamsService.teamsL2$,
@@ -193,6 +198,10 @@ export class L2TableComponent {
         }
       }
     });
+
+    if (typeof window !== 'undefined') {
+      this.viewPortScoller.scrollToPosition([0, 0]);
+    }
   }
 
   setActiveTab(tab: String) {
