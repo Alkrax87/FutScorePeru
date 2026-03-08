@@ -27,77 +27,23 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
       ) {
         <div class="text-white max-w-screen-xl mx-auto grid grid-cols-[repeat(auto-fit,_minmax(310px,_1fr))] gap-3 sm:gap-5 duration-500">
           <!-- Wins -->
-          <div>
-            <div class="w-fit">
-              <h3 class="text-2xl text-white font-bold">Partidos Ganados</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-statistics-card [data]="dataMostWins"></app-statistics-card>
-          </div>
+          <app-statistics-card cardTitle="PARTIDOS GANADOS" [data]="dataMostWins"></app-statistics-card>
           <!-- Draws -->
-          <div>
-            <div class="w-fit">
-              <h3 class="text-2xl text-white font-bold">Partidos Empatados</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-statistics-card [data]="dataMostDraws"></app-statistics-card>
-          </div>
+          <app-statistics-card cardTitle="PARTIDOS EMPATADOS" [data]="dataMostDraws"></app-statistics-card>
           <!-- Losses -->
-          <div>
-            <div class="w-fit">
-              <h3 class="text-2xl text-white font-bold">Partidos Perdidos</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-statistics-card [data]="dataMostLosses"></app-statistics-card>
-          </div>
+          <app-statistics-card cardTitle="PARTIDOS PERDIDOS" [data]="dataMostLosses"></app-statistics-card>
           <!-- Best Defense -->
-          <div>
-            <div class="w-fit">
-              <h3 class="text-2xl text-white font-bold">Mejor Defensa (GC)</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-statistics-card [data]="dataBestDefense"></app-statistics-card>
-          </div>
+          <app-statistics-card cardTitle="MEJOR DEFENSA (GC)" [data]="dataBestDefense"></app-statistics-card>
           <!-- Worst Defense -->
-          <div>
-            <div class="w-fit">
-              <h3 class="text-2xl text-white font-bold">Peor Defensa (GC)</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-statistics-card [data]="dataWorstDefense"></app-statistics-card>
-          </div>
+          <app-statistics-card cardTitle="PEOR DEFENSA (GC)" [data]="dataWorstDefense"></app-statistics-card>
           <!-- Most Goals -->
-          <div>
-            <div class="w-fit">
-              <h3 class="text-2xl text-white font-bold">Más Goleador (GF)</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-statistics-card [data]="dataMostGoals"></app-statistics-card>
-          </div>
+          <app-statistics-card cardTitle="MÁS GOLEADOR (GF)" [data]="dataMostGoals"></app-statistics-card>
           <!-- Fewest Goals -->
-          <div>
-            <div class="w-fit">
-              <h3 class="text-2xl text-white font-bold">Menos Goleador (GF)</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-statistics-card [data]="dataFewestGoals"></app-statistics-card>
-          </div>
+          <app-statistics-card cardTitle="MENOS GOLEADOR (GF)" [data]="dataFewestGoals"></app-statistics-card>
           <!-- Best Goal Difference -->
-          <div>
-            <div class="w-fit">
-              <h3 class="text-2xl text-white font-bold">Mejor Diferencia de Gol</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-statistics-card [data]="dataBestGoalDifference"></app-statistics-card>
-          </div>
+          <app-statistics-card cardTitle="MEJOR DIFERENCIA DE GOL" [data]="dataBestGoalDifference"></app-statistics-card>
           <!-- Worst Goal Difference -->
-          <div>
-            <div class="w-fit">
-              <h3 class="text-2xl text-white font-bold">Peor Diferencia de Gol</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-statistics-card [data]="dataWorstGoalDifference"></app-statistics-card>
-          </div>
+          <app-statistics-card cardTitle="PEOR DIFERENCIA DE GOL" [data]="dataWorstGoalDifference"></app-statistics-card>
         </div>
       } @else {
         <div class="flex h-64 justify-center items-center select-none">
