@@ -11,16 +11,26 @@ import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
     <div>
       @for (item of data; track $index) {
         @if ($index == 0) {
-          <div [routerLink]="['../', 'club', item.category, item.teamId]" class="bg-crimson hover:bg-crimson-hover background-pattern h-[136px] rounded-t-xl flex justify-between p-2 cursor-pointer">
-            <div class="flex flex-col justify-between">
-              <div>
-                <p class="font-bold text-xs">{{ $index + 1 }}</p>
-                <p class="font-bold text-lg">{{ item.name }}</p>
-              </div>
-              <p class="font-bold text-5xl">{{ item.value }}</p>
+          <div>
+            <div class="flex">
+              <div class="bg-crimson w-fit h-7 text-sm font-bold px-2 flex items-center">{{ cardTitle }}</div>
+              <div class="
+                relative right-[0.1px] w-0 h-0 border-solid
+                border-t-[28px] border-r-0 border-b-0 border-l-[28px]
+                border-t-transparent  border-r-transparent border-b-transparent border-l-crimson
+              "></div>
             </div>
-            <div class="my-auto">
-              <img loading="lazy" [src]="item.image" [alt]="item.alt" class="h-24 w-24"/>
+            <div [routerLink]="['../', 'club', item.category, item.teamId]" class="bg-crimson hover:bg-crimson-hover background-pattern h-32 cursor-pointer flex justify-between p-2">
+              <div class="flex flex-col justify-between truncate">
+                <div>
+                  <p class="font-bold text-xs">{{ $index + 1 }}</p>
+                  <p class="font-bold text-xl truncate">{{ item.name }}</p>
+                </div>
+                <p class="font-bold text-6xl">{{ item.value }}</p>
+              </div>
+              <div class="my-auto min-w-fit">
+                <img loading="lazy" [src]="item.image" [alt]="item.alt" class="h-24 w-24"/>
+              </div>
             </div>
           </div>
         } @else {
@@ -44,6 +54,7 @@ import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
   styles: ``,
 })
 export class StatisticsCardComponent {
+  @Input() cardTitle!: string;
   @Input() data!: StatisticCard[];
   Arrow = faChevronRight;
 }
