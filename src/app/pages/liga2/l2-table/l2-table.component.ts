@@ -24,7 +24,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
       <div class="flex justify-center px-3 sm:px-5 mb-3 sm:mb-5">
         <div class="w-full md:w-5/6 lg:w-9/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-3 px-4 md:px-0">
           <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Fase Regional</app-btn>
-          <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Fase Grupos</app-btn>
+          <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Fase Final</app-btn>
           <app-btn (click)="setActiveTab('playOff')" [active]="playOff">Play-Offs</app-btn>
         </div>
       </div>
@@ -32,17 +32,24 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
         <div class="flex flex-col gap-4">
           <div>
             <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo A</h3>
+              <h3 class="text-3xl text-white font-bold">Grupo 1</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1A"></app-table>
+            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Group1"></app-table>
           </div>
           <div>
             <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo B</h3>
+              <h3 class="text-3xl text-white font-bold">Grupo 2</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1B"></app-table>
+            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Group2"></app-table>
+          </div>
+          <div>
+            <div class="w-fit px-3 sm:px-5">
+              <h3 class="text-3xl text-white font-bold">Tabla Acumulada</h3>
+              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+            </div>
+            <app-table [config]="configOverall" [headers]="headers" [data]="dataOverall"></app-table>
           </div>
         </div>
       }
@@ -50,24 +57,17 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
         <div class="flex flex-col gap-4">
           <div>
             <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo Ascenso 1</h3>
+              <h3 class="text-3xl text-white font-bold">Grupo 1</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configPhase2Promotion" [headers]="headers" [data]="dataPhase2Promotion1"></app-table>
+            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2Group1"></app-table>
           </div>
           <div>
             <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo Ascenso 2</h3>
+              <h3 class="text-3xl text-white font-bold">Grupo 2</h3>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-table [config]="configPhase2Promotion" [headers]="headers" [data]="dataPhase2Promotion2"></app-table>
-          </div>
-          <div>
-            <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo Descenso</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-table [config]="configPhase2Relegation" [headers]="headers" [data]="dataPhase2Relegation"></app-table>
+            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2Group2"></app-table>
           </div>
         </div>
       }
@@ -145,24 +145,21 @@ export class L2TableComponent {
 
   headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
   configPhase1 = [
-    { active: true, name: 'Grupo de Ascenso', image: 'assets/images/pages/Group-Promotion.svg', class: 'bg-gpromotion', quantity: 6 },
-    { active: false },
-    { active: true, name: 'Grupo de Descenso', image: 'assets/images/pages/Group-Relegation.svg', class: 'bg-grelegation', quantity: 3 },
+    { active: true, name: 'Grupo de Ascenso', image: 'assets/images/pages/Group-Promotion.svg', class: 'bg-gpromotion', quantity: 4 },
   ];
-  configPhase2Promotion = [
-    { active: true, name: 'Semifinales', image: 'assets/images/pages/Bracket-Semifinalist.svg', class: 'bg-promotion', quantity: 1 },
-    { active: true, name: 'Cuartos de Final', image: 'assets/images/pages/Bracket-Quarter.svg', class: 'bg-quarter', quantity: 2 },
-  ];
-  configPhase2Relegation= [
+  configOverall = [
     { active: false },
     { active: false },
-    { active: true, name: 'Descenso', image: 'assets/images/pages/Relegation.svg', class: 'bg-relegation', quantity: 4 },
+    { active: true, name: 'Descenso', image: 'assets/images/pages/Relegation.svg', class: 'bg-relegation', quantity: 2 },
   ];
-  dataPhase1A: TeamTable[] = [];
-  dataPhase1B: TeamTable[] = [];
-  dataPhase2Promotion1: TeamTable[] = [];
-  dataPhase2Promotion2: TeamTable[] = [];
-  dataPhase2Relegation: TeamTable[] = [];
+  configPhase2 = [
+    { active: true, name: 'Play-Offs', image: 'assets/images/pages/Bracket-Semifinalist.svg', class: 'bg-promotion', quantity: 2 },
+  ];
+  dataPhase1Group1: TeamTable[] = [];
+  dataPhase1Group2: TeamTable[] = [];
+  dataOverall: TeamTable[] = [];
+  dataPhase2Group1: TeamTable[] = [];
+  dataPhase2Group2: TeamTable[] = [];
   dataPlayOffs4: MatchCard[] = [];
   dataPlayOffs2: MatchCard[] = [];
   dataPlayOffs1: MatchCard[] = [];
@@ -184,11 +181,11 @@ export class L2TableComponent {
         this.phase2 = division?.phase2.status || false;
         this.playOff = division?.phase3.status || false;
 
-        this.dataPhase1A = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', 'a');
-        this.dataPhase1B = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', 'b');
-        this.dataPhase2Promotion1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'p1');
-        this.dataPhase2Promotion2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'p2');
-        this.dataPhase2Relegation = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'r');
+        this.dataPhase1Group1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', 'a');
+        this.dataPhase1Group2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', 'b');
+        this.dataOverall = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'overall', undefined, 'phase1');
+        this.dataPhase2Group1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'p1');
+        this.dataPhase2Group2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'p2');
 
         if (brackets[0] && brackets[0].bracket4 && brackets[0].bracket2 && brackets[0].bracket1 && brackets[0].bracketExtra) {
           this.dataPlayOffs4 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket4);
