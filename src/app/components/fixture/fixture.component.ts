@@ -2,12 +2,12 @@ import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
 
 @Component({
   selector: 'app-fixture',
-  imports: [FontAwesomeModule, RouterLink, DatePipe],
+  imports: [FontAwesomeModule, RouterLink, DatePipe, TitleCasePipe],
   template: `
     <div class="bg-night select-none flex flex-col gap-8">
       @for (item of data; track $index) {
@@ -15,7 +15,7 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
           <!-- Date -->
           <div class="flex justify-center items-center mb-3">
             @if (item.date) {
-              <span class="bg-crimson text-white px-5 font-semibold py-1">{{ item.date | date:'EEEE d MMMM' }}</span>
+              <span class="bg-crimson text-white px-5 font-semibold py-1">{{ item.date | date:'EEEE d MMMM' | titlecase }}</span>
             } @else {
               <span class="bg-crimson text-white px-5 font-semibold py-1">Por Definir</span>
             }
