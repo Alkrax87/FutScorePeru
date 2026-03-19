@@ -31,6 +31,8 @@ import { NotFoundComponent } from './pages/main/not-found/not-found.component';
 import { TestComponent } from './pages/main/test/test.component';
 import { TeamPageComponent } from './pages/shared/team-page/team-page.component';
 import { LeaguePageComponent } from './pages/shared/league-page/league-page.component';
+import { OverviewComponent } from './pages/shared/team-page/overview/overview.component';
+import { StadiumComponent } from './pages/shared/team-page/stadium/stadium.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -57,7 +59,11 @@ export const routes: Routes = [
       { path: 'tabla', component: L1TableComponent, title: 'Liga 1 | Tabla' },
       { path: 'tecnicos', component: L1ManagersComponent, title: 'Liga 1 | Técnicos' },
       { path: 'estadisticas', component: L1StatisticsComponent, title: 'Liga 1 | Estadísticas' },
-      { path: 'club/:category/:teamId', component: TeamPageComponent },
+      { path: 'club/:category/:teamId', component: TeamPageComponent, children: [
+        { path: '', redirectTo: 'overview', pathMatch: 'full' },
+        { path: 'overview', component: OverviewComponent },
+        { path: 'stadium', component: StadiumComponent },
+      ]},
     ],
   },
   {
@@ -72,7 +78,11 @@ export const routes: Routes = [
       { path: 'tabla', component: L2TableComponent, title: 'Liga 2 | Tabla' },
       { path: 'tecnicos', component: L2ManagersComponent, title: 'Liga 2 | Técnicos' },
       { path: 'estadisticas', component: L2StatisticsComponent, title: 'Liga 2 | Estadísticas' },
-      { path: 'club/:category/:teamId', component: TeamPageComponent },
+      { path: 'club/:category/:teamId', component: TeamPageComponent, children: [
+        { path: '', redirectTo: 'overview', pathMatch: 'full' },
+        { path: 'overview', component: OverviewComponent },
+        { path: 'stadium', component: StadiumComponent },
+      ]},
     ],
   },
   {
@@ -86,7 +96,11 @@ export const routes: Routes = [
       { path: 'fixture', component: L3FixtureComponent, title: 'Liga 3 | Fixture' },
       { path: 'tabla', component: L3TableComponent, title: 'Liga 3 | Tabla' },
       { path: 'estadisticas', component: L3StatisticsComponent, title: 'Liga 3 | Estadísticas' },
-      { path: 'club/:category/:teamId', component: TeamPageComponent },
+      { path: 'club/:category/:teamId', component: TeamPageComponent, children: [
+        { path: '', redirectTo: 'overview', pathMatch: 'full' },
+        { path: 'overview', component: OverviewComponent },
+        { path: 'stadium', component: StadiumComponent },
+      ]},
     ],
   },
   {
