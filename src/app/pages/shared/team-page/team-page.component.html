@@ -62,16 +62,7 @@
 <!-- Options -->
 <div class="bg-crimson text-white w-full h-12 flex justify-start sm:justify-center gap-2 overflow-auto select-none">
   @for (option of options; track $index) {
-    <button (click)="setActiveSection(option.section)" class="px-2 font-semibold outline-none">
-      <p>{{ option.name }}</p>
-    </button>
+    <button [routerLink]="option.section" class="px-2 font-semibold outline-none">{{ option.name }}</button>
   }
 </div>
-<!-- Content -->
-@if (overview) {
-  <app-overview></app-overview>
-}
-
-@if (stadium) {
-  <app-stadium [stadium]="team?.stadiumData"></app-stadium>
-}
+<router-outlet></router-outlet>
