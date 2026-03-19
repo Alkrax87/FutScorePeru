@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { TeamPageProfile } from '../interfaces/api-models/teamPageProfile';
 import { LeaguePageProfile } from '../interfaces/api-models/leaguePageProfile';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,20 @@ export class FetchPageProfileService {
   private backendUrl = Environments.backendUrl;
 
   private http = inject(HttpClient);
+  private router = inject(Router);
 
-  fetchTeamProfile(teamId: string): Observable<TeamPageProfile> {
-    return this.http.get<TeamPageProfile>(this.backendUrl + '/pageProfile/team/' + teamId);
+  private teamSubject = new BehaviorSubject<TeamPageProfile | null>(null);
+
+  team$ = this.teamSubject.asObservable();
+
+  fetchTeamProfile(teamId: string) {
+    this.http.get<TeamPageProfile>(this.backendUrl + '/pageProfile/team/' + teamId).subscribe({
+      next: (response) => (this.teamSubject.next(response)),
+      error: (error) => {
+        console.error('Failed to fetch Team Profile ', error);
+        this.router.navigate(['/not-found']);
+      },
+    });
   }
 
   fetchLeagueProfile(leagueId: string): Observable<LeaguePageProfile> {
