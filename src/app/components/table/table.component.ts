@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark, faDatabase } from '@fortawesome/free-solid-svg-icons';
 import { TeamTable } from '../../interfaces/ui-models/team-table';
 import { RouterLink } from '@angular/router';
 
@@ -82,10 +82,8 @@ import { RouterLink } from '@angular/router';
               }
             } @else {
               <tr>
-                <td colspan="12">
-                  <div class="text-white h-16 flex justify-center items-center text-2xl">
-                    Datos de la tabla por definir...
-                  </div>
+                <td colspan="12" class="h-10 text-center text-neutral-400 text-sm">
+                  <fa-icon [icon]="Database"></fa-icon> Datos de la tabla por definir..
                 </td>
               </tr>
             }
@@ -116,4 +114,5 @@ export class TableComponent {
   Draw = faCircleMinus;
   Lose = faCircleXmark;
   Default = faCircle;
+  Database = faDatabase;
 }
