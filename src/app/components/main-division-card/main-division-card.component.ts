@@ -4,7 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAngleRight, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-league-card',
+  selector: 'app-main-division-card',
   imports: [RouterLink, FontAwesomeModule],
   template: `
     <div class="shadow-md">
@@ -33,7 +33,7 @@ import { faAngleRight, faShieldHalved } from '@fortawesome/free-solid-svg-icons'
   `,
   styles: ``,
 })
-export class LeagueCardComponent {
+export class MainDivisionCardComponent {
   @Input() item!: {
     title: string;
     image: string;

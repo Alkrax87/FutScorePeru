@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { TitleComponent } from "../../../components/title/title.component";
-import { LeagueCardComponent } from "../../../components/league-card/league-card.component";
+import { MainDivisionCardComponent } from "../../../components/main-division-card/main-division-card.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { BtnComponent } from "../../../components/btn/btn.component";
 
 @Component({
   selector: 'app-home',
-  imports: [TitleComponent, LeagueCardComponent, FontAwesomeModule, BtnComponent],
+  imports: [TitleComponent, FontAwesomeModule, BtnComponent, MainDivisionCardComponent],
   templateUrl: './home.component.html',
   styles: `
     .bg {
