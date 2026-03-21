@@ -38,7 +38,7 @@ export class CpMainComponent {
 
   constructor() {
     this.leaguesService.leagues$.pipe(takeUntilDestroyed()).subscribe({
-      next: (data) => this.navEntities = this.uiDataMapperService.leagueNavMapper(data)
+      next: (data) => this.navEntities = this.uiDataMapperService.leaguesNavMapper(data)
     });
   }
 

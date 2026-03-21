@@ -35,8 +35,8 @@ export class CpHomeComponent {
     ]).pipe(takeUntilDestroyed()).subscribe(([division, teams, map]) => {
       this.dataDivision = division;
       this.mapConstructor = map;
-      this.dataMap = this.uiDataMapperService.teamCPMapMapper(teams);
-      this.dataTeams = this.uiDataMapperService.teamDivisionMapperCP(teams);
+      this.dataMap = this.uiDataMapperService.teamsCPMapMapper(teams);
+      this.dataTeams = this.uiDataMapperService.teamsCPDivisionMapper(teams);
 
       if (division) {
         this.dataDivisionSummary = {
@@ -71,7 +71,7 @@ export class CpHomeComponent {
     { name: 'Loreto', teams: 2 },
     { name: 'La Libertad', teams: 2 },
     { name: 'Lambayeque', teams: 2 },
-    { name: 'Lima y Callao', teams: 2 },
+    { name: 'Lima y Callao', teams: 4 },
     { name: 'Madre de Dios', teams: 2 },
     { name: 'Moquegua', teams: 2 },
     { name: 'Pasco', teams: 2 },
