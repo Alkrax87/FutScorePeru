@@ -111,8 +111,11 @@ export class L2FixtureComponent {
         }
         this.selectedPhase1Index = division ? division.phase1.inGame - 1 : 0;
         this.selectedPhase2Index = division ? division.phase2.inGame - 1 : 0;
-        this.computedFixturePhase1 = this.matchesService.transformDataForFixture(teams, fixture?.phase1, teamsMatchResults, 'phase1', 2);
-        this.computedFixturePhase2 = this.matchesService.transformDataForFixture(teams, fixture?.phase2, teamsMatchResults, 'phase2', 2);
+
+        if (teams && fixture && teamsMatchResults) {
+          this.computedFixturePhase1 = this.matchesService.transformDataForFixture(teams, fixture.phase1, teamsMatchResults, 'phase1');
+          this.computedFixturePhase2 = this.matchesService.transformDataForFixture(teams, fixture.phase2, teamsMatchResults, 'phase2');
+        }
       }
     });
 

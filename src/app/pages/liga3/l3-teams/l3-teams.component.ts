@@ -36,7 +36,7 @@ export class L3TeamsComponent {
     this.stadiumsService.fetchStadiums();
 
     combineLatest([this.teamsService.teamsL3$, this.stadiumsService.stadiums$]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([teams, stadiums]) => (this.dataTeamsCard = this.uiDataMapperService.teamCardMapper(teams, stadiums)),
+      next: ([teams, stadiums]) => (this.dataTeamsCard = this.uiDataMapperService.teamsCardMapper(teams, stadiums)),
     });
 
     if (typeof window !== 'undefined') {

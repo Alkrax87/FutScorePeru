@@ -39,8 +39,8 @@ export class L1HomeComponent {
     ]).pipe(takeUntilDestroyed()).subscribe(([division, teams, map]) => {
       this.dataDivision = division;
       this.mapConstructor = map;
-      this.dataMap = this.uiDataMapperService.teamMapMapper(teams);
-      this.dataTeams = this.uiDataMapperService.teamDivisionMapper(teams);
+      this.dataMap = this.uiDataMapperService.teamsMapMapper(teams);
+      this.dataTeams = this.uiDataMapperService.teamsDivisionMapper(teams);
 
       if (division) {
         let phases = 0;
@@ -51,7 +51,7 @@ export class L1HomeComponent {
         this.dataDivisionSummary = {
           teams: division.teams,
           phases: phases,
-          description: division.phase1.name + ' - ' + division!.phase2.name + ' - ' + division!.phase3.name,
+          description: division.phase1.name + ' - ' + division.phase2.name + ' - ' + division.phase3.name,
           goal: division.goal,
         }
       }

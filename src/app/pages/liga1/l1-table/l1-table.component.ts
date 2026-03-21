@@ -114,7 +114,7 @@ export class L1TableComponent {
       this.bracketsService.bracketsL1$,
     ]).pipe(takeUntilDestroyed()).subscribe({
       next: ([division, teams, teamsPerformance, teamsForm, brackets]) => {
-        let activePhase = '';
+        let activePhase: 'phase1' | 'phase2' | undefined = undefined;
         if (division?.phase1.status) {
           activePhase = 'phase1';
         } else if (division?.phase2.status) {
@@ -127,8 +127,8 @@ export class L1TableComponent {
         this.dataPhase2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2');
 
         if (brackets[0] && brackets[0].bracket2 && brackets[0].bracket1) {
-          this.dataPlayOff2 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket2);
-          this.dataPlayOff1 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket1);
+          this.dataPlayOff2 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket2);
+          this.dataPlayOff1 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket1);
         }
       }
     });

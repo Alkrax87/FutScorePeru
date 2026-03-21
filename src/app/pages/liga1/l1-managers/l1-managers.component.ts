@@ -21,12 +21,12 @@ import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel'
           <div>
             <div class="w-fit">
               <div class="flex gap-2 items-center cursor-pointer" [routerLink]="['../club', item.category, item.teamId]">
-                <img [src]="item.image" [alt]="item.alt" class="w-10" />
+                <img [src]="item.imageThumbnail" [alt]="item.alt" class="w-10" />
                 <p class="text-lg text-white font-bold">{{ item.name }}</p>
               </div>
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
-            <app-manager-carousel [data]="item.manager"></app-manager-carousel>
+            <app-manager-carousel [data]="item.managers"></app-manager-carousel>
           </div>
         }
       </div>
@@ -46,7 +46,7 @@ export class L1ManagersComponent {
     this.managersService.fetchManagersL1();
 
     combineLatest([this.teamsService.teamsL1$, this.managersService.managersL1$]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([teams, managers]) => (this.dataCarousel = this.uiDataMapperService.managerCarouselMapper(teams, managers)),
+      next: ([teams, managers]) => (this.dataCarousel = this.uiDataMapperService.managersCarouselMapper(teams, managers)),
     });
 
     if (typeof window !== 'undefined') {

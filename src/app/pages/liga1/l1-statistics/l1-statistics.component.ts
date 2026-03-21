@@ -75,15 +75,17 @@ export class L1StatisticsComponent {
 
     combineLatest([this.teamsService.teamsL1$, this.statisticsService.statisticsL1$]).pipe(takeUntilDestroyed()).subscribe({
       next: ([teams, statistics]) => {
-        this.dataBestDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.bestDefense, 'ga');
-        this.dataWorstDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.worstDefense, 'ga');
-        this.dataMostGoals = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.mostGoalsFor, 'gf');
-        this.dataFewestGoals = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.fewestGoalsFor, 'gf');
-        this.dataMostWins = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.mostWins, 'w');
-        this.dataMostDraws = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.mostDraws, 'd');
-        this.dataMostLosses = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.mostLosses, 'l');
-        this.dataBestGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.bestGoalDifference, 'gd');
-        this.dataWorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics?.overall.worstGoalDifference, 'gd');
+        if (statistics) {
+          this.dataBestDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.bestDefense, 'ga');
+          this.dataWorstDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.worstDefense, 'ga');
+          this.dataMostGoals = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.mostGoalsFor, 'gf');
+          this.dataFewestGoals = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.fewestGoalsFor, 'gf');
+          this.dataMostWins = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.mostWins, 'w');
+          this.dataMostDraws = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.mostDraws, 'd');
+          this.dataMostLosses = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.mostLosses, 'l');
+          this.dataBestGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.bestGoalDifference, 'gd');
+          this.dataWorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.worstGoalDifference, 'gd');
+        }
       }
     });
 

@@ -214,10 +214,10 @@ export class L2TableComponent {
         this.dataPhase2GroupRelegation2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'r2');
 
         if (brackets[0] && brackets[0].bracket4 && brackets[0].bracket2 && brackets[0].bracket1 && brackets[0].bracketExtra) {
-          this.dataPlayOffs4 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket4);
-          this.dataPlayOffs2 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket2);
-          this.dataPlayOffs1 = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracket1);
-          this.dataPlayOffsExtra = this.uiDataMapperService.bracketCardMapper(teams, brackets[0].bracketExtra);
+          this.dataPlayOffs4 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket4);
+          this.dataPlayOffs2 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket2);
+          this.dataPlayOffs1 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket1);
+          this.dataPlayOffsExtra = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracketExtra);
         }
       }
     });
