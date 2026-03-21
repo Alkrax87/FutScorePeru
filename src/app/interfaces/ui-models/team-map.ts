@@ -1,5 +1,5 @@
 export interface TeamMap {
-  category: number;
+  category?: number;
   teamId: string;
   imageThumbnail: string;
   alt: string;

@@ -4,6 +4,7 @@ export interface TeamCard {
   name: string;
   image: string;
   alt: string;
+  location: string;
   color: {
     c1: string;
     c2?: string;
@@ -11,6 +12,5 @@ export interface TeamCard {
   stadium: {
     name: string;
     capacity: number;
-    location: string;
   };
 }

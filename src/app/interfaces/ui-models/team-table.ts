@@ -5,7 +5,7 @@ export interface TeamTable {
   abbreviation: string;
   imageThumbnail: string;
   alt: string;
-  lastgames: string[];
+  form: string[];
   performance: {
     points: number;
     played: number;

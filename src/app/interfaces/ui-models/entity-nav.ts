@@ -1,5 +1,5 @@
 export interface EntityNav {
-  category: number;
+  category?: number;
   teamId?: string;
   leagueId?: string;
   imageThumbnail: string;

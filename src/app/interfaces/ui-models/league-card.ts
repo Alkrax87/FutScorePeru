@@ -1,6 +1,5 @@
-export interface TeamCardCp {
+export interface LeagueCard {
   leagueId: string;
-  category: number;
   region: string;
   flag: string;
   color: {

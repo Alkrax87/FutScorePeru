@@ -2,9 +2,9 @@ export interface ManagerCarousel {
   category: number,
   teamId: string,
   name: string;
-  image: string;
+  imageThumbnail: string;
   alt: string;
-  manager: {
+  managers: {
     name: string;
     cod: string;
     photo: string;
