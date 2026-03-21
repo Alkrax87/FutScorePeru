@@ -61,8 +61,8 @@ import { RouterLink } from '@angular/router';
                   <td>{{ item.performance.ga }}</td>
                   <td>{{ item.performance.gd > 0 ? '+' + item.performance.gd : item.performance.gd }}</td>
                   <td class="flex justify-center items-center h-9 md:h-11 gap-1 md:gap-2 text-lg md:text-xl duration-500">
-                    @for (lastGame of item.lastgames; track $index) {
-                      @switch (lastGame) {
+                    @for (item of item.form; track $index) {
+                      @switch (item) {
                         @case ("w") {
                           <fa-icon class="text-green-600" [icon]="Win"></fa-icon>
                         }

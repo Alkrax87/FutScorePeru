@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faLocationDot, faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { TeamCardCp } from '../../interfaces/ui-models/team-card-cp';
+import { LeagueCard } from '../../interfaces/ui-models/league-card';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-team-card-cp',
+  selector: 'app-league-card',
   imports: [FontAwesomeModule, RouterLink, CommonModule],
   template: `
     <div [routerLink]="['../', 'liga', data.leagueId]" class="text-white flex flex-col gap-4 p-2 duration-300 cursor-pointer"
@@ -50,8 +50,8 @@ import { CommonModule } from '@angular/common';
   `,
   styles: ``,
 })
-export class TeamCardCpComponent {
-  @Input() data!: TeamCardCp;
+export class LeagueCardComponent {
+  @Input() data!: LeagueCard;
   isHovered: boolean = false;
   Trophy = faTrophy;
   Location = faLocationDot;

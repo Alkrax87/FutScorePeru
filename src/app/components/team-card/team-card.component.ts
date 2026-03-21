@@ -37,7 +37,7 @@ import { CommonModule } from '@angular/common';
           <div class="flex justify-center min-w-4">
             <fa-icon [icon]="LocationDot" class="text-xs"></fa-icon>
           </div>
-          <div class="truncate">{{ data.stadium.location }}</div>
+          <div class="truncate">{{ data.location }}</div>
         </div>
       </div>
     </div>

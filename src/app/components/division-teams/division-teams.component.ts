@@ -23,7 +23,7 @@ import { BtnComponent } from "../btn/btn.component";
               @if (team.teamId) {
                 <img [routerLink]="['../club', team.category, team.teamId]" [src]="team.imageThumbnail" [alt]="team.alt" class="w-10 md:w-12 duration-500 cursor-pointer hover:scale-110">
               } @else {
-                <img [src]="team.imageThumbnail" [alt]="'CPTeam' + ($index + 1)" class="w-10 md:w-12 duration-500">
+                <img [src]="team.imageThumbnail" [alt]="team.alt" class="w-10 md:w-12 duration-500">
               }
             }
           </div>
