@@ -60,6 +60,7 @@ export class TeamPageComponent {
 
   options = [
     { name: 'General', section: 'overview' },
+    { name: 'Fixture', section: 'fixture' },
     { name: 'Estadio', section: 'stadium' },
   ];
 }

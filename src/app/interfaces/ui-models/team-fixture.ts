@@ -8,7 +8,9 @@ export interface TeamFixture {
   awayTeamLogo: string;
   homeTeamAlt: string;
   awayTeamAlt: string;
+  homeTeamName: string;
+  awayTeamName: string;
   homeTeamScore: number;
   awayTeamScore: number;
   free: boolean;
-}
+}[];

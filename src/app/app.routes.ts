@@ -33,6 +33,7 @@ import { TeamPageComponent } from './pages/shared/team-page/team-page.component'
 import { LeaguePageComponent } from './pages/shared/league-page/league-page.component';
 import { OverviewComponent } from './pages/shared/team-page/overview/overview.component';
 import { StadiumComponent } from './pages/shared/team-page/stadium/stadium.component';
+import { FixtureComponent } from './pages/shared/team-page/fixture/fixture.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
@@ -62,6 +63,7 @@ export const routes: Routes = [
       { path: 'club/:category/:teamId', component: TeamPageComponent, children: [
         { path: '', redirectTo: 'overview', pathMatch: 'full' },
         { path: 'overview', component: OverviewComponent },
+        { path: 'fixture', component: FixtureComponent },
         { path: 'stadium', component: StadiumComponent },
       ]},
     ],
@@ -81,6 +83,7 @@ export const routes: Routes = [
       { path: 'club/:category/:teamId', component: TeamPageComponent, children: [
         { path: '', redirectTo: 'overview', pathMatch: 'full' },
         { path: 'overview', component: OverviewComponent },
+        { path: 'fixture', component: FixtureComponent },
         { path: 'stadium', component: StadiumComponent },
       ]},
     ],
@@ -99,6 +102,7 @@ export const routes: Routes = [
       { path: 'club/:category/:teamId', component: TeamPageComponent, children: [
         { path: '', redirectTo: 'overview', pathMatch: 'full' },
         { path: 'overview', component: OverviewComponent },
+        { path: 'fixture', component: FixtureComponent },
         { path: 'stadium', component: StadiumComponent },
       ]},
     ],
