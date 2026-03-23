@@ -1,6 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCalendar, faLocationDot, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { FetchPageProfileService } from '../../../../services/fetch-page-profile.service';
+import { TeamPageProfile } from '../../../../interfaces/api-models/teamPageProfile';
 
 @Component({
   selector: 'app-stadium',
@@ -24,16 +27,16 @@ import { faCalendar, faLocationDot, faUsers } from '@fortawesome/free-solid-svg-
               <div>
                 <div class="flex gap-2 text-gold text-sm font-semibold">
                   <fa-icon [icon]="Users"></fa-icon>
-                  <p>CAPACIDAD</p>
+                  <p>Capacidad</p>
                 </div>
-                <p class="text-3xl font-bold text-white">{{ stadium.capacity }}</p>
+                <p class="text-3xl font-bold text-white">{{ formatNumber(stadium.capacity) }}</p>
               </div>
-              <div class="w-full h-0.5 my-5 bg-crimson rounded-full"></div>
+              <div class="w-full h-0.5 my-4 bg-crimson rounded-full"></div>
               <!-- Location -->
               <div>
                 <div class="flex gap-2 text-gold text-sm font-semibold">
                   <fa-icon [icon]="Location"></fa-icon>
-                  <p>UBICACIÓN</p>
+                  <p>Ubicación</p>
                 </div>
                 <p class="text-3xl font-bold text-white">{{ stadium.location }}</p>
               </div>
@@ -46,9 +49,19 @@ import { faCalendar, faLocationDot, faUsers } from '@fortawesome/free-solid-svg-
   styles: ``,
 })
 export class StadiumComponent {
-  @Input() stadium?: { name:string, image: string, location: string, capacity: number };
+  private fetchPageProfile = inject(FetchPageProfileService);
+  stadium!: TeamPageProfile['stadiumData'];
+
+  constructor() {
+    this.fetchPageProfile.team$.pipe(takeUntilDestroyed()).subscribe({
+      next: (team) => (this.stadium = team!.stadiumData),
+    });
+  }
 
   Users = faUsers;
-  Calendar = faCalendar;
   Location = faLocationDot;
+
+  formatNumber(num: number) {
+    return new Intl.NumberFormat("en-US").format(num);
+  }
 }
