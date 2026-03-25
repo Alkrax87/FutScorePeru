@@ -19,7 +19,7 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
                 border-t-transparent  border-r-transparent border-b-transparent border-l-crimson
               "></div>
             </div>
-            <div class="bg-white dark:bg-nightfall py-12 px-3 duration-500 flex justify-center items-center gap-2">
+            <div class="bg-white dark:bg-nightfall h-44 px-3 duration-500 flex justify-center items-center gap-2">
               <img [routerLink]="['../', item.homeTeamId]" [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-16 cursor-pointer"/>
               <p class="text-brightnight dark:text-white text-2xl font-bold duration-500">Descansa</p>
             </div>
