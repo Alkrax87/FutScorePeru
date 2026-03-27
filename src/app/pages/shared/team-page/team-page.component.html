@@ -26,6 +26,11 @@
           </div>
           <!-- Social Media -->
           <div class="flex justify-center sm:justify-start gap-2 duration-500">
+            @if (team.teamDetailsData.website) {
+              <a target="_blank" rel="noopener" [href]="team.teamDetailsData.website" class="bg-crimson hover:bg-crimson-hover font-semibold flex justify-center items-center w-fit px-3 h-10 cursor-pointer">
+                <fa-icon class="text-lg" [icon]="Web"></fa-icon>&nbsp;&nbsp;Website
+              </a>
+            }
             @if (team.teamDetailsData.social) {
               @if (team.teamDetailsData.social.facebook) {
                 <a target="_blank" rel="noopener" [href]="team.teamDetailsData.social.facebook" class="bg-crimson hover:bg-crimson-hover flex justify-center items-center w-10 h-10 cursor-pointer">

@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject } from '@angular/core';
 import { ActivatedRoute, RouterOutlet, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faInstagram, faTiktok, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faEllipsis, faFlag, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsis, faFlag, faGlobe, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
 import { FetchPageProfileService } from '../../../services/fetch-page-profile.service';
 import { TeamPageProfile } from '../../../interfaces/api-models/teamPageProfile';
@@ -52,6 +52,7 @@ export class TeamPageComponent {
   Flag = faFlag;
   Location = faLocationDot;
   Divider = faEllipsis;
+  Web = faGlobe;
   Facebook = faFacebookF;
   Instagram = faInstagram;
   Twitter = faXTwitter;
