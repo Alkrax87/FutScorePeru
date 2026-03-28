@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { TeamFixture } from '../../interfaces/ui-models/team-fixture';
 import { RouterLink } from '@angular/router';
 import { DatePipe, TitleCasePipe } from '@angular/common';
+import { FetchPageProfileService } from '../../services/fetch-page-profile.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-team-fixture',
@@ -20,8 +22,8 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
               "></div>
             </div>
             <div class="bg-white dark:bg-nightfall h-44 px-3 duration-500 flex justify-center items-center gap-2">
-              <img [routerLink]="['../', item.homeTeamId]" [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-16 cursor-pointer"/>
-              <p class="text-brightnight dark:text-white text-2xl font-bold duration-500">Descansa</p>
+              <img [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-16"/>
+              <p class="text-brightnight dark:text-white text-xl font-bold duration-500">Descansa</p>
             </div>
           </div>
         } @else {
@@ -42,8 +44,13 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
               }
               <div class="flex w-full h-24 items-center justify-between mx-auto">
                 <div class="flex flex-col items-center w-1/3">
-                  <img [routerLink]="['../../', item.homeTeamId]" [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-16 cursor-pointer"/>
-                  <p class="text-xs font-semibold text-center dark:text-white duration-500">{{ item.homeTeamName }}</p>
+                  @if (teamId === item.homeTeamId) {
+                    <img [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-16"/>
+                    <p class="text-xs font-semibold text-center dark:text-white duration-500">{{ item.homeTeamName }}</p>
+                  } @else {
+                    <img [routerLink]="['../../', item.homeTeamId]" [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-16 cursor-pointer"/>
+                    <p [routerLink]="['../../', item.homeTeamId]" class="text-xs font-semibold text-center dark:text-white cursor-pointer duration-500">{{ item.homeTeamName }}</p>
+                  }
                 </div>
                 <div class="flex w-1/3 items-center justify-center gap-1 font-bold text-5xl text-brightnight dark:text-white duration-500">
                   <p>{{ item.homeTeamScore }}</p>
@@ -51,8 +58,13 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
                   <p>{{ item.awayTeamScore }}</p>
                 </div>
                 <div class="flex flex-col items-center w-1/3">
-                  <img [routerLink]="['../../', item.awayTeamId]" [src]="item.awayTeamLogo" [alt]="item.awayTeamAlt" class="w-16 cursor-pointer"/>
-                  <p class="text-xs font-semibold text-center dark:text-white duration-500">{{ item.awayTeamName }}</p>
+                  @if (teamId === item.awayTeamId) {
+                    <img [src]="item.awayTeamLogo" [alt]="item.awayTeamAlt" class="w-16"/>
+                    <p class="text-xs font-semibold text-center dark:text-white duration-500">{{ item.awayTeamName }}</p>
+                  } @else {
+                    <img [routerLink]="['../../', item.awayTeamId]" [src]="item.awayTeamLogo" [alt]="item.awayTeamAlt" class="w-16 cursor-pointer"/>
+                    <p [routerLink]="['../../', item.awayTeamId]" class="text-xs font-semibold text-center dark:text-white cursor-pointer duration-500">{{ item.awayTeamName }}</p>
+                  }
                 </div>
               </div>
             </div>
@@ -65,4 +77,13 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
 })
 export class TeamFixtureComponent {
   @Input() teamFixture!: TeamFixture[];
+
+  private fetchPageProfile = inject(FetchPageProfileService);
+  teamId!: string;
+
+  constructor() {
+    this.fetchPageProfile.team$.pipe(takeUntilDestroyed()).subscribe({
+      next: (team) => (this.teamId = team!.teamData.teamId),
+    });
+  }
 }
