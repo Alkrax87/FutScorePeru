@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FetchPageProfileService } from '../../../../services/fetch-page-profile.service';
@@ -62,8 +62,9 @@ export class FixtureComponent {
   private fetchPageProfile = inject(FetchPageProfileService);
   private divisionService = inject(FetchDivisionsService);
   private teamsService = inject(FetchTeamsService);
-  private teamsResultsService = inject(FetchTeamsMatchResultsService);
+  private teamsMatchResultsService = inject(FetchTeamsMatchResultsService);
   private matchesSetupService = inject(MatchesSetupService);
+  private destroyRef = inject(DestroyRef);
   fixture!: TeamPageProfile['teamFixtureData'];
   category!: number;
 
@@ -83,8 +84,8 @@ export class FixtureComponent {
   ngOnInit() {
     switch (this.category) {
       case 1:
-        this.teamsResultsService.fetchTeamsMatchResultsL1();
-        combineLatest([this.divisionService.divisionL1$, this.teamsService.teamsL1$, this.teamsResultsService.teamsMatchResultsL1$]).subscribe({
+        this.teamsMatchResultsService.fetchTeamsMatchResultsL1();
+        combineLatest([this.divisionService.divisionL1$, this.teamsService.teamsL1$, this.teamsMatchResultsService.teamsMatchResultsL1$]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
           next: ([division, teams, results]) => {
             if (division?.phase3.status === true) {
               this.phase2 = true;
@@ -97,8 +98,8 @@ export class FixtureComponent {
         });
         break;
       case 2:
-        this.teamsResultsService.fetchTeamsMatchResultsL2();
-        combineLatest([this.divisionService.divisionL2$, this.teamsService.teamsL2$, this.teamsResultsService.teamsMatchResultsL2$]).subscribe({
+        this.teamsMatchResultsService.fetchTeamsMatchResultsL2();
+        combineLatest([this.divisionService.divisionL2$, this.teamsService.teamsL2$, this.teamsMatchResultsService.teamsMatchResultsL2$]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
           next: ([division, teams, results]) => {
             if (division?.phase3.status === true) {
               this.phase2 = true;
@@ -111,8 +112,8 @@ export class FixtureComponent {
         });
         break;
       case 3:
-        this.teamsResultsService.fetchTeamsMatchResultsL3();
-        combineLatest([this.divisionService.divisionL3$, this.teamsService.teamsL3$, this.teamsResultsService.teamsMatchResultsL3$]).subscribe({
+        this.teamsMatchResultsService.fetchTeamsMatchResultsL3();
+        combineLatest([this.divisionService.divisionL3$, this.teamsService.teamsL3$, this.teamsMatchResultsService.teamsMatchResultsL3$]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
           next: ([division, teams, results]) => {
             if (division?.phase3.status === true) {
               this.phase2 = true;
