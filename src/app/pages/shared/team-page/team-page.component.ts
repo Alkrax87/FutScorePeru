@@ -1,5 +1,5 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { ActivatedRoute, RouterOutlet, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faInstagram, faTiktok, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faEllipsis, faFlag, faGlobe, faLocationDot } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-team-page',
-  imports: [FontAwesomeModule, RouterOutlet, RouterLink],
+  imports: [FontAwesomeModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './team-page.component.html',
   styles: `
     *::-webkit-scrollbar {

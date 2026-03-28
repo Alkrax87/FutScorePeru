@@ -1,6 +1,6 @@
 <!-- Main -->
 @if (team) {
-  <div class="w-full h-[540px] sm:h-[440px] relative select-none duration-500">
+  <div class="w-full h-[540px] sm:h-[440px] relative select-none duration-500 overflow-auto">
     <!-- Background -->
     <img class="absolute h-full inset-0 w-full object-cover md:object-top" [src]="team.teamData.background" alt="TEAM-background">
     <div class="absolute h-full bg-black inset-0 bg-opacity-50"></div>
@@ -62,12 +62,17 @@
         </div>
       </div>
     </div>
+    <!-- Options -->
+    <div class="absolute w-full bottom-0">
+      <div class="h-12 flex gap-2 overflow-auto px-2 sm:px-5 lg:px-16 duration-500">
+        @for (option of options; track $index) {
+          <button [routerLink]="option.section" class="text-white group relative inline-block px-4 font-semibold outline-none">
+            <span routerLinkActive="scale-y-100" class="absolute bottom-0 left-0 w-full h-1 bg-gold scale-y-0 origin-bottom transition-transform duration-300 ease-out group-hover:scale-y-100"></span>
+            <div>{{ option.name }}</div>
+          </button>
+        }
+      </div>
+    </div>
   </div>
 }
-<!-- Options -->
-<div class="bg-crimson text-white w-full h-12 flex justify-start sm:justify-center gap-2 overflow-auto select-none">
-  @for (option of options; track $index) {
-    <button [routerLink]="option.section" class="px-2 font-semibold outline-none">{{ option.name }}</button>
-  }
-</div>
 <router-outlet></router-outlet>
