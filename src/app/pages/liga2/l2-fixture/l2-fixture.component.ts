@@ -10,6 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from '../../../components/title/title.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
 import { FixtureComponent } from '../../../components/fixture/fixture.component';
+import { FixtureByDate } from '../../../interfaces/ui-models/fixture-models';
 
 @Component({
   selector: 'app-l2-fixture',
@@ -20,7 +21,7 @@ import { FixtureComponent } from '../../../components/fixture/fixture.component'
       <!-- Switch -->
       <div class="mx-auto w-full md:w-5/6 lg:w-6/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-2 px-4 md:px-0">
         <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Fase Regional</app-btn>
-        <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Fase Grupos</app-btn>
+        <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Fase Final</app-btn>
       </div>
       <!-- Content -->
       <div class="max-w-screen-xl mx-auto">
@@ -52,7 +53,7 @@ import { FixtureComponent } from '../../../components/fixture/fixture.component'
         @if (phase2) {
           @if (computedFixturePhase2 && computedFixturePhase2.length > 0) {
             <h3 class="text-white text-3xl sm:text-4xl font-bold my-5 text-center md:text-start duration-500">
-              Grupos <span class="text-crimson">Fecha {{ selectedPhase2Index + 1 }}</span>
+              Final <span class="text-crimson">Fecha {{ selectedPhase2Index + 1 }}</span>
             </h3>
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
               @for (round of computedFixturePhase2; track $index) {
@@ -89,8 +90,8 @@ export class L2FixtureComponent {
   phase2: boolean = false;
   selectedPhase1Index: number = 0;
   selectedPhase2Index: number = 0;
-  computedFixturePhase1: any;
-  computedFixturePhase2: any;
+  computedFixturePhase1: FixtureByDate[][] = [];
+  computedFixturePhase2: FixtureByDate[][] = [];
 
   constructor() {
     this.fixturesService.fetchFixtureL2();

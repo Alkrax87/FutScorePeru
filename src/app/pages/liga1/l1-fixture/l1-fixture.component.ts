@@ -10,6 +10,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from '../../../components/title/title.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
 import { FixtureComponent } from '../../../components/fixture/fixture.component';
+import { FixtureByDate } from '../../../interfaces/ui-models/fixture-models';
 
 @Component({
   selector: 'app-l1-fixture',
@@ -89,8 +90,8 @@ export class L1FixtureComponent {
   phase2: boolean = false;
   selectedPhase1Index: number = 0;
   selectedPhase2Index: number = 0;
-  computedFixturePhase1: any;
-  computedFixturePhase2: any;
+  computedFixturePhase1: FixtureByDate[][] = [];
+  computedFixturePhase2: FixtureByDate[][] = [];
 
   constructor() {
     this.fixturesService.fetchFixtureL1();
