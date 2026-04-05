@@ -18,10 +18,6 @@ import { TeamFixtureComponent } from "../../../../components/team-fixture/team-f
       <div class="max-w-screen-xl mx-auto">
         @if (fixture) {
           <div class="flex flex-col gap-4">
-            <div class="w-fit">
-              <h3 class="text-3xl md:text-4xl text-white font-bold">Fixture </h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
             <!-- Switch -->
             <div class="mx-auto w-full md:w-5/6 lg:w-6/12 grid gap-0 md:gap-4 grid-cols-1 md:grid-cols-2 px-4 md:px-0">
               @if (category === 1) {
