@@ -15,7 +15,7 @@ import { TeamCard } from '../../../interfaces/ui-models/team-card';
   template: `
     <app-title [title]="'Clubes'"></app-title>
     <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
-      <div class="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] md:grid-cols-[repeat(auto-fit,_minmax(310px,_1fr))] gap-3 sm:gap-5 max-w-screen-xl mx-auto duration-500">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 max-w-screen-xl mx-auto duration-500">
         @for (item of dataTeamsCard; track $index) {
           <app-team-card [data]="item"></app-team-card>
         }
