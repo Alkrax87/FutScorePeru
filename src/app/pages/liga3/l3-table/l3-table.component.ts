@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
+import { FaIconComponent } from "@fortawesome/angular-fontawesome";
+import { faSoccerBall } from '@fortawesome/free-solid-svg-icons';
 import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchTeamsPerformanceService } from '../../../services/fetch-teams-performance.service';
@@ -17,7 +19,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
 
 @Component({
   selector: 'app-l3-table',
-  imports: [TitleComponent, TableComponent, BtnComponent, BracketCardComponent],
+  imports: [TitleComponent, TableComponent, BtnComponent, BracketCardComponent, FaIconComponent],
   template: `
     <app-title [title]="'Tabla'"></app-title>
     <div class="bg-night py-10 lg:py-16 duration-500 select-none">
@@ -57,6 +59,13 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
               <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional4"></app-table>
+          </div>
+          <div class="text-white px-3 sm:px-5">
+            <p class="font-semibold"><fa-icon [icon]="Soccer"></fa-icon> Siguiente fase</p>
+            <ul>
+              <li>- Los <b class="text-gold">primeros de cada grupo</b> tendrán una bonificación de <b class="text-promotion">+2 puntos</b></li>
+              <li>- Los <b class="text-gold">segundos de cada grupo</b> tendrán una bonificación de <b class="text-promotion">+1 punto</b></li>
+            </ul>
           </div>
         </div>
       }
@@ -185,6 +194,8 @@ export class L3TableComponent {
   dataPlayOffs2: MatchCard[] = [];
   dataPlayOffs1: MatchCard[] = [];
   dataPlayOffsExtra: MatchCard[] = [];
+
+  Soccer = faSoccerBall;
 
   constructor() {
     this.teamsPerformanceService.fetchTeamsPerformanceL3();
