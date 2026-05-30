@@ -25,7 +25,7 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
         dataBestGoalDifference.length > 0 &&
         dataWorstGoalDifference.length > 0
       ) {
-        <div class="text-white max-w-screen-xl mx-auto grid grid-cols-[repeat(auto-fit,_minmax(310px,_1fr))] gap-3 sm:gap-5 duration-500">
+        <div class="text-white max-w-screen-xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 duration-500">
           <!-- Wins -->
           <app-statistics-card cardTitle="PARTIDOS GANADOS" [data]="dataMostWins"></app-statistics-card>
           <!-- Draws -->
