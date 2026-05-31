@@ -17,7 +17,11 @@ import { BtnComponent } from "../btn/btn.component";
       </div>
       <div class="bg-night px-3 sm:px-5 py-12 md:py-24 duration-500">
         <div class="max-w-screen-xl duration-500 mx-auto">
-          <p class="text-white text-center text-2xl font-semibold">Clubes <span class="text-crimson">{{ division.name }}</span></p>
+          @if (division.toLeagues) {
+            <p class="text-white text-center text-2xl font-semibold">Clasificados Etapa Nacional <span class="text-crimson">{{ division.name }}</span></p>
+          } @else {
+            <p class="text-white text-center text-2xl font-semibold">Clubes <span class="text-crimson">{{ division.name }}</span></p>
+          }
           <div class="flex flex-wrap gap-4 justify-center mx-auto mt-2 mb-4">
             @for (team of teams; track $index) {
               @if (team.teamId) {

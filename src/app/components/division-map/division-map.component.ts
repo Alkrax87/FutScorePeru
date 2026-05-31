@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 import { CityCardComponent } from '../city-card/city-card.component';
 import { MapComponent } from '../map/map.component';
@@ -8,7 +8,7 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
 
 @Component({
   selector: 'app-division-map',
-  imports: [CityCardComponent, FontAwesomeModule, MapComponent],
+  imports: [CityCardComponent, FaIconComponent, MapComponent],
   template: `
     <div class="bg-neutral-100 dark:bg-nightfall dark:text-white px-3 sm:px-5 py-12 md:py-24 select-none duration-500">
       <div class="flex flex-col sm:flex-row max-w-screen-xl gap-5 mx-auto">

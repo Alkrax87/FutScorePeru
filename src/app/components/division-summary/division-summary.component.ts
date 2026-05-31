@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faFlag, faShieldHalved, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { DivisionSummary } from '../../interfaces/ui-models/division-summary';
 
 @Component({
   selector: 'app-division-summary',
-  imports: [FontAwesomeModule],
+  imports: [FaIconComponent],
   template: `
     <div class="bg-neutral-100 dark:bg-nightfall dark:text-white px-3 sm:px-5 py-12 md:py-24 select-none duration-500">
       <div class="max-w-screen-xl mx-auto">

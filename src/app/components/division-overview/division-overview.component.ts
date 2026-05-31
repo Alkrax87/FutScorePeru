@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Division } from '../../interfaces/api-models/division';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-division-overview',
-  imports: [FontAwesomeModule],
+  imports: [FaIconComponent],
   template: `
     <div class="bg-night px-3 sm:px-5 py-12 md:py-24 select-none duration-500">
       <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row gap-3 sm:gap-5 duration-500">
