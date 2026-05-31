@@ -301,9 +301,9 @@ export class UiDataMapperService {
   }
 
   // ================================================
-  // =============== Overview Latest 5 ==============
+  // =============== Overview Latest ==============
   // ================================================
-  overviewLatest5Mapper(dataTeams: Team[], fixture: { round: number, home: string, away: string, postponed: boolean, date: Date | null }[], teamsMatchResults: TeamMatchResults[], teamId: string) {
+  overviewLatestMapper(dataTeams: Team[], fixture: { round: number, home: string, away: string, postponed: boolean, date: Date | null }[], teamsMatchResults: TeamMatchResults[], teamId: string) {
     const newData = [];
 
     const teamMap = new Map(dataTeams.map((team) => [team.teamId, team]));
@@ -328,8 +328,8 @@ export class UiDataMapperService {
             rivalTeamId: awayTeam.teamId,
             rivalTeamLogo: awayTeam.image,
             rivalTeamAlt: awayTeam.alt,
-            homeTeamScore: resultHome,
-            awayTeamScore: resultAway,
+            homeTeamScore: resultHome as number,
+            awayTeamScore: resultAway as number,
             home: true,
           });
         } else if (awayTeam.teamId === teamId) {
@@ -340,8 +340,8 @@ export class UiDataMapperService {
             rivalTeamId: homeTeam.teamId,
             rivalTeamLogo: homeTeam.image,
             rivalTeamAlt: homeTeam.alt,
-            homeTeamScore: resultHome,
-            awayTeamScore: resultAway,
+            homeTeamScore: resultHome as number,
+            awayTeamScore: resultAway as number,
           });
         }
       } else {
