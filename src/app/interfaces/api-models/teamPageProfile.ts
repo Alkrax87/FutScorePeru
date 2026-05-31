@@ -1,5 +1,6 @@
 export interface TeamPageProfile {
   teamData: {
+    teamId: string;
     category: number;
     groupPhase1: string;
     groupPhase2: string;
@@ -34,5 +35,37 @@ export interface TeamPageProfile {
     capacity: number;
     location: string;
     image: string;
+  },
+  teamFixtureData: {
+    round: number;
+    home: string;
+    away: string;
+    postponed: boolean;
+    date: Date | null;
+  }[];
+  teamOverviewData: {
+    nextMatch: {
+      round: number;
+      home: string;
+      away: string;
+      postponed: boolean;
+      date: Date | null;
+    },
+    latest: {
+      phase1: {
+        round: number;
+        home: string;
+        away: string;
+        postponed: boolean;
+        date: Date | null;
+      }[];
+      phase2: {
+        round: number;
+        home: string;
+        away: string;
+        postponed: boolean;
+        date: Date | null;
+      }[];
+    }
   }
 }
