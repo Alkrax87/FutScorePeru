@@ -5,7 +5,9 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-club',
   imports: [],
   template: `
-    <div class="bg-night px-3 sm:px-5 py-10 md:py-20 duration-500 select-none"></div>
+    <div class="bg-night px-3 sm:px-5 py-10 md:py-20 duration-500 select-none">
+      <p class="text-4xl text-white font-bold">CLUB</p>
+    </div>
   `,
   styles: ``,
 })

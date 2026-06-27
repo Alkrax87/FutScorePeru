@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FetchDivisionService } from '../../../services/fetch-division.service';
-import { FetchTeamDataService } from '../../../services/fetch-team-data.service';
+import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
+// import { FetchTeamDataService } from '../../../services/fetch-teams.service';
 import { FetchBracketsService } from '../../../services/fetch-brackets.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { Subscription } from 'rxjs';
 import { TitleComponent } from '../../../components/title/title.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
 import { BracketCardComponent } from '../../../components/bracket-card/bracket-card.component';
-import { TeamCPData } from '../../../interfaces/api-models/team-cp-data';
+import { TeamCP } from '../../../interfaces/api-models/team-cp';
 import { BracketsData } from '../../../interfaces/api-models/brackets-data';
 import { MatchCard } from '../../../interfaces/ui-models/match-card';
 
@@ -189,8 +189,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
 })
 export class CpBracketsComponent {
   constructor(
-    private divisionService: FetchDivisionService,
-    private teamsService: FetchTeamDataService,
+    private divisionsService: FetchDivisionsService,
+    // private teamsService: FetchTeamDataService,
     private bracketsService: FetchBracketsService,
     private uiDataMapperService: UiDataMapperService
   ) {}
@@ -198,7 +198,7 @@ export class CpBracketsComponent {
   private divisionSubscription: Subscription | null = null;
   private teamsSubscription: Subscription | null = null;
   private bracketsSubscription: Subscription | null = null;
-  dataTeams: TeamCPData[] = [];
+  dataTeams: TeamCP[] = [];
   dataBrackets: BracketsData[] = [];
   dataBrackets16Norte: MatchCard[] = [];
   dataBrackets16Sur: MatchCard[] = [];
@@ -227,21 +227,21 @@ export class CpBracketsComponent {
   }
 
   ngOnInit() {
-    this.divisionSubscription = this.divisionService.dataDivisionCP$.subscribe({
-      next: (data) => {
-        this.bracket16 = data ? data?.brackets.bracket16.status : false;
-        this.bracket8 = data ? data?.brackets.bracket8.status : false;
-        this.bracket4 = data ? data?.brackets.bracket4.status : false;
-        this.bracket2 = data ? data?.brackets.bracket2.status : false;
-        this.bracket1 = data ? data?.brackets.bracket1.status : false;
-      },
-    });
-    this.teamsSubscription = this.teamsService.dataTeamsCP$.subscribe({
-      next: (data) => (this.dataTeams = data),
-    });
-    this.bracketsSubscription = this.bracketsService.dataBracketsCP$.subscribe({
-      next: (data) => (this.dataBrackets = data),
-    });
+    // this.divisionSubscription = this.divisionService.dataDivisionCP$.subscribe({
+    //   next: (data) => {
+        // this.bracket16 = data ? data?.brackets.bracket16.status : false;
+        // this.bracket8 = data ? data?.brackets.bracket8.status : false;
+        // this.bracket4 = data ? data?.brackets.bracket4.status : false;
+        // this.bracket2 = data ? data?.brackets.bracket2.status : false;
+        // this.bracket1 = data ? data?.brackets.bracket1.status : false;
+    //   },
+    // });
+    // this.teamsSubscription = this.teamsService.dataTeamsCP$.subscribe({
+    //   next: (data) => (this.dataTeams = data),
+    // });
+    // this.bracketsSubscription = this.bracketsService.dataBracketsCP$.subscribe({
+    //   next: (data) => (this.dataBrackets = data),
+    // });
 
     if (this.dataTeams && this.dataBrackets && this.dataBrackets.length > 0) {
       const bracket1 = this.dataBrackets[0];
@@ -252,17 +252,17 @@ export class CpBracketsComponent {
         bracket2.bracket16 && bracket2.bracket8 && bracket2.bracket4 && bracket2.bracket2 && bracket2.bracket1 &&
         bracket3.bracket1
       ) {
-        this.dataBrackets16Norte = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket1.bracket16);
-        this.dataBrackets16Sur = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket2.bracket16);
-        this.dataBrackets8Norte = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket1.bracket8);
-        this.dataBrackets8Sur = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket2.bracket8);
-        this.dataBrackets4Norte = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket1.bracket4);
-        this.dataBrackets4Sur = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket2.bracket4);
-        this.dataBrackets2Norte = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket1.bracket2);
-        this.dataBrackets2Sur = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket2.bracket2);
-        this.dataBrackets1Norte = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket1.bracket1);
-        this.dataBrackets1Sur = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket2.bracket1);
-        this.dataBracketsFinal = this.uiDataMapperService.bracketCardMapper(this.dataTeams, bracket3.bracket1);
+        this.dataBrackets16Norte = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket1.bracket16);
+        this.dataBrackets16Sur = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket2.bracket16);
+        this.dataBrackets8Norte = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket1.bracket8);
+        this.dataBrackets8Sur = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket2.bracket8);
+        this.dataBrackets4Norte = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket1.bracket4);
+        this.dataBrackets4Sur = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket2.bracket4);
+        this.dataBrackets2Norte = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket1.bracket2);
+        this.dataBrackets2Sur = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket2.bracket2);
+        this.dataBrackets1Norte = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket1.bracket1);
+        this.dataBrackets1Sur = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket2.bracket1);
+        this.dataBracketsFinal = this.uiDataMapperService.bracketsCardMapper(this.dataTeams, bracket3.bracket1);
       }
     }
   }

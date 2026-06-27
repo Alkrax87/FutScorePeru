@@ -12,20 +12,20 @@ export class FetchBracketsService {
 
   private http = inject(HttpClient);
 
-  cachedBracketL1: BracketsData[] | null = null;
-  cachedBracketL2: BracketsData[] | null = null;
-  cachedBracketL3: BracketsData[] | null = null;
-  cachedBracketsCP: BracketsData[] | null = null;
+  private cachedBracketL1: BracketsData[] | null = null;
+  private cachedBracketL2: BracketsData[] | null = null;
+  private cachedBracketL3: BracketsData[] | null = null;
+  private cachedBracketsCP: BracketsData[] | null = null;
 
   private bracketsL1Subject = new BehaviorSubject<BracketsData[]>([]);
   private bracketsL2Subject = new BehaviorSubject<BracketsData[]>([]);
   private bracketsL3Subject = new BehaviorSubject<BracketsData[]>([]);
   private bracketsCPSubject = new BehaviorSubject<BracketsData[]>([]);
 
-  dataBracketsL1$ = this.bracketsL1Subject.asObservable();
-  dataBracketsL2$ = this.bracketsL2Subject.asObservable();
-  dataBracketsL3$ = this.bracketsL3Subject.asObservable();
-  dataBracketsCP$ = this.bracketsCPSubject.asObservable();
+  bracketsL1$ = this.bracketsL1Subject.asObservable();
+  bracketsL2$ = this.bracketsL2Subject.asObservable();
+  bracketsL3$ = this.bracketsL3Subject.asObservable();
+  bracketsCP$ = this.bracketsCPSubject.asObservable();
 
   fetchBracketsL1() {
     if (this.cachedBracketL1) {
