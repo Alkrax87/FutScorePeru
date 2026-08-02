@@ -8,6 +8,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LeaguePageProfile } from '../../../interfaces/api-models/leaguePageProfile';
 import { switchMap } from 'rxjs';
 import { ViewportScroller } from '@angular/common';
+import { FetchTeamsCPService } from '../../../services/fetch-teams-cp.service';
+import { TeamCP } from '../../../interfaces/api-models/team-cp';
 
 @Component({
   selector: 'app-league-page',
@@ -19,12 +21,20 @@ export class LeaguePageComponent {
   private route = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
   private fetchPageProfile = inject(FetchPageProfileService);
+  private teamsCpService = inject(FetchTeamsCPService);
   private title = inject(Title);
   private router = inject(Router);
   private viewPortScoller = inject(ViewportScroller);
 
   leagueId: string = '';
   league: LeaguePageProfile | null = null;
+  teamsCP: TeamCP[] = [];
+
+  constructor() {
+    this.teamsCpService.teamsCP$.pipe(takeUntilDestroyed()).subscribe({
+      next: (data) => (this.teamsCP = data)
+    });
+  }
 
   ngOnInit() {
     this.route.params.pipe(
@@ -44,6 +54,10 @@ export class LeaguePageComponent {
       },
       error: () => this.router.navigate(['/not-found'])
     });
+  }
+
+  mapTeam(teamId: string) {
+    return this.teamsCP.find((team) => team.teamId === teamId);
   }
 
   Flag = faFlag;

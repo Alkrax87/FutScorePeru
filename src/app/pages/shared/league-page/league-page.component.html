@@ -21,8 +21,10 @@
         @for (team of league.leagueData.teams; track $index) {
           <div class="bg-night flex gap-3 p-2 w-full">
             <div class="w-full flex min-w-0 gap-2">
-              <img src="assets/images/pages/no-team.webp" class="w-10 h-10 min-h-10 min-w-10" alt="TEAM-logo">
-              <p class="text-base md:text-lg my-auto font-semibold text-center truncate">{{ team ? team : 'Por Definir' }}</p>
+              <img [src]="mapTeam(team)?.image ? mapTeam(team)?.image : 'assets/images/pages/no-team.webp'" class="w-10 h-10 min-h-10 min-w-10" [alt]="'TEAM-' + $index + '-logo'">
+              <p class="text-base md:text-lg my-auto font-semibold text-center truncate">
+                {{ mapTeam(team)?.name }}
+              </p>
             </div>
             <div class="my-auto w-5 flex-shrink-0">
               @if ($index === 0) {
