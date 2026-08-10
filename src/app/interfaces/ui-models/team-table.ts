@@ -15,5 +15,6 @@ export interface TeamTable {
     gf: number;
     ga: number;
     gd: number;
+    rp?: number;
   };
 }

@@ -1,13 +1,13 @@
-import { CommonModule } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faCircle, faCircleCheck, faCircleMinus, faCircleXmark, faDatabase } from '@fortawesome/free-solid-svg-icons';
 import { TeamTable } from '../../interfaces/ui-models/team-table';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-table',
-  imports: [FontAwesomeModule, CommonModule, RouterLink],
+  imports: [FaIconComponent, RouterLink, NgClass],
   template: `
     <div class="bg-nightfall flex flex-col gap-2 md:gap-4 rounded-3xl font-semibold px-0 md:px-5 py-5 duration-500">
       <div class="overflow-x-auto">
@@ -23,10 +23,14 @@ import { RouterLink } from '@angular/router';
                   <th class="min-w-20 sm:min-w-52 md:min-w-64 text-start duration-500">{{ header }}</th>
                 } @else if ($index === 3) {
                   <th class="bg-brightnight rounded-t-lg min-w-14 md:min-w-16 duration-500">{{ header }}</th>
-                } @else if ($index === 11) {
+                } @else if ($index === headers.length - 1) {
                   <th class="w-72 min-w-32">{{ header }}</th>
                 } @else {
-                  <th class="min-w-10 md:min-w-12 duration-500">{{ header }}</th>
+                  @if (isCPTable && $index === headers.length - 2) {
+                    <th class="bg-brightnight min-w-10 duration-500 rounded-t-lg">{{ header }}</th>
+                  } @else {
+                    <th class="min-w-10 md:min-w-12 duration-500">{{ header }}</th>
+                  }
                 }
               }
             </tr>
@@ -34,7 +38,7 @@ import { RouterLink } from '@angular/router';
           <tbody class="text-sm md:text-base duration-500">
             @if (data.length > 0) {
               @for (item of data; track $index) {
-                <tr [routerLink]="['../club', item.category, item.teamId]" class="group h-9 md:h-11 cursor-pointer text-center text-gray-200  hover:bg-gray-200 hover:text-night">
+                <tr [routerLink]="!isCPTable ? ['../club', item.category, item.teamId] : undefined" [ngClass]="{ 'cursor-pointer': !isCPTable }" class="group h-9 md:h-11 text-center text-gray-200 hover:bg-gray-200 hover:text-night">
                   @if (config[0] && config[0].active && $index >= 0 && $index < config[0].quantity!) {
                     <td [ngClass]="config[0].class"></td>
                   } @else if (config[1] && config[1].active && $index >= config[0].quantity! && $index < (config[0].quantity! + config[1].quantity!)) {
@@ -60,6 +64,9 @@ import { RouterLink } from '@angular/router';
                   <td>{{ item.performance.gf }}</td>
                   <td>{{ item.performance.ga }}</td>
                   <td>{{ item.performance.gd > 0 ? '+' + item.performance.gd : item.performance.gd }}</td>
+                  @if (isCPTable) {
+                    <td class="bg-brightnight group-hover:bg-white group-hover:text-night group-hover:duration-0 font-bold ">{{ item.performance.rp }}</td>
+                  }
                   <td class="flex justify-center items-center h-9 md:h-11 gap-1 md:gap-2 text-lg md:text-xl duration-500">
                     @for (item of item.form; track $index) {
                       @switch (item) {
@@ -108,6 +115,7 @@ import { RouterLink } from '@angular/router';
 export class TableComponent {
   @Input() config!: { active: boolean; name?: string; image?: string; class?: string; quantity?: number }[];
   @Input() headers!: string[];
+  @Input() isCPTable: boolean = false;
   @Input() data!: TeamTable[];
 
   Win = faCircleCheck;
