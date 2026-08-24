@@ -208,6 +208,36 @@ export class UiDataMapperService {
     );
   }
 
+  teamsCPTableMapper(dataTeams: TeamCP[], dataTeamsPerformance: TeamPerformance[], dataTeamsForm: TeamForm[]): TeamTable[] {
+    const newData: TeamTable[] = [];
+
+    const performanceMap = new Map(dataTeamsPerformance.map((performance) => [performance.teamId, performance['phase1' as keyof TeamPerformance]]));
+    const formMap = new Map(dataTeamsForm.map((form) => [form.teamId, form['phase1' as keyof TeamForm]]));
+
+    for (const team of dataTeams) {
+      const teamPerformance = performanceMap.get(team.teamId) as TeamTable['performance'];
+      const teamForm = formMap.get(team.teamId) as string[];
+
+      newData.push({
+        category: 4,
+        teamId: team.teamId,
+        name: team.name,
+        abbreviation: team.abbreviation,
+        imageThumbnail: team.image ? team.image : 'assets/images/pages/no-team.webp',
+        alt: team.teamId + '-logo',
+        form: teamForm ? teamForm.slice(-5) : ['','','','',''],
+        performance: teamPerformance ?? { points: 0, played: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, rp: 0 },
+      });
+    }
+
+    return newData.sort((a, b) =>
+      b.performance.points - a.performance.points ||
+      b.performance.rp! - a.performance.rp! ||
+      b.performance.gd - a.performance.gd ||
+      b.performance.gf - a.performance.gf
+    );
+  }
+
   // ================================================
   // =============== Managers Carousel ==============
   // ================================================
