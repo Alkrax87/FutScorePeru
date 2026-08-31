@@ -23,12 +23,10 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
   template: `
     <app-title [title]="'Tabla'"></app-title>
     <div class="bg-night py-10 lg:py-16 duration-500 select-none">
-      <div class="flex justify-center px-3 sm:px-5 mb-3 sm:mb-5">
       <div class="max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 mx-auto px-8 mb-3 sm:mb-5 duration-100">
-          <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Fase Regional</app-btn>
-          <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Fase Final</app-btn>
-          <app-btn (click)="setActiveTab('playOff')" [active]="playOff">Play-Offs</app-btn>
-        </div>
+        <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Fase Regional</app-btn>
+        <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Fase Final</app-btn>
+        <app-btn (click)="setActiveTab('playOff')" [active]="playOff">Play-Offs</app-btn>
       </div>
       @if (phase1) {
         <div class="flex flex-col gap-4">
