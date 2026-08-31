@@ -63,7 +63,7 @@ import { RouterLink } from '@angular/router';
                   <td>{{ item.performance.l }}</td>
                   <td>{{ item.performance.gf }}</td>
                   <td>{{ item.performance.ga }}</td>
-                  <td>{{ item.performance.gd > 0 ? '+' + item.performance.gd : item.performance.gd }}</td>
+                  <td [ngClass]="{ 'text-promotion': item.performance.gd > 0, 'text-relegation': item.performance.gd < 0 }">{{ item.performance.gd > 0 ? '+' + item.performance.gd : item.performance.gd }}</td>
                   @if (isCPTable) {
                     <td class="bg-brightnight group-hover:bg-white group-hover:text-night group-hover:duration-0 font-bold ">{{ item.performance.rp }}</td>
                   }
