@@ -2,9 +2,11 @@ import { Component, inject } from '@angular/core';
 import { FetchLeaguesService } from '../../../services/fetch-leagues.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TitleComponent } from "../../../components/title/title.component";
-import { LeagueCardComponent } from "../../../components/league-card/league-card.component";
+import { TitleComponent } from '../../../components/title/title.component';
+import { LeagueCardComponent } from '../../../components/league-card/league-card.component';
 import { LeagueCard } from '../../../interfaces/ui-models/league-card';
+import { combineLatest } from 'rxjs';
+import { FetchTeamsCPService } from '../../../services/fetch-teams-cp.service';
 
 @Component({
   selector: 'app-cp-leagues',
@@ -23,13 +25,16 @@ import { LeagueCard } from '../../../interfaces/ui-models/league-card';
 })
 export class CpLeaguesComponent {
   private leaguesService = inject(FetchLeaguesService);
+  private teamsService = inject(FetchTeamsCPService);
   private uiDataMapperService = inject(UiDataMapperService);
 
   dataLeagues: LeagueCard[] = [];
 
   constructor() {
-    this.leaguesService.leagues$.pipe(takeUntilDestroyed()).subscribe({
-      next: (data) => this.dataLeagues = this.uiDataMapperService.leaguesCardMapper(data)
+    combineLatest([this.leaguesService.leagues$, this.teamsService.teamsCP$]).pipe(takeUntilDestroyed()).subscribe({
+      next: ([leagues, teams]) => {
+        this.dataLeagues = this.uiDataMapperService.leaguesCardMapper(leagues, teams);
+      },
     });
   }
 }
