@@ -15,14 +15,17 @@ export class FetchTeamsPerformanceService {
   private cachedTeamsPerformanceL1: TeamPerformance[] | null = null;
   private cachedTeamsPerformanceL2: TeamPerformance[] | null = null;
   private cachedTeamsPerformanceL3: TeamPerformance[] | null = null;
+  private cachedTeamsPerformanceCP: TeamPerformance[] | null = null;
 
   private teamsPerformanceL1Subject = new BehaviorSubject<TeamPerformance[]>([]);
   private teamsPerformanceL2Subject = new BehaviorSubject<TeamPerformance[]>([]);
   private teamsPerformanceL3Subject = new BehaviorSubject<TeamPerformance[]>([]);
+  private teamsPerformanceCPSubject = new BehaviorSubject<TeamPerformance[]>([]);
 
   teamsPerformanceL1$ = this.teamsPerformanceL1Subject.asObservable();
   teamsPerformanceL2$ = this.teamsPerformanceL2Subject.asObservable();
   teamsPerformanceL3$ = this.teamsPerformanceL3Subject.asObservable();
+  teamsPerformanceCP$ = this.teamsPerformanceCPSubject.asObservable();
 
   fetchTeamsPerformanceL1() {
     if (this.cachedTeamsPerformanceL1) {
@@ -66,6 +69,21 @@ export class FetchTeamsPerformanceService {
         this.teamsPerformanceL3Subject.next(response);
       },
       error: (error) => console.error('Failed to fetch (Liga3) Teams Performance ', error),
+    });
+  }
+
+  fetchTeamsPerformanceCP() {
+    if (this.cachedTeamsPerformanceCP) {
+      this.teamsPerformanceCPSubject.next(this.cachedTeamsPerformanceCP);
+      return;
+    }
+
+    this.http.get<TeamPerformance[]>(this.backendUrl + '/teamsPerformance/category/4').subscribe({
+      next: (response) => {
+        this.cachedTeamsPerformanceCP = response;
+        this.teamsPerformanceCPSubject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Copa Perú) Teams Performance ', error),
     });
   }
 }

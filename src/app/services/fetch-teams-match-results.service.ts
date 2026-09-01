@@ -15,14 +15,17 @@ export class FetchTeamsMatchResultsService {
   private cachedTeamsMatchResultsL1: TeamMatchResults[] | null = null;
   private cachedTeamsMatchResultsL2: TeamMatchResults[] | null = null;
   private cachedTeamsMatchResultsL3: TeamMatchResults[] | null = null;
+  private cachedTeamsMatchResultsCP: TeamMatchResults[] | null = null;
 
   private teamsMatchResultsL1Subject = new BehaviorSubject<TeamMatchResults[]>([]);
   private teamsMatchResultsL2Subject = new BehaviorSubject<TeamMatchResults[]>([]);
   private teamsMatchResultsL3Subject = new BehaviorSubject<TeamMatchResults[]>([]);
+  private teamsMatchResultsCPSubject = new BehaviorSubject<TeamMatchResults[]>([]);
 
   teamsMatchResultsL1$ = this.teamsMatchResultsL1Subject.asObservable();
   teamsMatchResultsL2$ = this.teamsMatchResultsL2Subject.asObservable();
   teamsMatchResultsL3$ = this.teamsMatchResultsL3Subject.asObservable();
+  teamsMatchResultsCP$ = this.teamsMatchResultsCPSubject.asObservable();
 
   fetchTeamsMatchResultsL1() {
     if (this.cachedTeamsMatchResultsL1) {
@@ -66,6 +69,21 @@ export class FetchTeamsMatchResultsService {
         this.teamsMatchResultsL3Subject.next(response);
       },
       error: (error) => console.error('Failed to fetch (Liga3) Teams Match Results ', error),
+    });
+  }
+
+  fetchTeamsMatchResultsCP() {
+    if (this.cachedTeamsMatchResultsCP) {
+      this.teamsMatchResultsCPSubject.next(this.cachedTeamsMatchResultsCP);
+      return;
+    }
+
+    this.http.get<TeamMatchResults[]>(this.backendUrl + '/teamsMatchResults/category/4').subscribe({
+      next: (response) => {
+        this.cachedTeamsMatchResultsCP = response;
+        this.teamsMatchResultsCPSubject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Copa Perú) Teams Match Results ', error),
     });
   }
 }

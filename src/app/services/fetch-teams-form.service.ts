@@ -15,14 +15,17 @@ export class FetchTeamsFormService {
   private cachedTeamsFormL1: TeamForm[] | null = null;
   private cachedTeamsFormL2: TeamForm[] | null = null;
   private cachedTeamsFormL3: TeamForm[] | null = null;
+  private cachedTeamsFormCP: TeamForm[] | null = null;
 
   private teamsFormL1Subject = new BehaviorSubject<TeamForm[]>([]);
   private teamsFormL2Subject = new BehaviorSubject<TeamForm[]>([]);
   private teamsFormL3Subject = new BehaviorSubject<TeamForm[]>([]);
+  private teamsFormCPSubject = new BehaviorSubject<TeamForm[]>([]);
 
   teamsFormL1$ = this.teamsFormL1Subject.asObservable();
   teamsFormL2$ = this.teamsFormL2Subject.asObservable();
   teamsFormL3$ = this.teamsFormL3Subject.asObservable();
+  teamsFormCP$ = this.teamsFormCPSubject.asObservable();
 
   fetchTeamsFormL1() {
     if (this.cachedTeamsFormL1) {
@@ -66,6 +69,21 @@ export class FetchTeamsFormService {
         this.teamsFormL3Subject.next(response);
       },
       error: (error) => console.error('Failed to fetch (Liga3) Teams Form ', error),
+    });
+  }
+
+  fetchTeamsFormCP() {
+    if (this.cachedTeamsFormCP) {
+      this.teamsFormCPSubject.next(this.cachedTeamsFormCP);
+      return;
+    }
+
+    this.http.get<TeamForm[]>(this.backendUrl + '/teamsForm/category/4').subscribe({
+      next: (response) => {
+        this.cachedTeamsFormCP = response;
+        this.teamsFormCPSubject.next(response);
+      },
+      error: (error) => console.error('Failed to fetch (Copa Perú) Teams Form ', error),
     });
   }
 }
