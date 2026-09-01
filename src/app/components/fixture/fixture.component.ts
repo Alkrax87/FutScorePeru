@@ -1,13 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { RouterLink } from '@angular/router';
-import { DatePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe, NgClass } from '@angular/common';
 import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
 
 @Component({
   selector: 'app-fixture',
-  imports: [FontAwesomeModule, RouterLink, DatePipe, TitleCasePipe],
+  imports: [RouterLink, DatePipe, TitleCasePipe, NgClass],
   template: `
     <div class="bg-night select-none flex flex-col gap-8">
       @for (item of data; track $index) {
@@ -36,7 +34,7 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
                 <div class="bg-nightfall text-white flex justify-center gap-1 p-1">
                   <!-- Left Team-->
                   <div class="w-full flex justify-end">
-                    <div class="cursor-pointer flex items-center" [routerLink]="['../', 'club', match.category, match.homeTeamId]">
+                    <div class="flex items-center" [ngClass]="{'cursor-pointer': match.category !== 4}" [routerLink]="match.category !== 4 ? ['../', 'club', match.category, match.homeTeamId] : null">
                       <p class="text-sm font-semibold">
                         <span class="hidden sm:block">{{ match.homeTeamName }}</span>
                         <span class="block sm:hidden font-bold">{{ match.homeTeamAbbreviation }}</span>
@@ -59,7 +57,7 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
                   </div>
                   <!-- Right Team-->
                   <div class="w-full flex justify-start">
-                    <div class="cursor-pointer flex items-center" [routerLink]="['../', 'club', match.category, match.awayTeamId]">
+                    <div class="flex items-center" [ngClass]="{'cursor-pointer': match.category !== 4}" [routerLink]="match.category !== 4 ? ['../', 'club', match.category, match.awayTeamId] : null">
                       <img [src]="match.awayTeamImageThumbnail" [alt]="match.awayTeamAlt" class="w-10 mx-1"/>
                       <p class="text-sm font-semibold">
                         <span class="block sm:hidden font-bold">{{ match.awayTeamAbbreviation }}</span>
@@ -79,5 +77,4 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
 })
 export class FixtureComponent {
   @Input() data!: FixtureByDate[];
-  Location = faLocationDot;
 }
