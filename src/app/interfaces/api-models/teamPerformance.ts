@@ -9,6 +9,7 @@ export interface TeamPerformance {
     gf: number;
     ga: number;
     gd: number;
+    rp?: number;
     sanction: number;
   };
   phase2: {

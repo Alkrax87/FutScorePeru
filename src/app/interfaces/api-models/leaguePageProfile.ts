@@ -2,6 +2,7 @@ export interface LeaguePageProfile {
   leagueData: {
     image: string;
     imageThumbnail: string;
+    background: string;
     alt: string;
     location: string;
     color: {
