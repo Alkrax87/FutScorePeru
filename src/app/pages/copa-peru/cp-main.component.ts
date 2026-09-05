@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { faBarsStaggered, faFlag, faSitemap } from '@fortawesome/free-solid-svg-icons';
+import { faBarsStaggered, faFlag, faSitemap, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import { FetchLeaguesService } from '../../services/fetch-leagues.service';
 import { FetchTeamsCPService } from '../../services/fetch-teams-cp.service';
 import { FetchDivisionsService } from '../../services/fetch-divisions.service';
@@ -29,6 +29,7 @@ export class CpMainComponent {
   navEntities: EntityNav[] = [];
   navRoutes = [
     { name: 'Ligas', route: 'ligas', icon: faFlag },
+    { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
     { name: 'Brackets', route: 'brackets', icon: faSitemap },
   ];
