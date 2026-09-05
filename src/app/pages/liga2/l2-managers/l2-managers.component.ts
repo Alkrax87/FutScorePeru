@@ -16,7 +16,7 @@ import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel'
   template: `
     <app-title [title]="'Técnicos'"></app-title>
     <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
-      <div class="max-w-screen-lg mx-auto flex flex-col gap-3 sm:gap-5 duration-500">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-8 max-w-screen-xl mx-auto duration-500">
         @for (item of dataCarousel; track $index) {
           <div>
             <div class="w-fit">

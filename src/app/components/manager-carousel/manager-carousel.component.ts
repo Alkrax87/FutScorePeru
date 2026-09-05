@@ -1,35 +1,47 @@
-import { CommonModule } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ManagerCardComponent } from '../manager-card/manager-card.component';
 import { ManagerCard } from '../../interfaces/ui-models/manager-card';
+import { FaIconComponent } from "@fortawesome/angular-fontawesome";
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-manager-carousel',
-  imports: [CommonModule, ManagerCardComponent],
+  imports: [NgClass, ManagerCardComponent, FaIconComponent],
   template: `
-    <div class="relative w-full max-w-3xl mx-auto overflow-hidden select-none">
-      <div class="flex transition-transform duration-500" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
-        @for (item of data; track $index) {
-          @if ($index === 0) {
-            <app-manager-card class="min-w-full" [data]="item" [isActive]="true"></app-manager-card>
-          } @else {
-            <app-manager-card class="min-w-full" [data]="item" [isActive]="false"></app-manager-card>
-          }
-        }
-      </div>
+    <div class="flex gap-1 w-full select-none">
+      <!-- Prev -->
       @if (size > 1) {
-        <button (click)="prev()" class="hidden sm:block absolute w-10 h-10 left-0 top-1/2 transform -translate-y-1/2 bg-brightnight text-white rounded-full hover:bg-crimson">
-          &#10094;
+        <button (click)="prev()" type="button" class="hidden sm:block min-w-8 w-8 bg-nightfall text-white hover:bg-crimson duration-300">
+          <fa-icon [icon]="Prev"></fa-icon>
         </button>
-        <button (click)="next()" class="hidden sm:block absolute w-10 h-10 right-0 top-1/2 transform -translate-y-1/2 bg-brightnight text-white rounded-full hover:bg-crimson">
-          &#10095;
+      }
+      <!-- Carousel -->
+      <div class="w-full overflow-hidden relative">
+        <div class="flex w-full h-full transition-transform duration-500 ease-in-out" [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+          @for (item of data; track $index) {
+            <div class="min-w-full">
+              @if ($index === 0) {
+                <app-manager-card [data]="item" [isActive]="true"></app-manager-card>
+              } @else {
+                <app-manager-card [data]="item" [isActive]="false"></app-manager-card>
+              }
+            </div>
+          }
+        </div>
+      </div>
+      <!-- Next -->
+      @if (size > 1) {
+        <button (click)="next()" type="button" class="hidden sm:block min-w-8 w-8 bg-nightfall text-white hover:bg-crimson duration-300">
+          <fa-icon [icon]="Next"></fa-icon>
         </button>
       }
     </div>
+    <!-- Slide Indicators -->
     @if (size > 1) {
-      <div class="flex justify-center items-end gap-2 h-4">
+      <div class="flex justify-center items-end gap-2 h-5">
         @for (item of data; track $index) {
-          <span (click)="goToSlide($index)" [ngClass]="currentIndex === $index ? 'bg-crimson' : 'bg-gray-300'" class="w-3 h-3 rounded-full cursor-pointer hover:bg-crimson"></span>
+          <span (click)="goToSlide($index)" [ngClass]="currentIndex === $index ? 'bg-crimson' : 'bg-gray-300'" class="w-3 h-3 rounded-full cursor-pointer hover:bg-crimson duration-300"></span>
         }
       </div>
     }
@@ -39,18 +51,22 @@ import { ManagerCard } from '../../interfaces/ui-models/manager-card';
 export class ManagerCarouselComponent {
   @Input() data!: ManagerCard[];
   currentIndex: number = 0;
-  size: number = 0;
 
-  ngOnInit() {
-    this.size = this.data.length;
+  Prev = faChevronLeft;
+  Next = faChevronRight;
+
+  get size(): number {
+    return this.data.length || 0;
   }
 
   prev() {
-    this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.data.length - 1;
+    if (this.size === 0) return;
+    this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.size - 1;
   }
 
   next() {
-    this.currentIndex = this.currentIndex < this.data.length - 1 ? this.currentIndex + 1 : 0;
+    if (this.size === 0) return;
+    this.currentIndex = this.currentIndex < this.size - 1 ? this.currentIndex + 1 : 0;
   }
 
   goToSlide(index: number) {
