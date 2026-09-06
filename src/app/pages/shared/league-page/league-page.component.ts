@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faFlag, faLocationDot, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { Title } from '@angular/platform-browser';
 import { FetchPageProfileService } from '../../../services/fetch-page-profile.service';
@@ -13,7 +13,7 @@ import { TeamCP } from '../../../interfaces/api-models/team-cp';
 
 @Component({
   selector: 'app-league-page',
-  imports: [FontAwesomeModule],
+  imports: [FaIconComponent],
   templateUrl: './league-page.component.html',
   styles: ``,
 })

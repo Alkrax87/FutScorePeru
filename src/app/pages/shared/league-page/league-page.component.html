@@ -1,26 +1,31 @@
 <!-- Main -->
 @if (league) {
   <!-- Title -->
-  <div class="w-full bg-crimson text-white background-pattern py-10 px-5 md:px-16 image min-h-[312px] flex flex-col lg:flex-row gap-5 select-none">
-    <!-- Left Side -->
-    <div class="w-full lg:w-8/12 flex flex-col lg:flex-row items-center justify-center gap-4 md:gap-5">
-      <img [src]="league.leagueData.image" class="w-64" [alt]="league.leagueData.alt">
-      <div class="w-full flex flex-col items-center lg:items-start">
-        <div class="bg-gold w-fit px-5 py-0.5 skew-x-30">
-          <p class="-skew-x-30 font-semibold">Liga Departamental</p>
-        </div>
-        <p class="font-bold text-4xl md:text-5xl my-2">{{ league.leagueData.location }}</p>
-        <div class="flex items-center gap-2">
-          <p><fa-icon [icon]="Flag"></fa-icon> &nbsp;Fundación: <span class="font-semibold">{{ league.leagueDetailsData.founded }}</span></p>
+  <div class="w-full h-[730px] min-h-[730px] relative select-none overflow-hidden">
+    <!-- Background -->
+    <img class="absolute h-full inset-0 w-full object-cover animate-zoomInOut" [src]="league.leagueData.background" alt="LEAGUE-background">
+    <div class="absolute h-full bg-black inset-0 bg-opacity-50"></div>
+    <!-- Content -->
+    <div class="text-white absolute flex flex-col lg:flex-row gap-5 px-3 sm:px-5 lg:px-16 items-center justify-center inset-0">
+      <!-- Left Side -->
+      <div class="w-full flex flex-col lg:flex-row items-center justify-center gap-5 md:gap-5">
+        <img [src]="league.leagueData.image" class="w-64" [alt]="league.leagueData.alt">
+        <div class="w-full flex flex-col items-center lg:items-start">
+          <div class="bg-gold w-fit px-5 py-0.5 skew-x-30">
+            <p class="-skew-x-30 font-semibold">Liga Departamental</p>
+          </div>
+          <h1 class="font-bold text-4xl md:text-5xl my-2">{{ league.leagueData.location }}</h1>
+          <div class="flex items-center gap-2">
+            <p><fa-icon [icon]="Flag"></fa-icon> &nbsp;Fundación: <span class="font-semibold">{{ league.leagueDetailsData.founded }}</span></p>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- Right Side -->
-    <div class="w-full lg:w-4/12 flex items-center justify-center">
-      <div class="w-full sm:w-4/5 md:w-2/3 lg:w-full flex flex-col gap-4">
+      <!-- Right Side -->
+      <div class="w-full flex max-w-96 flex-col gap-2 justify-between">
+        <p class="text-center font-semibold">Clasificados</p>
         @for (team of league.leagueData.teams; track $index) {
-          <div class="bg-night flex gap-3 p-2 w-full">
-            <div class="w-full flex min-w-0 gap-2">
+          <div class="bg-night flex gap-3 p-2 max-w-96 w-full">
+            <div class="w-full flex gap-2">
               <img [src]="mapTeam(team)?.image ? mapTeam(team)?.image : 'assets/images/pages/no-team.webp'" class="w-10 h-10 min-h-10 min-w-10" [alt]="'TEAM-' + $index + '-logo'">
               <p class="text-base md:text-lg my-auto font-semibold text-center truncate">
                 {{ mapTeam(team)?.name }}
@@ -28,7 +33,7 @@
             </div>
             <div class="my-auto w-5 flex-shrink-0">
               @if ($index === 0) {
-                <fa-icon class="text-yellow-400 relative" [icon]="Trophy"></fa-icon>
+                <fa-icon class="text-yellow-500 relative" [icon]="Trophy"></fa-icon>
               }
               @if ($index === 1) {
                 <fa-icon class="text-neutral-300 relative" [icon]="Trophy"></fa-icon>
@@ -43,8 +48,8 @@
     </div>
   </div>
   <!-- Top Winner -->
-  <div class="bg-night text-white px-5 py-10 md:py-24 place-items-center select-none">
-    <div class="bg-nightfall flex flex-col sm:flex-row w-full md:w-5/6 lg:w-3/5 xl:w-1/2 gap-4 py-8 px-5 sm:px-8">
+  <div class="bg-night text-white px-5 py-10 md:py-24 place-items-center select-none duration-500">
+    <div class="max-w-screen-lg w-full bg-nightfall flex flex-col sm:flex-row gap-4 py-8 px-5 sm:px-8 duration-500">
       <div class="flex flex-col gap-3 w-full items-center sm:items-start justify-center">
         <div class="bg-gold w-fit px-5 py-0.5 skew-x-30">
           <p class="-skew-x-30 font-semibold text-sm sm:text-base">Más Ganador</p>
@@ -54,13 +59,13 @@
           <div class="flex items-center justify-center rounded-full w-8 h-8 bg-green-600 text-white">
             <fa-icon [icon]="Trophy"></fa-icon>
           </div>
-          <p class="font-semibold">{{ league.leagueDetailsData.topChampion.titles }} titulos conquistados</p>
+          <p class="font-semibold truncate">{{ league.leagueDetailsData.topChampion.titles }} titulos conquistados</p>
         </div>
         <div class="flex gap-2 items-center">
           <div class="flex items-center justify-center rounded-full w-8 h-8 bg-red-600 text-white">
             <fa-icon [icon]="Location"></fa-icon>
           </div>
-          <p class="font-semibold">Provincia de {{ league.leagueDetailsData.topChampion.province }}</p>
+          <p class="font-semibold truncate">Provincia de {{ league.leagueDetailsData.topChampion.province }}</p>
         </div>
       </div>
       <div class="w-full sm:w-fit place-items-center sm:place-items-end">
@@ -71,11 +76,11 @@
     </div>
   </div>
   <!-- Provincial Leagues -->
-  <div class="bg-neutral-100 dark:bg-nightfall duration-500 px-5 py-10 md:py-24 select-none">
+  <div class="bg-neutral-100 dark:bg-nightfall px-5 py-10 md:py-24 select-none duration-500">
     <div class="w-full mx-auto">
       <p class="text-dark dark:text-white duration-500 text-5xl font-bold text-center">Ligas <span class="text-crimson">Provinciales</span></p>
     </div>
-    <div class="w-full lg:w-4/5 mx-auto grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
+    <div class="max-w-screen-xl mx-auto grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-5">
       @for (league of league.leagueDetailsData.provincialLeagues; track $index) {
         <div class="bg-white dark:bg-brightnight duration-500 p-3 sm:p-5 shadow-md col-span-1 flex gap-2 place-items-center truncate">
           <div class="bg-crimson min-w-8 h-8 sm:min-w-10 sm:h-10 rounded-full flex items-center justify-center">
@@ -87,11 +92,11 @@
     </div>
   </div>
   <!-- All-Time Winners -->
-  <div class="bg-night sm:px-5 py-10 md:py-24 select-none">
+  <div class="bg-night sm:px-5 py-10 md:py-24 select-none duration-500">
     <div class="w-full mx-auto">
       <p class="text-white duration-500 text-5xl font-bold text-center">Historial de <span class="text-crimson">Campeones</span></p>
     </div>
-    <div class="w-full md:w-4/5 lg:w-3/5 xl:w-1/2 mx-auto bg-nightfall p-5 mt-6 rounded-xl overflow-x-auto">
+    <div class="max-w-screen-lg mx-auto bg-nightfall p-3 sm:p-5 mt-5 rounded-xl overflow-x-auto">
       <table class="text-gray-300 w-full font-semibold">
         <thead class="border-b-4 text-xxs sm:text-xs border-[#585858]">
           <tr class="h-8 sm:h-10">
@@ -103,11 +108,13 @@
         <tbody>
           @for (team of league.leagueDetailsData.historicalChampions; track $index) {
             <tr class="h-8 hover:bg-gray-200 hover:text-night">
-              <td class="text-center">{{ team.year }}</td>
+              <td class="text-center text-sm">{{ team.year }}</td>
               <td>
                 <div class="flex items-center">
-                  @if (!(team.year === 2020 || team.year === 2021)) { <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" class="h-8 w-8 object-contain mr-2" alt="Team-logo"> }
-                  <span class="truncate">{{ team.name }}</span>
+                  @if (team.image !== null) {
+                    <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" class="h-8 w-8 object-contain" alt="Team-logo">
+                  }
+                  <span class="truncate ml-2">{{ team.name }}</span>
                 </div>
               </td>
               <td class="pl-4 truncate">{{ team.province }}</td>
