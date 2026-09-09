@@ -122,7 +122,7 @@ export class UiDataMapperService {
   // ================================================
   teamsCardMapper(dataTeams: Team[], dataStadiums: Stadium[]): TeamCard[] {
     const newData = [];
-    const stadiumMap = new Map(dataStadiums.map((stadium) => [stadium.stadiumId, stadium]));
+    const stadiumMap = new Map(dataStadiums.map((stadium) => [stadium._id, stadium]));
 
     for (const team of dataTeams) {
       const stadium = stadiumMap.get(team.stadium);
@@ -148,10 +148,26 @@ export class UiDataMapperService {
   // ================================================
   // ================= League Card ==================
   // ================================================
-  leaguesCardMapper(dataLeague: League[]): LeagueCard[] {
+  leaguesCardMapper(dataLeague: League[], dataTeams: TeamCP[]): LeagueCard[] {
     const newData = [];
 
+    const teamMap = new Map(dataTeams.map((team) => [team.teamId, team]));
+
     for (const league of dataLeague) {
+      const mappedTeams = [];
+
+      for (const teamId of league.teams) {
+        const fullTeam = teamMap.get(teamId);
+
+        if (fullTeam) {
+          mappedTeams.push({
+            name: fullTeam.name,
+            image: fullTeam.image,
+            city: fullTeam.city,
+          });
+        }
+      }
+
       newData.push({
         leagueId: league.leagueId,
         region: league.location,
@@ -160,11 +176,7 @@ export class UiDataMapperService {
           c1: league.color.c1,
           c2: league.color.c2,
         },
-        teams: league.teams.map((team) => ({
-          name: team.name,
-          image: team.image,
-          city: team.city,
-        })),
+        teams: mappedTeams,
       });
     }
 

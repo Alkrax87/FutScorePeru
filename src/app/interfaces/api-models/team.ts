@@ -10,7 +10,7 @@ export interface Team {
   background: string;
   alt: string;
   location: string;
-  stadium: number;
+  stadium: string;
   color: {
     c1: string;
     c2?: string;

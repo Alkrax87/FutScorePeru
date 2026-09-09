@@ -1,5 +1,5 @@
 export interface Stadium {
-  stadiumId: number;
+  _id:string;
   name: string;
   capacity: number;
   location: string;
