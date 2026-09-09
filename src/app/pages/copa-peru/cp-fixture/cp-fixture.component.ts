@@ -68,7 +68,7 @@ export class CpFixtureComponent {
       this.fixturesService.fixtureCP$,
     ]).pipe(takeUntilDestroyed()).subscribe({
       next: ([division, teams, matchResults, fixtures]) => {
-        this.selectedPhaseIndex = division ? division.phase1.inGame - 1 : 0;
+        this.selectedPhaseIndex = division?.phase1?.inGame ? division.phase1.inGame - 1 : 0;
 
         if (teams && fixtures && matchResults) {
           this.computedFixture = this.matchesService.transformDataForFixtureCP(teams, fixtures.phase1, matchResults, 'phase1');

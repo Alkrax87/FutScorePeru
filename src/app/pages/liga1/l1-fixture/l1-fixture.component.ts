@@ -110,8 +110,8 @@ export class L1FixtureComponent {
           this.phase1 = division ? division.phase1.status : false;
           this.phase2 = division ? division.phase2.status : false;
         }
-        this.selectedPhase1Index = division ? division.phase1.inGame - 1 : 0;
-        this.selectedPhase2Index = division ? division.phase2.inGame - 1 : 0;
+        this.selectedPhase1Index = division?.phase1?.inGame ? division.phase1.inGame - 1 : 0;
+        this.selectedPhase2Index = division?.phase2?.inGame ? division.phase2.inGame - 1 : 0;
 
         if (teams && fixture && teamsMatchResults) {
           this.computedFixturePhase1 = this.matchesService.transformDataForFixture(teams, fixture.phase1, teamsMatchResults, 'phase1');
