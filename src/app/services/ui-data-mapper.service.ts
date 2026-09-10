@@ -17,7 +17,8 @@ import { ManagerCarousel } from '../interfaces/ui-models/manager-carousel';
 import { StatisticCard } from '../interfaces/ui-models/statistic-card';
 import { MatchCard } from '../interfaces/ui-models/match-card';
 import { TeamMatchResults } from '../interfaces/api-models/teamMatchResults';
-import { NextMatch } from '../interfaces/ui-models/team-overview';
+import { NextMatch, StandingsTable } from '../interfaces/ui-models/team-overview';
+import { TeamPageProfile } from '../interfaces/api-models/teamPageProfile';
 
 @Injectable({
   providedIn: 'root',
@@ -446,5 +447,42 @@ export class UiDataMapperService {
     return {
       valid: false,
     }
+  }
+
+  // ================================================
+  // ============== Overview Standigs ===============
+  // ================================================
+  overviewStandingsMapper(dataTeams: Team[], standingsData: TeamPageProfile['teamOverviewData']['standings']): StandingsTable[] {
+    const newData = [];
+
+    const teamMap = new Map(dataTeams.map((team) => [team.teamId, team]));
+
+    for (const item of standingsData) {
+      const team = teamMap.get(item.teamId);
+
+      if (team) {
+        newData.push({
+          rank: item.rank,
+          category: team.category,
+          teamId: item.teamId,
+          name: team.name,
+          abbreviation: team.abbreviation,
+          imageThumbnail: team.imageThumbnail,
+          alt: team.alt,
+          performance: {
+            points: item.points,
+            played: item.played,
+            w: item.w,
+            d: item.d,
+            l: item.l,
+            gf: item.gf,
+            ga: item.ga,
+            gd: item.gd,
+          }
+        });
+      }
+    }
+
+    return newData;
   }
 }

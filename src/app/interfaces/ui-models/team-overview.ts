@@ -30,3 +30,23 @@ export interface LatestsMatches {
   home?: boolean;
   free?: boolean;
 }[]
+
+export interface StandingsTable {
+  rank: number;
+  category: number;
+  teamId: string;
+  name: string;
+  abbreviation: string;
+  imageThumbnail: string;
+  alt: string;
+  performance: {
+    points: number;
+    played: number;
+    w: number;
+    d: number;
+    l: number;
+    gf: number;
+    ga: number;
+    gd: number;
+  };
+};
