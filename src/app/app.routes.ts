@@ -26,6 +26,8 @@ import { L3StatisticsComponent } from './pages/liga3/l3-statistics/l3-statistics
 import { CpMainComponent } from './pages/copa-peru/cp-main.component';
 import { CpHomeComponent } from './pages/copa-peru/cp-home/cp-home.component';
 import { CpLeaguesComponent } from './pages/copa-peru/cp-leagues/cp-leagues.component';
+import { CpFixtureComponent } from './pages/copa-peru/cp-fixture/cp-fixture.component';
+import { CpTableComponent } from './pages/copa-peru/cp-table/cp-table.component';
 import { CpBracketsComponent } from './pages/copa-peru/cp-brackets/cp-brackets.component';
 import { NotFoundComponent } from './pages/main/not-found/not-found.component';
 import { TestComponent } from './pages/main/test/test.component';
@@ -115,6 +117,8 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: CpHomeComponent },
       { path: 'ligas', component: CpLeaguesComponent, title: 'Copa Perú | Ligas' },
+      { path: 'fixture', component: CpFixtureComponent, title: 'Copa Perú | Fixture' },
+      { path: 'tabla', component: CpTableComponent, title: 'Copa Perú | Tabla' },
       { path: 'brackets', component: CpBracketsComponent, title: 'Copa Perú | Brackets' },
       { path: 'liga/:leagueId', component: LeaguePageComponent },
     ],
