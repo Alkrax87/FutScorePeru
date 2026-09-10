@@ -10,8 +10,8 @@ export interface NextMatch {
   awayTeamImage?: string;
   homeTeamAlt?: string;
   awayTeamAlt?: string;
-  homeTeamScore?: number;
-  awayTeamScore?: number;
+  homeTeamScore?: number | null;
+  awayTeamScore?: number | null;
   postponed?: boolean;
   date?: Date | null;
   valid: boolean;

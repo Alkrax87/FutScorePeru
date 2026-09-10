@@ -1,14 +1,14 @@
 import { Component, DestroyRef, inject, Input } from '@angular/core';
 import { TeamPageProfile } from '../../interfaces/api-models/teamPageProfile';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { RouterLink } from '@angular/router';
 import { faHome, faPlane } from '@fortawesome/free-solid-svg-icons';
+import { RouterLink } from '@angular/router';
 import { FetchDivisionsService } from '../../services/fetch-divisions.service';
 import { FetchTeamsService } from '../../services/fetch-teams.service';
 import { FetchTeamsMatchResultsService } from '../../services/fetch-teams-match-results.service';
 import { UiDataMapperService } from '../../services/ui-data-mapper.service';
-import { combineLatest } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { combineLatest, Subscription } from 'rxjs';
 import { LatestsMatches } from '../../interfaces/ui-models/team-overview';
 
 @Component({
@@ -34,7 +34,7 @@ import { LatestsMatches } from '../../interfaces/ui-models/team-overview';
         @if (computedLatests.length > 0) {
           @for (item of computedLatests; track $index) {
             <div class="flex flex-col items-center gap-2 w-fit mx-auto">
-              <p class="text-sm -mb-1">Fecha {{ item.round }}</p>
+              <p class="text-sm font-semibold -mb-1">Fecha {{ item.round }}</p>
               @if (item.free) {
                 <div class="bg-gold px-3 rounded-full font-semibold">Descansa</div>
               } @else {
@@ -81,11 +81,11 @@ import { LatestsMatches } from '../../interfaces/ui-models/team-overview';
         }
       </div>
       <div class="flex gap-2 mt-2 justify-center text-xs text-neutral-100">
-        <div class="bg-nightfall flex gap-1 px-4 py-1 rounded-full">
+        <div class="bg-nightfall flex gap-2 px-4 py-2 rounded-full">
           <fa-icon [icon]="Home"></fa-icon>
           <p>Local</p>
         </div>
-        <div class="bg-nightfall flex gap-1 px-4 py-1 rounded-full">
+        <div class="bg-nightfall flex gap-2 px-4 py-2 rounded-full">
           <fa-icon [icon]="Away"></fa-icon>
           <p>Visita</p>
         </div>
@@ -95,7 +95,7 @@ import { LatestsMatches } from '../../interfaces/ui-models/team-overview';
   styles: ``,
 })
 export class TeamOverviewLatestComponent {
-  @Input() overviewData!: TeamPageProfile['teamOverviewData'];
+  @Input() latestData!: TeamPageProfile['teamOverviewData']['latest'];
   @Input() category!: number;
   @Input() teamId!: string;
 
@@ -104,6 +104,7 @@ export class TeamOverviewLatestComponent {
   private teamsMatchResultsService = inject(FetchTeamsMatchResultsService);
   private uiDataMapperService = inject(UiDataMapperService);
   private destroyRef = inject(DestroyRef);
+  private loadDataSub?: Subscription;
 
   title: string = '';
   computedLatests: LatestsMatches[] = [];
@@ -111,76 +112,54 @@ export class TeamOverviewLatestComponent {
   Home = faHome;
   Away = faPlane;
 
-  ngOnInit() {
-    this.loadData();
-  }
-
   ngOnChanges() {
-    this.loadData();
+    if (this.latestData && this.category && this.teamId) {
+      this.loadData();
+    }
   }
 
   loadData() {
+    let division$;
+    let teams$;
+    let results$;
+
     switch (this.category) {
       case 1:
-        combineLatest([
-          this.divisionService.divisionL1$,
-          this.teamsService.teamsL1$,
-          this.teamsMatchResultsService.teamsMatchResultsL1$
-        ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-          next: ([division, teams, results]) => {
-            if (division?.phase3.status === true) {
-              this.title = division.phase2.name;
-              this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.overviewData.latest.phase2, results, this.teamId);
-            } else if (division?.phase2.status === true) {
-              this.title = division.phase2.name;
-              this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.overviewData.latest.phase2, results, this.teamId);
-            } else if (division?.phase1.status === true) {
-              this.title = division.phase1.name;
-              this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.overviewData.latest.phase1, results, this.teamId);
-            }
-          }
-        });
+        division$ = this.divisionService.divisionL1$;
+        teams$ = this.teamsService.teamsL1$;
+        results$ = this.teamsMatchResultsService.teamsMatchResultsL1$;
         break;
       case 2:
-        combineLatest([
-          this.divisionService.divisionL2$,
-          this.teamsService.teamsL2$,
-          this.teamsMatchResultsService.teamsMatchResultsL2$
-        ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-          next: ([division, teams, results]) => {
-            if (division?.phase3.status === true) {
-              this.title = division.phase2.name;
-              this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.overviewData.latest.phase2, results, this.teamId);
-            } else if (division?.phase2.status === true) {
-              this.title = division.phase2.name;
-              this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.overviewData.latest.phase2, results, this.teamId);
-            } else if (division?.phase1.status === true) {
-              this.title = division.phase1.name;
-              this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.overviewData.latest.phase1, results, this.teamId);
-            }
-          }
-        });
+        division$ = this.divisionService.divisionL2$;
+        teams$ = this.teamsService.teamsL2$;
+        results$ = this.teamsMatchResultsService.teamsMatchResultsL2$;
         break;
       case 3:
-        combineLatest([
-          this.divisionService.divisionL3$,
-          this.teamsService.teamsL3$,
-          this.teamsMatchResultsService.teamsMatchResultsL3$
-        ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-          next: ([division, teams, results]) => {
-            if (division?.phase3.status === true) {
-              this.title = division.phase2.name;
-              this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.overviewData.latest.phase2, results, this.teamId);
-            } else if (division?.phase2.status === true) {
-              this.title = division.phase2.name;
-              this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.overviewData.latest.phase2, results, this.teamId);
-            } else if (division?.phase1.status === true) {
-              this.title = division.phase1.name;
-              this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.overviewData.latest.phase1, results, this.teamId);
-            }
-          }
-        });
+        division$ = this.divisionService.divisionL3$;
+        teams$ = this.teamsService.teamsL3$;
+        results$ = this.teamsMatchResultsService.teamsMatchResultsL3$;
         break;
+      default:
+        return;
+    }
+
+    if (division$ && teams$ && results$) {
+      this.loadDataSub?.unsubscribe();
+
+      this.loadDataSub = combineLatest([division$, teams$, results$]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: ([division, teams, results]) => {
+          if (division?.phase3.status === true) {
+            this.title = division.phase2.name;
+            this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.latestData.phase2, results, this.teamId, 'phase2')
+          } else if (division?.phase2.status === true) {
+            this.title = division.phase2.name;
+            this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.latestData.phase2, results, this.teamId, 'phase2')
+          } else if (division?.phase1.status === true) {
+            this.title = division.phase1.name;
+            this.computedLatests = this.uiDataMapperService.overviewLatestMapper(teams, this.latestData.phase1, results, this.teamId, 'phase1')
+          }
+        }
+      });
     }
   }
 }

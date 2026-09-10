@@ -58,6 +58,7 @@ export interface TeamPageProfile {
         away: string;
         postponed: boolean;
         date: Date | null;
+        isRest: boolean;
       }[];
       phase2: {
         round: number;
@@ -65,6 +66,7 @@ export interface TeamPageProfile {
         away: string;
         postponed: boolean;
         date: Date | null;
+        isRest: boolean;
       }[];
     }
   }

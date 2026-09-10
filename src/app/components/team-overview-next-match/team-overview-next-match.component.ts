@@ -1,23 +1,28 @@
-import { Component, inject, Input } from '@angular/core';
-import { NextMatch } from '../../interfaces/ui-models/team-overview';
-import { FetchPageProfileService } from '../../services/fetch-page-profile.service';
+import { Component, DestroyRef, inject, Input } from '@angular/core';
+import { DatePipe, TitleCasePipe, NgClass } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DatePipe, TitleCasePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FetchDivisionsService } from '../../services/fetch-divisions.service';
+import { FetchTeamsService } from '../../services/fetch-teams.service';
+import { FetchTeamsMatchResultsService } from '../../services/fetch-teams-match-results.service';
+import { UiDataMapperService } from '../../services/ui-data-mapper.service';
+import { combineLatest, Subscription } from 'rxjs';
+import { TeamPageProfile } from '../../interfaces/api-models/teamPageProfile';
+import { NextMatch } from '../../interfaces/ui-models/team-overview';
 
 @Component({
   selector: 'app-team-overview-next-match',
-  imports: [DatePipe, TitleCasePipe, RouterLink],
+  imports: [DatePipe, TitleCasePipe, RouterLink, NgClass],
   template: `
-    @if (matchData && matchData.valid) {
+    @if (computedNextMatchData && computedNextMatchData.valid) {
       <div class="bg-neutral-100 flex justify-between w-full h-96">
         <!-- 1 -->
         <div class="flex h-full">
           <div class="bg-nightfall text-white py-5 pl-5 flex flex-col gap-2 justify-center w-full h-full font-bold text-4xl">
             @switch (category) {
-              @case (1) { <img src="assets/images/pages/liga-1.webp" alt="Logo" class="bg-white rounded-full p-1 h-10 w-10"> }
-              @case (2) { <img src="assets/images/pages/liga-2.webp" alt="Logo" class="bg-white rounded-full p-1 h-10 w-10"> }
-              @case (3) { <img src="assets/images/pages/liga-3.webp" alt="Logo" class="bg-white rounded-full p-1 h-10 w-10"> }
+              @case (1) { <img src="assets/images/pages/liga-1.webp" alt="L1-Logo" class="bg-white rounded-full p-1 h-10 w-10"> }
+              @case (2) { <img src="assets/images/pages/liga-2.webp" alt="L2-Logo" class="bg-white rounded-full p-1 h-10 w-10"> }
+              @case (3) { <img src="assets/images/pages/liga-3.webp" alt="L3-Logo" class="bg-white rounded-full p-1 h-10 w-10"> }
             }
             <p>PRÓXIMO PARTIDO</p>
             <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2 w-32"></div>
@@ -31,40 +36,32 @@ import { RouterLink } from '@angular/router';
         <!-- 2 -->
         <div class="w-full flex flex-col gap-5 text-night justify-center items-center">
           <div class="bg-gold text-white w-fit px-6 py-0.5 skew-x-30 -mb-5">
-            <p class="-skew-x-30 font-semibold text-sm sm:text-base duration-500">Fecha {{ matchData.round }}</p>
+            <p class="-skew-x-30 font-semibold text-sm sm:text-base duration-500">Fecha {{ computedNextMatchData.round }}</p>
           </div>
           <div class="flex items-center gap-5">
-            @if (teamId === matchData.homeTeamId) {
-              <div class="w-60">
-                <img [src]="matchData.homeTeamImage" [alt]="matchData.homeTeamAlt" class="w-40 mx-auto"/>
-                <div class="hidden sm:block text-center font-bold text-xl">{{ matchData.homeTeamName }}</div>
-                <div class="sm:hidden text-center font-bold text-xl">{{ matchData.homeTeamAbbreviation }}</div>
-              </div>
+            <!-- HomeTeam -->
+            <div class="w-60" [routerLink]="teamId !== computedNextMatchData.homeTeamId ? ['../../', computedNextMatchData.homeTeamId] : null" [ngClass]="{'cursor-pointer': teamId !== computedNextMatchData.homeTeamId}">
+              <img [src]="computedNextMatchData.homeTeamImage" [alt]="computedNextMatchData.homeTeamAlt" class="w-40 mx-auto"/>
+              <div class="hidden sm:block text-center font-bold text-xl">{{ computedNextMatchData.homeTeamName }}</div>
+              <div class="sm:hidden text-center font-bold text-xl">{{ computedNextMatchData.homeTeamAbbreviation }}</div>
+            </div>
+            <!-- Score -->
+            @if (computedNextMatchData.homeTeamScore !== null && computedNextMatchData.awayTeamScore !== null) {
+              <div class="font-bold text-6xl place-content-center truncate">{{ computedNextMatchData.homeTeamScore }} - {{ computedNextMatchData.awayTeamScore }}</div>
             } @else {
-              <div [routerLink]="['../../', matchData.homeTeamId]" class="cursor-pointer w-60">
-                <img [src]="matchData.homeTeamImage" [alt]="matchData.homeTeamAlt" class="w-40 mx-auto"/>
-                <div class="hidden sm:block text-center font-bold text-xl">{{ matchData.homeTeamName }}</div>
-                <div class="sm:hidden text-center font-bold text-xl">{{ matchData.homeTeamAbbreviation }}</div>
-              </div>
+              <span class="font-bold text-2xl bg-neutral-200 p-4 rounded-full">VS</span>
             }
-            <span class="font-bold text-2xl bg-neutral-200 p-4 rounded-full">VS</span>
-            @if (teamId === matchData.awayTeamId) {
-              <div class="w-60">
-                <img [src]="matchData.awayTeamImage" [alt]="matchData.awayTeamAlt" class="w-40 mx-auto"/>
-                <div class="hidden sm:block text-center font-bold text-xl">{{ matchData.awayTeamName }}</div>
-                <div class="sm:hidden text-center font-bold text-xl">{{ matchData.awayTeamAbbreviation }}</div>
-              </div>
-            } @else {
-              <div [routerLink]="['../../', matchData.awayTeamId]" class="cursor-pointer w-60">
-                <img [src]="matchData.awayTeamImage" [alt]="matchData.awayTeamAlt" class="w-40 mx-auto"/>
-                <div class="hidden sm:block text-center font-bold text-xl">{{ matchData.awayTeamName }}</div>
-                <div class="sm:hidden text-center font-bold text-xl">{{ matchData.awayTeamAbbreviation }}</div>
-              </div>
-            }
+            <!-- AwayTeam -->
+            <div class="w-60" [routerLink]="teamId !== computedNextMatchData.awayTeamId ? ['../../', computedNextMatchData.awayTeamId] : null" [ngClass]="{'cursor-pointer': teamId !== computedNextMatchData.awayTeamId}">
+              <img [src]="computedNextMatchData.awayTeamImage" [alt]="computedNextMatchData.awayTeamAlt" class="w-40 mx-auto"/>
+              <div class="hidden sm:block text-center font-bold text-xl">{{ computedNextMatchData.awayTeamName }}</div>
+              <div class="sm:hidden text-center font-bold text-xl">{{ computedNextMatchData.awayTeamAbbreviation }}</div>
+            </div>
           </div>
+          <!-- Date -->
           <div class="text-center">
-            <p class="font-bold text-xl">{{ matchData.date | date:'EEEE d, MMMM' | titlecase}}</p>
-            <p class="font-bold text-3xl">{{ matchData.date | date:'HH:mm'}}</p>
+            <p class="font-bold text-xl">{{ computedNextMatchData.date | date:'EEEE d, MMMM' | titlecase }}</p>
+            <p class="font-bold text-3xl">{{ computedNextMatchData.date | date:'HH:mm'}}</p>
           </div>
         </div>
       </div>
@@ -73,19 +70,65 @@ import { RouterLink } from '@angular/router';
   styles: ``,
 })
 export class TeamOverviewNextMatchComponent {
-  @Input() matchData!: NextMatch;
+  @Input() nextMatchData!: TeamPageProfile['teamOverviewData']['nextMatch'];
+  @Input() category!: number;
+  @Input() teamId!: string;
 
-  private fetchPageProfile = inject(FetchPageProfileService);
-  teamId!: string;
-  category!: number;
+  private divisionService = inject(FetchDivisionsService);
+  private teamsService = inject(FetchTeamsService);
+  private teamsMatchResultsService = inject(FetchTeamsMatchResultsService);
+  private uiDataMapperService = inject(UiDataMapperService);
+  private destroyRef = inject(DestroyRef);
+  private loadDataSub?: Subscription;
+
   matchDate!: Date;
+  computedNextMatchData!: NextMatch;
 
-  constructor() {
-    this.fetchPageProfile.team$.pipe(takeUntilDestroyed()).subscribe({
-      next: (team) => {
-        this.teamId = team!.teamData.teamId;
-        this.category = team!.teamData.category;
-      },
-    });
+  ngOnChanges() {
+    if (this.nextMatchData && this.category && this.teamId) {
+      this.loadData();
+    }
+  }
+
+  loadData() {
+    let division$;
+    let teams$;
+    let results$;
+
+    switch (this.category) {
+      case 1:
+        division$ = this.divisionService.divisionL1$;
+        teams$ = this.teamsService.teamsL1$;
+        results$ = this.teamsMatchResultsService.teamsMatchResultsL1$;
+        break;
+      case 2:
+        division$ = this.divisionService.divisionL2$;
+        teams$ = this.teamsService.teamsL2$;
+        results$ = this.teamsMatchResultsService.teamsMatchResultsL2$;
+        break;
+      case 3:
+        division$ = this.divisionService.divisionL3$;
+        teams$ = this.teamsService.teamsL3$;
+        results$ = this.teamsMatchResultsService.teamsMatchResultsL3$;
+        break;
+      default:
+        return;
+    }
+
+    if (division$ && teams$ && results$) {
+      this.loadDataSub?.unsubscribe();
+
+      this.loadDataSub = combineLatest([division$, teams$, results$]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+        next: ([division, teams, results]) => {
+          if (division?.phase3.status === true) {
+            this.computedNextMatchData = this.uiDataMapperService.overviewNextMatchMapper(teams, this.nextMatchData, results, 'phase2')
+          } else if (division?.phase2.status === true) {
+            this.computedNextMatchData = this.uiDataMapperService.overviewNextMatchMapper(teams, this.nextMatchData, results, 'phase2')
+          } else if (division?.phase1.status === true) {
+            this.computedNextMatchData = this.uiDataMapperService.overviewNextMatchMapper(teams, this.nextMatchData, results, 'phase1')
+          }
+        }
+      });
+    }
   }
 }

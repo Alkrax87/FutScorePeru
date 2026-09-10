@@ -345,13 +345,26 @@ export class UiDataMapperService {
   // ================================================
   // =============== Overview Latest ==============
   // ================================================
-  overviewLatestMapper(dataTeams: Team[], fixture: { round: number, home: string, away: string, postponed: boolean, date: Date | null }[], teamsMatchResults: TeamMatchResults[], teamId: string) {
+  overviewLatestMapper(dataTeams: Team[], fixture: { round: number, home: string, away: string, postponed: boolean, date: Date | null, isRest: boolean }[], teamsMatchResults: TeamMatchResults[], teamId: string, activePhase: 'phase1' | 'phase2') {
     const newData = [];
 
     const teamMap = new Map(dataTeams.map((team) => [team.teamId, team]));
     const teamMatchResultsMap = new Map(teamsMatchResults.map((matchResult: TeamMatchResults) => [matchResult.teamId, matchResult]));
 
     for (const match of fixture) {
+      if (match.isRest) {
+        newData.push({
+          round: match.round,
+          postponed: match.postponed ?? false,
+          date: match.date ?? null,
+          homeTeamLogo: teamMap.get(match.home)?.image,
+          homeTeamAlt: teamMap.get(match.home)?.alt,
+          free: true,
+          home: true,
+        });
+        continue;
+      }
+
       const homeTeam = teamMap.get(match.home);
       const awayTeam = teamMap.get(match.away);
 
@@ -359,8 +372,8 @@ export class UiDataMapperService {
         const homeResults = teamMatchResultsMap.get(homeTeam.teamId);
         const awayResults = teamMatchResultsMap.get(awayTeam.teamId);
 
-        const resultHome = homeResults?.phase1[match.round - 1] ?? "";
-        const resultAway = awayResults?.phase1[match.round - 1] ?? "";
+        const resultHome = homeResults?.[activePhase]?.[match.round - 1] ?? "";
+        const resultAway = awayResults?.[activePhase]?.[match.round - 1] ?? "";
 
         if (homeTeam.teamId === teamId) {
           newData.push({
@@ -384,18 +397,9 @@ export class UiDataMapperService {
             rivalTeamAlt: homeTeam.alt,
             homeTeamScore: resultHome as number,
             awayTeamScore: resultAway as number,
+            home: false,
           });
         }
-      } else {
-        newData.push({
-          round: match.round,
-          postponed: match.postponed,
-          date: match.date,
-          homeTeamLogo: teamMap.get(match.home)?.image,
-          homeTeamAlt: teamMap.get(match.home)?.alt,
-          free: true,
-          home: true,
-        });
       }
     }
 
@@ -405,13 +409,20 @@ export class UiDataMapperService {
   // ================================================
   // ============== Overview Next Match =============
   // ================================================
-  overviewNextMatchMapper(dataTeams: Team[], nextMatchData: { round: number, home: string, away: string, postponed: boolean, date: Date | null }): NextMatch {
+  overviewNextMatchMapper(dataTeams: Team[], nextMatchData: { round: number, home: string, away: string, postponed: boolean, date: Date | null }, teamsMatchResults: TeamMatchResults[], activePhase: 'phase1' | 'phase2'): NextMatch {
     const teamMap = new Map(dataTeams.map((team) => [team.teamId, team]));
+    const teamMatchResultsMap = new Map(teamsMatchResults.map((matchResult: TeamMatchResults) => [matchResult.teamId, matchResult]));
 
     const homeTeam = teamMap.get(nextMatchData.home);
     const awayTeam = teamMap.get(nextMatchData.away);
 
     if (homeTeam && awayTeam) {
+      const homeResults = teamMatchResultsMap.get(homeTeam.teamId);
+      const awayResults = teamMatchResultsMap.get(awayTeam.teamId);
+
+      const resultHome = homeResults?.[activePhase]?.[nextMatchData.round - 1] ?? "";
+      const resultAway = awayResults?.[activePhase]?.[nextMatchData.round - 1] ?? "";
+
       return {
         round: nextMatchData.round,
         homeTeamId: homeTeam.teamId,
@@ -424,6 +435,8 @@ export class UiDataMapperService {
         awayTeamImage: awayTeam.image,
         homeTeamAlt: homeTeam.alt,
         awayTeamAlt: awayTeam.alt,
+        homeTeamScore: resultHome ? resultHome : null,
+        awayTeamScore: resultAway ? resultAway : null,
         postponed: nextMatchData.postponed,
         date: nextMatchData.date,
         valid: true,

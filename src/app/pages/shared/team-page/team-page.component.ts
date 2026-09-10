@@ -8,6 +8,7 @@ import { FetchPageProfileService } from '../../../services/fetch-page-profile.se
 import { TeamPageProfile } from '../../../interfaces/api-models/teamPageProfile';
 import { ViewportScroller } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FetchTeamsMatchResultsService } from '../../../services/fetch-teams-match-results.service';
 
 @Component({
   selector: 'app-team-page',
@@ -24,6 +25,7 @@ export class TeamPageComponent {
   private destroyRef = inject(DestroyRef);
   private fetchPageProfile = inject(FetchPageProfileService);
   private title = inject(Title);
+  private teamsMatchResultsService = inject(FetchTeamsMatchResultsService);
   private viewPortScoller = inject(ViewportScroller);
 
   team: TeamPageProfile | null = null;
@@ -40,6 +42,20 @@ export class TeamPageComponent {
         if (response) {
           this.team = response;
           this.title.setTitle('Liga ' + response.teamData.category + ' | ' + response.teamData.name);
+
+          switch (response.teamData.category) {
+            case 1:
+              this.teamsMatchResultsService.fetchTeamsMatchResultsL1();
+              break;
+            case 2:
+              this.teamsMatchResultsService.fetchTeamsMatchResultsL2();
+              break;
+            case 3:
+              this.teamsMatchResultsService.fetchTeamsMatchResultsL3();
+              break;
+            default:
+              return;
+          }
         }
 
         if (typeof window !== 'undefined') {
