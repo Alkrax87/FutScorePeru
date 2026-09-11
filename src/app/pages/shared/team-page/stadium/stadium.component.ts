@@ -14,7 +14,7 @@ import { TeamPageProfile } from '../../../../interfaces/api-models/teamPageProfi
         @if (stadium) {
           <div class="w-fit">
             <h3 class="text-3xl md:text-4xl text-white font-bold duration-500">{{ stadium.name }}</h3>
-            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+            <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <div class="flex flex-col md:flex-row gap-5">
             <!-- Image -->
@@ -22,7 +22,7 @@ import { TeamPageProfile } from '../../../../interfaces/api-models/teamPageProfi
               <img [src]="stadium.image" class="w-full object-cover">
             </div>
             <!-- Details -->
-            <div class="w-full md:w-80 border-2 border-crimson p-4 h-fit">
+            <div class="w-full md:w-80 border-2 border-main p-4 h-fit">
               <!-- Capacity -->
               <div>
                 <div class="flex gap-2 text-gold text-xs font-semibold">
@@ -31,7 +31,7 @@ import { TeamPageProfile } from '../../../../interfaces/api-models/teamPageProfi
                 </div>
                 <p class="text-2xl font-bold text-white">{{ formatNumber(stadium.capacity) }}</p>
               </div>
-              <div class="w-full h-0.5 my-4 bg-crimson rounded-full"></div>
+              <div class="w-full h-0.5 my-4 bg-main rounded-full"></div>
               <!-- Location -->
               <div>
                 <div class="flex gap-2 text-gold text-xs font-semibold">

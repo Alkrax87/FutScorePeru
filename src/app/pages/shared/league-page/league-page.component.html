@@ -78,12 +78,12 @@
   <!-- Provincial Leagues -->
   <div class="bg-neutral-100 dark:bg-nightfall px-5 py-10 md:py-24 select-none duration-500">
     <div class="w-full mx-auto">
-      <p class="text-dark dark:text-white duration-500 text-5xl font-bold text-center">Ligas <span class="text-crimson">Provinciales</span></p>
+      <p class="text-dark dark:text-white duration-500 text-5xl font-bold text-center">Ligas <span class="text-main">Provinciales</span></p>
     </div>
     <div class="max-w-screen-xl mx-auto grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-5">
       @for (league of league.leagueDetailsData.provincialLeagues; track $index) {
         <div class="bg-white dark:bg-brightnight duration-500 p-3 sm:p-5 shadow-md col-span-1 flex gap-2 place-items-center truncate">
-          <div class="bg-crimson min-w-8 h-8 sm:min-w-10 sm:h-10 rounded-full flex items-center justify-center">
+          <div class="bg-main min-w-8 h-8 sm:min-w-10 sm:h-10 rounded-full flex items-center justify-center">
             <fa-icon [icon]="Location" class="text-white"></fa-icon>
           </div>
           <div class="text-dark dark:text-white text-sm sm:text-base duration-500 font-semibold truncate">Liga Provincial de {{ league }}</div>
@@ -94,7 +94,7 @@
   <!-- All-Time Winners -->
   <div class="bg-night sm:px-5 py-10 md:py-24 select-none duration-500">
     <div class="w-full mx-auto">
-      <p class="text-white duration-500 text-5xl font-bold text-center">Historial de <span class="text-crimson">Campeones</span></p>
+      <p class="text-white duration-500 text-5xl font-bold text-center">Historial de <span class="text-main">Campeones</span></p>
     </div>
     <div class="max-w-screen-lg mx-auto bg-nightfall p-3 sm:p-5 mt-5 rounded-xl overflow-x-auto">
       <table class="text-gray-300 w-full font-semibold">

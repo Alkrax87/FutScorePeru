@@ -15,7 +15,7 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
             <div class="flex gap-4 pr-4 group" [style.animation-duration]="animationDuration">
               @for (item of fixture; track $index) {
                 <div class="bg-nightfall flex-shrink-0 w-44 md:w-60 duration-500">
-                  <div class="bg-crimson h-1"></div>
+                  <div class="bg-main h-1"></div>
                   <div class="flex justify-between p-3 gap-1">
                     <!-- Left -->
                     <div class="cursor-pointer" [routerLink]="['../club', item.homeTeamCategory, item.homeTeamId]">
@@ -41,7 +41,7 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
             <div aria-hidden class="flex gap-4 pr-4 group" [style.animation-duration]="animationDuration">
               @for (item of fixture; track $index) {
                 <div class="bg-nightfall flex-shrink-0 w-44 md:w-60 duration-500">
-                  <div class="bg-crimson h-1"></div>
+                  <div class="bg-main h-1"></div>
                   <div class="flex justify-between p-3 gap-1">
                     <!-- Left -->
                     <div class="cursor-pointer" [routerLink]="['../club', item.homeTeamCategory, item.homeTeamId]">
@@ -67,7 +67,7 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
             <div aria-hidden class="flex gap-4 pr-4 group" [style.animation-duration]="animationDuration">
               @for (item of fixture; track $index) {
                 <div class="bg-nightfall flex-shrink-0 w-44 md:w-60 duration-500">
-                  <div class="bg-crimson h-1"></div>
+                  <div class="bg-main h-1"></div>
                   <div class="flex justify-between p-3 gap-1">
                     <!-- Left -->
                     <div class="cursor-pointer" [routerLink]="['../club', item.homeTeamCategory, item.homeTeamId]">
@@ -92,7 +92,7 @@ import { FixtureCompactCard } from '../../interfaces/ui-models/fixture-compact-c
             </div>
           </div>
           <div class="font-bold text-xs md:text-sm flex justify-end duration-500">
-            <span [routerLink]="'../fixture'" class="text-crimson hover:text-crimson-hover cursor-pointer">
+            <span [routerLink]="'../fixture'" class="text-main hover:text-main-hover cursor-pointer">
               FIXTURE COMPLETO <fa-icon [icon]="Arrow"></fa-icon>
             </span>
           </div>

@@ -16,7 +16,7 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
         <div class="place-content-center w-full sm:w-1/2 xl:w-3/5 duration-500">
           <div class="w-fit mx-auto">
             <h3 class="text-2xl font-bold">Distribución Geográfica</h3>
-            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+            <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <div class="grid grid-cols-2 xl:grid-cols-3 gap-1 justify-center my-2">
             @for (region of regions; track $index) {

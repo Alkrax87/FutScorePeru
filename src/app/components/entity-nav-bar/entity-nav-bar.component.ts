@@ -1,34 +1,34 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { EntityNav } from '../../interfaces/ui-models/entity-nav';
 
 @Component({
   selector: 'app-entity-nav-bar',
-  imports: [RouterLink, FontAwesomeModule],
+  imports: [RouterLink, FaIconComponent],
   template: `
-    <div class="bg-gray-100 dark:bg-night duration-500 select-none">
-      <div class="mx-auto hidden md:block max-w-screen-xl px-3 sm:px-5">
+    <div class="bg-neutral-100 dark:bg-night duration-500 select-none">
+      <div class="mx-auto hidden md:block max-w-screen-xl px-5">
         <div class="flex gap-4">
-          <div class="flex items-center text-xs lg:text-sm">
+          <div class="flex items-center">
             <div class="animate-fade-right text-nowrap delay-100">
-              <span class="text-neutral-600 dark:text-neutral-200 duration-500">
-                {{ leaguesBar ? 'Ligas' : 'Clubes' }} <fa-icon class="ml-2" [icon]="Icon"></fa-icon>
+              <span class="text-neutral-600 dark:text-neutral-200 text-xs lg:text-sm duration-500">
+                {{ leaguesBar ? 'Ligas' : 'Clubes' }} <fa-icon class="ml-1" [icon]="Icon"></fa-icon>
               </span>
             </div>
           </div>
-          <div class="flex-grow flex justify-evenly overflow-hidden md:py-2 lg:py-4">
+          <div class="flex-grow flex justify-evenly overflow-hidden md:py-2 lg:py-4 duration-500">
             @if (leaguesBar) {
-              @for (entity of entities; track $index) {
-                <a [routerLink]="['liga', entity.leagueId]" class="animate-fade-up delay-75">
-                  <img [src]="entity.imageThumbnail" [alt]="entity.alt" class="md:w-6 md:h-6 lg:w-8 lg:h-8 object-contain"/>
+              @for (entity of entities; track entity.leagueId) {
+                <a [routerLink]="['liga', entity.leagueId]" class="animate-fade-up delay-100 outline-none">
+                  <img [src]="entity.imageThumbnail" [alt]="entity.alt" class="md:w-6 md:h-6 lg:w-8 lg:h-8 duration-500 object-contain"/>
                 </a>
               }
             } @else {
-              @for (entity of entities; track $index) {
-                <a [routerLink]="['club', entity.category, entity.teamId]" class="animate-fade-up delay-75">
-                  <img [src]="entity.imageThumbnail" [alt]="entity.alt" class="md:w-6 md:h-6 lg:w-8 lg:h-8 object-contain"/>
+              @for (entity of entities; track entity.teamId) {
+                <a [routerLink]="['club', entity.category, entity.teamId]" class="animate-fade-up delay-100 outline-none">
+                  <img [src]="entity.imageThumbnail" [alt]="entity.alt" class="md:w-6 md:h-6 lg:w-8 lg:h-8 duration-500 object-contain"/>
                 </a>
               }
             }
@@ -73,7 +73,7 @@ import { EntityNav } from '../../interfaces/ui-models/entity-nav';
   `,
 })
 export class EntityNavBarComponent {
-  @Input() entities!: EntityNav[];
+  @Input() entities: EntityNav[] = [];
   @Input() leaguesBar?: boolean = false;
   Icon = faUpRightFromSquare;
 }

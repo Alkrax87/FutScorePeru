@@ -13,9 +13,9 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
           <!-- Date -->
           <div class="flex justify-center items-center mb-3">
             @if (item.date) {
-              <span class="bg-crimson text-white px-5 font-semibold py-1">{{ item.date | date:'EEEE d MMMM' | titlecase }}</span>
+              <span class="bg-main text-white px-5 font-semibold py-1">{{ item.date | date:'EEEE d MMMM' | titlecase }}</span>
             } @else {
-              <span class="bg-crimson text-white px-5 font-semibold py-1">Por Definir</span>
+              <span class="bg-main text-white px-5 font-semibold py-1">Por Definir</span>
             }
           </div>
           <!-- Matches -->

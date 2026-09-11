@@ -21,13 +21,13 @@ import { FixtureByDate } from '../../../interfaces/ui-models/fixture-models';
       <div class="max-w-screen-xl mx-auto">
         @if (computedFixture && computedFixture.length > 0) {
           <h3 class="text-white text-3xl sm:text-4xl font-bold mb-5 text-center md:text-start duration-500">
-            Cruces Zonales <span class="text-crimson">Fecha {{ selectedPhaseIndex + 1 }}</span>
+            Cruces Zonales <span class="text-main">Fecha {{ selectedPhaseIndex + 1 }}</span>
           </h3>
           <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
             @for (round of computedFixture; track $index) {
               <button (click)="selectedPhaseIndex = $index"
-                class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-crimson outline-none duration-300"
-                [ngClass]="{'bg-crimson': selectedPhaseIndex === $index}"
+                class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-main outline-none duration-300"
+                [ngClass]="{'bg-main': selectedPhaseIndex === $index}"
               >
                 F{{ $index + 1 }}
               </button>

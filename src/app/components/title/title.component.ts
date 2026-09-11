@@ -1,13 +1,13 @@
 import { Component, inject, Input } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faAngleRight, faHome } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-title',
-  imports: [FontAwesomeModule, RouterLink, RouterLinkActive],
+  imports: [FaIconComponent, RouterLink, RouterLinkActive],
   template: `
-    <div class="bg-crimson text-white background-pattern px-3 sm:px-5 duration-500 select-none">
+    <div class="relative bg-main text-white background-pattern px-3 sm:px-5 duration-500 select-none">
       <div class="max-w-screen-xl mx-auto h-52 flex flex-col justify-between pt-10 pb-8">
         <div class="flex gap-2 font-bold text-xs sm:text-sm items-center duration-500">
           <div [routerLink]="routeSections[0]" class="cursor-pointer hover:opacity-100 hover:duration-200 opacity-70">

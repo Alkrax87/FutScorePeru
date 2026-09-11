@@ -24,7 +24,7 @@ import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel'
                 <img [src]="item.imageThumbnail" [alt]="item.alt" class="w-10" />
                 <p class="text-lg text-white font-bold">{{ item.name }}</p>
               </div>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <app-manager-carousel [data]="item.managers"></app-manager-carousel>
           </div>

@@ -29,13 +29,13 @@ import { FixtureByDate } from '../../../interfaces/ui-models/fixture-models';
         @if (phase1) {
           @if (computedFixturePhase1 && computedFixturePhase1.length > 0) {
             <h3 class="text-white text-3xl sm:text-4xl font-bold my-5 text-center md:text-start duration-500">
-              Regional <span class="text-crimson">Fecha {{ selectedPhase1Index + 1 }}</span>
+              Regional <span class="text-main">Fecha {{ selectedPhase1Index + 1 }}</span>
             </h3>
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
               @for (round of computedFixturePhase1; track $index) {
                 <button (click)="selectedPhase1Index = $index"
-                  class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-crimson outline-none duration-300"
-                  [ngClass]="{'bg-crimson': selectedPhase1Index === $index}"
+                  class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-main outline-none duration-300"
+                  [ngClass]="{'bg-main': selectedPhase1Index === $index}"
                 >
                   F{{ $index + 1 }}
                 </button>
@@ -53,13 +53,13 @@ import { FixtureByDate } from '../../../interfaces/ui-models/fixture-models';
         @if (phase2) {
           @if (computedFixturePhase2 && computedFixturePhase2.length > 0) {
             <h3 class="text-white text-3xl sm:text-4xl font-bold my-5 text-center md:text-start duration-500">
-              Final <span class="text-crimson">Fecha {{ selectedPhase2Index + 1 }}</span>
+              Final <span class="text-main">Fecha {{ selectedPhase2Index + 1 }}</span>
             </h3>
             <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
               @for (round of computedFixturePhase2; track $index) {
                 <button (click)="selectedPhase2Index = $index"
-                  class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-crimson outline-none duration-300"
-                  [ngClass]="{'bg-crimson': selectedPhase2Index === $index}"
+                  class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-main outline-none duration-300"
+                  [ngClass]="{'bg-main': selectedPhase2Index === $index}"
                 >
                   F{{ $index + 1 }}
                 </button>

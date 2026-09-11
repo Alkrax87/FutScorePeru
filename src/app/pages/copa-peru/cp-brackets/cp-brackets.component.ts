@@ -20,7 +20,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
     <div class="bg-night p-3 sm:p-5 duration-500 select-none">
       @if (!dataBrackets) {
         <div class="bg-nightfall p-5 text-center">
-          <p class="text-crimson font-semibold text-2xl">Copa Perú Etapa Nacional</p>
+          <p class="text-main font-semibold text-2xl">Copa Perú Etapa Nacional</p>
           <p class="text-white">LLaves de clasificación por definir.</p>
           <div class="w-full md:w-64 mx-auto mt-3 px-5">
             <app-btn routerLink="/copa-peru" [active]="false">Ir a Home</app-btn>
@@ -40,8 +40,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
           <div class="flex flex-col justify-center w-full xl:w-3/4 gap-4 mx-auto duration-500">
             <div>
               <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-main">Norte</span></h3>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBrackets16Norte; track $index) {
@@ -51,8 +51,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             </div>
             <div>
               <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-main">Sur</span></h3>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBrackets16Sur; track $index) {
@@ -66,8 +66,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
           <div class="flex flex-col justify-center w-full xl:w-3/4 gap-4 mx-auto duration-500">
             <div>
               <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-main">Norte</span></h3>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBrackets8Norte; track $index) {
@@ -77,8 +77,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             </div>
             <div>
               <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-main">Sur</span></h3>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBrackets8Sur; track $index) {
@@ -92,8 +92,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
           <div class="flex flex-col justify-center w-full xl:w-3/4 gap-4 mx-auto duration-500">
             <div>
               <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-main">Norte</span></h3>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBrackets4Norte; track $index) {
@@ -103,8 +103,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             </div>
             <div>
               <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-main">Sur</span></h3>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBrackets4Sur; track $index) {
@@ -118,8 +118,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
           <div class="flex flex-col justify-center w-full xl:w-3/4 gap-4 mx-auto duration-500">
             <div>
               <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-main">Norte</span></h3>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBrackets2Norte; track $index) {
@@ -129,8 +129,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             </div>
             <div>
               <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <h3 class="text-3xl text-white font-bold">Zona <span class="text-main">Sur</span></h3>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataBrackets2Sur; track $index) {
@@ -145,8 +145,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             <div class="flex flex-col md:flex-row gap-2">
               <div class="w-full md:w-1/2">
                 <div class="w-fit">
-                  <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Norte</span></h3>
-                  <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                  <h3 class="text-3xl text-white font-bold">Zona <span class="text-main">Norte</span></h3>
+                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
                 </div>
                 <div class="">
                   @for (bracket of dataBrackets1Norte; track $index) {
@@ -156,8 +156,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
               </div>
               <div class="w-full md:w-1/2">
                 <div class="w-fit">
-                  <h3 class="text-3xl text-white font-bold">Zona <span class="text-crimson">Sur</span></h3>
-                  <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                  <h3 class="text-3xl text-white font-bold">Zona <span class="text-main">Sur</span></h3>
+                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
                 </div>
                 <div class="">
                   @for (bracket of dataBrackets1Sur; track $index) {
@@ -168,8 +168,8 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             </div>
             <div>
               <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Final <span class="text-crimson">Copa Perú</span></h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <h3 class="text-3xl text-white font-bold">Final <span class="text-main">Copa Perú</span></h3>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="text-white text-sm mt-2 mb-3">
                 <p><b class="text-gold">Final Copa Perú:</b> Los <b>campeones</b> de cada zona se enfrentan para definir al <b>Campeón</b> y <b>Subcampeón</b>.</p>

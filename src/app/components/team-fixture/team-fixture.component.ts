@@ -14,11 +14,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         @if (item.free) {
           <div>
             <div class="flex relative top-4">
-              <div class="bg-crimson text-white w-24 px-2 text-center font-semibold flex items-center justify-center">Fecha {{ item.round }}</div>
+              <div class="bg-main text-white w-24 px-2 text-center font-semibold flex items-center justify-center">Fecha {{ item.round }}</div>
               <div class="
                 relative right-[0.1px] w-0 h-0 border-solid
                 border-t-[32px] border-r-0 border-b-0 border-l-[32px]
-                border-t-transparent  border-r-transparent border-b-transparent border-l-crimson
+                border-t-transparent  border-r-transparent border-b-transparent border-l-main
               "></div>
             </div>
             <div class="bg-white dark:bg-nightfall h-44 px-3 duration-500 flex justify-center items-center gap-2">
@@ -29,16 +29,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         } @else {
           <div>
             <div class="flex relative top-4">
-              <div class="bg-crimson text-white w-24 px-2 text-center font-semibold flex items-center justify-center">Fecha {{ item.round }}</div>
+              <div class="bg-main text-white w-24 px-2 text-center font-semibold flex items-center justify-center">Fecha {{ item.round }}</div>
               <div class="
                 relative right-[0.1px] w-0 h-0 border-solid
                 border-t-[32px] border-r-0 border-b-0 border-l-[32px]
-                border-t-transparent  border-r-transparent border-b-transparent border-l-crimson
+                border-t-transparent  border-r-transparent border-b-transparent border-l-main
               "></div>
             </div>
             <div class="bg-white dark:bg-nightfall min-h-40 py-8 px-3 duration-500">
               @if (item.postponed) {
-                <div class="skew-x-50 bg-crimson w-fit text-white mx-auto"><div class="-skew-x-50 text-xs px-4 font-semibold">Pospuesto</div></div>
+                <div class="skew-x-50 bg-main w-fit text-white mx-auto"><div class="-skew-x-50 text-xs px-4 font-semibold">Pospuesto</div></div>
               } @else {
                 <div class="skew-x-50 bg-gold w-fit text-white mx-auto"><div class="-skew-x-50 text-xs px-4 font-semibold">{{ item.date ? (item.date | date:'EEEE d MMMM' | titlecase) : 'Por Definir' }}</div></div>
               }

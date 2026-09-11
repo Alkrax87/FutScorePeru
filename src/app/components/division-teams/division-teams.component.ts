@@ -8,9 +8,9 @@ import { BtnComponent } from "../btn/btn.component";
   imports: [RouterLink, BtnComponent],
   template: `
     <div class="select-none">
-      <div class="bg-crimson h-2 relative flex justify-center">
+      <div class="bg-main h-2 relative flex justify-center">
         <div class="bg-white rounded-full absolute -top-6 md:-top-8 p-0.5 duration-500">
-          <div class="border-2 border-crimson rounded-full">
+          <div class="border-2 border-main rounded-full">
             <img [src]="division.logo" alt="Division-logo" class="w-12 md:w-16 h-12 md:h-16 p-2 duration-500">
           </div>
         </div>
@@ -18,9 +18,9 @@ import { BtnComponent } from "../btn/btn.component";
       <div class="bg-night px-3 sm:px-5 py-12 md:py-24 duration-500">
         <div class="max-w-screen-xl duration-500 mx-auto">
           @if (division.toLeagues) {
-            <p class="text-white text-center text-2xl font-semibold">Clasificados Etapa Nacional <span class="text-crimson">{{ division.name }}</span></p>
+            <p class="text-white text-center text-2xl font-semibold">Clasificados Etapa Nacional <span class="text-main">{{ division.name }}</span></p>
           } @else {
-            <p class="text-white text-center text-2xl font-semibold">Clubes <span class="text-crimson">{{ division.name }}</span></p>
+            <p class="text-white text-center text-2xl font-semibold">Clubes <span class="text-main">{{ division.name }}</span></p>
           }
           <div class="flex flex-wrap gap-4 justify-center mx-auto mt-2 mb-4">
             @for (team of teams; track $index) {
@@ -40,7 +40,7 @@ import { BtnComponent } from "../btn/btn.component";
           </div>
         </div>
       </div>
-      <div class="bg-crimson h-2"></div>
+      <div class="bg-main h-2"></div>
     </div>
   `,
   styles: ``,

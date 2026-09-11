@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MapElement } from '../../interfaces/api-models/map-element';
 import { TeamMap } from '../../interfaces/ui-models/team-map';
@@ -6,13 +6,13 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-map',
-  imports: [CommonModule, RouterLink],
+  imports: [NgClass, NgStyle, RouterLink],
   template: `
     <svg class="fill-map-light dark:fill-map-dark duration-500 opacity-100 stroke-white stroke-map" viewBox="0 0 1000 1474" xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
       @if (mapConstructor) {
         @for (mapItem of mapConstructor; track $index) {
           <path
-            [ngClass]="{'fill-crimson hover:fill-gold cursor-pointer transition-colors duration-500 ease-in-out': mapItem.mapStatus}"
+            [ngClass]="{'fill-main hover:fill-gold cursor-pointer transition-colors duration-500 ease-in-out': mapItem.mapStatus}"
             [id]="mapItem.mapId"
             [attr.name]="mapItem.mapName"
             [attr.d]="mapItem.mapD"

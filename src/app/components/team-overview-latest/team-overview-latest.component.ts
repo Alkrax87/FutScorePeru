@@ -17,11 +17,11 @@ import { LatestsMatches } from '../../interfaces/ui-models/team-overview';
   template: `
     <div class="flex flex-col text-white">
       <div class="flex">
-        <div class="bg-crimson h-8 font-bold px-2 flex items-center w-fit text-nowrap">Últimos partidos</div>
+        <div class="bg-main h-8 font-bold px-2 flex items-center w-fit text-nowrap">Últimos partidos</div>
         <div class="
           relative right-[0.1px] w-0 h-0 border-solid
           border-t-[32px] border-r-0 border-b-0 border-l-[24px]
-          border-t-neutral-100 border-r-neutral-100 border-b-neutral-100 border-l-crimson
+          border-t-neutral-100 border-r-neutral-100 border-b-neutral-100 border-l-main
         "></div>
         <div class="bg-neutral-100 text-night font-semibold px-2 flex items-center truncate">{{ title }}</div>
         <div class="

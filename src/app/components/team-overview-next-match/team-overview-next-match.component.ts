@@ -25,7 +25,7 @@ import { NextMatch } from '../../interfaces/ui-models/team-overview';
               @case (3) { <img src="assets/images/pages/liga-3.webp" alt="L3-Logo" class="bg-white rounded-full p-1 h-10 w-10"> }
             }
             <p>PRÓXIMO PARTIDO</p>
-            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2 w-32"></div>
+            <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2 w-32"></div>
           </div>
           <div class="
             relative right-[0.1px] w-0 h-0 border-solid

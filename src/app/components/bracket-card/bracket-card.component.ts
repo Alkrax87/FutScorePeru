@@ -11,7 +11,7 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
       <div class="flex items-center justify-between">
         <div class="w-fit">
           <p class="text-base sm:text-lg font-semibold duration-500">{{ bracket.matchKey }}</p>
-          <div class="bg-crimson h-1 w-full skew-x-50"></div>
+          <div class="bg-main h-1 w-full skew-x-50"></div>
         </div>
         @if (bracket.nextKey) {
           <div>
@@ -57,7 +57,7 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
                         <p>{{ team.results.firstLegScore + team.results.secondLegScore }}</p>
                       }
                       @if (team.results.penalties !== null) {
-                        <div class="bg-crimson flex items-center gap-1 rounded-lg px-1 text-white">
+                        <div class="bg-main flex items-center gap-1 rounded-lg px-1 text-white">
                           <fa-icon class="text-xxs sm:text-xs" [icon]="Penalty"></fa-icon>
                           <span>{{ team.results.penalties }}</span>
                         </div>
@@ -65,7 +65,7 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
                     } @else {
                       <p>{{ team.results.firstLegScore }}</p>
                       @if (team.results.penalties !== null) {
-                        <div class="bg-crimson flex items-center gap-1 rounded-lg px-1 text-white">
+                        <div class="bg-main flex items-center gap-1 rounded-lg px-1 text-white">
                           <fa-icon class="text-xxs sm:text-xs" [icon]="Penalty"></fa-icon>
                           <span>{{ team.results.penalties }}</span>
                         </div>

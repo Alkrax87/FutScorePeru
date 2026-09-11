@@ -1,26 +1,26 @@
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
 
 @Component({
   selector: 'app-statistics-card',
-  imports: [FontAwesomeModule, RouterModule],
+  imports: [FaIconComponent, RouterModule],
   template: `
     <div>
       @for (item of data; track $index) {
         @if ($index == 0) {
           <div>
             <div class="flex">
-              <div class="bg-crimson w-fit h-7 text-sm font-bold px-2 flex items-center">{{ cardTitle }}</div>
+              <div class="bg-main w-fit h-7 text-sm font-bold px-2 flex items-center">{{ cardTitle }}</div>
               <div class="
                 relative right-[0.1px] w-0 h-0 border-solid
                 border-t-[28px] border-r-0 border-b-0 border-l-[28px]
-                border-t-transparent  border-r-transparent border-b-transparent border-l-crimson
+                border-t-transparent  border-r-transparent border-b-transparent border-l-main
               "></div>
             </div>
-            <div [routerLink]="['../', 'club', item.category, item.teamId]" class="bg-crimson hover:bg-crimson-hover background-pattern h-32 cursor-pointer flex justify-between p-2">
+            <div [routerLink]="['../', 'club', item.category, item.teamId]" class="bg-main hover:bg-main-hover background-pattern h-32 cursor-pointer flex justify-between p-2">
               <div class="flex flex-col justify-between truncate">
                 <div>
                   <p class="font-bold text-xs">{{ $index + 1 }}</p>

@@ -33,14 +33,14 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
           <div>
             <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo 1</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Group1"></app-table>
           </div>
           <div>
             <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo 2</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Group2"></app-table>
           </div>
@@ -59,35 +59,35 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
           <div>
             <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo Campeonato 1</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <app-table [config]="configPhase2Promotion" [headers]="headers" [data]="dataPhase2GroupPromotion1"></app-table>
           </div>
           <div>
             <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo Campeonato 2</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <app-table [config]="configPhase2Promotion" [headers]="headers" [data]="dataPhase2GroupPromotion2"></app-table>
           </div>
           <div>
             <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo Campeonato 3</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <app-table [config]="configPhase2Promotion" [headers]="headers" [data]="dataPhase2GroupPromotion3"></app-table>
           </div>
           <div>
             <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo Descenso 1</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <app-table [config]="configPhase2Relegation" [headers]="headers" [data]="dataPhase2GroupRelegation1"></app-table>
           </div>
           <div>
             <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo Descenso 2</h3>
-              <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
             </div>
             <app-table [config]="configPhase2Relegation" [headers]="headers" [data]="dataPhase2GroupRelegation2"></app-table>
           </div>
@@ -99,7 +99,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             <div>
               <div class="w-fit">
                 <h3 class="text-3xl text-white font-bold">Cuartos de Final</h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataPlayOffs4; track $index) {
@@ -110,7 +110,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             <div>
               <div class="w-fit">
                 <h3 class="text-3xl text-white font-bold">Semifinales</h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 @for (bracket of dataPlayOffs2; track $index) {
@@ -121,7 +121,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             <div>
               <div class="w-fit">
                 <h3 class="text-3xl text-white font-bold">Final</h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <app-bracket-card [bracket]="dataPlayOffs1[0]" [dualMatch]="true" [lastMatch]="'Campeón Liga 2'"></app-bracket-card>
@@ -130,7 +130,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             <div>
               <div class="w-fit">
                 <h3 class="text-3xl text-white font-bold">Play-Offs de Ascenso</h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               <div class="text-white text-sm mt-2 mb-3">
                 <p><b class="text-gold">Repechaje:</b> Los equipos que perdieron las <b>semifinales</b> se enfrentan para acceder a una segunda opción de ascenso.</p>

@@ -18,11 +18,11 @@ import { StandingsTable } from '../../interfaces/ui-models/team-overview';
     <div class="flex flex-col">
       <!-- Title -->
       <div class="flex">
-        <div class="bg-crimson text-white h-8 font-bold px-2 flex items-center w-fit text-nowrap">Posición</div>
+        <div class="bg-main text-white h-8 font-bold px-2 flex items-center w-fit text-nowrap">Posición</div>
         <div class="
           relative right-[0.1px] w-0 h-0 border-solid
           border-t-[32px] border-r-0 border-b-0 border-l-[24px]
-          border-t-neutral-100 border-r-neutral-100 border-b-neutral-100 border-l-crimson
+          border-t-neutral-100 border-r-neutral-100 border-b-neutral-100 border-l-main
         "></div>
         <div class="bg-neutral-100 text-night font-semibold px-2 flex items-center truncate">{{ title }}</div>
         <div class="
@@ -88,7 +88,7 @@ import { StandingsTable } from '../../interfaces/ui-models/team-overview';
         </table>
       </div>
       <div class="flex justify-end mt-2">
-        <span [routerLink]="['../../../../', 'tabla']" class="font-semibold text-gold hover:text-crimson cursor-pointer duration-300">
+        <span [routerLink]="['../../../../', 'tabla']" class="font-semibold text-gold hover:text-main cursor-pointer duration-300">
           Ver Tabla Completa <fa-icon [icon]="Arrow"></fa-icon>
         </span>
       </div>

@@ -37,7 +37,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
       }
     </div>
     @if (playOff) {
-      <div class="bg-crimson background-pattern px-3 md:px-16 py-12 select-none duration-500">
+      <div class="bg-main background-pattern px-3 md:px-16 py-12 select-none duration-500">
         <p class="text-white font-bold text-6xl text-center md:text-start">Fase de Play-Offs</p>
       </div>
       <div class="bg-night py-10 lg:py-16 px-3 sm:px-5 duration-500 select-none">
@@ -46,7 +46,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             <div class="w-full md:w-1/2">
               <div class="w-fit">
                 <h3 class="text-3xl text-white font-bold">Semifinales</h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               @for (bracket of dataPlayOff2; track $index) {
                 <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
@@ -55,7 +55,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             <div class="w-full md:w-1/2">
               <div class="w-fit">
                 <h3 class="text-3xl text-white font-bold">Final</h3>
-                <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
               </div>
               @for (bracket of dataPlayOff1; track $index) {
                 <app-bracket-card [bracket]="bracket" [dualMatch]="true" [lastMatch]="'Subcampeón Liga 1'"></app-bracket-card>

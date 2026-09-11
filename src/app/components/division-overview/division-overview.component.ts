@@ -11,7 +11,7 @@ import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons
       <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row gap-3 sm:gap-5 duration-500">
         <!-- Summary -->
         <div class="w-full md:w-1/2 place-content-center">
-          <div class="bg-crimson background-pattern text-white w-full text-center image p-3 lg:p-5 duration-500">
+          <div class="bg-main background-pattern text-white w-full text-center image p-3 lg:p-5 duration-500">
             <p class="text-white font-bold text-3xl lg:text-4xl duration-500">
               {{ division.category }}<sup class="text-xl lg:text-2xl duration-500">{{ division.sup }}</sup> División
             </p>
@@ -33,7 +33,7 @@ import { faCalendarAlt, faShieldHalved } from '@fortawesome/free-solid-svg-icons
         <div class="w-full md:w-1/2 place-content-center">
           <div class="w-fit">
             <h3 class="text-2xl text-white font-bold">Acerca de</h3>
-            <div class="bg-crimson skew-x-50 h-1.5 mt-1 mb-2"></div>
+            <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <p class="text-neutral-300 my-2 sm:my-4 text-justify">{{ division.description }}</p>
           <div class="flex flex-wrap gap-3">

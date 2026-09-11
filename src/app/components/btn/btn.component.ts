@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-btn',
   imports: [NgClass],
   template: `
-    <button class="switch-button bg-crimson w-full select-none outline-none"
+    <button class="switch-button bg-main w-full select-none outline-none"
       [ngClass]="{ active: active, 'btn-small': small, 'btn-base': !small }"
     >
       <span>
