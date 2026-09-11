@@ -30,7 +30,7 @@ import { RouterLink } from '@angular/router';
             @if (item.category === undefined) {
               <img loading="lazy" class="w-8 md:w-10" [src]="item.imageThumbnail ? item.imageThumbnail : 'assets/images/pages/no-team.webp'" [alt]="item.alt">
             } @else {
-              <img [routerLink]="['../', 'club', item.category, item.teamId]" loading="lazy" class="w-8 md:w-10 cursor-pointer" [src]="item.imageThumbnail ? item.imageThumbnail : 'assets/images/pages/no-team.webp'" [alt]="item.alt">
+              <img loading="lazy" [routerLink]="['../', 'club', item.category, item.teamId]" class="w-8 md:w-10 cursor-pointer" [src]="item.imageThumbnail ? item.imageThumbnail : 'assets/images/pages/no-team.webp'" [alt]="item.alt">
             }
           }
         </div>

@@ -1,12 +1,12 @@
 import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FontAwesomeModule, IconDefinition } from "@fortawesome/angular-fontawesome";
+import { FaIconComponent, IconDefinition } from "@fortawesome/angular-fontawesome";
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-section-subnav',
-  imports: [RouterModule, FontAwesomeModule, NgClass],
+  imports: [RouterModule, FaIconComponent, NgClass],
   template: `
     <!-- Desktop Menu -->
     <div class="hidden md:block select-none sticky top-12 z-40">

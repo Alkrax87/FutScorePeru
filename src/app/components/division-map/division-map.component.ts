@@ -19,7 +19,7 @@ import { TeamMap } from '../../interfaces/ui-models/team-map';
             <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
           </div>
           <div class="grid grid-cols-2 xl:grid-cols-3 gap-1 justify-center my-2">
-            @for (region of regions; track $index) {
+            @for (region of regions; track region.name) {
               <div class="grid-cols-1">
                 <app-city-card [city]="region"></app-city-card>
               </div>
@@ -45,5 +45,6 @@ export class DivisionMapComponent {
   @Input() regions!: { name: string; teams: number }[];
   @Input() mapConstructor!: MapElement[];
   @Input() dataMap!: TeamMap[];
+
   Shield = faShieldHalved;
 }
