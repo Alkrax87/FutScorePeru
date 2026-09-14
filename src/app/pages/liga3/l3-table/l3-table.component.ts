@@ -100,57 +100,55 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
         </div>
       }
       @if (playOff) {
-        @if (dataPlayOffs4.length > 0 && dataPlayOffs2.length > 0 && dataPlayOffs1.length > 0 && dataPlayOffsExtra.length > 0) {
+        @if (
+          dataPlayOffs4.length > 0 &&
+          dataPlayOffs2.length > 0 &&
+          dataPlayOffs1.length > 0
+        ) {
           <div class="max-w-screen-xl mx-auto flex flex-col justify-center gap-4">
-            <div>
-              <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Cuartos de Final</h3>
-                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+            <div class="flex flex-col gap-5 mx-3 md:mx-5 duration-500">
+              <!-- 4tos -->
+              <div>
+                <div class="w-fit">
+                  <h3 class="text-3xl text-white font-bold">Cuartos de Final</h3>
+                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 duration-500">
+                  @for (bracket of dataPlayOffs4; track $index) {
+                    <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                  }
+                </div>
               </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                @for (bracket of dataPlayOffs4; track $index) {
-                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                }
+              <!-- Semifinales -->
+              <div>
+                <div class="w-fit">
+                  <h3 class="text-3xl text-white font-bold">Semifinales</h3>
+                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 duration-500">
+                  @for (bracket of dataPlayOffs2; track $index) {
+                    <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                  }
+                </div>
               </div>
-            </div>
-            <div>
-              <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Semifinales</h3>
-                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                @for (bracket of dataPlayOffs2; track $index) {
-                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                }
-              </div>
-            </div>
-            <div>
-              <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Final</h3>
-                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <app-bracket-card [bracket]="dataPlayOffs1[0]" [dualMatch]="true" [lastMatch]="'Campeón Liga 3'"></app-bracket-card>
-              </div>
-            </div>
-            <div>
-              <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Play-Off de Ascenso</h3>
-                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-              </div>
-              <div class="text-white text-sm mt-2 mb-3">
-                <p><b class="text-gold">Play-Off:</b> Los <b>subcampeones</b> de la <b>Liga 3</b> y <b>Copa Peru</b> se enfrentan para acceder a una segunda opción de ascenso a <b>Liga 2</b>.</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                @for (bracket of dataPlayOffsExtra; track $index) {
-                  <app-bracket-card [bracket]="bracket" [dualMatch]="true" [lastMatch]="'Ganador Play-Off'"></app-bracket-card>
-                }
+              <!-- Final -->
+              <div>
+                <div class="w-fit">
+                  <h3 class="text-3xl text-white font-bold">Final</h3>
+                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 duration-500">
+                  <app-bracket-card [bracket]="dataPlayOffs1[0]" [dualMatch]="true" [lastMatch]="'Campeón Liga 3'"></app-bracket-card>
+                </div>
               </div>
             </div>
           </div>
         } @else {
-          <div class="flex h-64 justify-center items-center select-none">
-            <h3 class="text-2xl text-white font-bold">Play-Offs por definir...</h3>
+          <div class="max-w-screen-xl mx-auto">
+            <div class="bg-nightfall py-20 text-center mx-3 md:mx-5 duration-500">
+              <p class="text-main font-semibold text-3xl">Play-Offs</p>
+              <p class="text-white">LLaves de clasificación por definir.</p>
+            </div>
           </div>
         }
       }
@@ -175,7 +173,7 @@ export class L3TableComponent {
   configPhase1 = [
     { active: true, name: 'Grupos de Ascenso', image: 'assets/images/pages/Group-Promotion.svg', class: 'bg-gpromotion', quantity: 4 },
     { active: false },
-    { active: true, name: 'Descenso', image: 'assets/images/pages/Relegation.svg', class: 'bg-relegation', quantity: 2 },
+    { active: true, name: 'Descenso a Copa Perú', image: 'assets/images/pages/Relegation.svg', class: 'bg-relegation', quantity: 2 },
   ];
   configPhase2 = [
     { active: true, name: 'PlayOffs', image: 'assets/images/pages/Bracket-Quarter.svg', class: 'bg-quarter', quantity: 2},
@@ -191,13 +189,13 @@ export class L3TableComponent {
   dataPlayOffs4: MatchCard[] = [];
   dataPlayOffs2: MatchCard[] = [];
   dataPlayOffs1: MatchCard[] = [];
-  dataPlayOffsExtra: MatchCard[] = [];
 
   Soccer = faSoccerBall;
 
   constructor() {
     this.teamsPerformanceService.fetchTeamsPerformanceL3();
     this.teamsFormService.fetchTeamsFormL3();
+    this.bracketsService.fetchBracketsL3();
 
     combineLatest([
       this.divisionsService.divisionL3$,
@@ -220,11 +218,10 @@ export class L3TableComponent {
         this.dataPhase2FinalC = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f3');
         this.dataPhase2FinalD = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f4');
 
-        if (brackets[0] && brackets[0].bracket4 && brackets[0].bracket2 && brackets[0].bracket1 && brackets[0].bracketExtra) {
-          this.dataPlayOffs4 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket4);
-          this.dataPlayOffs2 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket2);
-          this.dataPlayOffs1 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket1);
-          this.dataPlayOffsExtra = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracketExtra);
+        if (teams && brackets) {
+          this.dataPlayOffs4 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket4);
+          this.dataPlayOffs2 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket2);
+          this.dataPlayOffs1 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket1);
         }
       }
     });

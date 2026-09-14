@@ -77,6 +77,12 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
             </div>
             <app-table [config]="configPhase2Promotion" [headers]="headers" [data]="dataPhase2GroupPromotion3"></app-table>
           </div>
+          <div class="text-white px-3 sm:px-5">
+            <p class="font-semibold"><fa-icon [icon]="Soccer"></fa-icon> Siguiente fase</p>
+            <ul>
+              <li>- Los <b class="text-gold">tres primeros</b> y el <b class="text-gold">mejor segundo</b> de los grupos de ascenso clasifican a <b class="text-gold">Semifinales</b></li>
+            </ul>
+          </div>
           <div>
             <div class="w-fit px-3 sm:px-5">
               <h3 class="text-3xl text-white font-bold">Grupo Descenso 1</h3>
@@ -94,57 +100,61 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
         </div>
       }
       @if (playOff) {
-        @if (dataPlayOffs4.length > 0 && dataPlayOffs2.length > 0 && dataPlayOffs1.length > 0 && dataPlayOffsExtra.length > 0) {
+        @if (
+          dataPlayOffs2.length > 0 &&
+          dataPlayOffs1.length > 0 &&
+          dataPlayOffsExtra.length > 0
+        ) {
           <div class="max-w-screen-xl mx-auto flex flex-col justify-center gap-4">
-            <div>
-              <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Cuartos de Final</h3>
-                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+            <div class="flex flex-col gap-5 mx-3 md:mx-5 duration-500">
+              <!-- Semifinales -->
+              <div>
+                <div class="w-fit">
+                  <h3 class="text-3xl text-white font-bold">Semifinales</h3>
+                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 duration-500">
+                  @for (bracket of dataPlayOffs2; track $index) {
+                    <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
+                  }
+                </div>
               </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                @for (bracket of dataPlayOffs4; track $index) {
-                  <app-bracket-card [bracket]="bracket"></app-bracket-card>
-                }
+              <!-- Final -->
+              <div>
+                <div class="w-fit">
+                  <h3 class="text-3xl text-white font-bold">Final</h3>
+                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 duration-500">
+                  <app-bracket-card [bracket]="dataPlayOffs1[0]" [dualMatch]="true" [lastMatch]="'Campeón Liga 2'"></app-bracket-card>
+                </div>
               </div>
-            </div>
-            <div>
-              <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Semifinales</h3>
-                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                @for (bracket of dataPlayOffs2; track $index) {
-                  <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                }
-              </div>
-            </div>
-            <div>
-              <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Final</h3>
-                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <app-bracket-card [bracket]="dataPlayOffs1[0]" [dualMatch]="true" [lastMatch]="'Campeón Liga 2'"></app-bracket-card>
-              </div>
-            </div>
-            <div>
-              <div class="w-fit">
-                <h3 class="text-3xl text-white font-bold">Play-Offs de Ascenso</h3>
-                <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-              </div>
-              <div class="text-white text-sm mt-2 mb-3">
-                <p><b class="text-gold">Repechaje:</b> Los equipos que perdieron las <b>semifinales</b> se enfrentan para acceder a una segunda opción de ascenso.</p>
-                <p><b class="text-gold">Subcampeón:</b> El equipo <b>ganador del repechaje</b> y el <b>perdedor de la final</b> se enfrentan para definir el subcampeón de la <b>Liga 2</b>.</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                <app-bracket-card [bracket]="dataPlayOffsExtra[0]" [dualMatch]="true"></app-bracket-card>
-                <app-bracket-card [bracket]="dataPlayOffsExtra[1]" [dualMatch]="true" [lastMatch]="'Subcampeón Liga 2'"></app-bracket-card>
+              <!-- Play-Offs de Ascenso -->
+              <div>
+                <div class="w-fit">
+                  <h3 class="text-3xl text-white font-bold">Play-Offs de Ascenso</h3>
+                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 duration-500">
+                  <app-bracket-card [bracket]="dataPlayOffsExtra[0]" [dualMatch]="true"></app-bracket-card>
+                  <app-bracket-card [bracket]="dataPlayOffsExtra[1]" [dualMatch]="false" [lastMatch]="'Subcampeón Liga 2'"></app-bracket-card>
+                </div>
+                <div class="text-white mt-4">
+                  <p class="font-semibold"><fa-icon [icon]="Soccer"></fa-icon> Formato</p>
+                  <ul>
+                    <li>- Los equipos que perdieron las <b class="text-gold">semifinales</b> se enfrentan para acceder a una segunda opción de ascenso.</li>
+                    <li>- El equipo <b class="text-gold">ganador del repechaje</b> y el <b class="text-gold">perdedor de la final</b> se enfrentan para definir el subcampeón de la <b class="text-gold">Liga 2</b>.</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         } @else {
-          <div class="flex h-64 justify-center items-center select-none">
-            <h3 class="text-2xl text-white font-bold">Play-Offs por definir...</h3>
+          <div class="max-w-screen-xl mx-auto">
+            <div class="bg-nightfall py-20 text-center mx-3 md:mx-5 duration-500">
+              <p class="text-main font-semibold text-3xl">Play-Offs</p>
+              <p class="text-white">LLaves de clasificación por definir.</p>
+            </div>
           </div>
         }
       }
@@ -171,12 +181,12 @@ export class L2TableComponent {
     { active: true, name: 'Grupo Descenso', image: 'assets/images/pages/Group-Relegation.svg', class: 'bg-grelegation', quantity: 3 },
   ];
   configPhase2Promotion = [
-    { active: true, name: 'Play-Offs', image: 'assets/images/pages/Bracket-Semifinalist.svg', class: 'bg-promotion', quantity: 1 },
+    { active: true, name: 'Semifinales', image: 'assets/images/pages/Bracket-Semifinalist.svg', class: 'bg-promotion', quantity: 1 },
   ];
   configPhase2Relegation = [
     { active: false },
     { active: false },
-    { active: true, name: 'Descenso', image: 'assets/images/pages/Relegation.svg', class: 'bg-relegation', quantity: 1 },
+    { active: true, name: 'Descenso a Liga 3', image: 'assets/images/pages/Relegation.svg', class: 'bg-relegation', quantity: 1 },
   ];
   dataPhase1Group1: TeamTable[] = [];
   dataPhase1Group2: TeamTable[] = [];
@@ -185,7 +195,6 @@ export class L2TableComponent {
   dataPhase2GroupPromotion3: TeamTable[] = [];
   dataPhase2GroupRelegation1: TeamTable[] = [];
   dataPhase2GroupRelegation2: TeamTable[] = [];
-  dataPlayOffs4: MatchCard[] = [];
   dataPlayOffs2: MatchCard[] = [];
   dataPlayOffs1: MatchCard[] = [];
   dataPlayOffsExtra: MatchCard[] = [];
@@ -195,6 +204,7 @@ export class L2TableComponent {
   constructor() {
     this.teamsPerformanceService.fetchTeamsPerformanceL2();
     this.teamsFormService.fetchTeamsFormL2();
+    this.bracketsService.fetchBracketsL2();
 
     combineLatest([
       this.divisionsService.divisionL2$,
@@ -216,11 +226,10 @@ export class L2TableComponent {
         this.dataPhase2GroupRelegation1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'r1');
         this.dataPhase2GroupRelegation2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'r2');
 
-        if (brackets[0] && brackets[0].bracket4 && brackets[0].bracket2 && brackets[0].bracket1 && brackets[0].bracketExtra) {
-          this.dataPlayOffs4 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket4);
-          this.dataPlayOffs2 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket2);
-          this.dataPlayOffs1 = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracket1);
-          this.dataPlayOffsExtra = this.uiDataMapperService.bracketsCardMapper(teams, brackets[0].bracketExtra);
+        if (teams && brackets) {
+          this.dataPlayOffs2 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket2);
+          this.dataPlayOffs1 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket1);
+          this.dataPlayOffsExtra = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracketExtra);
         }
       }
     });
