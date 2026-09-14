@@ -1,28 +1,31 @@
 import { Component, Input } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { MatchCard } from '../../interfaces/ui-models/match-card';
 import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bracket-card',
-  imports: [FontAwesomeModule],
+  imports: [FaIconComponent],
   template: `
     <div class="bg-nightfall text-white w-full p-3 select-none">
+      <!-- Top -->
       <div class="flex items-center justify-between">
+        <!-- Key -->
         <div class="w-fit">
           <p class="text-base sm:text-lg font-semibold duration-500">{{ bracket.matchKey }}</p>
-          <div class="bg-main h-1 w-full skew-x-50"></div>
         </div>
+        <!-- Next Key -->
         @if (bracket.nextKey) {
           <div>
-            <div class="flex gap-1 text-xxs sm:text-xs rounded-full border-2 border-gold px-2 text-gold duration-500">
+            <div class="flex gap-1 text-xxs sm:text-xs rounded-full border-2 border-gold px-2 py-0.5 text-gold duration-500">
               <fa-icon [icon]="Arrow"></fa-icon>
               <p>{{ bracket.nextKey }}</p>
             </div>
           </div>
         }
       </div>
-      <div class="overflow-x-auto mt-1">
+      <!-- Content -->
+      <div class="overflow-x-auto mt-2">
         <table class="w-full">
           <thead class="text-gray-300 border-b-2 text-xxs border-neutral-600">
             <tr>
@@ -38,7 +41,7 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
             @for (team of bracket.teams; track $index) {
               <tr>
                 <td class="flex text-start items-center gap-1">
-                  <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" alt="Team{{$index}}Bracket-Logo" class="w-8 sm:w-10 duration-500">
+                  <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" [alt]="'Team' + $index + 'Bracket-Logo'" class="w-8 sm:w-10 duration-500">
                   <div class="truncate">
                     <p class="truncate">{{ team.name ? team.name : 'Por Definir' }}</p>
                     @if (team.location) {

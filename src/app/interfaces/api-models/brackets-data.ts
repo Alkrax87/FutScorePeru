@@ -1,10 +1,29 @@
-import { BracketData } from './bracket-data';
+export interface MatchBracket {
+  matchKey: string;
+  nextKey: string;
+  teamA: {
+    teamId: string;
+    results: {
+      firstLegScore: number | null;
+      secondLegScore: number | null;
+      penaltyScore: number | null;
+    };
+  };
+  teamB: {
+    teamId: string;
+    results: {
+      firstLegScore: number | null;
+      secondLegScore: number | null;
+      penaltyScore: number | null;
+    };
+  };
+}
 
 export interface BracketsData {
-  bracket16?: BracketData[];
-  bracket8?: BracketData[];
-  bracket4?: BracketData[];
-  bracket2?: BracketData[];
-  bracket1?: BracketData[];
-  bracketExtra?: BracketData[];
+  bracket16: MatchBracket[];
+  bracket8: MatchBracket[];
+  bracket4: MatchBracket[];
+  bracket2: MatchBracket[];
+  bracket1: MatchBracket[];
+  bracketExtra: MatchBracket[];
 }
