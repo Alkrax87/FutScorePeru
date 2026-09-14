@@ -12,15 +12,15 @@ export class FetchBracketsService {
 
   private http = inject(HttpClient);
 
-  private cachedBracketL1: BracketsData[] | null = null;
-  private cachedBracketL2: BracketsData[] | null = null;
-  private cachedBracketL3: BracketsData[] | null = null;
-  private cachedBracketsCP: BracketsData[] | null = null;
+  private cachedBracketL1: BracketsData | null = null;
+  private cachedBracketL2: BracketsData | null = null;
+  private cachedBracketL3: BracketsData | null = null;
+  private cachedBracketsCP: BracketsData | null = null;
 
-  private bracketsL1Subject = new BehaviorSubject<BracketsData[]>([]);
-  private bracketsL2Subject = new BehaviorSubject<BracketsData[]>([]);
-  private bracketsL3Subject = new BehaviorSubject<BracketsData[]>([]);
-  private bracketsCPSubject = new BehaviorSubject<BracketsData[]>([]);
+  private bracketsL1Subject = new BehaviorSubject<BracketsData | null>(null);
+  private bracketsL2Subject = new BehaviorSubject<BracketsData | null>(null);
+  private bracketsL3Subject = new BehaviorSubject<BracketsData | null>(null);
+  private bracketsCPSubject = new BehaviorSubject<BracketsData | null>(null);
 
   bracketsL1$ = this.bracketsL1Subject.asObservable();
   bracketsL2$ = this.bracketsL2Subject.asObservable();
@@ -33,7 +33,7 @@ export class FetchBracketsService {
       return;
     }
 
-    this.http.get<BracketsData[]>(this.backendUrl + '/brackets/1').subscribe({
+    this.http.get<BracketsData>(this.backendUrl + '/brackets/category/1').subscribe({
       next: (response) => {
         this.cachedBracketL1 = response;
         this.bracketsL1Subject.next(response);
@@ -48,7 +48,7 @@ export class FetchBracketsService {
       return;
     }
 
-    this.http.get<BracketsData[]>(this.backendUrl + '/brackets/2').subscribe({
+    this.http.get<BracketsData>(this.backendUrl + '/brackets/category/2').subscribe({
       next: (response) => {
         this.cachedBracketL2 = response;
         this.bracketsL2Subject.next(response);
@@ -63,7 +63,7 @@ export class FetchBracketsService {
       return;
     }
 
-    this.http.get<BracketsData[]>(this.backendUrl + '/brackets/3').subscribe({
+    this.http.get<BracketsData>(this.backendUrl + '/brackets/category/3').subscribe({
       next: (response) => {
         this.cachedBracketL3 = response;
         this.bracketsL3Subject.next(response);
@@ -78,7 +78,7 @@ export class FetchBracketsService {
       return;
     }
 
-    this.http.get<BracketsData[]>(this.backendUrl + '/brackets/4').subscribe({
+    this.http.get<BracketsData>(this.backendUrl + '/brackets/category/4').subscribe({
       next: (response) => {
         this.cachedBracketsCP = response;
         this.bracketsCPSubject.next(response);
