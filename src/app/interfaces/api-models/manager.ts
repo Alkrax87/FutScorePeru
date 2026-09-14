@@ -1,5 +1,5 @@
 export interface Manager {
-  managerId: string;
+  _id:string;
   teamId: string;
   name: string;
   cod: string;

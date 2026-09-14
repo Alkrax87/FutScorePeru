@@ -1,7 +1,6 @@
 export interface Division {
   category: number;
   name: string;
-  sup: string;
   image: string;
   teams: number;
   season: number;
@@ -11,11 +10,13 @@ export interface Division {
   phase1: {
     name: string;
     inGame: number;
+    max: number;
     status: boolean;
   };
   phase2: {
     name: string;
     inGame: number;
+    max: number;
     status: boolean;
   };
   phase3: {

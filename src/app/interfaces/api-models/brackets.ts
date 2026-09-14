@@ -19,7 +19,8 @@ export interface MatchBracket {
   };
 }
 
-export interface BracketsData {
+export interface Brackets {
+  category: number;
   bracket16: MatchBracket[];
   bracket8: MatchBracket[];
   bracket4: MatchBracket[];

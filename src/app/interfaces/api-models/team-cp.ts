@@ -3,6 +3,6 @@ export interface TeamCP {
   name: string;
   abbreviation: string;
   image: string;
-  city: string;
   location: string;
+  city: string;
 }

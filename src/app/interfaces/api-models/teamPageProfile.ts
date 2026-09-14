@@ -11,23 +11,21 @@ export interface TeamPageProfile {
     background: string;
     alt: string;
     location: string;
-    stadium: number;
     color: {
       c1: string;
       c2: string;
     };
   };
   teamDetailsData: {
-    category: string;
     description: string;
     founded: number;
-    website?: string;
+    website: string;
     social: {
-      facebook?: string;
-      instagram?: string;
-      twitter?: string;
-      youtube?: string;
-      tiktok?: string;
+      facebook: string;
+      instagram: string;
+      twitter: string;
+      youtube: string;
+      tiktok: string;
     };
   };
   stadiumData: {
@@ -37,12 +35,23 @@ export interface TeamPageProfile {
     image: string;
   },
   teamFixtureData: {
-    round: number;
-    home: string;
-    away: string;
-    postponed: boolean;
-    date: Date | null;
-  }[];
+    phase1: {
+      round: number;
+      home: string;
+      away: string;
+      postponed: boolean;
+      date: Date | null;
+      isRest: boolean;
+    }[];
+    phase2: {
+      round: number;
+      home: string;
+      away: string;
+      postponed: boolean;
+      date: Date | null;
+      isRest: boolean;
+    }[];
+  };
   teamOverviewData: {
     nextMatch: {
       round: number;
@@ -50,6 +59,7 @@ export interface TeamPageProfile {
       away: string;
       postponed: boolean;
       date: Date | null;
+      isRest: boolean;
     },
     latest: {
       phase1: {

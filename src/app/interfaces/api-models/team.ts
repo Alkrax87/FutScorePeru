@@ -13,6 +13,6 @@ export interface Team {
   stadium: string;
   color: {
     c1: string;
-    c2?: string;
+    c2: string;
   };
 }
