@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
 
 @Component({
   selector: 'app-statistics-card',
-  imports: [FaIconComponent, RouterModule],
+  imports: [FaIconComponent, RouterLink],
   template: `
     <div>
-      @for (item of data; track $index) {
+      @for (item of data; track item.teamId) {
         @if ($index == 0) {
           <div>
             <div class="flex">
@@ -43,7 +43,7 @@ import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
               </div>
             </div>
             <div class="w-10 font-semibold text-lg flex justify-between">
-              <fa-icon class="text-xxs text-gold" [icon]="Arrow"></fa-icon>
+              <fa-icon class="text-xs text-gold my-auto" [icon]="Arrow"></fa-icon>
               <p class="mx-auto">{{ item.value }}</p>
             </div>
           </div>
@@ -54,7 +54,8 @@ import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
   styles: ``,
 })
 export class StatisticsCardComponent {
-  @Input() cardTitle!: string;
-  @Input() data!: StatisticCard[];
+  @Input() cardTitle: string = "";
+  @Input() data: StatisticCard[] = [];
+
   Arrow = faChevronRight;
 }

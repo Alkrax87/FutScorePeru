@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ManagerCardComponent } from '../manager-card/manager-card.component';
-import { ManagerCard } from '../../interfaces/ui-models/manager-card';
+import { ManagerCard } from '../../interfaces/ui-models/manager-carousel';
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -49,7 +49,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
   styles: ``,
 })
 export class ManagerCarouselComponent {
-  @Input() data!: ManagerCard[];
+  @Input() data: ManagerCard[] = [];
   currentIndex: number = 0;
 
   Prev = faChevronLeft;

@@ -7,15 +7,15 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
   selector: 'app-fixture',
   imports: [RouterLink, DatePipe, TitleCasePipe, NgClass],
   template: `
-    <div class="bg-night select-none flex flex-col gap-8">
+    <div class="select-none flex flex-col gap-4">
       @for (item of data; track $index) {
         <div>
           <!-- Date -->
-          <div class="flex justify-center items-center mb-3">
+          <div class="flex justify-center items-center mb-2">
             @if (item.date) {
-              <span class="bg-main text-white px-5 font-semibold py-1">{{ item.date | date:'EEEE d MMMM' | titlecase }}</span>
+              <span class="bg-main text-white px-5 text-sm font-semibold py-1">{{ item.date | date: 'EEEE d MMMM' | titlecase }}</span>
             } @else {
-              <span class="bg-main text-white px-5 font-semibold py-1">Por Definir</span>
+              <span class="bg-main text-white px-5 text-sm font-semibold py-1">Por Definir</span>
             }
           </div>
           <!-- Matches -->
@@ -25,43 +25,43 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
                 <!-- Group -->
                 @if (match.group) {
                   <div class="flex justify-center">
-                    <div class="relative flex-none border-r-[16px] border-t-[16px] border-r-transparent border-t-night bg-white"></div>
+                    <div class="relative border-r-[18px] border-t-[18px] border-r-transparent border-t-night bg-white"></div>
                     <div class="bg-white w-fit text-xs px-4 font-semibold text-center">Grupo {{ match.group.toUpperCase() }}</div>
-                    <div class="relative flex-none border-l-[16px] border-t-[16px] border-l-transparent border-t-night bg-white"></div>
+                    <div class="relative border-l-[18px] border-t-[18px] border-l-transparent border-t-night bg-white"></div>
                   </div>
                 }
                 <!-- Match -->
                 <div class="bg-nightfall text-white flex justify-center gap-1 p-1">
                   <!-- Left Team-->
                   <div class="w-full flex justify-end">
-                    <div class="flex items-center" [ngClass]="{'cursor-pointer': match.category !== 4}" [routerLink]="match.category !== 4 ? ['../', 'club', match.category, match.homeTeamId] : null">
-                      <p class="text-sm font-semibold">
-                        <span class="hidden sm:block">{{ match.homeTeamName }}</span>
-                        <span class="block sm:hidden font-bold">{{ match.homeTeamAbbreviation }}</span>
+                    <div class="flex items-center" [ngClass]="{ 'cursor-pointer': match.home.category !== 4 }" [routerLink]="match.home.category !== 4 ? ['../', 'club', match.home.category, match.home.teamId] : null">
+                      <p class="text-sm">
+                        <span class="hidden sm:block font-semibold">{{ match.home.name }}</span>
+                        <span class="block sm:hidden font-bold">{{ match.home.abbreviation }}</span>
                       </p>
-                      <img [src]="match.homeTeamImageThumbnail" [alt]="match.homeTeamAlt" class="w-10 mx-1"/>
+                      <img loading="lazy" [src]="match.home.imageThumbnail" [alt]="match.home.alt" class="w-10 h-10 ml-2" />
                     </div>
                   </div>
                   <!-- Match Results -->
                   <div class="flex min-w-24 gap-1">
-                    @if (match.homeTeamResult !== null && match.awayTeamResult !== null) {
+                    @if (match.home.result !== null && match.away.result !== null) {
                       <div class="bg-brightnight flex justify-center items-center font-bold -my-1 text-3xl w-full">
-                        <p>{{ match.homeTeamResult }}</p>
+                        <p>{{ match.home.result }}</p>
                       </div>
                       <div class="bg-brightnight flex justify-center items-center font-bold -my-1 text-3xl w-full">
-                        <p>{{ match.awayTeamResult }}</p>
+                        <p>{{ match.away.result }}</p>
                       </div>
                     } @else {
-                      <div class="w-full text-center my-auto font-bold">{{ match.date ? (match.date | date:'H:mm') : '-' }}</div>
+                      <div class="flex items-center justify-center -my-1 text-center font-bold w-full">{{ match.date ? (match.date | date: 'H:mm') : '-' }}</div>
                     }
                   </div>
                   <!-- Right Team-->
                   <div class="w-full flex justify-start">
-                    <div class="flex items-center" [ngClass]="{'cursor-pointer': match.category !== 4}" [routerLink]="match.category !== 4 ? ['../', 'club', match.category, match.awayTeamId] : null">
-                      <img [src]="match.awayTeamImageThumbnail" [alt]="match.awayTeamAlt" class="w-10 mx-1"/>
-                      <p class="text-sm font-semibold">
-                        <span class="block sm:hidden font-bold">{{ match.awayTeamAbbreviation }}</span>
-                        <span class="hidden sm:block">{{ match.awayTeamName }}</span>
+                    <div class="flex items-center" [ngClass]="{ 'cursor-pointer': match.away.category }" [routerLink]="match.away.category !== 4 ? ['../', 'club', match.away.category, match.away.teamId] : null">
+                      <img loading="lazy" [src]="match.away.imageThumbnail" [alt]="match.away.alt" class="w-10 h-10 mr-2" />
+                      <p class="text-sm">
+                        <span class="block sm:hidden font-bold">{{ match.away.abbreviation }}</span>
+                        <span class="hidden sm:block font-semibold">{{ match.away.name }}</span>
                       </p>
                     </div>
                   </div>
@@ -76,5 +76,5 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
   styles: ``,
 })
 export class FixtureComponent {
-  @Input() data!: FixtureByDate[];
+  @Input() data: FixtureByDate[] = [];
 }

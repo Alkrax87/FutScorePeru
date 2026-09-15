@@ -1,20 +1,25 @@
 export interface FixtureMatch {
-  category: number;
-  homeTeamId: string;
-  awayTeamId: string;
-  homeTeamName: string;
-  awayTeamName: string;
-  homeTeamAbbreviation: string;
-  awayTeamAbbreviation: string;
-  homeTeamImageThumbnail: string;
-  awayTeamImageThumbnail: string;
-  homeTeamAlt: string;
-  awayTeamAlt: string;
-  homeTeamResult: null | number;
-  awayTeamResult: null | number;
-  postponed: boolean;
   date: Date | null;
   group: string | null;
+  postponed: boolean;
+  home: {
+    category: number;
+    teamId: string;
+    name: string;
+    abbreviation: string;
+    imageThumbnail: string;
+    alt: string;
+    result: number | null;
+  },
+  away: {
+    category: number;
+    teamId: string;
+    name: string;
+    abbreviation: string;
+    imageThumbnail: string;
+    alt: string;
+    result: number | null;
+  }
 }
 
 export interface FixtureByDate {
