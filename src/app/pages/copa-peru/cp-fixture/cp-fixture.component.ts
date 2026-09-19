@@ -8,32 +8,31 @@ import { MatchesSetupService } from '../../../services/matches-setup.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from "../../../components/title/title.component";
+import { SubtitleComponent } from '../../../components/subtitle/subtitle.component';
 import { FixtureComponent } from "../../../components/fixture/fixture.component";
 import { FixtureByDate } from '../../../interfaces/ui-models/fixture-models';
 
 @Component({
   selector: 'app-cp-fixture',
-  imports: [TitleComponent, NgClass, FixtureComponent],
+  imports: [TitleComponent, NgClass, FixtureComponent, SubtitleComponent],
   template: `
     <app-title [title]="'Fixture'"></app-title>
-    <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
+    <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500 select-none">
       <!-- Content -->
       <div class="max-w-screen-xl mx-auto">
         @if (computedFixture && computedFixture.length > 0) {
-          <h3 class="text-white text-3xl sm:text-4xl font-bold mb-5 text-center md:text-start duration-500">
-            Cruces Zonales <span class="text-main">Fecha {{ selectedPhaseIndex + 1 }}</span>
-          </h3>
-          <div class="flex flex-wrap md:flex-nowrap justify-center gap-1">
+          <app-subtitle>Cruces Zonales <span class="text-main">Fecha {{ selectedPhaseIndex + 1 }}</span></app-subtitle>
+          <div class="flex flex-wrap justify-center gap-1 my-4 duration-500">
             @for (round of computedFixture; track $index) {
               <button (click)="selectedPhaseIndex = $index"
-                class="w-10 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-main outline-none duration-300"
+                class="w-12 h-10 md:w-full max-w-16 text-xs bg-brightnight text-white hover:bg-main outline-none duration-300"
                 [ngClass]="{'bg-main': selectedPhaseIndex === $index}"
               >
                 F{{ $index + 1 }}
               </button>
             }
           </div>
-          <div class="bg-white skew-x-50 h-2 w-full my-5"></div>
+          <div class="bg-white skew-x-50 h-2 w-full my-4"></div>
           <app-fixture [data]="computedFixture[selectedPhaseIndex ? selectedPhaseIndex : 0]"></app-fixture>
         } @else {
           <div class="flex h-64 justify-center items-center select-none">
@@ -54,7 +53,6 @@ export class CpFixtureComponent {
   private matchesService = inject(MatchesSetupService);
 
   selectedPhaseIndex: number = 0;
-
   computedFixture: FixtureByDate[][] = [];
 
   constructor() {
@@ -67,11 +65,11 @@ export class CpFixtureComponent {
       this.teamsMatchResultsService.teamsMatchResultsCP$,
       this.fixturesService.fixtureCP$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([division, teams, matchResults, fixtures]) => {
+      next: ([division, teams, matchResults, fixture]) => {
         this.selectedPhaseIndex = division?.phase1?.inGame ? division.phase1.inGame - 1 : 0;
 
-        if (teams && fixtures && matchResults) {
-          this.computedFixture = this.matchesService.transformDataForFixtureCP(teams, fixtures.phase1, matchResults, 'phase1');
+        if (teams && fixture && matchResults) {
+          this.computedFixture = this.matchesService.transformDataForFixtureCP(teams, fixture.phase1, matchResults, 'phase1');
         }
       }
     });
