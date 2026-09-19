@@ -14,8 +14,8 @@ import { TeamCard } from '../../../interfaces/ui-models/team-card';
   imports: [TitleComponent, TeamCardComponent],
   template: `
     <app-title [title]="'Clubes'"></app-title>
-    <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 max-w-screen-xl mx-auto duration-500">
+    <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500 select-none">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 max-w-screen-xl mx-auto duration-500">
         @for (item of dataTeamsCard; track $index) {
           <app-team-card [data]="item"></app-team-card>
         }
@@ -25,7 +25,7 @@ import { TeamCard } from '../../../interfaces/ui-models/team-card';
   styles: ``,
 })
 export class L1TeamsComponent {
-  private viewPortScoller = inject(ViewportScroller);
+  private viewportScroller = inject(ViewportScroller);
   private teamsService = inject(FetchTeamsService);
   private stadiumsService = inject(FetchStadiumsService);
   private uiDataMapperService = inject(UiDataMapperService);
@@ -40,7 +40,7 @@ export class L1TeamsComponent {
     });
 
     if (typeof window !== 'undefined') {
-      this.viewPortScoller.scrollToPosition([0, 0]);
+      this.viewportScroller.scrollToPosition([0, 0]);
     }
   }
 }
