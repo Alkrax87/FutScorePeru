@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 import { faSoccerBall } from '@fortawesome/free-solid-svg-icons';
+import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
@@ -17,12 +18,14 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
   imports: [TitleComponent, StatisticsCardComponent, BtnComponent, FaIconComponent],
   template: `
     <app-title [title]="'Estadísticas'"></app-title>
-    <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
-      <div class="max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 mx-auto px-4 mb-3 sm:mb-5 duration-100">
-        <app-btn (click)="setActiveTab('overall')" [active]="overall">Acumulado</app-btn>
+    <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500 select-none">
+      <!-- Switch -->
+      <div class="max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 mx-auto mb-6 px-4 duration-500">
+        <app-btn (click)="setActiveTab('overall')" [active]="overall">Acumulada</app-btn>
         <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Fase Regional</app-btn>
         <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Fase Final</app-btn>
       </div>
+      <!-- Content -->
       @if (overall) {
         @if (
           dataOverallBestDefense.length > 0 &&
@@ -35,7 +38,7 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
           dataOverallBestGoalDifference.length > 0 &&
           dataOverallWorstGoalDifference.length > 0
         ) {
-          <div class="text-white max-w-screen-xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 duration-500">
+          <div class="text-white max-w-screen-xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 duration-500">
             <!-- Wins -->
             <app-statistics-card cardTitle="PARTIDOS GANADOS" [data]="dataOverallMostWins"></app-statistics-card>
             <!-- Draws -->
@@ -79,7 +82,7 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
           dataPhase1BestGoalDifference.length > 0 &&
           dataPhase1WorstGoalDifference.length > 0
         ) {
-          <div class="text-white max-w-screen-xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 duration-500">
+          <div class="text-white max-w-screen-xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 duration-500">
             <!-- Wins -->
             <app-statistics-card cardTitle="PARTIDOS GANADOS" [data]="dataPhase1MostWins"></app-statistics-card>
             <!-- Draws -->
@@ -117,7 +120,7 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
           dataPhase2BestGoalDifference.length > 0 &&
           dataPhase2WorstGoalDifference.length > 0
         ) {
-          <div class="text-white max-w-screen-xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 duration-500">
+          <div class="text-white max-w-screen-xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 duration-500">
             <!-- Wins -->
             <app-statistics-card cardTitle="PARTIDOS GANADOS" [data]="dataPhase2MostWins"></app-statistics-card>
             <!-- Draws -->
@@ -148,12 +151,13 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
   styles: ``,
 })
 export class L2StatisticsComponent {
-  private viewPortScoller = inject(ViewportScroller);
+  private viewportScroller = inject(ViewportScroller);
+  private divisionsService = inject(FetchDivisionsService);
   private teamsService = inject(FetchTeamsService);
   private statisticsService = inject(FetchStatisticsService);
   private uiDataMapperService = inject(UiDataMapperService);
 
-  overall: boolean = true;
+  overall: boolean = false;
   phase1: boolean = false;
   phase2: boolean = false;
 
@@ -192,8 +196,15 @@ export class L2StatisticsComponent {
   constructor() {
     this.statisticsService.fetchStatisticsL2();
 
-    combineLatest([this.teamsService.teamsL2$, this.statisticsService.statisticsL2$]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([teams, statistics]) => {
+    combineLatest([
+      this.divisionsService.divisionL2$,
+      this.teamsService.teamsL2$,
+      this.statisticsService.statisticsL2$
+    ]).pipe(takeUntilDestroyed()).subscribe({
+      next: ([division, teams, statistics]) => {
+        this.phase1 = division?.phase1.status || false;
+        this.phase2 = division?.phase2.status || division?.phase3.status || false;
+
         if (statistics) {
           this.dataOverallMostWins = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.mostWins, 'w');
           this.dataOverallMostDraws = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.mostDraws, 'd');
@@ -229,7 +240,7 @@ export class L2StatisticsComponent {
     });
 
     if (typeof window !== 'undefined') {
-      this.viewPortScoller.scrollToPosition([0, 0]);
+      this.viewportScroller.scrollToPosition([0, 0]);
     }
   }
 
