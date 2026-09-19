@@ -6,170 +6,90 @@ import { FetchDivisionsService } from '../../../services/fetch-divisions.service
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchTeamsPerformanceService } from '../../../services/fetch-teams-performance.service';
 import { FetchTeamsFormService } from '../../../services/fetch-teams-form.service';
-import { FetchBracketsService } from '../../../services/fetch-brackets.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from '../../../components/title/title.component';
+import { SubtitleComponent } from '../../../components/subtitle/subtitle.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
 import { TableComponent } from '../../../components/table/table.component';
-import { BracketCardComponent } from '../../../components/bracket-card/bracket-card.component';
 import { TeamTable } from '../../../interfaces/ui-models/team-table';
-import { MatchCard } from '../../../interfaces/ui-models/match-card';
 
 @Component({
   selector: 'app-l3-table',
-  imports: [TitleComponent, TableComponent, BtnComponent, BracketCardComponent, FaIconComponent],
+  imports: [TitleComponent, TableComponent, BtnComponent, FaIconComponent, SubtitleComponent],
   template: `
     <app-title [title]="'Tabla'"></app-title>
-    <div class="bg-night py-10 lg:py-16 duration-500 select-none">
-      <div class="max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 mx-auto px-8 mb-3 sm:mb-5 duration-100">
+    <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500 select-none">
+      <!-- Switch -->
+      <div class="max-w-screen-md grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-4 mx-auto mb-6 px-4 duration-500">
         <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Fase Regional</app-btn>
         <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Fase Final</app-btn>
-        <app-btn (click)="setActiveTab('playOff')" [active]="playOff">Play-Offs</app-btn>
       </div>
-      @if (phase1) {
-        <div class="flex flex-col gap-4">
-          <div>
-            <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo 1</h3>
-              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+      <!-- Content -->
+      <div class="max-w-screen-xl mx-auto">
+        <div class="flex flex-col gap-6">
+          @if (phase1) {
+            <div>
+              <app-subtitle>Grupo 1</app-subtitle>
+              <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional1"></app-table>
             </div>
-            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional1"></app-table>
-          </div>
-          <div>
-            <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo 2</h3>
-              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+            <div>
+              <app-subtitle>Grupo 2</app-subtitle>
+              <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional2"></app-table>
             </div>
-            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional2"></app-table>
-          </div>
-          <div>
-            <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo 3</h3>
-              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+            <div>
+              <app-subtitle>Grupo 3</app-subtitle>
+              <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional3"></app-table>
             </div>
-            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional3"></app-table>
-          </div>
-          <div>
-            <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo 4</h3>
-              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
+            <div>
+              <app-subtitle>Grupo 4</app-subtitle>
+              <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional4"></app-table>
             </div>
-            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1Regional4"></app-table>
-          </div>
-          <div class="text-white px-3 sm:px-5">
-            <p class="font-semibold"><fa-icon [icon]="Soccer"></fa-icon> Siguiente fase</p>
-            <ul>
-              <li>- Los <b class="text-gold">primeros de cada grupo</b> tendrán una bonificación de <b class="text-promotion">+2 puntos</b></li>
-              <li>- Los <b class="text-gold">segundos de cada grupo</b> tendrán una bonificación de <b class="text-promotion">+1 punto</b></li>
-            </ul>
-          </div>
+            <div class="text-white">
+              <p class="font-semibold"><fa-icon [icon]="Soccer"></fa-icon> Siguiente fase</p>
+              <ul>
+                <li>- Los <b class="text-gold">primeros de cada grupo</b> tendrán una bonificación de <b class="text-promotion">+2 puntos</b></li>
+                <li>- Los <b class="text-gold">segundos de cada grupo</b> tendrán una bonificación de <b class="text-promotion">+1 punto</b></li>
+              </ul>
+            </div>
+          }
+          @if (phase2) {
+            <div>
+              <app-subtitle>Grupo A</app-subtitle>
+              <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalA"></app-table>
+            </div>
+            <div>
+              <app-subtitle>Grupo B</app-subtitle>
+              <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalB"></app-table>
+            </div>
+            <div>
+              <app-subtitle>Grupo C</app-subtitle>
+              <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalC"></app-table>
+            </div>
+            <div>
+              <app-subtitle>Grupo D</app-subtitle>
+              <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalD"></app-table>
+            </div>
+          }
         </div>
-      }
-      @if (phase2) {
-        <div class="flex flex-col gap-4">
-          <div>
-            <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo A</h3>
-              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalA"></app-table>
-          </div>
-          <div>
-            <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo B</h3>
-              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalB"></app-table>
-          </div>
-          <div>
-            <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo C</h3>
-              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalC"></app-table>
-          </div>
-          <div>
-            <div class="w-fit px-3 sm:px-5">
-              <h3 class="text-3xl text-white font-bold">Grupo D</h3>
-              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
-            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2FinalD"></app-table>
-          </div>
-        </div>
-      }
-      @if (playOff) {
-        @if (
-          dataPlayOffs4.length > 0 &&
-          dataPlayOffs2.length > 0 &&
-          dataPlayOffs1.length > 0
-        ) {
-          <div class="max-w-screen-xl mx-auto flex flex-col justify-center gap-4">
-            <div class="flex flex-col gap-5 mx-3 md:mx-5 duration-500">
-              <!-- 4tos -->
-              <div>
-                <div class="w-fit">
-                  <h3 class="text-3xl text-white font-bold">Cuartos de Final</h3>
-                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 duration-500">
-                  @for (bracket of dataPlayOffs4; track $index) {
-                    <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                  }
-                </div>
-              </div>
-              <!-- Semifinales -->
-              <div>
-                <div class="w-fit">
-                  <h3 class="text-3xl text-white font-bold">Semifinales</h3>
-                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 duration-500">
-                  @for (bracket of dataPlayOffs2; track $index) {
-                    <app-bracket-card [bracket]="bracket" [dualMatch]="true"></app-bracket-card>
-                  }
-                </div>
-              </div>
-              <!-- Final -->
-              <div>
-                <div class="w-fit">
-                  <h3 class="text-3xl text-white font-bold">Final</h3>
-                  <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 duration-500">
-                  <app-bracket-card [bracket]="dataPlayOffs1[0]" [dualMatch]="true" [lastMatch]="'Campeón Liga 3'"></app-bracket-card>
-                </div>
-              </div>
-            </div>
-          </div>
-        } @else {
-          <div class="max-w-screen-xl mx-auto">
-            <div class="bg-nightfall py-20 text-center mx-3 md:mx-5 duration-500">
-              <p class="text-main font-semibold text-3xl">Play-Offs</p>
-              <p class="text-white">LLaves de clasificación por definir.</p>
-            </div>
-          </div>
-        }
-      }
+      </div>
     </div>
   `,
   styles: ``,
 })
 export class L3TableComponent {
-  private viewPortScoller = inject(ViewportScroller);
+  private viewPortScroller = inject(ViewportScroller);
   private divisionsService = inject(FetchDivisionsService);
   private teamsService = inject(FetchTeamsService);
   private teamsPerformanceService = inject(FetchTeamsPerformanceService);
   private teamsFormService = inject(FetchTeamsFormService);
-  private bracketsService = inject(FetchBracketsService);
   private uiDataMapperService = inject(UiDataMapperService);
 
   phase1: boolean = false;
   phase2: boolean = false;
-  playOff: boolean = false;
 
-  headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
+  headers: string[] = ['', 'Pos', 'Club', 'Pts', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
   configPhase1 = [
     { active: true, name: 'Grupos de Ascenso', image: 'assets/images/pages/Group-Promotion.svg', class: 'bg-gpromotion', quantity: 4 },
     { active: false },
@@ -186,28 +106,22 @@ export class L3TableComponent {
   dataPhase2FinalB: TeamTable[] = [];
   dataPhase2FinalC: TeamTable[] = [];
   dataPhase2FinalD: TeamTable[] = [];
-  dataPlayOffs4: MatchCard[] = [];
-  dataPlayOffs2: MatchCard[] = [];
-  dataPlayOffs1: MatchCard[] = [];
 
   Soccer = faSoccerBall;
 
   constructor() {
     this.teamsPerformanceService.fetchTeamsPerformanceL3();
     this.teamsFormService.fetchTeamsFormL3();
-    this.bracketsService.fetchBracketsL3();
 
     combineLatest([
       this.divisionsService.divisionL3$,
       this.teamsService.teamsL3$,
       this.teamsPerformanceService.teamsPerformanceL3$,
       this.teamsFormService.teamsFormL3$,
-      this.bracketsService.bracketsL3$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([division, teams, teamsPerformance, teamsForm, brackets]) => {
+      next: ([division, teams, teamsPerformance, teamsForm]) => {
         this.phase1 = division?.phase1.status || false;
-        this.phase2 = division?.phase2.status || false;
-        this.playOff = division?.phase3.status || false;
+        this.phase2 = division?.phase2.status || division?.phase3.status || false;
 
         this.dataPhase1Regional1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', '1');
         this.dataPhase1Regional2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', '2');
@@ -217,23 +131,16 @@ export class L3TableComponent {
         this.dataPhase2FinalB = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f2');
         this.dataPhase2FinalC = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f3');
         this.dataPhase2FinalD = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f4');
-
-        if (teams && brackets) {
-          this.dataPlayOffs4 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket4);
-          this.dataPlayOffs2 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket2);
-          this.dataPlayOffs1 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket1);
-        }
       }
     });
 
     if (typeof window !== 'undefined') {
-      this.viewPortScoller.scrollToPosition([0, 0]);
+      this.viewPortScroller.scrollToPosition([0, 0]);
     }
   }
 
   setActiveTab(tab: String) {
     this.phase1 = tab === 'phase1';
     this.phase2 = tab === 'phase2';
-    this.playOff = tab === 'playOff';
   }
 }

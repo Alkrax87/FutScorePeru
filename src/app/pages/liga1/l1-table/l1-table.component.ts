@@ -8,47 +8,55 @@ import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from '../../../components/title/title.component';
+import { SubtitleComponent } from '../../../components/subtitle/subtitle.component';
 import { BtnComponent } from '../../../components/btn/btn.component';
 import { TableComponent } from '../../../components/table/table.component';
 import { TeamTable } from '../../../interfaces/ui-models/team-table';
 
 @Component({
   selector: 'app-l1-table',
-  imports: [TitleComponent, TableComponent, BtnComponent],
+  imports: [TitleComponent, TableComponent, BtnComponent, SubtitleComponent],
   template: `
     <app-title [title]="'Tabla'"></app-title>
-    <div class="bg-night py-10 lg:py-16 duration-500 select-none">
-      <div class="max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 mx-auto px-8 mb-3 sm:mb-5 duration-100">
-        <app-btn (click)="setActiveTab('overall')" [active]="overall">Acumulado</app-btn>
+    <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500 select-none">
+      <!-- Switch -->
+      <div class="max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 mx-auto mb-6 px-4 duration-500">
+        <app-btn (click)="setActiveTab('overall')" [active]="overall">Acumulada</app-btn>
         <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Apertura</app-btn>
         <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Clausura</app-btn>
       </div>
-      @if (overall) {
-        <app-table [config]="configOverall" [headers]="headers" [data]="dataOverall"></app-table>
-      }
-      @if (phase1) {
-        <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1"></app-table>
-      }
-      @if (phase2) {
-        <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2"></app-table>
-      }
+      <!-- Content -->
+      <div class="max-w-screen-xl mx-auto">
+        @if (overall) {
+          <app-subtitle>Tabla Acumulada</app-subtitle>
+          <app-table [config]="configOverall" [headers]="headers" [data]="dataOverall"></app-table>
+        }
+        @if (phase1) {
+          <app-subtitle>Tabla Apertura</app-subtitle>
+          <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1"></app-table>
+        }
+        @if (phase2) {
+          <app-subtitle>Tabla Clausura</app-subtitle>
+          <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2"></app-table>
+        }
+      </div>
     </div>
   `,
   styles: ``,
 })
 export class L1TableComponent {
-  private viewPortScoller = inject(ViewportScroller);
+  private viewPortScroller = inject(ViewportScroller);
   private divisionsService = inject(FetchDivisionsService);
   private teamsService = inject(FetchTeamsService);
   private teamsPerformanceService = inject(FetchTeamsPerformanceService);
   private teamsFormService = inject(FetchTeamsFormService);
   private uiDataMapperService = inject(UiDataMapperService);
 
-  overall: boolean = true;
+  overall: boolean = false;
   phase1: boolean = false;
   phase2: boolean = false;
 
-  headers: string[] = ['', 'Pos', 'Club', 'PTS', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
+  headers: string[] = ['', 'Pos', 'Club', 'Pts', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
   configOverall = [
     { active: true, name: 'Copa Libertadores', image: 'assets/images/pages/Libertadores.webp', class: 'bg-libertadores', quantity: 4 },
     { active: true, name: 'Copa Sudamericana', image: 'assets/images/pages/Sudamericana.webp', class: 'bg-sudamericana', quantity: 4 },
@@ -78,9 +86,11 @@ export class L1TableComponent {
         let activePhase: 'phase1' | 'phase2' | undefined = undefined;
         if (division?.phase1.status) {
           activePhase = 'phase1';
-        } else if (division?.phase2.status) {
+        } else if (division?.phase2.status || division?.phase3.status) {
           activePhase = 'phase2';
         }
+        this.phase1 = division?.phase1.status || false;
+        this.phase2 = division?.phase2.status || division?.phase3.status || false;
 
         this.dataOverall = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'overall', undefined, activePhase);
         this.dataPhase1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1');
@@ -89,7 +99,7 @@ export class L1TableComponent {
     });
 
     if (typeof window !== 'undefined') {
-      this.viewPortScoller.scrollToPosition([0, 0]);
+      this.viewPortScroller.scrollToPosition([0, 0]);
     }
   }
 
