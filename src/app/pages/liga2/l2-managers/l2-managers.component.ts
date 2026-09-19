@@ -7,25 +7,24 @@ import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TitleComponent } from '../../../components/title/title.component';
+import { SubtitleComponent } from '../../../components/subtitle/subtitle.component';
 import { ManagerCarouselComponent } from '../../../components/manager-carousel/manager-carousel.component';
 import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel';
 
 @Component({
   selector: 'app-l2-managers',
-  imports: [TitleComponent, ManagerCarouselComponent, RouterLink],
+  imports: [TitleComponent, ManagerCarouselComponent, RouterLink, SubtitleComponent],
   template: `
     <app-title [title]="'Técnicos'"></app-title>
-    <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-8 max-w-screen-xl mx-auto duration-500">
+    <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500 select-none">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-4 lg:gap-x-6 max-w-screen-xl mx-auto duration-500">
         @for (item of dataCarousel; track $index) {
           <div>
-            <div class="w-fit">
-              <div class="flex gap-2 items-center cursor-pointer" [routerLink]="['../club', item.category, item.teamId]">
-                <img [src]="item.imageThumbnail" [alt]="item.alt" class="w-10" />
-                <p class="text-lg text-white font-bold">{{ item.name }}</p>
+            <app-subtitle>
+              <div class="flex gap-2 items-center cursor-pointer text-lg" [routerLink]="['../club', item.category, item.teamId]">
+                <img [src]="item.imageThumbnail" [alt]="item.alt" class="w-10 h-10" />{{ item.name }}
               </div>
-              <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-            </div>
+            </app-subtitle>
             <app-manager-carousel [data]="item.managers"></app-manager-carousel>
           </div>
         }
@@ -35,7 +34,7 @@ import { ManagerCarousel } from '../../../interfaces/ui-models/manager-carousel'
   styles: ``,
 })
 export class L2ManagersComponent {
-  private viewPortScoller = inject(ViewportScroller);
+  private viewportScroller = inject(ViewportScroller);
   private teamsService = inject(FetchTeamsService);
   private managersService = inject(FetchManagersService);
   private uiDataMapperService = inject(UiDataMapperService);
@@ -50,7 +49,7 @@ export class L2ManagersComponent {
     });
 
     if (typeof window !== 'undefined') {
-      this.viewPortScoller.scrollToPosition([0, 0]);
+      this.viewportScroller.scrollToPosition([0, 0]);
     }
   }
 }
