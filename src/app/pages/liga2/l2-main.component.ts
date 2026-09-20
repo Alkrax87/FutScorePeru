@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserTie, faRankingStar } from '@fortawesome/free-solid-svg-icons';
+import { faShieldHalved, faWindowRestore, faBarsStaggered, faUserTie, faRankingStar, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
 import { FetchTeamsService } from '../../services/fetch-teams.service';
 import { FetchDivisionsService } from '../../services/fetch-divisions.service';
 import { UiDataMapperService } from '../../services/ui-data-mapper.service';
@@ -29,6 +29,7 @@ export class L2MainComponent {
     { name: 'Clubes', route: 'clubes', icon: faShieldHalved },
     { name: 'Fixture', route: 'fixture', icon: faWindowRestore },
     { name: 'Tabla', route: 'tabla', icon: faBarsStaggered },
+    { name: 'Play-Offs', route: 'playoffs', icon: faNetworkWired },
     { name: 'Técnicos', route: 'tecnicos', icon: faUserTie },
     { name: 'Estadísticas', route: 'estadisticas', icon: faRankingStar },
   ];
