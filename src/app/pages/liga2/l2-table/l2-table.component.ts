@@ -92,7 +92,7 @@ export class L2TableComponent {
   phase1: boolean = false;
   phase2: boolean = false;
 
-  headers: string[] = ['', 'Pos', 'Club', 'Pts', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
+  headers: string[] = ['', 'Pos', 'Club', '', 'Pts', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
   configPhase1 = [
     { active: true, name: 'Grupo Campeonato', image: 'assets/images/pages/Group-Promotion.svg', class: 'bg-gpromotion', quantity: 6 },
     { active: true, name: 'Grupo Descenso', image: 'assets/images/pages/Group-Relegation.svg', class: 'bg-grelegation', quantity: 3 },

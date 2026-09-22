@@ -89,7 +89,7 @@ export class L3TableComponent {
   phase1: boolean = false;
   phase2: boolean = false;
 
-  headers: string[] = ['', 'Pos', 'Club', 'Pts', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
+  headers: string[] = ['', 'Pos', 'Club', '', 'Pts', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
   configPhase1 = [
     { active: true, name: 'Grupos de Ascenso', image: 'assets/images/pages/Group-Promotion.svg', class: 'bg-gpromotion', quantity: 4 },
     { active: false },

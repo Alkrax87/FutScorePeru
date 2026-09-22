@@ -33,7 +33,7 @@ export class CpTableComponent {
   private teamsFormService = inject(FetchTeamsFormService);
   private uiDataMapperService = inject(UiDataMapperService);
 
-  headers: string[] = ['', 'Pos', 'Club', 'Pts', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'PR', 'Últimos 5 partidos'];
+  headers: string[] = ['', 'Pos', 'Club', '', 'Pts', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'PR', 'Últimos 5 partidos'];
   configTable = [
     { active: true, name: '16avos', image: 'assets/images/pages/Bracket-Next-Round.svg', class: 'bg-nextround', quantity: 32 },
   ];
