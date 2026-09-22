@@ -17,7 +17,7 @@ import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
               <div class="
                 relative right-[0.1px] w-0 h-0 border-solid
                 border-t-[28px] border-r-0 border-b-0 border-l-[28px]
-                border-t-transparent  border-r-transparent border-b-transparent border-l-main
+                border-t-transparent border-r-transparent border-b-transparent border-l-main
               "></div>
             </div>
             <div [routerLink]="['../', 'club', item.category, item.teamId]" class="bg-main hover:bg-main-hover background-pattern h-32 cursor-pointer flex justify-between p-2">
@@ -29,7 +29,7 @@ import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
                 <p class="font-bold text-6xl">{{ item.value }}</p>
               </div>
               <div class="my-auto min-w-fit">
-                <img loading="lazy" [src]="item.image" [alt]="item.alt" class="h-24 w-24"/>
+                <img loading="lazy" [src]="item.image" [alt]="item.alt" class="h-24 w-24" />
               </div>
             </div>
           </div>
@@ -38,7 +38,7 @@ import { StatisticCard } from '../../interfaces/ui-models/statistic-card';
             <div class="flex w-full">
               <div class="text-xs font-semibold mr-3 my-auto">{{ $index + 1 }}</div>
               <div class="flex gap-2">
-                <img loading="lazy" [src]="item.imageThumbnail" [alt]="item.alt" class="h-6 w-6"/>
+                <img loading="lazy" [src]="item.imageThumbnail" [alt]="item.alt" class="h-6 w-6" />
                 <p class="my-auto text-sm font-semibold">{{ item.name }}</p>
               </div>
             </div>

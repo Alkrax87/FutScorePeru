@@ -1,51 +1,47 @@
 import { Component, Input } from '@angular/core';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { MatchCard } from '../../interfaces/ui-models/match-card';
-import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesRight, faBullseye, faSoccerBall, faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bracket-card',
   imports: [FaIconComponent],
   template: `
-    <div class="bg-nightfall text-white w-full p-3 select-none">
+    <div class="bg-nightfall text-light w-full p-2 sm:p-4 duration-500 select-none">
       <!-- Top -->
-      <div class="flex items-center justify-between">
+      <div class="flex justify-between">
         <!-- Key -->
-        <div class="w-fit">
-          <p class="text-base sm:text-lg font-semibold duration-500">{{ bracket.matchKey }}</p>
-        </div>
+        <p class="text-base font-bold duration-500">{{ bracket.matchKey }}</p>
         <!-- Next Key -->
         @if (bracket.nextKey) {
-          <div>
-            <div class="flex gap-1 text-xxs sm:text-xs rounded-full border-2 border-gold px-2 py-0.5 text-gold duration-500">
-              <fa-icon [icon]="Arrow"></fa-icon>
-              <p>{{ bracket.nextKey }}</p>
-            </div>
+          <div class="bg-main text-light flex gap-1 font-semibold text-xs px-2 py-1 duration-500">
+            <fa-icon [icon]="Arrow"></fa-icon>
+            <p>{{ bracket.nextKey }}</p>
           </div>
         }
       </div>
       <!-- Content -->
-      <div class="overflow-x-auto mt-2">
+      <div class="overflow-x-auto font-semibold mt-2">
         <table class="w-full">
-          <thead class="text-gray-300 border-b-2 text-xxs border-neutral-600">
-            <tr>
+          <thead class="text-neutral-300 border-b-2 text-xxs border-neutral-600">
+            <tr class="">
               <th class="text-start w-full">Equipos</th>
               @if (dualMatch) {
-                <th class="min-w-6 lg:min-w-10 pt-2">Ida</th>
-                <th class="min-w-10 lg:min-w-12 pt-2">Vuelta</th>
+                <th class="min-w-10 lg:min-w-12">Ida</th>
+                <th class="min-w-10 lg:min-w-12">Vuelta</th>
               }
-              <th class="bg-brightnight rounded-t-lg min-w-14 pt-2">{{ dualMatch ? 'Global' : 'Resultado' }}</th>
+              <th class="bg-brightnight min-w-16 pt-1">{{ dualMatch ? 'Global' : 'Resultado' }}</th>
             </tr>
           </thead>
-          <tbody class="text-gray-200 font-semibold text-xs sm:text-sm duration-500">
+          <tbody class="text-light text-sm md:text-base duration-500">
             @for (team of bracket.teams; track $index) {
               <tr>
-                <td class="flex text-start items-center gap-1">
-                  <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" [alt]="'Team' + $index + 'Bracket-Logo'" class="w-8 sm:w-10 duration-500">
+                <td class="flex items-center h-12 gap-2">
+                  <img [src]="team.image ? team.image : 'assets/images/pages/no-team.webp'" [alt]="'Team' + $index + 'Bracket-Logo'" class="w-8 h-8">
                   <div class="truncate">
                     <p class="truncate">{{ team.name ? team.name : 'Por Definir' }}</p>
                     @if (team.location) {
-                      <p class="text-neutral-400 text-tiny sm:text-xs -mt-1 duration-500">{{ team.location }}</p>
+                      <p class="text-neutral-400 text-xs">{{ team.location }}</p>
                     }
                   </div>
                 </td>
@@ -60,16 +56,16 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
                         <p>{{ team.results.firstLegScore + team.results.secondLegScore }}</p>
                       }
                       @if (team.results.penalties !== null) {
-                        <div class="bg-main flex items-center gap-1 rounded-lg px-1 text-white">
-                          <fa-icon class="text-xxs sm:text-xs" [icon]="Penalty"></fa-icon>
+                        <div class="bg-light flex items-center gap-1 px-1 text-dark">
+                          <fa-icon class="text-xxs" [icon]="Ball"></fa-icon>
                           <span>{{ team.results.penalties }}</span>
                         </div>
                       }
                     } @else {
                       <p>{{ team.results.firstLegScore }}</p>
                       @if (team.results.penalties !== null) {
-                        <div class="bg-main flex items-center gap-1 rounded-lg px-1 text-white">
-                          <fa-icon class="text-xxs sm:text-xs" [icon]="Penalty"></fa-icon>
+                        <div class="bg-light flex items-center gap-1 px-1 text-dark">
+                          <fa-icon class="text-xxs" [icon]="Ball"></fa-icon>
                           <span>{{ team.results.penalties }}</span>
                         </div>
                       }
@@ -82,7 +78,7 @@ import { faAnglesRight, faBullseye, faTrophy } from '@fortawesome/free-solid-svg
         </table>
       </div>
       @if (classified) {
-        <div class="flex items-center justify-center py-0.5 gap-1 bg-gold text-xs sm:text-sm mt-1">
+        <div class="flex items-center justify-center py-1 gap-1 bg-gold text-sm mt-2">
           <fa-icon [icon]="Trophy"></fa-icon><span class="font-semibold">{{ classified }}</span>{{ lastMatch ? lastMatch : 'clasificado.' }}
         </div>
       }
@@ -97,7 +93,7 @@ export class BracketCardComponent {
   classified: string | null = null;
 
   Arrow = faAnglesRight;
-  Penalty = faBullseye;
+  Ball = faSoccerBall;
   Trophy = faTrophy;
 
   ngOnInit() {

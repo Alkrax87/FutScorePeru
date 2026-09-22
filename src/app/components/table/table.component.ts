@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-table',
   imports: [FaIconComponent, RouterLink, NgClass],
   template: `
-    <div class="bg-nightfall flex flex-col gap-2 md:gap-4 font-semibold px-0 md:px-5 py-5 duration-500">
+    <div class="bg-nightfall flex flex-col gap-2 md:gap-4 font-semibold px-0 sm:px-4 py-2 sm:py-4 duration-500">
       <!-- Table -->
       <div class="overflow-x-auto">
         <table class="w-full">
@@ -17,20 +17,22 @@ import { RouterLink } from '@angular/router';
             <tr class="h-8 duration-500">
               @for (header of headers; track $index) {
                 @if ($index === 0) {
-                  <th class="w-1 min-w-1 max-w-1">{{ header }}</th>
+                  <th scope="col" class="bg-nightfall w-1 min-w-1 max-w-1 sticky left-0 z-20">{{ header }}</th>
                 } @else if ($index === 1) {
-                  <th class="w-8 min-w-8 max-w-8">{{ header }}</th>
+                  <th scope="col" class="bg-nightfall w-8 min-w-8 max-w-8 sticky left-1 z-20">{{ header }}</th>
                 } @else if ($index === 2) {
-                  <th class="min-w-20 sm:min-w-52 md:min-w-64 text-start duration-500">{{ header }}</th>
+                  <th scope="col" class="bg-nightfall group-hover:bg-white min-w-10 w-10 duration-500 sticky left-9 z-20">{{ header }}</th>
                 } @else if ($index === 3) {
-                  <th class="bg-brightnight rounded-t-lg min-w-14 duration-500">{{ header }}</th>
+                  <th scope="col" class="min-w-48 md:min-w-72 text-start duration-500">{{ header }}</th>
+                } @else if ($index === 4) {
+                  <th scope="col" class="bg-brightnight min-w-14 duration-500">{{ header }}</th>
                 } @else if ($index === headers.length - 1) {
-                  <th class="w-72 min-w-40">{{ header }}</th>
+                  <th scope="col" class="w-72 min-w-40">{{ header }}</th>
                 } @else {
                   @if (isCPTable && $index === headers.length - 2) {
-                    <th class="bg-brightnight min-w-10 duration-500 rounded-t-lg">{{ header }}</th>
+                    <th scope="col" class="bg-brightnight min-w-10 duration-500">{{ header }}</th>
                   } @else {
-                    <th class="min-w-10 md:min-w-12 duration-500">{{ header }}</th>
+                    <th scope="col" class="min-w-10 md:min-w-12 duration-500">{{ header }}</th>
                   }
                 }
               }
@@ -39,23 +41,22 @@ import { RouterLink } from '@angular/router';
           <tbody class="text-sm md:text-base duration-500">
             @if (data.length > 0) {
               @for (item of data; track $index) {
-                <tr [routerLink]="!isCPTable ? ['../club', item.category, item.teamId] : undefined" [ngClass]="{ 'cursor-pointer': !isCPTable }" class="group text-center text-light hover:bg-gray-200 hover:text-night">
+                <tr [routerLink]="!isCPTable ? ['../club', item.category, item.teamId] : undefined" [ngClass]="{ 'cursor-pointer': !isCPTable }" class="group text-center text-light hover:bg-neutral-200 hover:text-night">
                   @if (config[0] && config[0].active && $index >= 0 && $index < config[0].quantity!) {
-                    <td [ngClass]="config[0].class"></td>
+                    <td [ngClass]="config[0].class" class="sticky left-0 z-30"></td>
                   } @else if (config[1] && config[1].active && $index >= config[0].quantity! && $index < (config[0].quantity! + config[1].quantity!)) {
-                    <td [ngClass]="config[1].class"></td>
+                    <td [ngClass]="config[1].class" class="sticky left-0 z-30"></td>
                   } @else if (config[2] && config[2].active && $index >= (data.length - config[2].quantity!)) {
-                    <td [ngClass]="config[2].class"></td>
+                    <td [ngClass]="config[2].class" class="sticky left-0 z-30"></td>
                   } @else {
-                    <td></td>
+                    <td class="bg-nightfall group-hover:bg-neutral-200 sticky left-0 z-30"></td>
                   }
-                  <td class="text-xs">{{ $index + 1 }}</td>
-                  <td>
-                    <div class="flex">
-                      <img loading="lazy" [src]="item.imageThumbnail" [alt]="item.alt" class="w-7 md:w-8 h-7 md:h-8 duration-500" />
-                      <span class="hidden sm:block ml-2 truncate my-auto">{{ item.name }}</span>
-                      <span class="sm:hidden ml-2 font-bold flex items-center text-center my-auto">{{ item.abbreviation }}</span>
-                    </div>
+                  <td class="bg-nightfall group-hover:bg-neutral-200 text-xs sticky left-1 z-30">{{ $index + 1 }}</td>
+                  <td class="bg-nightfall group-hover:bg-neutral-200 sticky left-9 z-30">
+                    <img loading="lazy" [src]="item.imageThumbnail" [alt]="item.alt" class="w-8 h-8" />
+                  </td>
+                  <td class="text-start">
+                    <span class="m-1 truncate my-auto">{{ item.name }}</span>
                   </td>
                   <td class="bg-brightnight group-hover:bg-white group-hover:text-night group-hover:duration-0 font-bold ">{{ item.performance.points }}</td>
                   <td>{{ item.performance.played }}</td>
@@ -68,7 +69,7 @@ import { RouterLink } from '@angular/router';
                   @if (isCPTable) {
                     <td class="bg-brightnight group-hover:bg-white group-hover:text-night group-hover:duration-0 font-bold">{{ item.performance.rp }}</td>
                   }
-                  <td class="flex justify-center items-center h-9 md:h-11 gap-1 md:gap-2 text-lg md:text-xl duration-500">
+                  <td class="flex justify-center items-center h-12 gap-1 md:gap-2 text-lg md:text-xl duration-500">
                     @for (item of item.form; track $index) {
                       @switch (item) {
                         @case ("w") { <fa-icon class="text-green-600" [icon]="Win"></fa-icon> }

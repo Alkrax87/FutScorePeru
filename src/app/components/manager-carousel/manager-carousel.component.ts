@@ -12,7 +12,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
     <div class="flex gap-1 w-full select-none">
       <!-- Prev -->
       @if (size > 1) {
-        <button (click)="prev()" type="button" class="hidden sm:block min-w-8 w-8 bg-nightfall text-white hover:bg-main duration-300">
+        <button (click)="prev()" type="button" class="hidden sm:block min-w-8 w-8 bg-nightfall text-light hover:bg-main duration-300">
           <fa-icon [icon]="Prev"></fa-icon>
         </button>
       }
@@ -32,16 +32,16 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
       </div>
       <!-- Next -->
       @if (size > 1) {
-        <button (click)="next()" type="button" class="hidden sm:block min-w-8 w-8 bg-nightfall text-white hover:bg-main duration-300">
+        <button (click)="next()" type="button" class="hidden sm:block min-w-8 w-8 bg-nightfall text-light hover:bg-main duration-300">
           <fa-icon [icon]="Next"></fa-icon>
         </button>
       }
     </div>
     <!-- Slide Indicators -->
     @if (size > 1) {
-      <div class="flex justify-center items-end gap-2 h-5">
+      <div class="flex justify-center items-end gap-2 h-4">
         @for (item of data; track $index) {
-          <span (click)="goToSlide($index)" [ngClass]="currentIndex === $index ? 'bg-main' : 'bg-gray-300'" class="w-3 h-3 rounded-full cursor-pointer hover:bg-main duration-300"></span>
+          <span (click)="goToSlide($index)" [ngClass]="currentIndex === $index ? 'bg-main' : 'bg-neutral-300'" class="w-3 h-3 rounded-full cursor-pointer hover:bg-main duration-300"></span>
         }
       </div>
     }

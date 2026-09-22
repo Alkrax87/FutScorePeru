@@ -7,31 +7,33 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
   selector: 'app-fixture',
   imports: [RouterLink, DatePipe, TitleCasePipe, NgClass],
   template: `
-    <div class="select-none flex flex-col gap-4">
+    <div class="select-none flex flex-col gap-8">
       @for (item of data; track $index) {
         <div>
           <!-- Date -->
-          <div class="flex justify-center items-center mb-2">
+          <div class="flex items-center text-light font-bold text-sm gap-2 mb-2">
+            <div class="bg-brightnight h-0.5 rounded-full w-full"></div>
             @if (item.date) {
-              <span class="bg-main text-white px-5 text-sm font-semibold py-1">{{ item.date | date: 'EEEE d MMMM' | titlecase }}</span>
+              <p class="bg-main px-4 py-1 min-w-fit truncate">{{ item.date | date: 'EEEE d MMMM' | titlecase }}</p>
             } @else {
-              <span class="bg-main text-white px-5 text-sm font-semibold py-1">Por Definir</span>
+              <p class="bg-main px-4 py-1 min-w-fit truncate">Por Definir</p>
             }
+            <div class="bg-brightnight h-0.5 rounded-full w-full"></div>
           </div>
           <!-- Matches -->
-          <div class="flex flex-col gap-1.5">
+          <div class="flex flex-col gap-2">
             @for (match of item.matches; track $index) {
               <div>
                 <!-- Group -->
                 @if (match.group) {
                   <div class="flex justify-center">
-                    <div class="relative border-r-[18px] border-t-[18px] border-r-transparent border-t-night bg-white"></div>
-                    <div class="bg-white w-fit text-xs px-4 font-semibold text-center">Grupo {{ match.group.toUpperCase() }}</div>
-                    <div class="relative border-l-[18px] border-t-[18px] border-l-transparent border-t-night bg-white"></div>
+                    <div class="relative border-r-[18px] border-t-[18px] border-r-transparent border-t-night bg-light"></div>
+                    <div class="bg-light w-fit text-xs px-4 font-semibold text-center">Grupo {{ formatText(match.group) }}</div>
+                    <div class="relative border-l-[18px] border-t-[18px] border-l-transparent border-t-night bg-light"></div>
                   </div>
                 }
                 <!-- Match -->
-                <div class="bg-nightfall text-white flex justify-center gap-1 p-1">
+                <div class="bg-nightfall text-light flex justify-center gap-2 p-1">
                   <!-- Left Team-->
                   <div class="w-full flex justify-end">
                     <div class="flex items-center" [ngClass]="{ 'cursor-pointer': match.home.category !== 4 }" [routerLink]="match.home.category !== 4 ? ['../', 'club', match.home.category, match.home.teamId] : null">
@@ -57,7 +59,7 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
                   </div>
                   <!-- Right Team-->
                   <div class="w-full flex justify-start">
-                    <div class="flex items-center" [ngClass]="{ 'cursor-pointer': match.away.category }" [routerLink]="match.away.category !== 4 ? ['../', 'club', match.away.category, match.away.teamId] : null">
+                    <div class="flex items-center" [ngClass]="{ 'cursor-pointer': match.away.category !== 4 }" [routerLink]="match.away.category !== 4 ? ['../', 'club', match.away.category, match.away.teamId] : null">
                       <img loading="lazy" [src]="match.away.imageThumbnail" [alt]="match.away.alt" class="w-10 h-10 mr-2" />
                       <p class="text-sm">
                         <span class="block sm:hidden font-bold">{{ match.away.abbreviation }}</span>
@@ -77,4 +79,9 @@ import { FixtureByDate } from '../../interfaces/ui-models/fixture-models';
 })
 export class FixtureComponent {
   @Input() data: FixtureByDate[] = [];
+
+  formatText(texto: string) {
+    if (!texto) return texto;
+    return texto.charAt(0).toUpperCase() + texto.slice(1);
+  }
 }
