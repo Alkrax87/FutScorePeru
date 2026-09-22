@@ -15,19 +15,19 @@ import { BtnComponent } from "../btn/btn.component";
           </div>
         </div>
       </div>
-      <div class="bg-night px-3 sm:px-5 py-12 md:py-24 duration-500">
-        <div class="max-w-screen-xl duration-500 mx-auto">
+      <div class="bg-night px-2 sm:px-4 py-12 md:py-20 duration-500">
+        <div class="max-w-screen-xl mx-auto">
           @if (division.toLeagues) {
-            <p class="text-white text-center text-2xl font-semibold">Clasificados Etapa Nacional <span class="text-main">{{ division.name }}</span></p>
+            <p class="text-light text-center text-3xl font-bold">Clasificados Etapa Nacional <span class="text-main">{{ division.name }}</span></p>
           } @else {
-            <p class="text-white text-center text-2xl font-semibold">Clubes <span class="text-main">{{ division.name }}</span></p>
+            <p class="text-light text-center text-3xl font-bold">Clubes <span class="text-main">{{ division.name }}</span></p>
           }
           <div class="flex flex-wrap gap-4 justify-center mx-auto mt-2 mb-4">
             @for (team of teams; track team.alt) {
               @if (team.teamId) {
-                <img loading="lazy" [routerLink]="['../club', team.category, team.teamId]" [src]="team.imageThumbnail" [alt]="team.alt" class="w-10 md:w-12 duration-500 cursor-pointer hover:scale-110">
+                <img loading="lazy" [routerLink]="['../club', team.category, team.teamId]" [src]="team.imageThumbnail" [alt]="team.alt" class="w-10 md:w-12 h-10 md:h-12 duration-500 cursor-pointer hover:scale-110">
               } @else {
-                <img loading="lazy" [src]="team.imageThumbnail" [alt]="team.alt" class="w-10 md:w-12 duration-500">
+                <img loading="lazy" [src]="team.imageThumbnail" [alt]="team.alt" class="w-10 md:w-12 h-10 md:h-12 duration-500">
               }
             }
           </div>

@@ -28,9 +28,9 @@ import { RouterLink } from '@angular/router';
         <div class="flex flex-wrap justify-center">
           @for (item of toolTipData; track $index) {
             @if (item.category === undefined) {
-              <img loading="lazy" class="w-8 md:w-10" [src]="item.imageThumbnail ? item.imageThumbnail : 'assets/images/pages/no-team.webp'" [alt]="item.alt">
+              <img loading="lazy" class="w-8 md:w-10 h-8 md:h-10 duration-500" [src]="item.imageThumbnail ? item.imageThumbnail : 'assets/images/pages/no-team.webp'" [alt]="item.alt">
             } @else {
-              <img loading="lazy" [routerLink]="['../', 'club', item.category, item.teamId]" class="w-8 md:w-10 cursor-pointer" [src]="item.imageThumbnail ? item.imageThumbnail : 'assets/images/pages/no-team.webp'" [alt]="item.alt">
+              <img loading="lazy" [routerLink]="['../', 'club', item.category, item.teamId]" class="w-8 md:w-10 h-8 md:h-10 duration-500 cursor-pointer" [src]="item.imageThumbnail ? item.imageThumbnail : 'assets/images/pages/no-team.webp'" [alt]="item.alt">
             }
           }
         </div>

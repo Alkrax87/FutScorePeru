@@ -5,20 +5,19 @@ import { CityCardComponent } from '../city-card/city-card.component';
 import { MapComponent } from '../map/map.component';
 import { MapElement } from '../../interfaces/api-models/map-element';
 import { TeamMap } from '../../interfaces/ui-models/team-map';
+import { SubtitleComponent } from '../subtitle/subtitle.component';
 
 @Component({
   selector: 'app-division-map',
-  imports: [CityCardComponent, FaIconComponent, MapComponent],
+  imports: [CityCardComponent, FaIconComponent, MapComponent, SubtitleComponent],
   template: `
-    <div class="bg-neutral-100 dark:bg-nightfall dark:text-white px-3 sm:px-5 py-12 md:py-24 select-none duration-500">
-      <div class="flex flex-col sm:flex-row max-w-screen-xl gap-5 mx-auto">
+
+    <div class="bg-light dark:bg-nightfall dark:text-light px-2 sm:px-4 py-12 md:py-20 select-none duration-500">
+      <div class="flex flex-col sm:flex-row max-w-screen-xl gap-6 mx-auto">
         <!-- Regions -->
         <div class="place-content-center w-full sm:w-1/2 xl:w-3/5 duration-500">
-          <div class="w-fit mx-auto">
-            <h3 class="text-2xl font-bold">Distribución Geográfica</h3>
-            <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-          </div>
-          <div class="grid grid-cols-2 xl:grid-cols-3 gap-1 justify-center my-2">
+          <app-subtitle><div class="text-dark dark:text-light duration-500">Distribución Geográfica</div></app-subtitle>
+          <div class="grid grid-cols-2 xl:grid-cols-3 gap-1 justify-center mt-4 mb-2">
             @for (region of regions; track region.name) {
               <div class="grid-cols-1">
                 <app-city-card [city]="region"></app-city-card>
