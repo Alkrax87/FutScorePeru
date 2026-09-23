@@ -11,7 +11,7 @@ import { TeamOverviewTableComponent } from "../../../../components/team-overview
   selector: 'app-overview',
   imports: [TeamOverviewNextMatchComponent, TeamOverviewLatestComponent, TeamOverviewTableComponent],
   template: `
-    <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
+    <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500 select-none">
       <div class="max-w-screen-xl mx-auto flex flex-col gap-10">
         @if (overviewData) {
           <!-- Next Match -->

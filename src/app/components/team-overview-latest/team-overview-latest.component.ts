@@ -15,9 +15,10 @@ import { LatestsMatches } from '../../interfaces/ui-models/team-overview';
   selector: 'app-team-overview-latest',
   imports: [RouterLink, FaIconComponent],
   template: `
-    <div class="flex flex-col text-white">
+    <div class="flex flex-col">
+      <!-- Title -->
       <div class="flex">
-        <div class="bg-main h-8 font-bold px-2 flex items-center w-fit text-nowrap">Últimos partidos</div>
+        <div class="bg-main text-white h-8 font-bold px-2 flex items-center w-fit text-nowrap">Últimos partidos</div>
         <div class="
           relative right-[0.1px] w-0 h-0 border-solid
           border-t-[32px] border-r-0 border-b-0 border-l-[24px]
@@ -30,7 +31,8 @@ import { LatestsMatches } from '../../interfaces/ui-models/team-overview';
           border-t-transparent border-r-transparent border-b-transparent border-l-neutral-100
         "></div>
       </div>
-      <div class="bg-nightfall w-full text-white grid grid-cols-[repeat(auto-fit,_minmax(95px,_1fr))] md:grid-cols-[repeat(auto-fit,_minmax(100px,_1fr))] gap-y-5 mx-auto py-5">
+      <!-- Content -->
+      <div class="bg-nightfall w-full text-light grid grid-cols-[repeat(auto-fit,_minmax(95px,_1fr))] md:grid-cols-[repeat(auto-fit,_minmax(100px,_1fr))] gap-y-5 mx-auto py-4">
         @if (computedLatests.length > 0) {
           @for (item of computedLatests; track $index) {
             <div class="flex flex-col items-center gap-2 w-fit mx-auto">
@@ -41,53 +43,55 @@ import { LatestsMatches } from '../../interfaces/ui-models/team-overview';
                 @if (item.homeTeamScore != null && item.awayTeamScore != null) {
                   @if (item.home) {
                     @if (item.homeTeamScore > item.awayTeamScore) {
-                      <!-- Gana Local -->
+                      <!-- Win -->
                       <div class="bg-green-600 px-3 rounded-full font-semibold">{{ item.homeTeamScore }} - {{ item.awayTeamScore }}</div>
                     } @else if (item.homeTeamScore < item.awayTeamScore) {
-                      <!-- Gana Visita -->
+                      <!-- Loose -->
                       <div class="bg-red-600 px-3 rounded-full font-semibold">{{ item.homeTeamScore }} - {{ item.awayTeamScore }}</div>
                     } @else {
-                      <!-- Empate -->
+                      <!-- Draw -->
                       <div class="bg-neutral-300 text-night px-3 rounded-full font-semibold">{{ item.homeTeamScore }} - {{ item.awayTeamScore }}</div>
                     }
                   } @else {
                     @if (item.awayTeamScore > item.homeTeamScore) {
-                      <!-- Gana Visita -->
+                      <!-- Win -->
                       <div class="bg-green-600 px-3 rounded-full font-semibold">{{ item.homeTeamScore }} - {{ item.awayTeamScore }}</div>
                     } @else if (item.awayTeamScore < item.homeTeamScore) {
-                      <!-- Gana Local -->
+                      <!-- Loose -->
                       <div class="bg-red-600 px-3 rounded-full font-semibold">{{ item.homeTeamScore }} - {{ item.awayTeamScore }}</div>
                     } @else {
-                      <!-- Empate -->
+                      <!-- Draw -->
                       <div class="bg-neutral-300 text-night px-3 rounded-full font-semibold">{{ item.homeTeamScore }} - {{ item.awayTeamScore }}</div>
                     }
                   }
+                } @else {
+                  <div class="bg-main px-3 rounded-full font-semibold">PD</div>
                 }
               }
               @if (item.free) {
-                <img [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-16"/>
+                <img [src]="item.homeTeamLogo" [alt]="item.homeTeamAlt" class="w-20 h-20" />
               } @else {
                 <a [routerLink]="['../../', item.rivalTeamId]">
-                  <img [src]="item.rivalTeamLogo" [alt]="item.rivalTeamAlt" class="w-16"/>
+                  <img [src]="item.rivalTeamLogo" [alt]="item.rivalTeamAlt" class="w-20 h-20" />
                 </a>
               }
               @if (item.home) {
-                <div class="bg-brightnight w-8 rounded-full py-1 text-center"><fa-icon [icon]="Home"></fa-icon></div>
+                <div class="flex items-center justify-center bg-brightnight w-10 h-10 rounded-full"><fa-icon [icon]="Home"></fa-icon></div>
               } @else {
-                <div class="bg-brightnight w-8 rounded-full py-1 text-center"><fa-icon [icon]="Away"></fa-icon></div>
+                <div class="flex items-center justify-center bg-brightnight w-10 h-10 rounded-full"><fa-icon [icon]="Away"></fa-icon></div>
               }
             </div>
           }
         }
       </div>
-      <div class="flex gap-2 mt-2 justify-center text-xs text-neutral-100">
+      <div class="flex gap-2 mt-2 justify-center text-sm text-light">
         <div class="bg-nightfall flex gap-2 px-4 py-2 rounded-full">
           <fa-icon [icon]="Home"></fa-icon>
-          <p>Local</p>
+          <span>Local</span>
         </div>
         <div class="bg-nightfall flex gap-2 px-4 py-2 rounded-full">
           <fa-icon [icon]="Away"></fa-icon>
-          <p>Visita</p>
+          <span>Visita</span>
         </div>
       </div>
     </div>

@@ -32,38 +32,40 @@ import { StandingsTable } from '../../interfaces/ui-models/team-overview';
         "></div>
       </div>
       <!-- Table -->
-      <div class="bg-nightfall px-1 sm:px-5 py-3 sm:py-5 font-semibold overflow-x-auto duration-500">
+      <div class="bg-nightfall px-0 sm:px-4 py-2 sm:py-4 font-semibold overflow-x-auto duration-500">
         <table class="w-full">
-          <thead class="text-neutral-300 border-b-4 text-xxs md:text-xs border-neutral-600 duration-500">
-            <tr class="h-8 md:h-10">
-              <th class="w-8 min-w-8 max-w-8">Pos</th>
-              <th class="min-w-20 sm:min-w-52 md:min-w-64 text-start duration-500">Club</th>
-              <th class="bg-brightnight rounded-t-lg min-w-14 md:min-w-16 duration-500">PTS</th>
-              <th class="min-w-10 md:min-w-12 duration-500">PJ</th>
-              <th class="min-w-10 md:min-w-12 duration-500">PG</th>
-              <th class="min-w-10 md:min-w-12 duration-500">PE</th>
-              <th class="min-w-10 md:min-w-12 duration-500">PP</th>
-              <th class="min-w-10 md:min-w-12 duration-500">GF</th>
-              <th class="min-w-10 md:min-w-12 duration-500">GC</th>
-              <th class="min-w-10 md:min-w-12 duration-500">DIF</th>
+          <thead class="text-neutral-300 border-b-4 text-xs border-neutral-600 duration-500">
+            <tr class="h-8">
+              <th scope="col" class="bg-nightfall w-8 min-w-8 max-w-8 sticky left-0 z-30">Pos</th>
+              <th scope="col" class="bg-nightfall group-hover:bg-white min-w-10 w-10 duration-500 sticky left-8 z-30">Club</th>
+              <th scope="col" class="min-w-48 md:min-w-72 text-start duration-500"></th>
+              <th scope="col" class="bg-brightnight min-w-14">Pts</th>
+              <th scope="col" class="min-w-10 md:min-w-12 duration-500">PJ</th>
+              <th scope="col" class="min-w-10 md:min-w-12 duration-500">PG</th>
+              <th scope="col" class="min-w-10 md:min-w-12 duration-500">PE</th>
+              <th scope="col" class="min-w-10 md:min-w-12 duration-500">PP</th>
+              <th scope="col" class="min-w-10 md:min-w-12 duration-500">GF</th>
+              <th scope="col" class="min-w-10 md:min-w-12 duration-500">GC</th>
+              <th scope="col" class="min-w-10 md:min-w-12 duration-500">DIF</th>
             </tr>
           </thead>
           <tbody class="text-sm md:text-base duration-500">
             @if (standingsData.length > 0) {
               @for (item of computedStadingsData; track $index) {
-                <tr [routerLink]="item.teamId !== teamId ? ['../../', item.teamId] : null" class="group h-9 md:h-11 text-center duration-500"
+                <tr [routerLink]="item.teamId !== teamId ? ['../../', item.teamId] : null" class="h-12 group text-center"
                   [ngClass]="{
                     'bg-gray-200 text-night font-semibold': item.teamId === teamId,
-                    'text-gray-200 hover:bg-gray-200 hover:text-night cursor-pointer duration-0': item.teamId !== teamId
+                    'text-gray-200 hover:bg-gray-200 hover:text-night cursor-pointer': item.teamId !== teamId
                   }"
                 >
-                 <td class="text-xs md:text-sm duration-500">{{ item.rank }}</td>
-                  <td>
-                    <div class="flex">
-                      <img loading="lazy" [src]="item.imageThumbnail" [alt]="item.alt" class="w-7 md:w-8 duration-500"/>
-                      <span class="hidden sm:block ml-2 truncate my-auto">{{ item.name }}</span>
-                      <span class="sm:hidden ml-3 font-bold flex items-center text-center my-auto">{{ item.abbreviation }}</span>
-                    </div>
+                  <td class="text-xs sticky left-0 z-20" [ngClass]="item.teamId === teamId ? 'bg-gray-200' : 'bg-nightfall group-hover:bg-gray-200'">
+                    {{ item.rank }}
+                  </td>
+                  <td class="sticky left-8 z-20" [ngClass]="item.teamId === teamId ? 'bg-gray-200' : 'bg-nightfall group-hover:bg-gray-200'">
+                    <img loading="lazy" [src]="item.imageThumbnail" [alt]="item.alt" class="w-8 h-8" />
+                  </td>
+                  <td class="text-start">
+                    <span class="m-1 truncate my-auto">{{ item.name }}</span>
                   </td>
                   <td class="font-bold group-hover:bg-white group-hover:text-night duration-0" [ngClass]="item.teamId === teamId ? 'bg-white text-night' : 'bg-brightnight'">
                     {{ item.performance.points }}
@@ -88,9 +90,7 @@ import { StandingsTable } from '../../interfaces/ui-models/team-overview';
         </table>
       </div>
       <div class="flex justify-end mt-2">
-        <span [routerLink]="['../../../../', 'tabla']" class="font-semibold text-gold hover:text-main cursor-pointer duration-300">
-          Ver Tabla Completa <fa-icon [icon]="Arrow"></fa-icon>
-        </span>
+        <span [routerLink]="['../../../../', 'tabla']" class="font-semibold text-gold hover:text-main cursor-pointer duration-300">Ver Tabla Completa <fa-icon [icon]="Arrow"></fa-icon></span>
       </div>
     </div>
   `,
