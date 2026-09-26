@@ -4,22 +4,20 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { faLocationDot, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FetchPageProfileService } from '../../../../services/fetch-page-profile.service';
 import { TeamPageProfile } from '../../../../interfaces/api-models/teamPageProfile';
+import { SubtitleComponent } from '../../../../components/subtitle/subtitle.component';
 
 @Component({
   selector: 'app-stadium',
-  imports: [FaIconComponent],
+  imports: [FaIconComponent, SubtitleComponent],
   template: `
-    <div class="bg-night px-3 sm:px-5 py-10 lg:py-16 duration-500 select-none">
+    <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500 select-none">
       <div class="max-w-screen-xl mx-auto">
         @if (stadium) {
-          <div class="w-fit">
-            <h3 class="text-3xl md:text-4xl text-white font-bold duration-500">{{ stadium.name }}</h3>
-            <div class="bg-main skew-x-50 h-1.5 mt-1 mb-2"></div>
-          </div>
-          <div class="flex flex-col md:flex-row gap-5">
+          <app-subtitle>{{ stadium.name }}</app-subtitle>
+          <div class="flex flex-col md:flex-row gap-4">
             <!-- Image -->
             <div class="w-full">
-              <img [src]="stadium.image" class="w-full object-cover">
+              <img loading="eager" [src]="stadium.image" class="w-full h-full object-cover">
             </div>
             <!-- Details -->
             <div class="w-full md:w-80 border-2 border-main p-4 h-fit">
