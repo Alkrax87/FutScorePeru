@@ -3,6 +3,7 @@ import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { TeamPerformance } from '../interfaces/api-models/teamPerformance';
 import { BehaviorSubject } from 'rxjs';
+import { LoadState } from '../interfaces/async-state/load-state';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,10 @@ export class FetchTeamsPerformanceService {
 
   private http = inject(HttpClient);
 
-  private cachedTeamsPerformanceL1: TeamPerformance[] | null = null;
-  private cachedTeamsPerformanceL2: TeamPerformance[] | null = null;
-  private cachedTeamsPerformanceL3: TeamPerformance[] | null = null;
-  private cachedTeamsPerformanceCP: TeamPerformance[] | null = null;
-
-  private teamsPerformanceL1Subject = new BehaviorSubject<TeamPerformance[]>([]);
-  private teamsPerformanceL2Subject = new BehaviorSubject<TeamPerformance[]>([]);
-  private teamsPerformanceL3Subject = new BehaviorSubject<TeamPerformance[]>([]);
-  private teamsPerformanceCPSubject = new BehaviorSubject<TeamPerformance[]>([]);
+  private teamsPerformanceL1Subject = new BehaviorSubject<LoadState<TeamPerformance[]>>({ status: 'idle', data: null, error: null });
+  private teamsPerformanceL2Subject = new BehaviorSubject<LoadState<TeamPerformance[]>>({ status: 'idle', data: null, error: null });
+  private teamsPerformanceL3Subject = new BehaviorSubject<LoadState<TeamPerformance[]>>({ status: 'idle', data: null, error: null });
+  private teamsPerformanceCPSubject = new BehaviorSubject<LoadState<TeamPerformance[]>>({ status: 'idle', data: null, error: null });
 
   teamsPerformanceL1$ = this.teamsPerformanceL1Subject.asObservable();
   teamsPerformanceL2$ = this.teamsPerformanceL2Subject.asObservable();
@@ -28,62 +24,62 @@ export class FetchTeamsPerformanceService {
   teamsPerformanceCP$ = this.teamsPerformanceCPSubject.asObservable();
 
   fetchTeamsPerformanceL1() {
-    if (this.cachedTeamsPerformanceL1) {
-      this.teamsPerformanceL1Subject.next(this.cachedTeamsPerformanceL1);
-      return;
-    }
+    const currentState = this.teamsPerformanceL1Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsPerformanceL1Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamPerformance[]>(this.backendUrl + '/teamsPerformance/category/1').subscribe({
-      next: (response) => {
-        this.cachedTeamsPerformanceL1 = response;
-        this.teamsPerformanceL1Subject.next(response);
+      next: (data) => this.teamsPerformanceL1Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsPerformanceL1Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga1) Teams Performance', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga1) Teams Performance ', error),
     });
   }
 
   fetchTeamsPerformanceL2() {
-    if (this.cachedTeamsPerformanceL2) {
-      this.teamsPerformanceL2Subject.next(this.cachedTeamsPerformanceL2);
-      return;
-    }
+    const currentState = this.teamsPerformanceL2Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsPerformanceL2Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamPerformance[]>(this.backendUrl + '/teamsPerformance/category/2').subscribe({
-      next: (response) => {
-        this.cachedTeamsPerformanceL2 = response;
-        this.teamsPerformanceL2Subject.next(response);
+      next: (data) => this.teamsPerformanceL2Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsPerformanceL2Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga2) Teams Performance', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga2) Teams Performance ', error),
     });
   }
 
   fetchTeamsPerformanceL3() {
-    if (this.cachedTeamsPerformanceL3) {
-      this.teamsPerformanceL3Subject.next(this.cachedTeamsPerformanceL3);
-      return;
-    }
+    const currentState = this.teamsPerformanceL3Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsPerformanceL3Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamPerformance[]>(this.backendUrl + '/teamsPerformance/category/3').subscribe({
-      next: (response) => {
-        this.cachedTeamsPerformanceL3 = response;
-        this.teamsPerformanceL3Subject.next(response);
+      next: (data) => this.teamsPerformanceL3Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsPerformanceL3Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga3) Teams Performance', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga3) Teams Performance ', error),
     });
   }
 
   fetchTeamsPerformanceCP() {
-    if (this.cachedTeamsPerformanceCP) {
-      this.teamsPerformanceCPSubject.next(this.cachedTeamsPerformanceCP);
-      return;
-    }
+    const currentState = this.teamsPerformanceCPSubject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsPerformanceCPSubject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamPerformance[]>(this.backendUrl + '/teamsPerformance/category/4').subscribe({
-      next: (response) => {
-        this.cachedTeamsPerformanceCP = response;
-        this.teamsPerformanceCPSubject.next(response);
+      next: (data) => this.teamsPerformanceCPSubject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsPerformanceCPSubject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Copa Perú) Teams Performance', error);
       },
-      error: (error) => console.error('Failed to fetch (Copa Perú) Teams Performance ', error),
     });
   }
 }

@@ -3,6 +3,7 @@ import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { TeamMatchResults } from '../interfaces/api-models/teamMatchResults';
 import { BehaviorSubject } from 'rxjs';
+import { LoadState } from '../interfaces/async-state/load-state';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,10 @@ export class FetchTeamsMatchResultsService {
 
   private http = inject(HttpClient);
 
-  private cachedTeamsMatchResultsL1: TeamMatchResults[] | null = null;
-  private cachedTeamsMatchResultsL2: TeamMatchResults[] | null = null;
-  private cachedTeamsMatchResultsL3: TeamMatchResults[] | null = null;
-  private cachedTeamsMatchResultsCP: TeamMatchResults[] | null = null;
-
-  private teamsMatchResultsL1Subject = new BehaviorSubject<TeamMatchResults[]>([]);
-  private teamsMatchResultsL2Subject = new BehaviorSubject<TeamMatchResults[]>([]);
-  private teamsMatchResultsL3Subject = new BehaviorSubject<TeamMatchResults[]>([]);
-  private teamsMatchResultsCPSubject = new BehaviorSubject<TeamMatchResults[]>([]);
+  private teamsMatchResultsL1Subject = new BehaviorSubject<LoadState<TeamMatchResults[]>>({ status: 'idle', data: null, error: null });
+  private teamsMatchResultsL2Subject = new BehaviorSubject<LoadState<TeamMatchResults[]>>({ status: 'idle', data: null, error: null });
+  private teamsMatchResultsL3Subject = new BehaviorSubject<LoadState<TeamMatchResults[]>>({ status: 'idle', data: null, error: null });
+  private teamsMatchResultsCPSubject = new BehaviorSubject<LoadState<TeamMatchResults[]>>({ status: 'idle', data: null, error: null });
 
   teamsMatchResultsL1$ = this.teamsMatchResultsL1Subject.asObservable();
   teamsMatchResultsL2$ = this.teamsMatchResultsL2Subject.asObservable();
@@ -28,62 +24,62 @@ export class FetchTeamsMatchResultsService {
   teamsMatchResultsCP$ = this.teamsMatchResultsCPSubject.asObservable();
 
   fetchTeamsMatchResultsL1() {
-    if (this.cachedTeamsMatchResultsL1) {
-      this.teamsMatchResultsL1Subject.next(this.cachedTeamsMatchResultsL1);
-      return;
-    }
+    const currentState = this.teamsMatchResultsL1Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsMatchResultsL1Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamMatchResults[]>(this.backendUrl + '/teamsMatchResults/category/1').subscribe({
-      next: (response) => {
-        this.cachedTeamsMatchResultsL1 = response;
-        this.teamsMatchResultsL1Subject.next(response);
+      next: (data) => this.teamsMatchResultsL1Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsMatchResultsL1Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga1) Teams Match Results', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga1) Teams Match Results ', error),
     });
   }
 
   fetchTeamsMatchResultsL2() {
-    if (this.cachedTeamsMatchResultsL2) {
-      this.teamsMatchResultsL2Subject.next(this.cachedTeamsMatchResultsL2);
-      return;
-    }
+    const currentState = this.teamsMatchResultsL2Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsMatchResultsL2Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamMatchResults[]>(this.backendUrl + '/teamsMatchResults/category/2').subscribe({
-      next: (response) => {
-        this.cachedTeamsMatchResultsL2 = response;
-        this.teamsMatchResultsL2Subject.next(response);
+      next: (data) => this.teamsMatchResultsL2Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsMatchResultsL2Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga2) Teams Match Results', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga2) Teams Match Results ', error),
     });
   }
 
   fetchTeamsMatchResultsL3() {
-    if (this.cachedTeamsMatchResultsL3) {
-      this.teamsMatchResultsL3Subject.next(this.cachedTeamsMatchResultsL3);
-      return;
-    }
+    const currentState = this.teamsMatchResultsL3Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsMatchResultsL3Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamMatchResults[]>(this.backendUrl + '/teamsMatchResults/category/3').subscribe({
-      next: (response) => {
-        this.cachedTeamsMatchResultsL3 = response;
-        this.teamsMatchResultsL3Subject.next(response);
+      next: (data) => this.teamsMatchResultsL3Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsMatchResultsL3Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga3) Teams Match Results', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga3) Teams Match Results ', error),
     });
   }
 
   fetchTeamsMatchResultsCP() {
-    if (this.cachedTeamsMatchResultsCP) {
-      this.teamsMatchResultsCPSubject.next(this.cachedTeamsMatchResultsCP);
-      return;
-    }
+    const currentState = this.teamsMatchResultsCPSubject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsMatchResultsCPSubject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamMatchResults[]>(this.backendUrl + '/teamsMatchResults/category/4').subscribe({
-      next: (response) => {
-        this.cachedTeamsMatchResultsCP = response;
-        this.teamsMatchResultsCPSubject.next(response);
+      next: (data) => this.teamsMatchResultsCPSubject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsMatchResultsCPSubject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Copa Perú) Teams Match Results', error);
       },
-      error: (error) => console.error('Failed to fetch (Copa Perú) Teams Match Results ', error),
     });
   }
 }

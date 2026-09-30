@@ -3,6 +3,7 @@ import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Statistics } from '../interfaces/api-models/statistics';
 import { BehaviorSubject } from 'rxjs';
+import { LoadState } from '../interfaces/async-state/load-state';
 
 @Injectable({
   providedIn: 'root',
@@ -12,60 +13,56 @@ export class FetchStatisticsService {
 
   private http = inject(HttpClient);
 
-  private cachedStatisticsL1: Statistics | null = null;
-  private cachedStatisticsL2: Statistics | null = null;
-  private cachedStatisticsL3: Statistics | null = null;
-
-  private statisticsL1Subject = new BehaviorSubject<Statistics | null>(null);
-  private statisticsL2Subject = new BehaviorSubject<Statistics | null>(null);
-  private statisticsL3Subject = new BehaviorSubject<Statistics | null>(null);
+  private statisticsL1Subject = new BehaviorSubject<LoadState<Statistics>>({ status: 'idle', data: null, error: null });
+  private statisticsL2Subject = new BehaviorSubject<LoadState<Statistics>>({ status: 'idle', data: null, error: null });
+  private statisticsL3Subject = new BehaviorSubject<LoadState<Statistics>>({ status: 'idle', data: null, error: null });
 
   statisticsL1$ = this.statisticsL1Subject.asObservable();
   statisticsL2$ = this.statisticsL2Subject.asObservable();
   statisticsL3$ = this.statisticsL3Subject.asObservable();
 
   fetchStatisticsL1() {
-    if (this.cachedStatisticsL1) {
-      this.statisticsL1Subject.next(this.cachedStatisticsL1);
-      return;
-    }
+    const currentState = this.statisticsL1Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.statisticsL1Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<Statistics>(this.backendUrl + '/statistics/category/1').subscribe({
-      next: (response) => {
-        this.cachedStatisticsL1 = response;
-        this.statisticsL1Subject.next(response);
+      next: (data) => this.statisticsL1Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.statisticsL1Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga 1) Statistics', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga 1) Statistics ', error),
     });
   }
 
   fetchStatisticsL2() {
-    if (this.cachedStatisticsL2) {
-      this.statisticsL2Subject.next(this.cachedStatisticsL2);
-      return;
-    }
+    const currentState = this.statisticsL2Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.statisticsL2Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<Statistics>(this.backendUrl + '/statistics/category/2').subscribe({
-      next: (response) => {
-        this.cachedStatisticsL2 = response;
-        this.statisticsL2Subject.next(response);
+      next: (data) => this.statisticsL2Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.statisticsL2Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga 2) Statistics', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga 2) Statistics ', error),
     });
   }
 
   fetchStatisticsL3() {
-    if (this.cachedStatisticsL3) {
-      this.statisticsL3Subject.next(this.cachedStatisticsL3);
-      return;
-    }
+    const currentState = this.statisticsL3Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.statisticsL3Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<Statistics>(this.backendUrl + '/statistics/category/3').subscribe({
-      next: (response) => {
-        this.cachedStatisticsL3 = response;
-        this.statisticsL3Subject.next(response);
+      next: (data) => this.statisticsL3Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.statisticsL3Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga 3) Statistics', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga 3) Statistics ', error),
     });
   }
 }

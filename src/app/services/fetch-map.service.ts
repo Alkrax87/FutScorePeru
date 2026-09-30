@@ -3,6 +3,7 @@ import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { MapElement } from '../interfaces/api-models/map-element';
 import { BehaviorSubject } from 'rxjs';
+import { LoadState } from '../interfaces/async-state/load-state';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,10 @@ export class FetchMapService {
 
   private http = inject(HttpClient);
 
-  cachedMapL1: MapElement[] | null = null;
-  cachedMapL2: MapElement[] | null = null;
-  cachedMapL3: MapElement[] | null = null;
-  cachedMapCP: MapElement[] | null = null;
-
-  private mapL1Subject = new BehaviorSubject<MapElement[]>([]);
-  private mapL2Subject = new BehaviorSubject<MapElement[]>([]);
-  private mapL3Subject = new BehaviorSubject<MapElement[]>([]);
-  private mapCPSubject = new BehaviorSubject<MapElement[]>([]);
+  private mapL1Subject = new BehaviorSubject<LoadState<MapElement[]>>({ status: 'idle', data: null, error: null });
+  private mapL2Subject = new BehaviorSubject<LoadState<MapElement[]>>({ status: 'idle', data: null, error: null });
+  private mapL3Subject = new BehaviorSubject<LoadState<MapElement[]>>({ status: 'idle', data: null, error: null });
+  private mapCPSubject = new BehaviorSubject<LoadState<MapElement[]>>({ status: 'idle', data: null, error: null });
 
   dataMapL1$ = this.mapL1Subject.asObservable();
   dataMapL2$ = this.mapL2Subject.asObservable();
@@ -28,62 +24,62 @@ export class FetchMapService {
   dataMapCP$ = this.mapCPSubject.asObservable();
 
   fetchMapL1() {
-    if (this.cachedMapL1) {
-      this.mapL1Subject.next(this.cachedMapL1);
-      return;
-    }
+    const currentState = this.mapL1Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.mapL1Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<MapElement[]>(this.backendUrl + '/map/category/1').subscribe({
-      next: (response) => {
-        this.cachedMapL1 = response;
-        this.mapL1Subject.next(response);
+      next: (data) => this.mapL1Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.mapL1Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga1) map', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga1) map ', error),
     });
   }
 
   fetchMapL2() {
-    if (this.cachedMapL2) {
-      this.mapL2Subject.next(this.cachedMapL2);
-      return;
-    }
+    const currentState = this.mapL2Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.mapL2Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<MapElement[]>(this.backendUrl + '/map/category/2').subscribe({
-      next: (response) => {
-        this.cachedMapL2 = response;
-        this.mapL2Subject.next(response);
+      next: (data) => this.mapL2Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.mapL2Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga2) map', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga2) map ', error),
     });
   }
 
   fetchMapL3() {
-    if (this.cachedMapL3) {
-      this.mapL3Subject.next(this.cachedMapL3);
-      return;
-    }
+    const currentState = this.mapL3Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.mapL3Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<MapElement[]>(this.backendUrl + '/map/category/3').subscribe({
-      next: (response) => {
-        this.cachedMapL3 = response;
-        this.mapL3Subject.next(response);
+      next: (data) => this.mapL3Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.mapL3Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga3) map', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga3) map ', error),
     });
   }
 
   fetchMapCP() {
-    if (this.cachedMapCP) {
-      this.mapCPSubject.next(this.cachedMapCP);
-      return;
-    }
+    const currentState = this.mapCPSubject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.mapCPSubject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<MapElement[]>(this.backendUrl + '/map/category/4').subscribe({
-      next: (response) => {
-        this.cachedMapCP = response;
-        this.mapCPSubject.next(response);
+      next: (data) => this.mapCPSubject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.mapCPSubject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Copa Perú) map', error);
       },
-      error: (error) => console.error('Failed to fetch (Copa Perú) map ', error),
     });
   }
 }

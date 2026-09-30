@@ -3,6 +3,7 @@ import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { TeamForm } from '../interfaces/api-models/teamForm';
 import { BehaviorSubject } from 'rxjs';
+import { LoadState } from '../interfaces/async-state/load-state';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,10 @@ export class FetchTeamsFormService {
 
   private http = inject(HttpClient);
 
-  private cachedTeamsFormL1: TeamForm[] | null = null;
-  private cachedTeamsFormL2: TeamForm[] | null = null;
-  private cachedTeamsFormL3: TeamForm[] | null = null;
-  private cachedTeamsFormCP: TeamForm[] | null = null;
-
-  private teamsFormL1Subject = new BehaviorSubject<TeamForm[]>([]);
-  private teamsFormL2Subject = new BehaviorSubject<TeamForm[]>([]);
-  private teamsFormL3Subject = new BehaviorSubject<TeamForm[]>([]);
-  private teamsFormCPSubject = new BehaviorSubject<TeamForm[]>([]);
+  private teamsFormL1Subject = new BehaviorSubject<LoadState<TeamForm[]>>({ status: 'idle', data: null, error: null });
+  private teamsFormL2Subject = new BehaviorSubject<LoadState<TeamForm[]>>({ status: 'idle', data: null, error: null });
+  private teamsFormL3Subject = new BehaviorSubject<LoadState<TeamForm[]>>({ status: 'idle', data: null, error: null });
+  private teamsFormCPSubject = new BehaviorSubject<LoadState<TeamForm[]>>({ status: 'idle', data: null, error: null });
 
   teamsFormL1$ = this.teamsFormL1Subject.asObservable();
   teamsFormL2$ = this.teamsFormL2Subject.asObservable();
@@ -28,62 +24,62 @@ export class FetchTeamsFormService {
   teamsFormCP$ = this.teamsFormCPSubject.asObservable();
 
   fetchTeamsFormL1() {
-    if (this.cachedTeamsFormL1) {
-      this.teamsFormL1Subject.next(this.cachedTeamsFormL1);
-      return;
-    }
+    const currentState = this.teamsFormL1Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsFormL1Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamForm[]>(this.backendUrl + '/teamsForm/category/1').subscribe({
-      next: (response) => {
-        this.cachedTeamsFormL1 = response;
-        this.teamsFormL1Subject.next(response);
+      next: (data) => this.teamsFormL1Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsFormL1Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga1) Teams Form', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga1) Teams Form ', error),
     });
   }
 
   fetchTeamsFormL2() {
-    if (this.cachedTeamsFormL2) {
-      this.teamsFormL2Subject.next(this.cachedTeamsFormL2);
-      return;
-    }
+    const currentState = this.teamsFormL2Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsFormL2Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamForm[]>(this.backendUrl + '/teamsForm/category/2').subscribe({
-      next: (response) => {
-        this.cachedTeamsFormL2 = response;
-        this.teamsFormL2Subject.next(response);
+      next: (data) => this.teamsFormL2Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsFormL2Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga2) Teams Form', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga2) Teams Form ', error),
     });
   }
 
   fetchTeamsFormL3() {
-    if (this.cachedTeamsFormL3) {
-      this.teamsFormL3Subject.next(this.cachedTeamsFormL3);
-      return;
-    }
+    const currentState = this.teamsFormL3Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsFormL3Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamForm[]>(this.backendUrl + '/teamsForm/category/3').subscribe({
-      next: (response) => {
-        this.cachedTeamsFormL3 = response;
-        this.teamsFormL3Subject.next(response);
+      next: (data) => this.teamsFormL3Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsFormL3Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga3) Teams Form', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga3) Teams Form ', error),
     });
   }
 
   fetchTeamsFormCP() {
-    if (this.cachedTeamsFormCP) {
-      this.teamsFormCPSubject.next(this.cachedTeamsFormCP);
-      return;
-    }
+    const currentState = this.teamsFormCPSubject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsFormCPSubject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<TeamForm[]>(this.backendUrl + '/teamsForm/category/4').subscribe({
-      next: (response) => {
-        this.cachedTeamsFormCP = response;
-        this.teamsFormCPSubject.next(response);
+      next: (data) => this.teamsFormCPSubject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsFormCPSubject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Copa Perú) Teams Form', error);
       },
-      error: (error) => console.error('Failed to fetch (Copa Perú) Teams Form ', error),
     });
   }
 }

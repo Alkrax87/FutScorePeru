@@ -2,7 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { Environments } from '../environment/environments';
 import { HttpClient } from '@angular/common/http';
 import { Team } from '../interfaces/api-models/team';
+import { TeamCP } from '../interfaces/api-models/team-cp';
 import { BehaviorSubject } from 'rxjs';
+import { LoadState } from '../interfaces/async-state/load-state';
 
 @Injectable({
   providedIn: 'root',
@@ -12,60 +14,73 @@ export class FetchTeamsService {
 
   private http = inject(HttpClient);
 
-  private cachedTeamsL1: Team[] | null = null;
-  private cachedTeamsL2: Team[] | null = null;
-  private cachedTeamsL3: Team[] | null = null;
-
-  private teamsL1Subject = new BehaviorSubject<Team[]>([]);
-  private teamsL2Subject = new BehaviorSubject<Team[]>([]);
-  private teamsL3Subject = new BehaviorSubject<Team[]>([]);
+  private teamsL1Subject = new BehaviorSubject<LoadState<Team[]>>({ status: 'idle', data: null, error: null });
+  private teamsL2Subject = new BehaviorSubject<LoadState<Team[]>>({ status: 'idle', data: null, error: null });
+  private teamsL3Subject = new BehaviorSubject<LoadState<Team[]>>({ status: 'idle', data: null, error: null });
+  private teamsCPSubject = new BehaviorSubject<LoadState<TeamCP[]>>({ status: 'idle', data: null, error: null });
 
   teamsL1$ = this.teamsL1Subject.asObservable();
   teamsL2$ = this.teamsL2Subject.asObservable();
   teamsL3$ = this.teamsL3Subject.asObservable();
+  teamsCP$ = this.teamsCPSubject.asObservable();
 
   fetchTeamsL1() {
-    if (this.cachedTeamsL1) {
-      this.teamsL1Subject.next(this.cachedTeamsL1);
-      return;
-    }
+    const currentState = this.teamsL1Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsL1Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<Team[]>(this.backendUrl + '/teams/category/1').subscribe({
-      next: (response) => {
-        this.cachedTeamsL1 = response;
-        this.teamsL1Subject.next(response);
+      next: (data) => this.teamsL1Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsL1Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga 1) Teams', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga1) Teams ', error),
     });
   }
 
   fetchTeamsL2() {
-    if (this.cachedTeamsL2) {
-      this.teamsL2Subject.next(this.cachedTeamsL2);
-      return;
-    }
+    const currentState = this.teamsL2Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsL2Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<Team[]>(this.backendUrl + '/teams/category/2').subscribe({
-      next: (response) => {
-        this.cachedTeamsL2 = response;
-        this.teamsL2Subject.next(response);
+      next: (data) => this.teamsL2Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsL2Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga 2) Teams', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga2) Teams ', error),
     });
   }
 
   fetchTeamsL3() {
-    if (this.cachedTeamsL3) {
-      this.teamsL3Subject.next(this.cachedTeamsL3);
-      return;
-    }
+    const currentState = this.teamsL3Subject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsL3Subject.next({ status: 'loading', data: currentState.data, error: null });
 
     this.http.get<Team[]>(this.backendUrl + '/teams/category/3').subscribe({
-      next: (response) => {
-        this.cachedTeamsL3 = response;
-        this.teamsL3Subject.next(response);
+      next: (data) => this.teamsL3Subject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsL3Subject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Liga 3) Teams', error);
       },
-      error: (error) => console.error('Failed to fetch (Liga3) Teams ', error),
+    });
+  }
+
+  fetchTeamsCP() {
+    const currentState = this.teamsCPSubject.value;
+    if (currentState.status === 'loading' || currentState.status === 'success') return;
+
+    this.teamsCPSubject.next({ status: 'loading', data: currentState.data, error: null });
+
+    this.http.get<TeamCP[]>(this.backendUrl + '/teamsCP').subscribe({
+      next: (data) => this.teamsCPSubject.next({ status: 'success', data, error: null }),
+      error: (error: unknown) => {
+        this.teamsCPSubject.next({ status: 'error', data: currentState.data, error });
+        console.error('Failed to fetch (Copa Perú) Teams', error);
+      },
     });
   }
 }
