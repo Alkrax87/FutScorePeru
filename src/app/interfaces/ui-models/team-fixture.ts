@@ -10,7 +10,7 @@ export interface TeamFixture {
   awayTeamAlt: string;
   homeTeamName: string;
   awayTeamName: string;
-  homeTeamScore: number;
-  awayTeamScore: number;
+  homeTeamScore: number | null;
+  awayTeamScore: number | null;
   free: boolean;
 }[];

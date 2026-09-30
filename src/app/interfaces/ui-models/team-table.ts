@@ -2,7 +2,6 @@ export interface TeamTable {
   category: number;
   teamId: string;
   name: string;
-  abbreviation: string;
   imageThumbnail: string;
   alt: string;
   form: string[];

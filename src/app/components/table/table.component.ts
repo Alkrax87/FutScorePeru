@@ -14,23 +14,23 @@ import { RouterLink } from '@angular/router';
       <div class="overflow-x-auto">
         <table class="w-full">
           <thead class="text-neutral-300 border-b-4 text-xs border-neutral-600 duration-500">
-            <tr class="h-8 duration-500">
+            <tr class="h-8">
               @for (header of headers; track $index) {
                 @if ($index === 0) {
-                  <th scope="col" class="bg-nightfall w-1 min-w-1 max-w-1 sticky left-0 z-20">{{ header }}</th>
+                  <th scope="col" class="bg-nightfall w-1 min-w-1 max-w-1 sticky left-0 z-30">{{ header }}</th>
                 } @else if ($index === 1) {
-                  <th scope="col" class="bg-nightfall w-8 min-w-8 max-w-8 sticky left-1 z-20">{{ header }}</th>
+                  <th scope="col" class="bg-nightfall w-8 min-w-8 max-w-8 sticky left-1 z-30">{{ header }}</th>
                 } @else if ($index === 2) {
-                  <th scope="col" class="bg-nightfall group-hover:bg-white min-w-10 w-10 duration-500 sticky left-9 z-20">{{ header }}</th>
+                  <th scope="col" class="bg-nightfall group-hover:bg-white min-w-10 w-10 duration-500 sticky left-9 z-30">{{ header }}</th>
                 } @else if ($index === 3) {
                   <th scope="col" class="min-w-48 md:min-w-72 text-start duration-500">{{ header }}</th>
                 } @else if ($index === 4) {
-                  <th scope="col" class="bg-brightnight min-w-14 duration-500">{{ header }}</th>
+                  <th scope="col" class="bg-brightnight min-w-14">{{ header }}</th>
                 } @else if ($index === headers.length - 1) {
                   <th scope="col" class="w-72 min-w-40">{{ header }}</th>
                 } @else {
                   @if (isCPTable && $index === headers.length - 2) {
-                    <th scope="col" class="bg-brightnight min-w-10 duration-500">{{ header }}</th>
+                    <th scope="col" class="bg-brightnight min-w-10">{{ header }}</th>
                   } @else {
                     <th scope="col" class="min-w-10 md:min-w-12 duration-500">{{ header }}</th>
                   }
@@ -43,16 +43,16 @@ import { RouterLink } from '@angular/router';
               @for (item of data; track $index) {
                 <tr [routerLink]="!isCPTable ? ['../club', item.category, item.teamId] : undefined" [ngClass]="{ 'cursor-pointer': !isCPTable }" class="group text-center text-light hover:bg-neutral-200 hover:text-night">
                   @if (config[0] && config[0].active && $index >= 0 && $index < config[0].quantity!) {
-                    <td [ngClass]="config[0].class" class="sticky left-0 z-30"></td>
+                    <td [ngClass]="config[0].class" class="sticky left-0 z-20"></td>
                   } @else if (config[1] && config[1].active && $index >= config[0].quantity! && $index < (config[0].quantity! + config[1].quantity!)) {
-                    <td [ngClass]="config[1].class" class="sticky left-0 z-30"></td>
+                    <td [ngClass]="config[1].class" class="sticky left-0 z-20"></td>
                   } @else if (config[2] && config[2].active && $index >= (data.length - config[2].quantity!)) {
-                    <td [ngClass]="config[2].class" class="sticky left-0 z-30"></td>
+                    <td [ngClass]="config[2].class" class="sticky left-0 z-20"></td>
                   } @else {
-                    <td class="bg-nightfall group-hover:bg-neutral-200 sticky left-0 z-30"></td>
+                    <td class="bg-nightfall group-hover:bg-neutral-200 sticky left-0 z-20"></td>
                   }
-                  <td class="bg-nightfall group-hover:bg-neutral-200 text-xs sticky left-1 z-30">{{ $index + 1 }}</td>
-                  <td class="bg-nightfall group-hover:bg-neutral-200 sticky left-9 z-30">
+                  <td class="bg-nightfall group-hover:bg-neutral-200 text-xs sticky left-1 z-20">{{ $index + 1 }}</td>
+                  <td class="bg-nightfall group-hover:bg-neutral-200 sticky left-9 z-20">
                     <img loading="lazy" [src]="item.imageThumbnail" [alt]="item.alt" class="w-8 h-8" />
                   </td>
                   <td class="text-start">
