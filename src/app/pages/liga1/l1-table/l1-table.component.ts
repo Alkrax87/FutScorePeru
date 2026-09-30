@@ -82,7 +82,8 @@ export class L1TableComponent {
       this.teamsPerformanceService.teamsPerformanceL1$,
       this.teamsFormService.teamsFormL1$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([division, teams, teamsPerformance, teamsForm]) => {
+      next: ([divisionState, teamsState, teamsPerformanceState, teamsFormState]) => {
+        const division = divisionState.data;
         let activePhase: 'phase1' | 'phase2' | undefined = undefined;
         if (division?.phase1.status) {
           activePhase = 'phase1';
@@ -92,9 +93,11 @@ export class L1TableComponent {
         this.phase1 = division?.phase1.status || false;
         this.phase2 = division?.phase2.status || division?.phase3.status || false;
 
-        this.dataOverall = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'overall', undefined, activePhase);
-        this.dataPhase1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1');
-        this.dataPhase2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2');
+        if (teamsState.data !== null && teamsPerformanceState.data !== null && teamsFormState.data !== null) {
+          this.dataOverall = this.uiDataMapperService.teamsTableMapper(teamsState.data, teamsPerformanceState.data, teamsFormState.data, 'overall', undefined, activePhase);
+          this.dataPhase1 = this.uiDataMapperService.teamsTableMapper(teamsState.data, teamsPerformanceState.data, teamsFormState.data, 'phase1');
+          this.dataPhase2 = this.uiDataMapperService.teamsTableMapper(teamsState.data, teamsPerformanceState.data, teamsFormState.data, 'phase2');
+        }
       }
     });
 

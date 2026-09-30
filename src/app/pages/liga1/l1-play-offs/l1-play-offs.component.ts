@@ -66,10 +66,10 @@ export class L1PlayOffsComponent {
       this.bracketsService.bracketsL1$,
       this.teamsService.teamsL1$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([brackets, teams]) => {
-        if (brackets && teams) {
-          this.dataPlayOffs2 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket2);
-          this.dataPlayOffs1 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket1);
+      next: ([bracketsState, teamsState]) => {
+        if (bracketsState.data !== null && teamsState.data !== null) {
+          this.dataPlayOffs2 = this.uiDataMapperService.bracketsCardMapper(teamsState.data, bracketsState.data.bracket2);
+          this.dataPlayOffs1 = this.uiDataMapperService.bracketsCardMapper(teamsState.data, bracketsState.data.bracket1);
         }
       }
     });

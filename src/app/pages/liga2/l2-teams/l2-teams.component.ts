@@ -36,7 +36,11 @@ export class L2TeamsComponent {
     this.stadiumsService.fetchStadiums();
 
     combineLatest([this.teamsService.teamsL2$, this.stadiumsService.stadiums$]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([teams, stadiums]) => (this.dataTeamsCard = this.uiDataMapperService.teamsCardMapper(teams, stadiums)),
+      next: ([teamsState, stadiumsState]) => {
+        if (teamsState.data !== null && stadiumsState.data !== null) {
+          this.dataTeamsCard = this.uiDataMapperService.teamsCardMapper(teamsState.data, stadiumsState.data);
+        }
+      },
     });
 
     if (typeof window !== 'undefined') {

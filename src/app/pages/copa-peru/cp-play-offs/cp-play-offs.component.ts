@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { FetchBracketsService } from '../../../services/fetch-brackets.service';
-import { FetchTeamsCPService } from '../../../services/fetch-teams-cp.service';
+import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -107,7 +107,7 @@ import { MatchCard } from '../../../interfaces/ui-models/match-card';
 export class CpPlayOffsComponent {
   private viewPortScroller = inject(ViewportScroller);
   private bracketsService = inject(FetchBracketsService);
-  private teamsCPService = inject(FetchTeamsCPService);
+  private teamsService = inject(FetchTeamsService);
   private uiDataMapperService = inject(UiDataMapperService);
 
   bracket16: boolean = true;
@@ -126,16 +126,16 @@ export class CpPlayOffsComponent {
     this.bracketsService.fetchBracketsCP();
 
     combineLatest([
-      this.teamsCPService.teamsCP$,
+      this.teamsService.teamsCP$,
       this.bracketsService.bracketsCP$
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([teams, brackets]) => {
-        if (teams && brackets) {
-          this.dataBrackets16 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket16);
-          this.dataBrackets8 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket8);
-          this.dataBrackets4 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket4);
-          this.dataBrackets2 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket2);
-          this.dataBrackets1 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket1);
+      next: ([teamsState, bracketsState]) => {
+        if (teamsState.data !== null && bracketsState.data !== null) {
+          this.dataBrackets16 = this.uiDataMapperService.bracketsCardMapper(teamsState.data, bracketsState.data.bracket16);
+          this.dataBrackets8 = this.uiDataMapperService.bracketsCardMapper(teamsState.data, bracketsState.data.bracket8);
+          this.dataBrackets4 = this.uiDataMapperService.bracketsCardMapper(teamsState.data, bracketsState.data.bracket4);
+          this.dataBrackets2 = this.uiDataMapperService.bracketsCardMapper(teamsState.data, bracketsState.data.bracket2);
+          this.dataBrackets1 = this.uiDataMapperService.bracketsCardMapper(teamsState.data, bracketsState.data.bracket1);
         }
       }
     });

@@ -38,7 +38,11 @@ export class L3MainComponent {
     this.divisionsService.fetchDivisionL3();
 
     this.teamsService.teamsL3$.pipe(takeUntilDestroyed()).subscribe({
-      next: (data) => this.navEntities = this.uiDataMapperService.teamsNavMapper(data)
+      next: (teamsState) => {
+        if (teamsState.data !== null) {
+          this.navEntities = this.uiDataMapperService.teamsNavMapper(teamsState.data);
+        }
+      },
     });
   }
 }

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { NgClass, ViewportScroller } from '@angular/common';
 import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
-import { FetchTeamsCPService } from '../../../services/fetch-teams-cp.service';
+import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchTeamsMatchResultsService } from '../../../services/fetch-teams-match-results.service';
 import { FetchFixturesService } from '../../../services/fetch-fixtures.service';
 import { MatchesSetupService } from '../../../services/matches-setup.service';
@@ -47,7 +47,7 @@ import { FixtureByDate } from '../../../interfaces/ui-models/fixture-models';
 export class CpFixtureComponent {
   private viewPortScroller = inject(ViewportScroller);
   private divisionsService = inject(FetchDivisionsService);
-  private teamsCPService = inject(FetchTeamsCPService);
+  private teamsService = inject(FetchTeamsService);
   private teamsMatchResultsService = inject(FetchTeamsMatchResultsService);
   private fixturesService = inject(FetchFixturesService);
   private matchesService = inject(MatchesSetupService);
@@ -61,15 +61,16 @@ export class CpFixtureComponent {
 
     combineLatest([
       this.divisionsService.divisionCP$,
-      this.teamsCPService.teamsCP$,
+      this.teamsService.teamsCP$,
       this.teamsMatchResultsService.teamsMatchResultsCP$,
       this.fixturesService.fixtureCP$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([division, teams, matchResults, fixture]) => {
+      next: ([divisionState, teamsState, matchResultsState, fixtureState]) => {
+        const division = divisionState.data;
         this.selectedPhaseIndex = division?.phase1?.inGame ? division.phase1.inGame - 1 : 0;
 
-        if (teams && fixture && matchResults) {
-          this.computedFixture = this.matchesService.transformDataForFixtureCP(teams, fixture.phase1, matchResults, 'phase1');
+        if (teamsState.data !== null && fixtureState.data !== null && matchResultsState.data !== null) {
+          this.computedFixture = this.matchesService.transformDataForFixtureCP(teamsState.data, fixtureState.data.phase1, matchResultsState.data, 'phase1');
         }
       }
     });

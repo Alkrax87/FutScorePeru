@@ -76,11 +76,11 @@ export class L3PlayOffsComponent {
       this.bracketsService.bracketsL3$,
       this.teamsService.teamsL3$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([brackets, teams]) => {
-        if (brackets && teams) {
-          this.dataPlayOffs4 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket4);
-          this.dataPlayOffs2 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket2);
-          this.dataPlayOffs1 = this.uiDataMapperService.bracketsCardMapper(teams, brackets.bracket1);
+      next: ([bracketsState, teamsState]) => {
+        if (bracketsState.data !== null && teamsState.data !== null) {
+          this.dataPlayOffs4 = this.uiDataMapperService.bracketsCardMapper(teamsState.data, bracketsState.data.bracket4);
+          this.dataPlayOffs2 = this.uiDataMapperService.bracketsCardMapper(teamsState.data, bracketsState.data.bracket2);
+          this.dataPlayOffs1 = this.uiDataMapperService.bracketsCardMapper(teamsState.data, bracketsState.data.bracket1);
         }
       }
     });

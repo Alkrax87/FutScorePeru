@@ -45,7 +45,11 @@ export class L2ManagersComponent {
     this.managersService.fetchManagersL2();
 
     combineLatest([this.teamsService.teamsL2$, this.managersService.managersL2$]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([teams, managers]) => (this.dataCarousel = this.uiDataMapperService.managersCarouselMapper(teams, managers)),
+      next: ([teamsState, managersState]) => {
+        if (teamsState.data !== null && managersState.data !== null) {
+          this.dataCarousel = this.uiDataMapperService.managersCarouselMapper(teamsState.data, managersState.data);
+        }
+      },
     });
 
     if (typeof window !== 'undefined') {

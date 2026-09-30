@@ -201,40 +201,41 @@ export class L1StatisticsComponent {
       this.teamsService.teamsL1$,
       this.statisticsService.statisticsL1$
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([division, teams, statistics]) => {
+      next: ([divisionState, teamsState, statisticsState]) => {
+        const division = divisionState.data;
         this.phase1 = division?.phase1.status || false;
         this.phase2 = division?.phase2.status || division?.phase3.status || false;
 
-        if (statistics) {
-          this.dataOverallMostWins = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.mostWins, 'w');
-          this.dataOverallMostDraws = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.mostDraws, 'd');
-          this.dataOverallMostLosses = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.mostLosses, 'l');
-          this.dataOverallBestDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.bestDefense, 'ga');
-          this.dataOverallWorstDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.worstDefense, 'ga');
-          this.dataOverallMostGoals = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.mostGoalsFor, 'gf');
-          this.dataOverallFewestGoals = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.fewestGoalsFor, 'gf');
-          this.dataOverallBestGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.bestGoalDifference, 'gd');
-          this.dataOverallWorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics.overall.worstGoalDifference, 'gd');
+        if (statisticsState.data !== null && teamsState.data !== null) {
+          this.dataOverallMostWins = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.mostWins, 'w');
+          this.dataOverallMostDraws = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.mostDraws, 'd');
+          this.dataOverallMostLosses = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.mostLosses, 'l');
+          this.dataOverallBestDefense = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.bestDefense, 'ga');
+          this.dataOverallWorstDefense = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.worstDefense, 'ga');
+          this.dataOverallMostGoals = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.mostGoalsFor, 'gf');
+          this.dataOverallFewestGoals = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.fewestGoalsFor, 'gf');
+          this.dataOverallBestGoalDifference = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.bestGoalDifference, 'gd');
+          this.dataOverallWorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.worstGoalDifference, 'gd');
 
-          this.dataPhase1MostWins = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase1.mostWins, 'w');
-          this.dataPhase1MostDraws = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase1.mostDraws, 'd');
-          this.dataPhase1MostLosses = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase1.mostLosses, 'l');
-          this.dataPhase1BestDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase1.bestDefense, 'ga');
-          this.dataPhase1WorstDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase1.worstDefense, 'ga');
-          this.dataPhase1MostGoals = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase1.mostGoalsFor, 'gf');
-          this.dataPhase1FewestGoals = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase1.fewestGoalsFor, 'gf');
-          this.dataPhase1BestGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase1.bestGoalDifference, 'gd');
-          this.dataPhase1WorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase1.worstGoalDifference, 'gd');
+          this.dataPhase1MostWins = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase1.mostWins, 'w');
+          this.dataPhase1MostDraws = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase1.mostDraws, 'd');
+          this.dataPhase1MostLosses = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase1.mostLosses, 'l');
+          this.dataPhase1BestDefense = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase1.bestDefense, 'ga');
+          this.dataPhase1WorstDefense = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase1.worstDefense, 'ga');
+          this.dataPhase1MostGoals = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase1.mostGoalsFor, 'gf');
+          this.dataPhase1FewestGoals = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase1.fewestGoalsFor, 'gf');
+          this.dataPhase1BestGoalDifference = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase1.bestGoalDifference, 'gd');
+          this.dataPhase1WorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase1.worstGoalDifference, 'gd');
 
-          this.dataPhase2MostWins = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase2.mostWins, 'w');
-          this.dataPhase2MostDraws = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase2.mostDraws, 'd');
-          this.dataPhase2MostLosses = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase2.mostLosses, 'l');
-          this.dataPhase2BestDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase2.bestDefense, 'ga');
-          this.dataPhase2WorstDefense = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase2.worstDefense, 'ga');
-          this.dataPhase2MostGoals = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase2.mostGoalsFor, 'gf');
-          this.dataPhase2FewestGoals = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase2.fewestGoalsFor, 'gf');
-          this.dataPhase2BestGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase2.bestGoalDifference, 'gd');
-          this.dataPhase2WorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(teams, statistics.phase2.worstGoalDifference, 'gd');
+          this.dataPhase2MostWins = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.mostWins, 'w');
+          this.dataPhase2MostDraws = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.mostDraws, 'd');
+          this.dataPhase2MostLosses = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.mostLosses, 'l');
+          this.dataPhase2BestDefense = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.bestDefense, 'ga');
+          this.dataPhase2WorstDefense = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.worstDefense, 'ga');
+          this.dataPhase2MostGoals = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.mostGoalsFor, 'gf');
+          this.dataPhase2FewestGoals = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.fewestGoalsFor, 'gf');
+          this.dataPhase2BestGoalDifference = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.bestGoalDifference, 'gd');
+          this.dataPhase2WorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.worstGoalDifference, 'gd');
         }
       }
     });

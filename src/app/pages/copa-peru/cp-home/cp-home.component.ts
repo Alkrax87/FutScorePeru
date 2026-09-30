@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
-import { FetchTeamsCPService } from '../../../services/fetch-teams-cp.service';
+import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchMapService } from '../../../services/fetch-map.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest } from 'rxjs';
@@ -25,7 +25,7 @@ import { DivisionSummary } from '../../../interfaces/ui-models/division-summary'
 export class CpHomeComponent {
   private viewPortScroller = inject(ViewportScroller);
   private divisionsService = inject(FetchDivisionsService);
-  private teamsCPService = inject(FetchTeamsCPService);
+  private teamsService = inject(FetchTeamsService);
   private mapService = inject(FetchMapService);
   private uiDataMapperService = inject(UiDataMapperService);
 
@@ -34,20 +34,24 @@ export class CpHomeComponent {
 
     combineLatest([
       this.divisionsService.divisionCP$,
-      this.teamsCPService.teamsCP$,
+      this.teamsService.teamsCP$,
       this.mapService.dataMapCP$,
-    ]).pipe(takeUntilDestroyed()).subscribe(([division, teams, map]) => {
-      this.dataDivision = division;
-      this.mapConstructor = map;
-      this.dataMap = this.uiDataMapperService.teamsCPMapMapper(teams);
-      this.dataTeams = this.uiDataMapperService.teamsCPDivisionMapper(teams);
+    ]).pipe(takeUntilDestroyed()).subscribe(([divisionState, teamsState, mapState]) => {
+      this.dataDivision = divisionState.data;
+      if (mapState.data !== null) {
+        this.mapConstructor = mapState.data
+      }
+      if (teamsState.data !== null) {
+        this.dataMap = this.uiDataMapperService.teamsCPMapMapper(teamsState.data);
+        this.dataTeams = this.uiDataMapperService.teamsCPDivisionMapper(teamsState.data);
+      }
 
-      if (division) {
+      if (divisionState.data !== null) {
         this.dataDivisionSummary = {
-          teams: division.teams,
+          teams: divisionState.data.teams,
           phases: 4,
           description: 'Distrital - Provincial - Departamental - Nacional',
-          goal: division.goal,
+          goal: divisionState.data.goal,
         }
       }
     });

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
-import { FetchTeamsCPService } from '../../../services/fetch-teams-cp.service';
+import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchTeamsPerformanceService } from '../../../services/fetch-teams-performance.service';
 import { FetchTeamsFormService } from '../../../services/fetch-teams-form.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
@@ -28,7 +28,7 @@ import { TeamTable } from '../../../interfaces/ui-models/team-table';
 })
 export class CpTableComponent {
   private viewPortScroller = inject(ViewportScroller);
-  private teamsCPService = inject(FetchTeamsCPService);
+  private teamsService = inject(FetchTeamsService);
   private teamsPerformanceService = inject(FetchTeamsPerformanceService);
   private teamsFormService = inject(FetchTeamsFormService);
   private uiDataMapperService = inject(UiDataMapperService);
@@ -44,12 +44,14 @@ export class CpTableComponent {
     this.teamsFormService.fetchTeamsFormCP();
 
     combineLatest([
-      this.teamsCPService.teamsCP$,
+      this.teamsService.teamsCP$,
       this.teamsPerformanceService.teamsPerformanceCP$,
       this.teamsFormService.teamsFormCP$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([teams, teamsPerformance, teamsForm]) => {
-        this.dataTeams = this.uiDataMapperService.teamsCPTableMapper(teams, teamsPerformance, teamsForm);
+      next: ([teamsState, teamsPerformanceState, teamsFormState]) => {
+        if (teamsState.data !== null && teamsPerformanceState.data !== null && teamsFormState.data !== null) {
+          this.dataTeams = this.uiDataMapperService.teamsCPTableMapper(teamsState.data, teamsPerformanceState.data, teamsFormState.data);
+        }
       }
     });
 

@@ -100,15 +100,16 @@ export class L3FixtureComponent {
       this.teamsMatchResultsService.teamsMatchResultsL3$,
       this.fixturesService.fixtureL3$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([division, teams, teamsMatchResults, fixture]) => {
+      next: ([divisionState, teamsState, teamsMatchResultsState, fixtureState]) => {
+        const division = divisionState.data;
         this.phase1 = division?.phase1.status || false;
         this.phase2 = division?.phase2.status || division?.phase3.status || false;
         this.selectedPhase1Index = division?.phase1?.inGame ? division.phase1.inGame - 1 : 0;
         this.selectedPhase2Index = division?.phase2?.inGame ? division.phase2.inGame - 1 : 0;
 
-        if (teams && fixture && teamsMatchResults) {
-          this.computedFixturePhase1 = this.matchesService.transformDataForFixture(teams, fixture.phase1, teamsMatchResults, 'phase1');
-          this.computedFixturePhase2 = this.matchesService.transformDataForFixture(teams, fixture.phase2, teamsMatchResults, 'phase2');
+        if (teamsState.data !== null && fixtureState.data !== null && teamsMatchResultsState.data !== null) {
+          this.computedFixturePhase1 = this.matchesService.transformDataForFixture(teamsState.data, fixtureState.data.phase1, teamsMatchResultsState.data, 'phase1');
+          this.computedFixturePhase2 = this.matchesService.transformDataForFixture(teamsState.data, fixtureState.data.phase2, teamsMatchResultsState.data, 'phase2');
         }
       }
     });

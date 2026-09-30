@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { FetchLeaguesService } from '../../../services/fetch-leagues.service';
-import { FetchTeamsCPService } from '../../../services/fetch-teams-cp.service';
+import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { UiDataMapperService } from '../../../services/ui-data-mapper.service';
 import { combineLatest } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -27,15 +27,17 @@ import { LeagueCard } from '../../../interfaces/ui-models/league-card';
 export class CpLeaguesComponent {
   private viewportScroller = inject(ViewportScroller);
   private leaguesService = inject(FetchLeaguesService);
-  private teamsService = inject(FetchTeamsCPService);
+  private teamsService = inject(FetchTeamsService);
   private uiDataMapperService = inject(UiDataMapperService);
 
   dataLeagues: LeagueCard[] = [];
 
   constructor() {
     combineLatest([this.leaguesService.leagues$, this.teamsService.teamsCP$]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([leagues, teams]) => {
-        this.dataLeagues = this.uiDataMapperService.leaguesCardMapper(leagues, teams);
+      next: ([leaguesState, teamsState]) => {
+        if (leaguesState.data !== null && teamsState.data !== null) {
+          this.dataLeagues = this.uiDataMapperService.leaguesCardMapper(leaguesState.data, teamsState.data);
+        }
       },
     });
 

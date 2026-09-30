@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { faBarsStaggered, faFlag, faNetworkWired, faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 import { FetchLeaguesService } from '../../services/fetch-leagues.service';
-import { FetchTeamsCPService } from '../../services/fetch-teams-cp.service';
+import { FetchTeamsService } from '../../services/fetch-teams.service';
 import { FetchDivisionsService } from '../../services/fetch-divisions.service';
 import { UiDataMapperService } from '../../services/ui-data-mapper.service';
 import { EntityNavBarComponent } from '../../components/entity-nav-bar/entity-nav-bar.component';
@@ -22,7 +22,7 @@ import { EntityNav } from '../../interfaces/ui-models/entity-nav';
 })
 export class CpMainComponent {
   private leaguesService = inject(FetchLeaguesService);
-  private teamsCPService = inject(FetchTeamsCPService);
+  private teamsService = inject(FetchTeamsService);
   private divisionsService = inject(FetchDivisionsService);
   private uiDataMapperService = inject(UiDataMapperService);
 
@@ -36,11 +36,15 @@ export class CpMainComponent {
 
   constructor() {
     this.leaguesService.fetchLeagues();
-    this.teamsCPService.fetchTeamsCP();
+    this.teamsService.fetchTeamsCP();
     this.divisionsService.fetchDivisionCP();
 
     this.leaguesService.leagues$.pipe(takeUntilDestroyed()).subscribe({
-      next: (data) => this.navEntities = this.uiDataMapperService.leaguesNavMapper(data),
+      next: (leaguesState) => {
+        if (leaguesState.data !== null) {
+          this.navEntities = this.uiDataMapperService.leaguesNavMapper(leaguesState.data)
+        }
+      },
     });
   }
 }

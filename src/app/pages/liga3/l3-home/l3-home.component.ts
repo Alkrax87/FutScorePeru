@@ -36,23 +36,27 @@ export class L3HomeComponent {
       this.divisionsService.divisionL3$,
       this.teamsService.teamsL3$,
       this.mapService.dataMapL3$,
-    ]).pipe(takeUntilDestroyed()).subscribe(([division, teams, map]) => {
-      this.dataDivision = division;
-      this.mapConstructor = map;
-      this.dataMap = this.uiDataMapperService.teamsMapMapper(teams);
-      this.dataTeams = this.uiDataMapperService.teamsDivisionMapper(teams);
+    ]).pipe(takeUntilDestroyed()).subscribe(([divisionState, teamsState, mapState]) => {
+      this.dataDivision = divisionState.data;
+      if (mapState.data !== null) {
+        this.mapConstructor = mapState.data
+      }
+      if (teamsState.data !== null) {
+        this.dataMap = this.uiDataMapperService.teamsMapMapper(teamsState.data);
+        this.dataTeams = this.uiDataMapperService.teamsDivisionMapper(teamsState.data);
+      }
 
-      if (division) {
+      if (divisionState.data !== null) {
         let phases = 0;
-        if (division.phase1 && division.phase1.name) { phases++ }
-        if (division.phase2 && division.phase2.name) { phases++ }
-        if (division.phase3 && division.phase3.name) { phases++ }
+        if (divisionState.data.phase1 && divisionState.data.phase1.name) { phases++ }
+        if (divisionState.data.phase2 && divisionState.data.phase2.name) { phases++ }
+        if (divisionState.data.phase3 && divisionState.data.phase3.name) { phases++ }
 
         this.dataDivisionSummary = {
-          teams: division.teams,
+          teams: divisionState.data.teams,
           phases: phases,
-          description: division.phase1.name + ' - ' + division.phase2.name + ' - ' + division.phase3.name,
-          goal: division.goal,
+          description: divisionState.data.phase1.name + ' - ' + divisionState.data.phase2.name + ' - ' + divisionState.data.phase3.name,
+          goal: divisionState.data.goal,
         }
       }
     });

@@ -125,17 +125,21 @@ export class L2TableComponent {
       this.teamsPerformanceService.teamsPerformanceL2$,
       this.teamsFormService.teamsFormL2$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([division, teams, teamsPerformance, teamsForm]) => {
+      next: ([divisionState, teamsState, teamsPerformanceState, teamsFormState]) => {
+        const division = divisionState.data;
         this.phase1 = division?.phase1.status || false;
         this.phase2 = division?.phase2.status || division?.phase3.status || false;
 
-        this.dataPhase1Group1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', 'a');
-        this.dataPhase1Group2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', 'b');
-        this.dataPhase2GroupPromotion1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'p1');
-        this.dataPhase2GroupPromotion2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'p2');
-        this.dataPhase2GroupPromotion3 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'p3');
-        this.dataPhase2GroupRelegation1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'r1');
-        this.dataPhase2GroupRelegation2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'r2');
+        if (teamsState.data !== null && teamsPerformanceState.data !== null && teamsFormState.data !== null) {
+          const teams = teamsState.data;
+          this.dataPhase1Group1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase1', 'a');
+          this.dataPhase1Group2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase1', 'b');
+          this.dataPhase2GroupPromotion1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase2', 'p1');
+          this.dataPhase2GroupPromotion2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase2', 'p2');
+          this.dataPhase2GroupPromotion3 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase2', 'p3');
+          this.dataPhase2GroupRelegation1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase2', 'r1');
+          this.dataPhase2GroupRelegation2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase2', 'r2');
+        }
       }
     });
 

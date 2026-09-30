@@ -119,18 +119,22 @@ export class L3TableComponent {
       this.teamsPerformanceService.teamsPerformanceL3$,
       this.teamsFormService.teamsFormL3$,
     ]).pipe(takeUntilDestroyed()).subscribe({
-      next: ([division, teams, teamsPerformance, teamsForm]) => {
+      next: ([divisionState, teamsState, teamsPerformanceState, teamsFormState]) => {
+        const division = divisionState.data;
         this.phase1 = division?.phase1.status || false;
         this.phase2 = division?.phase2.status || division?.phase3.status || false;
 
-        this.dataPhase1Regional1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', '1');
-        this.dataPhase1Regional2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', '2');
-        this.dataPhase1Regional3 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', '3');
-        this.dataPhase1Regional4 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase1', '4');
-        this.dataPhase2FinalA = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f1');
-        this.dataPhase2FinalB = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f2');
-        this.dataPhase2FinalC = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f3');
-        this.dataPhase2FinalD = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformance, teamsForm, 'phase2', 'f4');
+        if (teamsState.data !== null && teamsPerformanceState.data !== null && teamsFormState.data !== null) {
+          const teams = teamsState.data;
+          this.dataPhase1Regional1 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase1', '1');
+          this.dataPhase1Regional2 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase1', '2');
+          this.dataPhase1Regional3 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase1', '3');
+          this.dataPhase1Regional4 = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase1', '4');
+          this.dataPhase2FinalA = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase2', 'f1');
+          this.dataPhase2FinalB = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase2', 'f2');
+          this.dataPhase2FinalC = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase2', 'f3');
+          this.dataPhase2FinalD = this.uiDataMapperService.teamsTableMapper(teams, teamsPerformanceState.data, teamsFormState.data, 'phase2', 'f4');
+        }
       }
     });
 
