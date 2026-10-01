@@ -6,7 +6,6 @@ module.exports = {
     extend: {
       fontSize: {
         xxs: "10px",
-        tiny: "8px",
       },
       colors: {
         dark: "#1E2022",

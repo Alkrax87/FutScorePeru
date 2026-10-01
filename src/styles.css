@@ -22,6 +22,7 @@ html {
 }
 
 .background-pattern {
-  background-image: url('/assets/images/pages/Background-pattern.png');
+  background-image: linear-gradient(to bottom, #dc143c 0%, transparent 25%), url('/assets/images/pages/Background-pattern.png');
   background-size: cover;
+  background-position: center;
 }
