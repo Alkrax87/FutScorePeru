@@ -12,7 +12,7 @@ import { SubtitleComponent } from '../subtitle/subtitle.component';
   imports: [CityCardComponent, FaIconComponent, MapComponent, SubtitleComponent],
   template: `
 
-    <div class="bg-light dark:bg-nightfall dark:text-light px-2 sm:px-4 py-12 md:py-20 select-none duration-500">
+    <div class="bg-light dark:bg-nightfall dark:text-light px-2 sm:px-4 py-10 lg:py-16 select-none duration-500">
       <div class="flex flex-col sm:flex-row max-w-screen-xl gap-6 mx-auto">
         <!-- Regions -->
         <div class="place-content-center w-full sm:w-1/2 xl:w-3/5 duration-500">

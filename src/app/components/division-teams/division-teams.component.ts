@@ -15,7 +15,7 @@ import { BtnComponent } from "../btn/btn.component";
           </div>
         </div>
       </div>
-      <div class="bg-night px-2 sm:px-4 py-12 md:py-20 duration-500">
+      <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500">
         <div class="max-w-screen-xl mx-auto">
           @if (division.toLeagues) {
             <p class="text-light text-center text-3xl font-bold">Clasificados Etapa Nacional <span class="text-main">{{ division.name }}</span></p>

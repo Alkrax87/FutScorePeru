@@ -8,7 +8,7 @@ import { SubtitleComponent } from '../subtitle/subtitle.component';
   selector: 'app-division-overview',
   imports: [FaIconComponent, SubtitleComponent],
   template: `
-    <div class="bg-night px-2 sm:px-4 py-12 md:py-20 select-none duration-500">
+    <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 select-none duration-500">
       <div class="max-w-screen-xl mx-auto flex flex-col md:flex-row gap-6 duration-500">
         <!-- Summary -->
         <div class="w-full md:w-1/2 place-content-center">

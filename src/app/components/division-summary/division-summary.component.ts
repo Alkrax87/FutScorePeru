@@ -8,7 +8,7 @@ import { SubtitleComponent } from '../subtitle/subtitle.component';
   selector: 'app-division-summary',
   imports: [FaIconComponent, SubtitleComponent],
   template: `
-    <div class="bg-light dark:bg-nightfall dark:text-light px-2 sm:px-4 py-12 md:py-20 select-none duration-500">
+    <div class="bg-light dark:bg-nightfall dark:text-light px-2 sm:px-4 py-10 lg:py-16 select-none duration-500">
       <div class="max-w-screen-xl mx-auto">
         <app-subtitle><div class="text-dark dark:text-light duration-500">Estructura general</div></app-subtitle>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
