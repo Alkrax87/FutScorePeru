@@ -1,128 +1,220 @@
 import { Routes } from '@angular/router';
-import { IndexComponent } from './pages/main/index.component';
-import { HomeComponent } from './pages/main/home/home.component';
-import { AboutComponent } from './pages/main/about/about.component';
-import { SocialComponent } from './pages/main/social/social.component';
-import { L1MainComponent } from './pages/liga1/l1-main.component';
-import { L1HomeComponent } from './pages/liga1/l1-home/l1-home.component';
-import { L1TeamsComponent } from './pages/liga1/l1-teams/l1-teams.component';
-import { L1FixtureComponent } from './pages/liga1/l1-fixture/l1-fixture.component';
-import { L1TableComponent } from './pages/liga1/l1-table/l1-table.component';
-import { L1ManagersComponent } from './pages/liga1/l1-managers/l1-managers.component';
-import { L1StatisticsComponent } from './pages/liga1/l1-statistics/l1-statistics.component';
-import { L2MainComponent } from './pages/liga2/l2-main.component';
-import { L2HomeComponent } from './pages/liga2/l2-home/l2-home.component';
-import { L2TeamsComponent } from './pages/liga2/l2-teams/l2-teams.component';
-import { L2FixtureComponent } from './pages/liga2/l2-fixture/l2-fixture.component';
-import { L2TableComponent } from './pages/liga2/l2-table/l2-table.component';
-import { L2ManagersComponent } from './pages/liga2/l2-managers/l2-managers.component';
-import { L2StatisticsComponent } from './pages/liga2/l2-statistics/l2-statistics.component';
-import { L3MainComponent } from './pages/liga3/l3-main.component';
-import { L3HomeComponent } from './pages/liga3/l3-home/l3-home.component';
-import { L3TeamsComponent } from './pages/liga3/l3-teams/l3-teams.component';
-import { L3FixtureComponent } from './pages/liga3/l3-fixture/l3-fixture.component';
-import { L3TableComponent } from './pages/liga3/l3-table/l3-table.component';
-import { L3StatisticsComponent } from './pages/liga3/l3-statistics/l3-statistics.component';
-import { CpMainComponent } from './pages/copa-peru/cp-main.component';
-import { CpHomeComponent } from './pages/copa-peru/cp-home/cp-home.component';
-import { CpLeaguesComponent } from './pages/copa-peru/cp-leagues/cp-leagues.component';
-import { CpFixtureComponent } from './pages/copa-peru/cp-fixture/cp-fixture.component';
-import { CpTableComponent } from './pages/copa-peru/cp-table/cp-table.component';
-import { CpBracketsComponent } from './pages/copa-peru/cp-brackets/cp-brackets.component';
-import { NotFoundComponent } from './pages/main/not-found/not-found.component';
-import { TestComponent } from './pages/main/test/test.component';
-import { TeamPageComponent } from './pages/shared/team-page/team-page.component';
-import { LeaguePageComponent } from './pages/shared/league-page/league-page.component';
-import { OverviewComponent } from './pages/shared/team-page/overview/overview.component';
-import { StadiumComponent } from './pages/shared/team-page/stadium/stadium.component';
-import { FixtureComponent } from './pages/shared/team-page/fixture/fixture.component';
+
+const teamDetailChildren = (): Routes => [
+  { path: '', redirectTo: 'overview', pathMatch: 'full' },
+  { path: 'overview', loadComponent: () => import('./pages/shared/team-page/overview/overview.component').then((m) => m.OverviewComponent) },
+  { path: 'fixture', loadComponent: () => import('./pages/shared/team-page/fixture/fixture.component').then((m) => m.FixtureComponent) },
+  { path: 'stadium', loadComponent: () => import('./pages/shared/team-page/stadium/stadium.component').then((m) => m.StadiumComponent) },
+  { path: 'honours', loadComponent: () => import('./pages/shared/team-page/honours/honours.component').then((m) => m.HonoursComponent) },
+  { path: 'identity', loadComponent: () => import('./pages/shared/team-page/identity/identity.component').then((m) => m.IdentityComponent) },
+];
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'main', pathMatch: 'full' },
   {
-    path: 'main',
-    component: IndexComponent,
+    path: '',
+    loadComponent: () => import('./pages/main/index.component').then((m) => m.IndexComponent),
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
-      { path: 'about', component: AboutComponent },
-      { path: 'social', component: SocialComponent },
-      { path: 'test', component: TestComponent },
+      {
+        path: '',
+        title: 'Inicio',
+        loadComponent: () => import('./pages/main/home/home.component').then((m) => m.HomeComponent),
+      },
+      {
+        path: 'about',
+        title: 'Acerca de',
+        loadComponent: () => import('./pages/main/about/about.component').then((m) => m.AboutComponent),
+      },
+      {
+        path: 'social',
+        title: 'Social',
+        loadComponent: () => import('./pages/main/social/social.component').then((m) => m.SocialComponent),
+      },
+      {
+        path: 'test',
+        title: 'Test',
+        loadComponent: () => import('./pages/main/test/test.component').then((m) => m.TestComponent),
+      },
     ],
   },
   {
     path: 'liga1',
-    component: L1MainComponent,
     title: 'Liga 1',
+    loadComponent: () => import('./pages/liga1/l1-main.component').then((m) => m.L1MainComponent),
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: L1HomeComponent },
-      { path: 'clubes', component: L1TeamsComponent, title: 'Liga 1 | Clubes' },
-      { path: 'fixture', component: L1FixtureComponent, title: 'Liga 1 | Fixture' },
-      { path: 'tabla', component: L1TableComponent, title: 'Liga 1 | Tabla' },
-      { path: 'tecnicos', component: L1ManagersComponent, title: 'Liga 1 | Técnicos' },
-      { path: 'estadisticas', component: L1StatisticsComponent, title: 'Liga 1 | Estadísticas' },
-      { path: 'club/:category/:teamId', component: TeamPageComponent, children: [
-        { path: '', redirectTo: 'overview', pathMatch: 'full' },
-        { path: 'overview', component: OverviewComponent },
-        { path: 'fixture', component: FixtureComponent },
-        { path: 'stadium', component: StadiumComponent },
-      ]},
+      {
+        path: '',
+        title: 'Liga 1 | Inicio',
+        loadComponent: () => import('./pages/liga1/l1-home/l1-home.component').then((m) => m.L1HomeComponent),
+      },
+      {
+        path: 'clubes',
+        title: 'Liga 1 | Clubes',
+        loadComponent: () => import('./pages/liga1/l1-teams/l1-teams.component').then((m) => m.L1TeamsComponent),
+      },
+      {
+        path: 'fixture',
+        title: 'Liga 1 | Fixture',
+        loadComponent: () => import('./pages/liga1/l1-fixture/l1-fixture.component').then((m) => m.L1FixtureComponent),
+      },
+      {
+        path: 'tabla',
+        title: 'Liga 1 | Tabla',
+        loadComponent: () => import('./pages/liga1/l1-table/l1-table.component').then((m) => m.L1TableComponent),
+      },
+      {
+        path: 'playoffs',
+        title: 'Liga 1 | Play-Offs',
+        loadComponent: () => import('./pages/liga1/l1-play-offs/l1-play-offs.component').then((m) => m.L1PlayOffsComponent),
+      },
+      {
+        path: 'tecnicos',
+        title: 'Liga 1 | Técnicos',
+        loadComponent: () => import('./pages/liga1/l1-managers/l1-managers.component').then((m) => m.L1ManagersComponent),
+      },
+      {
+        path: 'estadisticas',
+        title: 'Liga 1 | Estadísticas',
+        loadComponent: () => import('./pages/liga1/l1-statistics/l1-statistics.component').then((m) => m.L1StatisticsComponent),
+      },
+      {
+        path: 'club/:category/:teamId',
+        loadComponent: () => import('./pages/shared/team-page/team-page.component').then((m) => m.TeamPageComponent),
+        children: teamDetailChildren(),
+      },
     ],
   },
   {
     path: 'liga2',
-    component: L2MainComponent,
     title: 'Liga 2',
+    loadComponent: () => import('./pages/liga2/l2-main.component').then((m) => m.L2MainComponent),
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: L2HomeComponent },
-      { path: 'clubes', component: L2TeamsComponent, title: 'Liga 2 | Clubes' },
-      { path: 'fixture', component: L2FixtureComponent, title: 'Liga 2 | Fixture' },
-      { path: 'tabla', component: L2TableComponent, title: 'Liga 2 | Tabla' },
-      { path: 'tecnicos', component: L2ManagersComponent, title: 'Liga 2 | Técnicos' },
-      { path: 'estadisticas', component: L2StatisticsComponent, title: 'Liga 2 | Estadísticas' },
-      { path: 'club/:category/:teamId', component: TeamPageComponent, children: [
-        { path: '', redirectTo: 'overview', pathMatch: 'full' },
-        { path: 'overview', component: OverviewComponent },
-        { path: 'fixture', component: FixtureComponent },
-        { path: 'stadium', component: StadiumComponent },
-      ]},
+      {
+        path: '',
+        title: 'Liga 2 | Inicio',
+        loadComponent: () => import('./pages/liga2/l2-home/l2-home.component').then((m) => m.L2HomeComponent),
+      },
+      {
+        path: 'clubes',
+        title: 'Liga 2 | Clubes',
+        loadComponent: () => import('./pages/liga2/l2-teams/l2-teams.component').then((m) => m.L2TeamsComponent),
+      },
+      {
+        path: 'fixture',
+        title: 'Liga 2 | Fixture',
+        loadComponent: () => import('./pages/liga2/l2-fixture/l2-fixture.component').then((m) => m.L2FixtureComponent),
+      },
+      {
+        path: 'tabla',
+        title: 'Liga 2 | Tabla',
+        loadComponent: () => import('./pages/liga2/l2-table/l2-table.component').then((m) => m.L2TableComponent),
+      },
+      {
+        path: 'playoffs',
+        title: 'Liga 2 | Play-Offs',
+        loadComponent: () => import('./pages/liga2/l2-play-offs/l2-play-offs.component').then((m) => m.L2PlayOffsComponent),
+      },
+      {
+        path: 'tecnicos',
+        title: 'Liga 2 | Técnicos',
+        loadComponent: () => import('./pages/liga2/l2-managers/l2-managers.component').then((m) => m.L2ManagersComponent),
+      },
+      {
+        path: 'estadisticas',
+        title: 'Liga 2 | Estadísticas',
+        loadComponent: () => import('./pages/liga2/l2-statistics/l2-statistics.component').then((m) => m.L2StatisticsComponent),
+      },
+      {
+        path: 'club/:category/:teamId',
+        loadComponent: () => import('./pages/shared/team-page/team-page.component').then((m) => m.TeamPageComponent),
+        children: teamDetailChildren(),
+      },
     ],
   },
   {
     path: 'liga3',
-    component: L3MainComponent,
     title: 'Liga 3',
+    loadComponent: () => import('./pages/liga3/l3-main.component').then((m) => m.L3MainComponent),
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: L3HomeComponent },
-      { path: 'clubes', component: L3TeamsComponent, title: 'Liga 3 | Clubes' },
-      { path: 'fixture', component: L3FixtureComponent, title: 'Liga 3 | Fixture' },
-      { path: 'tabla', component: L3TableComponent, title: 'Liga 3 | Tabla' },
-      { path: 'estadisticas', component: L3StatisticsComponent, title: 'Liga 3 | Estadísticas' },
-      { path: 'club/:category/:teamId', component: TeamPageComponent, children: [
-        { path: '', redirectTo: 'overview', pathMatch: 'full' },
-        { path: 'overview', component: OverviewComponent },
-        { path: 'fixture', component: FixtureComponent },
-        { path: 'stadium', component: StadiumComponent },
-      ]},
+      {
+        path: '',
+        title: 'Liga 3 | Inicio',
+        loadComponent: () => import('./pages/liga3/l3-home/l3-home.component').then((m) => m.L3HomeComponent),
+      },
+      {
+        path: 'clubes',
+        title: 'Liga 3 | Clubes',
+        loadComponent: () => import('./pages/liga3/l3-teams/l3-teams.component').then((m) => m.L3TeamsComponent),
+      },
+      {
+        path: 'fixture',
+        title: 'Liga 3 | Fixture',
+        loadComponent: () => import('./pages/liga3/l3-fixture/l3-fixture.component').then((m) => m.L3FixtureComponent),
+      },
+      {
+        path: 'tabla',
+        title: 'Liga 3 | Tabla',
+        loadComponent: () => import('./pages/liga3/l3-table/l3-table.component').then((m) => m.L3TableComponent),
+      },
+      {
+        path: 'playoffs',
+        title: 'Liga 3 | Play-Offs',
+        loadComponent: () => import('./pages/liga3/l3-play-offs/l3-play-offs.component').then((m) => m.L3PlayOffsComponent),
+      },
+      {
+        path: 'estadisticas',
+        title: 'Liga 3 | Estadísticas',
+        loadComponent: () => import('./pages/liga3/l3-statistics/l3-statistics.component').then((m) => m.L3StatisticsComponent),
+      },
+      {
+        path: 'club/:category/:teamId',
+        loadComponent: () => import('./pages/shared/team-page/team-page.component').then((m) => m.TeamPageComponent),
+        children: teamDetailChildren(),
+      },
     ],
   },
   {
     path: 'copa-peru',
-    component: CpMainComponent,
     title: 'Copa Perú',
+    loadComponent: () => import('./pages/copa-peru/cp-main.component').then((m) => m.CpMainComponent),
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: CpHomeComponent },
-      { path: 'ligas', component: CpLeaguesComponent, title: 'Copa Perú | Ligas' },
-      { path: 'fixture', component: CpFixtureComponent, title: 'Copa Perú | Fixture' },
-      { path: 'tabla', component: CpTableComponent, title: 'Copa Perú | Tabla' },
-      { path: 'brackets', component: CpBracketsComponent, title: 'Copa Perú | Brackets' },
-      { path: 'liga/:leagueId', component: LeaguePageComponent },
+      {
+        path: '',
+        title: 'Copa Perú | Inicio',
+        loadComponent: () => import('./pages/copa-peru/cp-home/cp-home.component').then((m) => m.CpHomeComponent),
+      },
+      {
+        path: 'ligas',
+        title: 'Copa Perú | Ligas',
+        loadComponent: () => import('./pages/copa-peru/cp-leagues/cp-leagues.component').then((m) => m.CpLeaguesComponent),
+      },
+      {
+        path: 'fixture',
+        title: 'Copa Perú | Fixture',
+        loadComponent: () => import('./pages/copa-peru/cp-fixture/cp-fixture.component').then((m) => m.CpFixtureComponent),
+      },
+      {
+        path: 'tabla',
+        title: 'Copa Perú | Tabla',
+        loadComponent: () => import('./pages/copa-peru/cp-table/cp-table.component').then((m) => m.CpTableComponent),
+      },
+      {
+        path: 'playoffs',
+        title: 'Copa Perú | Play-Offs',
+        loadComponent: () => import('./pages/copa-peru/cp-play-offs/cp-play-offs.component').then((m) => m.CpPlayOffsComponent),
+      },
+      {
+        path: 'liga/:leagueId',
+        loadComponent: () => import('./pages/shared/league-page/league-page.component').then((m) => m.LeaguePageComponent),
+      },
     ],
   },
-  { path: 'not-found', component: NotFoundComponent },
-  { path: '**', redirectTo: 'not-found' },
+  {
+    path: 'not-found',
+    title: 'Página no encontrada',
+    loadComponent: () => import('./pages/main/not-found/not-found.component').then((m) => m.NotFoundComponent),
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found',
+  },
 ];
