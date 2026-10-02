@@ -23,7 +23,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
         <!-- Center container -->
         <nav class="hidden md:flex justify-center w-full h-full">
           @for (route of routes; track $index) {
-            <a [routerLink]="route.path" routerLinkActive="text-main" class="hover:text-main outline-none">
+            <a [routerLink]="route.path" routerLinkActive="text-main" [routerLinkActiveOptions]="{ exact: '/' === route.path }" class="hover:text-main outline-none">
               <div class="flex justify-center items-center h-full px-3">
                 {{ route.name }}
               </div>
@@ -45,7 +45,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
         <div class="h-2 bg-main"></div>
         <nav class="flex flex-col items-center md:hidden">
           @for (route of routes; track $index) {
-            <a [routerLink]="route.path" routerLinkActive="text-main" class="w-full hover:text-main" (click)="toggleMenu()">
+            <a [routerLink]="route.path" routerLinkActive="text-main" [routerLinkActiveOptions]="{ exact: '/' === route.path }" class="w-full hover:text-main" (click)="toggleMenu()">
               <div class="h-10 flex items-center justify-center">
                 {{ route.name }}
               </div>
@@ -62,7 +62,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class MainNavComponent {
   isMenuOpen: boolean = false;
   routes = [
-    { path: "/main" , name: "Home" },
+    { path: "/" , name: "Home" },
     { path: "/liga1" , name: "Liga 1" },
     { path: "/liga2" , name: "Liga 2" },
     { path: "/liga3" , name: "Liga 3" },
