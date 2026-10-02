@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BtnComponent } from '../../../components/btn/btn.component';
+import { BtnComponent } from '../../components/btn/btn.component';
 
 @Component({
   selector: 'app-not-found',
@@ -16,7 +16,7 @@ import { BtnComponent } from '../../../components/btn/btn.component';
           <p class="text-lg text-night dark:text-white duration-500">Parece que esta página fue expulsada por el árbitro.</p>
           <p class="text-base text-gray-500 dark:text-gray-400 duration-500">No te preocupes, puedes volver al inicio para seguir el partido.</p>
           <div class="w-full py-5">
-            <a routerLink="/main">
+            <a routerLink="/">
               <app-btn [active]="true">Volver al Inicio</app-btn>
             </a>
           </div>

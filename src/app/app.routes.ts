@@ -12,29 +12,24 @@ const teamDetailChildren = (): Routes => [
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./pages/main/index.component').then((m) => m.IndexComponent),
-    children: [
-      {
-        path: '',
-        title: 'Inicio',
-        loadComponent: () => import('./pages/main/home/home.component').then((m) => m.HomeComponent),
-      },
-      {
-        path: 'about',
-        title: 'Acerca de',
-        loadComponent: () => import('./pages/main/about/about.component').then((m) => m.AboutComponent),
-      },
-      {
-        path: 'social',
-        title: 'Social',
-        loadComponent: () => import('./pages/main/social/social.component').then((m) => m.SocialComponent),
-      },
-      {
-        path: 'test',
-        title: 'Test',
-        loadComponent: () => import('./pages/main/test/test.component').then((m) => m.TestComponent),
-      },
-    ],
+    pathMatch: 'full',
+    title: 'Inicio',
+    loadComponent: () => import('./pages/home/home.component').then((m) => m.HomeComponent),
+  },
+  {
+    path: 'about',
+    title: 'Acerca de',
+    loadComponent: () => import('./pages/about/about.component').then((m) => m.AboutComponent),
+  },
+  {
+    path: 'social',
+    title: 'Social',
+    loadComponent: () => import('./pages/social/social.component').then((m) => m.SocialComponent),
+  },
+  {
+    path: 'test',
+    title: 'Test',
+    loadComponent: () => import('./pages/test/test.component').then((m) => m.TestComponent),
   },
   {
     path: 'liga1',
@@ -211,7 +206,7 @@ export const routes: Routes = [
   {
     path: 'not-found',
     title: 'Página no encontrada',
-    loadComponent: () => import('./pages/main/not-found/not-found.component').then((m) => m.NotFoundComponent),
+    loadComponent: () => import('./pages/not-found/not-found.component').then((m) => m.NotFoundComponent),
   },
   {
     path: '**',
