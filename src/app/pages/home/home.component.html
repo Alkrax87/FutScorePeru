@@ -1,0 +1,175 @@
+<!-- Main -->
+<main class="bg-night">
+  <!-- Top -->
+  <section class="relative isolate flex min-h-[650px] items-center overflow-hidden select-none duration-500">
+    <!-- Basckground -->
+    <img class="absolute inset-0 -z-20 h-full w-full object-cover" src="https://f.rpp-noticias.io/2026/05/09/572657_1865686.jpg?width=1020&quality=80" alt="Main-Banner" fetchpriority="high" />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-night via-night/80 to-night/20"></div>
+    <!-- Content-->
+    <div class="mx-auto w-full max-w-screen-xl px-4 py-16 md:py-24">
+      <div class="max-w-3xl space-y-6">
+        <!-- Bar -->
+        <div class="px-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/30 py-2 text-xs sm:text-sm font-bold uppercase tracking-widest text-light duration-500">
+          Liga 1 <span class="text-main">·</span>
+          Liga 2 <span class="text-main">·</span>
+          Liga 3 <span class="text-main">·</span>
+          Copa Perú
+        </div>
+        <!-- Title -->
+        <h1 class="text-5xl font-black tracking-tight text-light sm:text-6xl lg:text-8xl duration-500">
+          El fútbol peruano,<br>
+          <span class="text-main">en todas sus canchas.</span>
+        </h1>
+        <p class="max-w-2xl text-base leading-relaxed text-neutral-200 sm:text-lg">Descubre el fútbol peruano en todas sus categorías con datos y cobertura actualizada.</p>
+        <!-- Options -->
+        <div class="max-w-xl grid grid-cols-1 sm:grid-cols-2 px-4 sm:flex-row gap-0 sm:gap-4">
+          <app-btn (click)="scrollTo('competitions')" [active]="true">
+            Explorar competencias &nbsp; <fa-icon [icon]="Arrow"></fa-icon>
+          </app-btn>
+          <app-btn (click)="scrollTo('fixture')" [hoveredOff]="true">
+            <fa-icon [icon]="Calendar"></fa-icon> &nbsp; Ver partidos
+          </app-btn>
+        </div>
+        <p class="mt-8 text-sm font-medium text-neutral-300">La pasión no tiene una sola división. <span class="text-gold">Tiene miles de historias.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- Fixture -->
+  <section id="fixture" class="scroll-mt-14 bg-light px-2 sm:px-4 py-10 lg:py-16 select-none duration-500">
+    <div class="mx-auto max-w-screen-xl space-y-4">
+      <div class="max-w-2xl">
+        <app-subtitle [isDark]="false">Partidos en juego</app-subtitle>
+        <p class="text-neutral-600 text-sm sm:text-base">Elige una competencia para consultar sus encuentros.</p>
+      </div>
+      <!-- Selector -->
+      <div class="flex flex-col sm:flex-row gap-2">
+        @for (division of divisions; track division.category) {
+          <button type="button"
+            class="border flex justify-center sm:justify-start gap-2 font-bold px-4 py-2 bg-white hover:bg-main hover:text-white"
+            [ngClass]="{'!bg-main text-white': activeDivision === division.category}" (click)="selectDivision(division.category)"
+          >
+            <img [src]="division.image" alt="Division-logo" class="bg-white rounded-full p-0.5 h-6 w-6 shrink-0" />{{ division.name }}
+          </button>
+        }
+      </div>
+      <!-- Fixture -->
+      <div>
+        <app-division-fixture [category]="activeDivision"></app-division-fixture>
+      </div>
+    </div>
+  </section>
+  <!-- Competitions -->
+  <section id="competitions" class="scroll-mt-14 bg-night px-2 sm:px-4 py-10 lg:py-16 select-none duration-500">
+    <div class="mx-auto max-w-screen-xl">
+      <div class="max-w-2xl">
+        <app-subtitle>Explora las competencias</app-subtitle>
+        <p class="text-neutral-300 text-sm sm:text-base">Desde la máxima categoría hasta el fútbol regional, encuentra clubes, fixture y posiciones de cada torneo.</p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-4">
+        @for (division of divisions; track division.category) {
+          <app-main-division-card [item]="division"></app-main-division-card>
+        }
+      </div>
+    </div>
+  </section>
+  <!-- Quick links -->
+  <section class="bg-light px-2 sm:px-4 py-10 lg:py-16 select-none duration-500">
+    <div class="mx-auto max-w-screen-xl space-y-4">
+      @switch (activeDivision) {
+        @case (1) {
+          <div class="max-w-2xl">
+            <app-subtitle [isDark]="false">Explora Liga 1</app-subtitle>
+            <p class="text-neutral-600 text-sm sm:text-base">Conoce más detalles sobre la máxima division del fútbol peruano.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            @for (link of quickLinks; track $index) {
+              <a [routerLink]="link.route" class="group flex gap-2 items-center bg-white p-4">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-main text-xl text-white">
+                  <fa-icon [icon]="link.icon"></fa-icon>
+                </span>
+                <span class="min-w-0">
+                  <span class="block font-extrabold">{{ link.name }}</span>
+                  <span class="block text-sm text-neutral-500">{{ link.description }}</span>
+                </span>
+                <fa-icon [icon]="Arrow" class="ml-auto shrink-0 text-main transition-transform group-hover:translate-x-1"></fa-icon>
+              </a>
+            }
+          </div>
+          <div class="flex justify-end">
+            <a routerLink="liga1" class="inline-flex items-center gap-2 font-bold text-main">Ir a Liga 1 <fa-icon [icon]="Arrow"></fa-icon></a>
+          </div>
+        }
+        @case (2) {
+          <div class="max-w-2xl">
+            <app-subtitle [isDark]="false">Explora Liga 2</app-subtitle>
+            <p class="text-neutral-600 text-sm sm:text-base">Conoce más detalles sobre el camino a la élite del fútbol peruano.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            @for (link of quickLinks; track $index) {
+              <a [routerLink]="link.route" class="group flex gap-2 items-center bg-white p-4">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-main text-xl text-white">
+                  <fa-icon [icon]="link.icon"></fa-icon>
+                </span>
+                <span class="min-w-0">
+                  <span class="block font-extrabold">{{ link.name }}</span>
+                  <span class="block text-sm text-neutral-500">{{ link.description }}</span>
+                </span>
+                <fa-icon [icon]="Arrow" class="ml-auto shrink-0 text-main transition-transform group-hover:translate-x-1"></fa-icon>
+              </a>
+            }
+          </div>
+          <div class="flex justify-end">
+            <a routerLink="liga2" class="inline-flex items-center gap-2 font-bold text-main">Ir a Liga 2 <fa-icon [icon]="Arrow"></fa-icon></a>
+          </div>
+        }
+        @case (3) {
+          <div class="max-w-2xl">
+            <app-subtitle [isDark]="false">Explora Liga 3</app-subtitle>
+            <p class="text-neutral-600 text-sm sm:text-base">Conoce más detalles sobre el ascenso a la division de plata del fútbol peruano.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            @for (link of quickLinks; track $index) {
+              <a [routerLink]="link.route" class="group flex gap-2 items-center bg-white p-4">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-main text-xl text-white">
+                  <fa-icon [icon]="link.icon"></fa-icon>
+                </span>
+                <span class="min-w-0">
+                  <span class="block font-extrabold">{{ link.name }}</span>
+                  <span class="block text-sm text-neutral-500">{{ link.description }}</span>
+                </span>
+                <fa-icon [icon]="Arrow" class="ml-auto shrink-0 text-main transition-transform group-hover:translate-x-1"></fa-icon>
+              </a>
+            }
+          </div>
+          <div class="flex justify-end">
+            <a routerLink="liga3" class="inline-flex items-center gap-2 font-bold text-main">Ir a Liga 3 <fa-icon [icon]="Arrow"></fa-icon></a>
+          </div>
+        }
+        @case (4) {
+          <div class="max-w-2xl">
+            <app-subtitle [isDark]="false">Explora Copa Perú</app-subtitle>
+            <p class="text-neutral-600 text-sm sm:text-base">Conoce más detalles sobre el ascenso del fútbol macho.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            @for (link of quickLinks; track $index) {
+              <a [routerLink]="link.route" class="group flex gap-2 items-center bg-white p-4">
+                <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-main text-xl text-white">
+                  <fa-icon [icon]="link.icon"></fa-icon>
+                </span>
+                <span class="min-w-0">
+                  <span class="block font-extrabold">{{ link.name }}</span>
+                  <span class="block text-sm text-neutral-500">{{ link.description }}</span>
+                </span>
+                <fa-icon [icon]="Arrow" class="ml-auto shrink-0 text-main transition-transform group-hover:translate-x-1"></fa-icon>
+              </a>
+            }
+          </div>
+          <div class="flex justify-end">
+            <a routerLink="copa-peru" class="inline-flex items-center gap-2 font-bold text-main">Ir a Copa Perú <fa-icon [icon]="Arrow"></fa-icon></a>
+          </div>
+        }
+      }
+    </div>
+  </section>
+</main>
