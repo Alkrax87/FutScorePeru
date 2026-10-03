@@ -12,34 +12,48 @@ import { SubtitleComponent } from '../../../components/subtitle/subtitle.compone
 import { BtnComponent } from '../../../components/btn/btn.component';
 import { TableComponent } from '../../../components/table/table.component';
 import { TeamTable } from '../../../interfaces/ui-models/team-table';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-l1-table',
-  imports: [TitleComponent, TableComponent, BtnComponent, SubtitleComponent],
+  imports: [TitleComponent, TableComponent, BtnComponent, SubtitleComponent, FaIconComponent],
   template: `
     <app-title [title]="'Tabla'"></app-title>
     <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500 select-none">
-      <!-- Switch -->
-      <div class="max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 mx-auto mb-6 px-4 duration-500">
-        <app-btn (click)="setActiveTab('overall')" [active]="overall">Acumulada</app-btn>
-        <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Apertura</app-btn>
-        <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Clausura</app-btn>
-      </div>
-      <!-- Content -->
-      <div class="max-w-screen-xl mx-auto">
-        @if (overall) {
-          <app-subtitle>Tabla Acumulada</app-subtitle>
-          <app-table [config]="configOverall" [headers]="headers" [data]="dataOverall"></app-table>
-        }
-        @if (phase1) {
-          <app-subtitle>Tabla Apertura</app-subtitle>
-          <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1"></app-table>
-        }
-        @if (phase2) {
-          <app-subtitle>Tabla Clausura</app-subtitle>
-          <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2"></app-table>
-        }
-      </div>
+      @if (loadingState === 'idle' || loadingState === 'loading') {
+        <div class="col-span-full flex flex-col items-center justify-center min-h-48 gap-2 text-light">
+          <div class="h-8 w-8 animate-spin rounded-full border-4 border-white border-t-main"></div>
+          <p class="font-semibold">Cargando tablas...</p>
+        </div>
+      } @else if (loadingState === 'error') {
+        <div class="col-span-full flex flex-col items-center justify-center min-h-48 gap-2 text-light">
+          <fa-icon [icon]="Error" class="text-4xl text-main"></fa-icon>
+          <p class="font-semibold">Hubo un problema cargando los datos de las tablas.</p>
+        </div>
+      } @else {
+        <!-- Switch -->
+        <div class="max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 mx-auto mb-6 px-4 duration-500">
+          <app-btn (click)="setActiveTab('overall')" [active]="overall">Acumulada</app-btn>
+          <app-btn (click)="setActiveTab('phase1')" [active]="phase1">Apertura</app-btn>
+          <app-btn (click)="setActiveTab('phase2')" [active]="phase2">Clausura</app-btn>
+        </div>
+        <!-- Content -->
+        <div class="max-w-screen-xl mx-auto">
+          @if (overall) {
+            <app-subtitle>Tabla Acumulada</app-subtitle>
+            <app-table [config]="configOverall" [headers]="headers" [data]="dataOverall"></app-table>
+          }
+          @if (phase1) {
+            <app-subtitle>Tabla Apertura</app-subtitle>
+            <app-table [config]="configPhase1" [headers]="headers" [data]="dataPhase1"></app-table>
+          }
+          @if (phase2) {
+            <app-subtitle>Tabla Clausura</app-subtitle>
+            <app-table [config]="configPhase2" [headers]="headers" [data]="dataPhase2"></app-table>
+          }
+        </div>
+      }
     </div>
   `,
   styles: ``,
@@ -56,6 +70,7 @@ export class L1TableComponent {
   phase1: boolean = false;
   phase2: boolean = false;
 
+  loadingState: 'idle' | 'loading' | 'success' | 'error' = 'idle';
   headers: string[] = ['', 'Pos', 'Club', '', 'Pts', 'PJ', 'PG', 'PE', 'PP', 'GF', 'GC', 'DIF', 'Últimos 5 partidos'];
   configOverall = [
     { active: true, name: 'Copa Libertadores', image: 'assets/images/pages/Libertadores.webp', class: 'bg-libertadores', quantity: 4 },
@@ -72,6 +87,8 @@ export class L1TableComponent {
   dataPhase1: TeamTable[] = [];
   dataPhase2: TeamTable[] = [];
 
+  Error = faTriangleExclamation;
+
   constructor() {
     this.teamsPerformanceService.fetchTeamsPerformanceL1();
     this.teamsFormService.fetchTeamsFormL1();
@@ -83,22 +100,29 @@ export class L1TableComponent {
       this.teamsFormService.teamsFormL1$,
     ]).pipe(takeUntilDestroyed()).subscribe({
       next: ([divisionState, teamsState, teamsPerformanceState, teamsFormState]) => {
-        const division = divisionState.data;
-        let activePhase: 'phase1' | 'phase2' | undefined = undefined;
-        if (division?.phase1.status) {
-          activePhase = 'phase1';
-        } else if (division?.phase2.status || division?.phase3.status) {
-          activePhase = 'phase2';
-        }
-        this.phase1 = division?.phase1.status || false;
-        this.phase2 = division?.phase2.status || division?.phase3.status || false;
+        if (
+          divisionState.status === 'success' && teamsState.status === 'success' && teamsPerformanceState.status === 'success' && teamsFormState.status === 'success' &&
+          divisionState.data !== null && teamsState.data !== null && teamsPerformanceState.data !== null && teamsFormState.data !== null
+        ) {
+          let activePhase: 'phase1' | 'phase2' | undefined = undefined;
+          if (divisionState.data.phase1.status) {
+            activePhase = 'phase1';
+          } else if (divisionState.data.phase2.status || divisionState.data.phase3.status) {
+            activePhase = 'phase2';
+          }
+          this.phase1 = divisionState.data.phase1.status || false;
+          this.phase2 = divisionState.data.phase2.status || divisionState.data.phase3.status || false;
 
-        if (teamsState.data !== null && teamsPerformanceState.data !== null && teamsFormState.data !== null) {
           this.dataOverall = this.uiDataMapperService.teamsTableMapper(teamsState.data, teamsPerformanceState.data, teamsFormState.data, 'overall', undefined, activePhase);
           this.dataPhase1 = this.uiDataMapperService.teamsTableMapper(teamsState.data, teamsPerformanceState.data, teamsFormState.data, 'phase1');
           this.dataPhase2 = this.uiDataMapperService.teamsTableMapper(teamsState.data, teamsPerformanceState.data, teamsFormState.data, 'phase2');
+          this.loadingState = 'success';
+        } else if (divisionState.status === 'error' || teamsState.status === 'error' || teamsPerformanceState.status === 'error' || teamsFormState.status === 'error') {
+          this.loadingState = 'error';
+        } else {
+          this.loadingState = 'loading';
         }
-      }
+      },
     });
 
     if (typeof window !== 'undefined') {

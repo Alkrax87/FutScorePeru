@@ -15,5 +15,13 @@ export interface TeamTable {
     ga: number;
     gd: number;
     rp?: number;
+    sanction?: number;
+    addition?: number;
   };
+}
+
+export interface PointAdjustment {
+  teamName: string;
+  type: 'sanction' | 'addition';
+  points: number;
 }
