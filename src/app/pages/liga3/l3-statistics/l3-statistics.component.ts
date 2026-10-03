@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
-import { faSoccerBall } from '@fortawesome/free-solid-svg-icons';
+import { faSoccerBall, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons';
 import { FetchDivisionsService } from '../../../services/fetch-divisions.service';
 import { FetchTeamsService } from '../../../services/fetch-teams.service';
 import { FetchStatisticsService } from '../../../services/fetch-statistics.service';
@@ -19,6 +19,17 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
   template: `
     <app-title [title]="'Estadísticas'"></app-title>
     <div class="bg-night px-2 sm:px-4 py-10 lg:py-16 duration-500 select-none">
+      @if (loadingState === 'idle' || loadingState === 'loading') {
+        <div class="col-span-full flex flex-col items-center justify-center min-h-48 gap-2 text-light">
+          <div class="h-8 w-8 animate-spin rounded-full border-4 border-white border-t-main"></div>
+          <p class="font-semibold">Cargando estadísticas...</p>
+        </div>
+      } @else if (loadingState === 'error') {
+        <div class="col-span-full flex flex-col items-center justify-center min-h-48 gap-2 text-light">
+          <fa-icon [icon]="Error" class="text-4xl text-main"></fa-icon>
+          <p class="font-semibold">Hubo un problema cargando los datos estadísticos.</p>
+        </div>
+      } @else {
       <!-- Switch -->
       <div class="max-w-screen-xl grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-4 mx-auto mb-6 px-4 duration-500">
         <app-btn (click)="setActiveTab('overall')" [active]="overall">Acumulada</app-btn>
@@ -28,14 +39,14 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
       <!-- Content -->
       @if (overall) {
         @if (
-          dataOverallBestDefense.length > 0 &&
-          dataOverallWorstDefense.length > 0 &&
-          dataOverallMostGoals.length > 0 &&
-          dataOverallFewestGoals.length > 0 &&
-          dataOverallMostWins.length > 0 &&
-          dataOverallMostDraws.length > 0 &&
-          dataOverallMostLosses.length > 0 &&
-          dataOverallBestGoalDifference.length > 0 &&
+          dataOverallBestDefense.length > 0 ||
+          dataOverallWorstDefense.length > 0 ||
+          dataOverallMostGoals.length > 0 ||
+          dataOverallFewestGoals.length > 0 ||
+          dataOverallMostWins.length > 0 ||
+          dataOverallMostDraws.length > 0 ||
+          dataOverallMostLosses.length > 0 ||
+          dataOverallBestGoalDifference.length > 0 ||
           dataOverallWorstGoalDifference.length > 0
         ) {
           <div class="text-white max-w-screen-xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 duration-500">
@@ -72,14 +83,14 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
       }
       @if (phase1) {
         @if (
-          dataPhase1BestDefense.length > 0 &&
-          dataPhase1WorstDefense.length > 0 &&
-          dataPhase1MostGoals.length > 0 &&
-          dataPhase1FewestGoals.length > 0 &&
-          dataPhase1MostWins.length > 0 &&
-          dataPhase1MostDraws.length > 0 &&
-          dataPhase1MostLosses.length > 0 &&
-          dataPhase1BestGoalDifference.length > 0 &&
+          dataPhase1BestDefense.length > 0 ||
+          dataPhase1WorstDefense.length > 0 ||
+          dataPhase1MostGoals.length > 0 ||
+          dataPhase1FewestGoals.length > 0 ||
+          dataPhase1MostWins.length > 0 ||
+          dataPhase1MostDraws.length > 0 ||
+          dataPhase1MostLosses.length > 0 ||
+          dataPhase1BestGoalDifference.length > 0 ||
           dataPhase1WorstGoalDifference.length > 0
         ) {
           <div class="text-white max-w-screen-xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 duration-500">
@@ -110,14 +121,14 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
       }
       @if (phase2) {
         @if (
-          dataPhase2BestDefense.length > 0 &&
-          dataPhase2WorstDefense.length > 0 &&
-          dataPhase2MostGoals.length > 0 &&
-          dataPhase2FewestGoals.length > 0 &&
-          dataPhase2MostWins.length > 0 &&
-          dataPhase2MostDraws.length > 0 &&
-          dataPhase2MostLosses.length > 0 &&
-          dataPhase2BestGoalDifference.length > 0 &&
+          dataPhase2BestDefense.length > 0 ||
+          dataPhase2WorstDefense.length > 0 ||
+          dataPhase2MostGoals.length > 0 ||
+          dataPhase2FewestGoals.length > 0 ||
+          dataPhase2MostWins.length > 0 ||
+          dataPhase2MostDraws.length > 0 ||
+          dataPhase2MostLosses.length > 0 ||
+          dataPhase2BestGoalDifference.length > 0 ||
           dataPhase2WorstGoalDifference.length > 0
         ) {
           <div class="text-white max-w-screen-xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 duration-500">
@@ -146,6 +157,7 @@ import { StatisticCard } from '../../../interfaces/ui-models/statistic-card';
           </div>
         }
       }
+      }
     </div>
   `,
   styles: ``,
@@ -161,6 +173,7 @@ export class L3StatisticsComponent {
   phase1: boolean = false;
   phase2: boolean = false;
 
+  loadingState: 'idle' | 'loading' | 'success' | 'error' = 'idle';
   dataOverallMostWins: StatisticCard[] = [];
   dataOverallMostDraws: StatisticCard[] = [];
   dataOverallMostLosses: StatisticCard[] = [];
@@ -192,6 +205,7 @@ export class L3StatisticsComponent {
   dataPhase2WorstGoalDifference: StatisticCard[] = [];
 
   Soccer = faSoccerBall;
+  Error = faTriangleExclamation;
 
   constructor() {
     this.statisticsService.fetchStatisticsL3();
@@ -202,11 +216,13 @@ export class L3StatisticsComponent {
       this.statisticsService.statisticsL3$
     ]).pipe(takeUntilDestroyed()).subscribe({
       next: ([divisionState, teamsState, statisticsState]) => {
-        const division = divisionState.data;
-        this.phase1 = division?.phase1.status || false;
-        this.phase2 = division?.phase2.status || division?.phase3.status || false;
+        if (
+          divisionState.status === 'success' && teamsState.status === 'success' && statisticsState.status === 'success' &&
+          divisionState.data !== null && teamsState.data !== null && statisticsState.data !== null
+        ) {
+          this.phase1 = divisionState.data.phase1.status || false;
+          this.phase2 = divisionState.data.phase2.status || divisionState.data.phase3.status || false;
 
-        if (statisticsState.data !== null && teamsState.data !== null) {
           this.dataOverallMostWins = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.mostWins, 'w');
           this.dataOverallMostDraws = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.mostDraws, 'd');
           this.dataOverallMostLosses = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.overall.mostLosses, 'l');
@@ -236,8 +252,14 @@ export class L3StatisticsComponent {
           this.dataPhase2FewestGoals = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.fewestGoalsFor, 'gf');
           this.dataPhase2BestGoalDifference = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.bestGoalDifference, 'gd');
           this.dataPhase2WorstGoalDifference = this.uiDataMapperService.statisticsCardMapper(teamsState.data, statisticsState.data.phase2.worstGoalDifference, 'gd');
+
+          this.loadingState = 'success';
+        } else if (divisionState.status === 'error' || teamsState.status === 'error' || statisticsState.status === 'error') {
+          this.loadingState = 'error';
+        } else {
+          this.loadingState = 'loading';
         }
-      }
+      },
     });
 
     if (typeof window !== 'undefined') {

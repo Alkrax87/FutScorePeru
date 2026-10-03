@@ -7,3 +7,4 @@ export interface StatisticCard {
   alt: string;
   value: number;
 }
+export type StatisticData = { teamId: string } & Partial<Record<'w' | 'd' | 'l' | 'ga' | 'gf' | 'gd', number>>;
