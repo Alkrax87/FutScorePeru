@@ -12,14 +12,14 @@ export interface NextMatch {
   awayTeamAlt?: string;
   homeTeamScore?: number | null;
   awayTeamScore?: number | null;
-  postponed?: boolean;
+  canceled?: boolean;
   date?: Date | null;
   valid: boolean;
 }
 
 export interface LatestsMatches {
   round: number;
-  postponed: boolean;
+  canceled: boolean;
   homeTeamLogo?: string;
   homeTeamAlt?: string;
   rivalTeamId?: string;

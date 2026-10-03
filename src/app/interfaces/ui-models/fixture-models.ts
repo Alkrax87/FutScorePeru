@@ -1,7 +1,7 @@
 export interface FixtureMatch {
   date: Date | null;
   group: string | null;
-  postponed: boolean;
+  canceled: boolean;
   home: {
     category: number;
     teamId: string;
@@ -24,5 +24,6 @@ export interface FixtureMatch {
 
 export interface FixtureByDate {
   date: Date | null;
+  label?: string;
   matches: FixtureMatch[];
 }

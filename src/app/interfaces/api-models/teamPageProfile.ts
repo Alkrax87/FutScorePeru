@@ -39,7 +39,7 @@ export interface TeamPageProfile {
       round: number;
       home: string;
       away: string;
-      postponed: boolean;
+      canceled: boolean;
       date: Date | null;
       isRest: boolean;
     }[];
@@ -47,7 +47,7 @@ export interface TeamPageProfile {
       round: number;
       home: string;
       away: string;
-      postponed: boolean;
+      canceled: boolean;
       date: Date | null;
       isRest: boolean;
     }[];
@@ -57,7 +57,7 @@ export interface TeamPageProfile {
       round: number;
       home: string;
       away: string;
-      postponed: boolean;
+      canceled: boolean;
       date: Date | null;
       isRest: boolean;
     },
@@ -66,7 +66,7 @@ export interface TeamPageProfile {
         round: number;
         home: string;
         away: string;
-        postponed: boolean;
+        canceled: boolean;
         date: Date | null;
         isRest: boolean;
       }[];
@@ -74,7 +74,7 @@ export interface TeamPageProfile {
         round: number;
         home: string;
         away: string;
-        postponed: boolean;
+        canceled: boolean;
         date: Date | null;
         isRest: boolean;
       }[];

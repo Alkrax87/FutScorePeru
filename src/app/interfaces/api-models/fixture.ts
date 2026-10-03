@@ -1,7 +1,7 @@
 interface Match {
   home: string;
   away: string;
-  postponed: boolean;
+  canceled: boolean;
   date: Date | null;
   group: string | null;
 }

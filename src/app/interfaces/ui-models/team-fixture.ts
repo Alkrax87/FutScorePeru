@@ -1,6 +1,6 @@
 export interface TeamFixture {
   round: number;
-  postponed: boolean;
+  canceled: boolean;
   date: Date | null;
   homeTeamId: string;
   awayTeamId: string;
