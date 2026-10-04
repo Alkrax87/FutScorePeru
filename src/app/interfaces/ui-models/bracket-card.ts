@@ -1,7 +1,9 @@
-export interface MatchCard {
+export interface BracketCard {
   matchKey: string;
   nextKey: string | null;
   teams: {
+    category: number | null;
+    teamId: string;
     name: string;
     image: string;
     location: string;
